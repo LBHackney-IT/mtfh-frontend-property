@@ -1,0 +1,19 @@
+{
+    "extends": "ts-config-single-spa",
+    "include": [
+        "src/**/*",
+        "node_modules/@mtfh/common/src/types/lbh-frontend.d.ts"
+    ],
+    "compilerOptions": {
+        "strict": true,
+        "jsx": "react",
+        "target": "es2016",
+        "baseUrl": "src",
+        "esModuleInterop": true
+    },
+    // "paths": {
+    //     "@components": ["components"],
+    //     "@services": ["services"],
+    //     "@utilities": ["utils"]
+    // }
+}
