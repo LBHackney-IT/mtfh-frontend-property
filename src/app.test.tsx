@@ -15,5 +15,4 @@ test('it renders property view', async () => {
     });
 
     expect(screen.getByTestId('property')).toBeInTheDocument();
-    expect(screen.getByText('Property view placeholder')).toBeInTheDocument();
 });

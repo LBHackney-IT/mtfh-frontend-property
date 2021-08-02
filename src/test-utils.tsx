@@ -23,8 +23,8 @@ export const routeRender = (
     options?: Partial<RouteRenderConfig>
 ): RenderResult => {
     const config: RouteRenderConfig = {
-        url: '/tenure/68c6896c-16f1-54d2-3504-847cb438a1b1',
-        path: '/tenure/:tenureId',
+        url: '/property/68c6896c-16f1-54d2-3504-847cb438a1b1',
+        path: '/property/:propertyId',
         query: 'lg',
         ...options,
     };
