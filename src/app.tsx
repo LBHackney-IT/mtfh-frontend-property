@@ -1,5 +1,5 @@
-import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import React from 'react';
 
 export default function App(): JSX.Element {
     return (
