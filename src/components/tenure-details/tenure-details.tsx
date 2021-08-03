@@ -3,50 +3,33 @@ import React from 'react';
 
 import { Button, SummaryList, SummaryListItem } from '@mtfh/common';
 import { formatISO } from '../../utils';
-import { locale } from '../../services';
+import { locale, Tenure } from '../../services';
 import './tenure-details.styles.scss';
 interface TenureDetailsProps {
-    tenure?: any;
-    isAdditionalTenures?: boolean;
+    tenure: Tenure;
 }
 
-export const TenureDetails = ({
-    tenure,
-    isAdditionalTenures,
-}: TenureDetailsProps): JSX.Element => {
+export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
+    const { id, type, startOfTenureDate, endOfTenureDate, isActive } = tenure;
+
     return (
         <div className="mtfh-tenure-details">
-            {isAdditionalTenures ? (
-                <SummaryList overrides={[2 / 3]}>
-                    <SummaryListItem
-                        title={locale.tenureDetails.propertyTypeLabel}
-                    >
-                        {tenure.assetFullAddress}
-                    </SummaryListItem>
-                </SummaryList>
-            ) : (
-                <h2 className="lbh-heading-h2">{tenure.assetFullAddress}</h2>
-            )}
             <h2>{locale.tenureDetails.tenureLabel}</h2>
             <SummaryList overrides={[2 / 3]}>
                 <SummaryListItem title={locale.tenureDetails.type}>
-                    {tenure.type}
+                    {type}
                 </SummaryListItem>
                 <SummaryListItem title={locale.tenureDetails.status}>
-                    {locale.tenureDetails.isActive(tenure.isActive)}
+                    {locale.tenureDetails.isActive(isActive)}
                 </SummaryListItem>
                 <SummaryListItem title={locale.tenureDetails.startDate}>
-                    {formatISO(tenure.startDate)}
+                    {formatISO(startOfTenureDate)}
                 </SummaryListItem>
                 <SummaryListItem title={locale.tenureDetails.endDate}>
-                    {formatISO(tenure.endDate)}
+                    {formatISO(endOfTenureDate)}
                 </SummaryListItem>
             </SummaryList>
-            <Button
-                as={RouterLink}
-                to={`/tenure/${tenure.id}`}
-                variant="secondary"
-            >
+            <Button as={RouterLink} to={`/tenure/${id}`} variant="secondary">
                 {locale.tenureDetails.viewTenureButtonLabel}
             </Button>
         </div>

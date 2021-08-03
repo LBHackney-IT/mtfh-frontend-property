@@ -51,7 +51,7 @@ interface AssetCharacteristics {
     yearConstructed: string;
 }
 
-interface Tenure {
+export interface Tenure {
     id: string;
     paymentReference: string;
     type: string;

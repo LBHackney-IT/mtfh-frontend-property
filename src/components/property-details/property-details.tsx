@@ -4,13 +4,16 @@ import { SummaryList, SummaryListItem } from '@mtfh/common';
 import { locale } from '../../services';
 import './property-details.styles.scss';
 interface PropertyDetailsProps {
-    propertyDetails?: any;
+    assetAddress: any;
+    assetType: string;
+    propertyReference: string;
 }
 
 export const PropertyDetails = ({
-    propertyDetails,
+    assetAddress,
+    assetType,
+    propertyReference,
 }: PropertyDetailsProps): JSX.Element => {
-    const { assetAddress, assetType } = propertyDetails;
     return (
         <div className="mtfh-tenure-details">
             <SummaryList overrides={[2 / 3]}>
@@ -23,7 +26,7 @@ export const PropertyDetails = ({
                 <SummaryListItem
                     title={locale.tenureDetails.propertyReferenceLabel}
                 >
-                    {propertyDetails.propertyReference}
+                    {propertyReference}
                 </SummaryListItem>
             </SummaryList>
         </div>

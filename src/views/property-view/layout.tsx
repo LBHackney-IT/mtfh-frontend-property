@@ -27,14 +27,21 @@ const PropertySideBar = ({
     propertyDetails,
     ...properties
 }: PropertySideBarProperties) => {
+    const { assetAddress, assetType, tenure } = propertyDetails;
+    const { paymentReference } = tenure;
+
     return (
         <SideBar id="property-view-sidebar" {...properties}>
-            <PropertyDetails propertyDetails={propertyDetails} />
+            <PropertyDetails
+                assetAddress={assetAddress}
+                assetType={assetType}
+                propertyReference={paymentReference}
+            />
             <SideBarSection
                 id="tenure-details"
                 title={locale.tenureDetails.expandedTenureSection}
             >
-                <TenureDetails tenure={propertyDetails} />
+                <TenureDetails tenure={tenure} />
             </SideBarSection>
         </SideBar>
     );
