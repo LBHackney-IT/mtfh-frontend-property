@@ -13,6 +13,8 @@ import {
 import { locale, Property } from '../../services';
 import './styles.scss';
 
+import { PropertyDetails, TenureDetails } from '../../components';
+
 export interface PropertyLayoutProperties {
     propertyDetails: Property;
 }
@@ -27,11 +29,12 @@ const PropertySideBar = ({
 }: PropertySideBarProperties) => {
     return (
         <SideBar id="property-view-sidebar" {...properties}>
+            <PropertyDetails propertyDetails={propertyDetails} />
             <SideBarSection
                 id="tenure-details"
-                title={locale.propertyDetails.expandedTenureSection}
+                title={locale.tenureDetails.expandedTenureSection}
             >
-                <h2>placeholder</h2>
+                <TenureDetails tenure={propertyDetails} />
             </SideBarSection>
         </SideBar>
     );

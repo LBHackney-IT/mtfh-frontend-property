@@ -13,15 +13,28 @@ export default {
                 addressLine4,
                 postCode,
             } = assetAddress;
-            return `${addressLine1} ${addressLine2} ${addressLine3} ${addressLine4} ${postCode}`;
+
+            return [
+                addressLine1,
+                addressLine2,
+                addressLine3,
+                addressLine4,
+                postCode,
+            ]
+                .filter(addressLine => !!addressLine)
+                .join(' ');
         },
+    },
+    tenureDetails: {
+        tenureLabel: 'Tenure',
         expandedTenureSection: 'Tenure details',
-        buttonLabel: 'View tenure',
+        viewTenureButtonLabel: 'View tenure',
         propertyTypeLabel: 'Property type',
+        propertyPaymentReferenceLabel: 'Payment reference',
         uprnLabel: 'UPRN',
         propertyReferenceLabel: 'Property reference',
         active: 'Active',
-        inActive: 'Inactive',
+        isActive: (isActive: boolean) => (isActive ? 'Active' : 'Inactive'),
         status: 'Status',
         type: 'Tenure type',
         startDate: 'Start date',

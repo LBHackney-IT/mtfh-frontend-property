@@ -6,6 +6,7 @@ export interface Property {
     assetAddress: AssetAddress;
     assetManagement: AssetManagement;
     assetCharacteristics: AssetCharacteristics;
+    tenure: Tenure;
     rootAsset: string;
     parentAssetIds: string;
 }
@@ -47,5 +48,14 @@ interface AssetCharacteristics {
     numberOfLifts: number;
     numberOfLivingRooms: number;
     windowType: 'DBL';
-    yearConstructed: number;
+    yearConstructed: string;
+}
+
+interface Tenure {
+    id: string;
+    paymentReference: string;
+    type: string;
+    startOfTenureDate: string;
+    endOfTenureDate: string;
+    isActive: boolean;
 }
