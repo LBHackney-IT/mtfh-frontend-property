@@ -9,7 +9,6 @@ const activeTenure = {
     isActive: true,
 };
 
-
 const inActiveTenure = {
     id: '0bb55bde-bc73-d7fe-0324-5cee5b59bc8c',
     paymentReference: '228008546',
@@ -18,7 +17,6 @@ const inActiveTenure = {
     endOfTenureDate: '2021-08-03',
     isActive: false,
 };
-
 
 export const mockProperty: Property = {
     id: 'string',
@@ -65,7 +63,6 @@ export const mockProperty: Property = {
     parentAssetIds:
         '6f22e9ae-3e8a-4e0e-af46-db02eb87f8e6#6f22e9ae-3e8a-4e0e-af46-db02eb87f8e6#6f22e9ae-3e8a-4e0e-af46-db02eb87f8e6',
 };
-
 
 export const mockPropertyWithInactiveTenure: Property = {
     ...mockProperty,

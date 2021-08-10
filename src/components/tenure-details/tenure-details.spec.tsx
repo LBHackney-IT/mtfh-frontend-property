@@ -16,7 +16,9 @@ describe('TenurelDetails', () => {
     });
 
     it('should display tenure details with inactive status', () => {
-        routeRender(<TenureDetails tenure={mockPropertyWithInactiveTenure.tenure} />);
+        routeRender(
+            <TenureDetails tenure={mockPropertyWithInactiveTenure.tenure} />
+        );
         expect(screen.getByText('Tenure type')).toBeInTheDocument();
         expect(screen.getByText('Inactive')).toBeInTheDocument();
         expect(screen.getByText('Start date')).toBeInTheDocument();
@@ -36,5 +38,4 @@ describe('TenurelDetails', () => {
         routeRender(<TenureDetails tenure={null} />);
         expect(screen.getByText('No tenure')).toBeInTheDocument();
     });
-
 });

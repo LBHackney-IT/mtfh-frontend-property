@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import React from 'react';
 import { Center, ErrorSummary, Spinner } from '@mtfh/common';
 import { PropertyLayout } from './layout';
-import { locale, useProperty} from '../../services';
+import { locale, useProperty } from '../../services';
 export const PropertyView = (): JSX.Element => {
     const { propertyId } = useParams<{ propertyId: string }>();
 

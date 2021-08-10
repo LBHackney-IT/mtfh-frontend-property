@@ -41,7 +41,7 @@ export default {
         type: 'Tenure type',
         startDate: 'Start date',
         endDate: 'End date',
-        noTenure: 'No tenure'
+        noTenure: 'No tenure',
     },
     errors: {
         unableToFetchRecord: 'There was a problem retrieving the record',
