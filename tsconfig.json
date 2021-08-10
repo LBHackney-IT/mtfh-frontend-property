@@ -10,10 +10,10 @@
         "target": "es2016",
         "baseUrl": "src",
         "esModuleInterop": true
+    },
+    "paths": {
+        "@components": ["components"],
+        "@services": ["services"],
+        "@utilities": ["utils"]
     }
-    // "paths": {
-    //     "@components": ["components"],
-    //     "@services": ["services"],
-    //     "@utilities": ["utils"]
-    // }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { waitFor, screen } from '@testing-library/react';
 import { routeRender } from './test-utils';
 import App from './app';
 
@@ -14,6 +14,7 @@ test('it renders property view', async () => {
         path: '/property/:propertyId',
     });
 
-    expect(screen.getByTestId('property')).toBeInTheDocument();
-    expect(screen.getByText('Property view placeholder')).toBeInTheDocument();
+    await waitFor(() =>
+        expect(screen.getByTestId('property')).toBeInTheDocument()
+    );
 });
