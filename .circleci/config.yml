@@ -125,7 +125,7 @@ jobs:
                     yarn build
             - run:
                   name: Deploy to S3
-                  command: aws s3 sync dist s3://lbh-housing-tl-person-frontend-development.hackney.gov.uk/
+                  command: aws s3 sync dist s3://lbh-housing-tl-property-frontend-development.hackney.gov.uk/
     build-deploy-staging:
         executor: node-executor
         environment:
@@ -143,7 +143,7 @@ jobs:
                     yarn build
             - run:
                   name: Deploy to S3
-                  command: aws s3 sync dist s3://lbh-housing-tl-person-frontend-staging.hackney.gov.uk/
+                  command: aws s3 sync dist s3://lbh-housing-tl-property-frontend-staging.hackney.gov.uk/
     build-deploy-production:
         executor: node-executor
         environment:
@@ -162,7 +162,7 @@ jobs:
                     yarn build
             - run:
                   name: Deploy to S3
-                  command: aws s3 sync dist s3://lbh-housing-tl-person-frontend-production.hackney.gov.uk/
+                  command: aws s3 sync dist s3://lbh-housing-tl-property-frontend-production.hackney.gov.uk/
 
     assume-role-development:
         executor: docker-python
