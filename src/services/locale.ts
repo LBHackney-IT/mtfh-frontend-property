@@ -5,8 +5,9 @@ export default {
     cancel: 'Cancel',
     noDataForKey: 'N/A',
     propertyDetails: {
-        heading: (assetAddress: AssetAddress) => {
+        address: (assetAddress: AssetAddress) => {
             const {
+                postPreamble,
                 addressLine1,
                 addressLine2,
                 addressLine3,
@@ -15,6 +16,7 @@ export default {
             } = assetAddress;
 
             return [
+                postPreamble,
                 addressLine1,
                 addressLine2,
                 addressLine3,
@@ -39,6 +41,7 @@ export default {
         type: 'Tenure type',
         startDate: 'Start date',
         endDate: 'End date',
+        noTenure: 'No tenure'
     },
     errors: {
         unableToFetchRecord: 'There was a problem retrieving the record',

@@ -2,11 +2,10 @@ import { useParams } from 'react-router-dom';
 import React from 'react';
 import { Center, ErrorSummary, Spinner } from '@mtfh/common';
 import { PropertyLayout } from './layout';
-import { locale, useProperty, usePropertyMock } from '../../services';
+import { locale, useProperty} from '../../services';
 export const PropertyView = (): JSX.Element => {
     const { propertyId } = useParams<{ propertyId: string }>();
 
-    // const { data: property, ...propertyRequest } = usePropertyMock(propertyId);
     const { data: property, ...propertyRequest } = useProperty(propertyId);
     if (propertyRequest.error) {
         return (

@@ -6,10 +6,14 @@ import { formatISO } from '../../utils';
 import { locale, Tenure } from '../../services';
 import './tenure-details.styles.scss';
 interface TenureDetailsProps {
-    tenure: Tenure;
+    tenure: Tenure | null;
 }
 
 export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
+    if (!tenure) {
+        return <h4>{locale.tenureDetails.noTenure}</h4>;
+    }
+
     const { id, type, startOfTenureDate, endOfTenureDate, isActive } = tenure;
 
     return (

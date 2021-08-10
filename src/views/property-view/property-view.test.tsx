@@ -19,7 +19,7 @@ test('renders the property view', async () => {
 
     await waitFor(() =>
         expect(screen.getAllByRole('heading')[0]).toHaveTextContent(
-            locale.propertyDetails.heading(mockProperty.assetAddress)
+            locale.propertyDetails.address(mockProperty.assetAddress)
         )
     );
     expect(screen.queryByText(/Property type/)).toBeInTheDocument();

@@ -60,7 +60,7 @@ export const PropertyLayout: FC<PropertyLayoutProperties> = ({
                             {locale.backToSearch}
                         </Link>
                         <h1 className="heading">
-                            {locale.propertyDetails.heading(
+                            {locale.propertyDetails.address(
                                 propertyDetails.assetAddress
                             )}
                         </h1>
