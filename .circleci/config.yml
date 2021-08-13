@@ -4,6 +4,7 @@ orbs:
     aws-s3: circleci/aws-s3@2.0.0
     aws-cli: circleci/aws-cli@2.0.0
     aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
+    snyk: snyk/snyk@1.0.2
 
 parameters:
     run_development_workflow:
@@ -98,6 +99,11 @@ jobs:
             - persist_to_workspace:
                   root: *workspace_root
                   paths: .
+    security-scan:
+        executor: node-executor
+        steps:
+            - *attach_workspace
+            - snyk/scan
     lint-and-test:
         executor: node-executor
         steps:
@@ -232,9 +238,13 @@ workflows:
         when: << pipeline.parameters.run_development_workflow >>
         jobs:
             - install-dependencies
-            - lint-and-test:
+            - security-scan:
+                  context: mtfh-security-scan
                   requires:
                       - install-dependencies
+            - lint-and-test:
+                  requires:
+                      - security-scan
             - assume-role-development:
                   context: api-assume-role-housing-development-context
                   requires:
