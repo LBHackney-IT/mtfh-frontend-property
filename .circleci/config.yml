@@ -103,7 +103,8 @@ jobs:
         executor: node-executor
         steps:
             - *attach_workspace
-            - snyk/scan
+            - snyk/scan:
+                severity-threshold: high
     lint-and-test:
         executor: node-executor
         steps:
@@ -241,10 +242,16 @@ workflows:
             - lint-and-test:
                   requires:
                       - install-dependencies
+            - security-scan:
+                  requires:
+                      - lint-and-test
+                  filters:
+                      branches:
+                          only: main
             - assume-role-development:
                   context: api-assume-role-housing-development-context
                   requires:
-                      - lint-and-test
+                      - security-scan
                   filters:
                       branches:
                           only: main
@@ -357,22 +364,3 @@ workflows:
         when: << pipeline.parameters.e2e_test_failure >>
         jobs:
             - failure-downstream
-
-    security-scan:
-        triggers:
-            - schedule:
-                  cron: '0 0 * * 0'
-                  filters:
-                      branches:
-                          only: main
-            - schedule:
-                  cron: '0 0 * * 3'
-                  filters:
-                      branches:
-                          only: main
-        jobs:
-            - install-dependencies
-            - security-scan:
-                  context: mtfh-security-scan
-                  requires:
-                      - install-dependencies
