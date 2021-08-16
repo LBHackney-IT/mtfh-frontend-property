@@ -243,6 +243,7 @@ workflows:
                   requires:
                       - install-dependencies
             - security-scan:
+                  context: mtfh-security-scan
                   requires:
                       - lint-and-test
                   filters:
