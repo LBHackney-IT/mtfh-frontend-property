@@ -238,13 +238,9 @@ workflows:
         when: << pipeline.parameters.run_development_workflow >>
         jobs:
             - install-dependencies
-            - security-scan:
-                  context: mtfh-security-scan
-                  requires:
-                      - install-dependencies
             - lint-and-test:
                   requires:
-                      - security-scan
+                      - install-dependencies
             - assume-role-development:
                   context: api-assume-role-housing-development-context
                   requires:
@@ -361,3 +357,22 @@ workflows:
         when: << pipeline.parameters.e2e_test_failure >>
         jobs:
             - failure-downstream
+
+    security-scan:
+        triggers:
+            - schedule:
+                  cron: '0 0 * * 0'
+                  filters:
+                      branches:
+                          only: main
+            - schedule:
+                  cron: '0 0 * * 3'
+                  filters:
+                      branches:
+                          only: main
+        jobs:
+            - install-dependencies
+            - security-scan:
+                  context: mtfh-security-scan
+                  requires:
+                      - install-dependencies
