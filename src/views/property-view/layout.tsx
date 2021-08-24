@@ -2,6 +2,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import React, { FC } from 'react';
 
 import {
+    hasToggle,
+    Button,
     Layout,
     Link,
     PageAnnouncementProvider,
@@ -10,10 +12,10 @@ import {
     SideBarSection,
     SideBarProps,
 } from '@mtfh/common';
+import { isFutureDate } from '../../utils';
 import { locale, Property } from '../../services';
-import './styles.scss';
-
 import { PropertyDetails, TenureDetails } from '../../components';
+import './styles.scss';
 
 export interface PropertyLayoutProperties {
     propertyDetails: Property;
@@ -27,23 +29,33 @@ const PropertySideBar = ({
     propertyDetails,
     ...properties
 }: PropertySideBarProperties) => {
-    const { assetAddress, assetType, tenure } = propertyDetails;
+    const { assetAddress, assetType, tenure, id } = propertyDetails;
     const { paymentReference } = tenure;
 
     return (
-        <SideBar id="property-view-sidebar" {...properties}>
-            <PropertyDetails
-                assetAddress={assetAddress}
-                assetType={assetType}
-                propertyReference={paymentReference}
-            />
-            <SideBarSection
-                id="tenure-details"
-                title={locale.tenureDetails.expandedTenureSection}
-            >
-                <TenureDetails tenure={tenure} />
-            </SideBarSection>
-        </SideBar>
+        <div className="mtfh-property-sidebar">
+            <SideBar id="property-view-sidebar" {...properties}>
+                <PropertyDetails
+                    assetAddress={assetAddress}
+                    assetType={assetType}
+                    propertyReference={paymentReference}
+                />
+                <SideBarSection
+                    id="tenure-details"
+                    title={locale.tenureDetails.expandedTenureSection}
+                >
+                    <TenureDetails tenure={tenure} />
+                </SideBarSection>
+            </SideBar>
+            {hasToggle('MMH.CreateTenure') &&
+                (!tenure ||
+                    !tenure.isActive ||
+                    !isFutureDate(tenure.endOfTenureDate)) && (
+                    <Button as={RouterLink} to={`/tenure/${id}/add`}>
+                        {locale.propertyDetails.newTenure}
+                    </Button>
+                )}
+        </div>
     );
 };
 
