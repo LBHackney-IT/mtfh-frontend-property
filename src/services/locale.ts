@@ -26,6 +26,7 @@ export default {
                 .filter(addressLine => !!addressLine)
                 .join(' ');
         },
+        newTenure: 'New tenure',
     },
     tenureDetails: {
         tenureLabel: 'Tenure',
