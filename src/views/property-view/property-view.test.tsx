@@ -22,7 +22,7 @@ test('renders the property view', async () => {
             locale.propertyDetails.address(mockProperty.assetAddress)
         )
     );
-    expect(screen.queryByText(/Property type/)).toBeInTheDocument();
+    expect(screen.queryByText(/Type/)).toBeInTheDocument();
     expect(screen.queryByText(/Dwelling/)).toBeInTheDocument();
 
     expect(screen.queryByText(/UPRN/)).toBeInTheDocument();

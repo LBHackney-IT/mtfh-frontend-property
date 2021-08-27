@@ -27,11 +27,16 @@ export default {
                 .join(' ');
         },
     },
+    propertyType: (propertyType: string) => {
+        const type =
+            propertyType === 'Dwelling' ? 'Dwelling' : 'Lettable non-dwelling';
+        return type;
+    },
     tenureDetails: {
         tenureLabel: 'Tenure',
         expandedTenureSection: 'Tenure details',
         viewTenureButtonLabel: 'View tenure',
-        propertyTypeLabel: 'Property type',
+        propertyTypeLabel: 'Type',
         propertyPaymentReferenceLabel: 'Payment reference',
         uprnLabel: 'UPRN',
         propertyReferenceLabel: 'Property reference',
