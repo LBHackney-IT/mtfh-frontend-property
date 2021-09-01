@@ -23,13 +23,12 @@ test('renders the property view', async () => {
             locale.propertyDetails.address(mockProperty.assetAddress)
         )
     );
-    expect(screen.queryByText(/Property type/)).toBeInTheDocument();
     expect(screen.queryByText(/Dwelling/)).toBeInTheDocument();
 
     expect(screen.queryByText(/UPRN/)).toBeInTheDocument();
     expect(screen.queryByText(/100021065786/)).toBeInTheDocument();
 
-    expect(screen.queryByText(/Property reference/)).toBeInTheDocument();
+    expect(screen.queryByText(/Reference/)).toBeInTheDocument();
 });
 
 test('it shows the back button', async () => {

@@ -28,18 +28,27 @@ export default {
         },
         newTenure: 'New tenure',
     },
+    propertyType: (propertyType: string) => {
+        if (propertyType === 'Dwelling') {
+            return 'Dwelling';
+        }
+        if (propertyType === 'LettableNonDwelling') {
+            return 'Lettable non-dwelling';
+        }
+        return propertyType;
+    },
     tenureDetails: {
         tenureLabel: 'Tenure',
         expandedTenureSection: 'Tenure details',
         viewTenureButtonLabel: 'View tenure',
-        propertyTypeLabel: 'Property type',
+        propertyTypeLabel: 'Type',
         propertyPaymentReferenceLabel: 'Payment reference',
         uprnLabel: 'UPRN',
-        propertyReferenceLabel: 'Property reference',
+        propertyReferenceLabel: 'Reference',
         active: 'Active',
         isActive: (isActive: boolean) => (isActive ? 'Active' : 'Inactive'),
         status: 'Status',
-        type: 'Tenure type',
+        type: 'Type',
         startDate: 'Start date',
         endDate: 'End date',
         noTenure: 'No tenure',

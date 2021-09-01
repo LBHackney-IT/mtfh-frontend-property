@@ -18,7 +18,7 @@ export const PropertyDetails = ({
         <div className="mtfh-tenure-details">
             <SummaryList overrides={[2 / 3]}>
                 <SummaryListItem title={locale.tenureDetails.propertyTypeLabel}>
-                    {assetType}
+                    {locale.propertyType(assetType)}
                 </SummaryListItem>
                 <SummaryListItem title={locale.tenureDetails.uprnLabel}>
                     {assetAddress.uprn}
