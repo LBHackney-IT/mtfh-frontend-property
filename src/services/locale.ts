@@ -28,9 +28,13 @@ export default {
         },
     },
     propertyType: (propertyType: string) => {
-        const type =
-            propertyType === 'Dwelling' ? 'Dwelling' : 'Lettable non-dwelling';
-        return type;
+        if (propertyType === 'Dwelling') {
+            return 'Dwelling';
+        }
+        if (propertyType === 'LettableNonDwelling') {
+            return 'Lettable non-dwelling';
+        }
+        return propertyType;
     },
     tenureDetails: {
         tenureLabel: 'Tenure',
