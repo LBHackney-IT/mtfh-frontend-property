@@ -242,17 +242,18 @@ workflows:
             - lint-and-test:
                   requires:
                       - install-dependencies
-            - security-scan:
-                  context: mtfh-security-scan
-                  requires:
-                      - lint-and-test
-                  filters:
-                      branches:
-                          only: main
+            # - security-scan:
+            #       context: mtfh-security-scan
+            #       requires:
+            #           - lint-and-test
+            #       filters:
+            #           branches:
+            #               only: main
             - assume-role-development:
                   context: api-assume-role-housing-development-context
                   requires:
-                      - security-scan
+                    #   - security-scan
+                      - lint-and-test
                   filters:
                       branches:
                           only: main
