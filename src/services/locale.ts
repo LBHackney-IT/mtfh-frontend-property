@@ -53,6 +53,7 @@ export default {
         endDate: 'End date',
         noTenure: 'No tenure',
     },
+    assetCouldNotBeLoaded: 'This asset could not be loaded.',
     errors: {
         unableToFetchRecord: 'There was a problem retrieving the record',
         propertyDoesNotExist:

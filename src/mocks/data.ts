@@ -68,3 +68,13 @@ export const mockPropertyWithInactiveTenure: Property = {
     ...mockProperty,
     tenure: inActiveTenure,
 };
+
+export const mockPropertyLettableNonDwelling: Property = {
+    ...mockProperty,
+    assetType: 'LettableNonDwelling',
+};
+
+export const mockPropertyInvalidAssetType: Property = {
+    ...mockProperty,
+    assetType: 'invalidAssetType',
+};

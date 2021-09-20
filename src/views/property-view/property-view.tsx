@@ -25,5 +25,14 @@ export const PropertyView = (): JSX.Element => {
         );
     }
 
-    return <PropertyLayout propertyDetails={property} />;
+    return (
+        <>
+            {property.assetType === 'Dwelling' ||
+            property.assetType === 'LettableNonDwelling' ? (
+                <PropertyLayout propertyDetails={property} />
+            ) : (
+                <h1>{locale.assetCouldNotBeLoaded}</h1>
+            )}
+        </>
+    );
 };

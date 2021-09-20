@@ -1,7 +1,7 @@
 export interface Property {
     id: string;
     assetId: string;
-    assetType: 'Dwelling' | 'LettableNonDwelling';
+    assetType: 'Dwelling' | 'LettableNonDwelling' | string;
     assetLocation: AssetLocation;
     assetAddress: AssetAddress;
     assetManagement: AssetManagement;

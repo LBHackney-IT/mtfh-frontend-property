@@ -5,7 +5,11 @@ import { featureToggleStore } from '@mtfh/common';
 import { PropertyView } from '../property-view';
 import { routeRender, get } from '../../test-utils';
 import { locale } from '../../services';
-import { mockProperty } from '../../mocks/data';
+import {
+    mockProperty,
+    mockPropertyLettableNonDwelling,
+    mockPropertyInvalidAssetType,
+} from '../../mocks/data';
 
 test('renders the error on Property failure', async () => {
     get(`/api/assets/:id`, { message: 'failure' }, 500);
@@ -47,6 +51,26 @@ test('it shows new tenure button', async () => {
     await waitFor(() =>
         expect(
             screen.getByText(locale.propertyDetails.newTenure)
+        ).toBeInTheDocument()
+    );
+});
+
+test('renders the property view for lettable-non-dwelling', async () => {
+    get(`/api/assets/:id`, mockPropertyLettableNonDwelling, 200);
+    routeRender(<PropertyView />);
+
+    await waitFor(() =>
+        expect(screen.queryByText(/Lettable non-dwelling/)).toBeInTheDocument()
+    );
+});
+
+test('renders the property view for invalid asset type', async () => {
+    get(`/api/assets/:id`, mockPropertyInvalidAssetType, 200);
+    routeRender(<PropertyView />);
+
+    await waitFor(() =>
+        expect(
+            screen.queryByText(/This asset could not be loaded./)
         ).toBeInTheDocument()
     );
 });
