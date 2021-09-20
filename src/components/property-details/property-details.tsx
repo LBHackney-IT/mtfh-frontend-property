@@ -6,7 +6,7 @@ import './property-details.styles.scss';
 interface PropertyDetailsProps {
     assetAddress: any;
     assetType: string;
-    propertyReference: string;
+    propertyReference: string | null;
 }
 
 export const PropertyDetails = ({
@@ -23,11 +23,13 @@ export const PropertyDetails = ({
                 <SummaryListItem title={locale.tenureDetails.uprnLabel}>
                     {assetAddress.uprn}
                 </SummaryListItem>
-                <SummaryListItem
-                    title={locale.tenureDetails.propertyReferenceLabel}
-                >
-                    {propertyReference}
-                </SummaryListItem>
+                {propertyReference ? (
+                    <SummaryListItem
+                        title={locale.tenureDetails.propertyReferenceLabel}
+                    >
+                        {propertyReference}
+                    </SummaryListItem>
+                ) : null}
             </SummaryList>
         </div>
     );
