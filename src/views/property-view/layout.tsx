@@ -29,8 +29,7 @@ const PropertySideBar = ({
     propertyDetails,
     ...properties
 }: PropertySideBarProperties) => {
-    const { assetAddress, assetType, tenure, id } = propertyDetails;
-    const { paymentReference } = tenure;
+    const { assetAddress, assetId, assetType, tenure, id } = propertyDetails;
 
     return (
         <div className="mtfh-property-sidebar">
@@ -38,7 +37,7 @@ const PropertySideBar = ({
                 <PropertyDetails
                     assetAddress={assetAddress}
                     assetType={assetType}
-                    propertyReference={paymentReference}
+                    propertyReference={assetId}
                 />
                 <SideBarSection
                     id="tenure-details"
