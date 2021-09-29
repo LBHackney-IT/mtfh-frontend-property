@@ -11,7 +11,7 @@ interface TenureDetailsProps {
 
 export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
     if (!tenure) {
-        return <h4>{locale.tenureDetails.noTenure}</h4>;
+        return <h2>{locale.tenureDetails.noTenure}</h2>;
     }
 
     const { id, type, startOfTenureDate, endOfTenureDate, isActive } = tenure;
