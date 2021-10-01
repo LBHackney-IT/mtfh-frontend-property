@@ -66,7 +66,7 @@
         "webpack-merge": "^5.8.0"
     },
     "dependencies": {
-        "@mtfh/common": "file:.yalc/@mtfh/common",
+        "@mtfh/common": "https://github.com/LBHackney-IT/mtfh-common.git",
         "@types/jest": "^26.0.23",
         "@types/react": "17.0.20",
         "@types/react-dom": "17.0.9",
