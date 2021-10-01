@@ -128,7 +128,6 @@ jobs:
             - run:
                 name: build
                 command: |
-                    export PROPERTY_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
@@ -146,7 +145,6 @@ jobs:
             - run:
                 name: build
                 command: |
-                    export PROPERTY_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
@@ -165,7 +163,6 @@ jobs:
                 name: build
                 command: |
                     export APP_ENV=production
-                    export PROPERTY_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3

@@ -1,8 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
 import React, { FC } from 'react';
 
+import { isFutureDate } from '@mtfh/common/lib/utils';
+import { hasToggle } from '@mtfh/common/lib/configuration';
 import {
-    hasToggle,
     Button,
     Layout,
     Link,
@@ -11,33 +12,33 @@ import {
     SideBar,
     SideBarSection,
     SideBarProps,
-} from '@mtfh/common';
-import { isFutureDate } from '../../utils';
-import { locale, Property } from '../../services';
-import { PropertyDetails, TenureDetails } from '../../components';
+} from '@mtfh/common/lib/components';
+import { Asset } from '@mtfh/common/lib/api/asset/v1';
+import { locale } from '../../services';
+import { AssetDetails, TenureDetails } from '../../components';
 import './styles.scss';
 
-export interface PropertyLayoutProperties {
-    propertyDetails: Property;
+export interface AssetLayoutProperties {
+    assetDetails: Asset;
 }
 
-interface PropertySideBarProperties
+interface AssetSideBarProperties
     extends Partial<SideBarProps>,
-        PropertyLayoutProperties {}
+        AssetLayoutProperties {}
 
-const PropertySideBar = ({
-    propertyDetails,
+const AssetSideBar = ({
+    assetDetails,
     ...properties
-}: PropertySideBarProperties) => {
-    const { assetAddress, assetId, assetType, tenure, id } = propertyDetails;
+}: AssetSideBarProperties) => {
+    const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
 
     return (
-        <div className="mtfh-property-sidebar">
+        <div className="mtfh-asset-sidebar">
             <SideBar id="property-view-sidebar" {...properties}>
-                <PropertyDetails
+                <AssetDetails
                     assetAddress={assetAddress}
                     assetType={assetType}
-                    propertyReference={assetId}
+                    assetReference={assetId}
                 />
                 <SideBarSection
                     id="tenure-details"
@@ -51,18 +52,16 @@ const PropertySideBar = ({
                     !tenure.isActive ||
                     !isFutureDate(tenure.endOfTenureDate)) && (
                     <Button as={RouterLink} to={`/tenure/${id}/add`}>
-                        {locale.propertyDetails.newTenure}
+                        {locale.assetDetails.newTenure}
                     </Button>
                 )}
         </div>
     );
 };
 
-export const PropertyLayout: FC<PropertyLayoutProperties> = ({
-    propertyDetails,
-}) => {
+export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
     return (
-        <PageAnnouncementProvider sessionKey="property">
+        <PageAnnouncementProvider sessionKey="asset">
             <PageAnnouncement />
             <Layout
                 top={
@@ -71,13 +70,13 @@ export const PropertyLayout: FC<PropertyLayoutProperties> = ({
                             {locale.backToSearch}
                         </Link>
                         <h1 className="heading">
-                            {locale.propertyDetails.address(
-                                propertyDetails.assetAddress
+                            {locale.assetDetails.address(
+                                assetDetails.assetAddress
                             )}
                         </h1>
                     </>
                 }
-                side={<PropertySideBar propertyDetails={propertyDetails} />}
+                side={<AssetSideBar assetDetails={assetDetails} />}
             />
         </PageAnnouncementProvider>
     );

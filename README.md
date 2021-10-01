@@ -3,14 +3,6 @@
 This is the property micro-frontend for the MTFH project.
 This app is not intended to be run in isolation in production, but managed through it's [root app](https://github.com/LBHackney-IT/mtfh-frontend-root).
 
-### Development
-
-Create a `.env` file in the root of the repo with the following required key-value pairs:
-
-```env
-PROPERTY_API_URL=
-```
-
 The values can be found in the development AWS account in the Parameter Store (eu-west-2).
 
 ### Running it locally

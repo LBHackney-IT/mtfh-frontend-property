@@ -1,2 +1,2 @@
-export * from './property-details';
+export * from './asset-details';
 export * from './tenure-details';
