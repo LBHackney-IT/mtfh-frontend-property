@@ -5,9 +5,9 @@ import { featureToggleStore } from '@mtfh/common/lib/configuration';
 import {
     server,
     render,
-    mockAsset,
-    mockAssetLettableNonDwelling,
-    mockAssetInvalidAssetType,
+    mockAssetV1,
+    mockAssetLettableNonDwellingV1,
+    mockAssetInvalidAssetTypeV1,
 } from '@hackney/mtfh-test-utils';
 
 import { locale } from '../../services';
@@ -20,7 +20,7 @@ test('renders the error on Asset failure', async () => {
         )
     );
     render(<AssetView />, {
-        url: `/property/${mockAsset.id}`,
+        url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
     });
 
@@ -29,25 +29,25 @@ test('renders the error on Asset failure', async () => {
 
 test('renders the property view', async () => {
     const { container } = render(<AssetView />, {
-        url: `/property/${mockAsset.id}`,
+        url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
     });
     expect(container).toMatchSnapshot();
 
     await waitFor(() =>
         expect(screen.getAllByRole('heading')[0]).toHaveTextContent(
-            locale.assetDetails.address(mockAsset.assetAddress)
+            locale.assetDetails.address(mockAssetV1.assetAddress)
         )
     );
-    screen.getByText(locale.assetType(mockAsset.assetType));
+    screen.getByText(locale.assetType(mockAssetV1.assetType));
     screen.getByText(/UPRN/);
-    screen.getByText(mockAsset.assetId);
+    screen.getByText(mockAssetV1.assetId);
     screen.getByText(/Reference/);
 });
 
 test('it shows the back button', async () => {
     render(<AssetView />, {
-        url: `/property/${mockAsset.id}`,
+        url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
     });
 
@@ -62,14 +62,14 @@ test('it shows new tenure button', async () => {
             res(
                 ctx.status(200),
                 ctx.set('ETag', '"1"'),
-                ctx.json({ ...mockAssetLettableNonDwelling, tenure: {} })
+                ctx.json({ ...mockAssetLettableNonDwellingV1, tenure: {} })
             )
         )
     );
     const features = featureToggleStore.getValue();
     featureToggleStore.next({ MMH: { ...features.MMH, CreateTenure: true } });
     render(<AssetView />, {
-        url: `/property/${mockAsset.id}`,
+        url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
     });
 
@@ -82,12 +82,12 @@ test('renders the asset view for lettable-non-dwelling', async () => {
             res(
                 ctx.status(200),
                 ctx.set('ETag', '"1"'),
-                ctx.json(mockAssetLettableNonDwelling)
+                ctx.json(mockAssetLettableNonDwellingV1)
             )
         )
     );
     render(<AssetView />, {
-        url: `/property/${mockAssetLettableNonDwelling.id}`,
+        url: `/property/${mockAssetLettableNonDwellingV1.id}`,
         path: '/property/:assetId',
     });
 
@@ -101,12 +101,12 @@ test('renders the asset view for invalid asset type', async () => {
             res(
                 ctx.status(200),
                 ctx.set('ETag', '"2"'),
-                ctx.json(mockAssetInvalidAssetType)
+                ctx.json(mockAssetInvalidAssetTypeV1)
             )
         )
     );
     render(<AssetView />, {
-        url: `/property/${mockAssetInvalidAssetType.id}`,
+        url: `/property/${mockAssetInvalidAssetTypeV1.id}`,
         path: '/property/:assetId',
     });
 
