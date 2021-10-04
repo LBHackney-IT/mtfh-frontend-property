@@ -28,19 +28,10 @@ module.exports = (webpackConfigEnv, argv) => {
                 },
             ],
         },
-        // resolve: {
-        //     alias:
-        //         '@components': path.resolve(__dirname, 'src/components'),
-        //         '@services': path.resolve(__dirname, 'src/services'),
-        //         '@utilities': path.resolve(__dirname, 'src/utils'),
-        //     },
-        //     extensions: ['.ts', '.tsx', '.js'],
-        // },
         externals: ['@mtfh/common', 'react-router-dom'],
         plugins: [
             new webpack.EnvironmentPlugin({
                 APP_ENV: dotenv.APP_ENV || 'dev',
-                PROPERTY_API_URL: dotenv.PROPERTY_API_URL || '',
             }),
         ],
     });

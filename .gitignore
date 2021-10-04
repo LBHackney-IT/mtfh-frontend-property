@@ -69,3 +69,7 @@ dist
 *.njsproj
 *.sln
 *.sw?
+
+# yalc
+.yalc
+yalc.lock

@@ -1,17 +1,17 @@
 import React from 'react';
 import { waitFor, screen } from '@testing-library/react';
-import { routeRender } from './test-utils';
+import { render } from '@hackney/mtfh-test-utils';
 import App from './app';
 
 test('it shows invalid if no id in url', () => {
-    routeRender(<App />, { url: '/', path: '/' });
+    render(<App />, { url: '/', path: '/' });
     expect(screen.getByText('404')).toBeInTheDocument();
 });
 
 test('it renders property view', async () => {
-    routeRender(<App />, {
+    render(<App />, {
         url: '/property/123',
-        path: '/property/:propertyId',
+        path: '/property/:assetId',
     });
 
     await waitFor(() =>

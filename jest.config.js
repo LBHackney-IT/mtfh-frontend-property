@@ -6,13 +6,15 @@ module.exports = {
     transformIgnorePatterns: ['/node_modules/(?!lbh-frontend|@mtfh)'],
     moduleNameMapper: {
         '\\.(css|scss)$': 'identity-obj-proxy',
-        '@components': '<rootDir>/components',
-        '@services': '<rootDir>/services',
-        '@utilities': '<rootDir>/utils',
     },
-    setupFilesAfterEnv: ['@testing-library/jest-dom', './test-utils.tsx'],
+    setupFilesAfterEnv: [
+        '@testing-library/jest-dom',
+        '@hackney/mtfh-test-utils',
+        './test-utils.ts',
+    ],
+    testPathIgnorePatterns: ['test-utils.ts'],
     coverageDirectory: '../coverage',
-    coveragePathIgnorePatterns: [],
+    coveragePathIgnorePatterns: ['mocks', 'test-utils.ts'],
     coverageThreshold: {
         global: {
             statements: 100,

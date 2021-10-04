@@ -1,12 +1,17 @@
 import { Link as RouterLink } from 'react-router-dom';
 import React from 'react';
 
-import { Button, SummaryList, SummaryListItem } from '@mtfh/common';
-import { formattedDate } from '../../utils';
-import { locale, Tenure } from '../../services';
+import { formatDate } from '@mtfh/common/lib/utils';
+import {
+    Button,
+    SummaryList,
+    SummaryListItem,
+} from '@mtfh/common/lib/components';
+import { AssetTenure } from '@mtfh/common/lib/api/asset/v1';
+import { locale } from '../../services';
 import './tenure-details.styles.scss';
 interface TenureDetailsProps {
-    tenure: Tenure | null;
+    tenure: AssetTenure | null;
 }
 
 export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
@@ -27,10 +32,10 @@ export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
                     {locale.tenureDetails.isActive(isActive)}
                 </SummaryListItem>
                 <SummaryListItem title={locale.tenureDetails.startDate}>
-                    {formattedDate(startOfTenureDate)}
+                    {formatDate(startOfTenureDate)}
                 </SummaryListItem>
                 <SummaryListItem title={locale.tenureDetails.endDate}>
-                    {formattedDate(endOfTenureDate)}
+                    {formatDate(endOfTenureDate)}
                 </SummaryListItem>
             </SummaryList>
             <Button as={RouterLink} to={`/tenure/${id}`} variant="secondary">

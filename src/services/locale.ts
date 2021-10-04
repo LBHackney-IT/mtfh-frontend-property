@@ -1,11 +1,11 @@
-import { AssetAddress } from '../services';
+import { AssetAddress, AssetType } from '@mtfh/common/lib/api/asset/v1';
 
 export default {
     backToSearch: 'Search results',
     cancel: 'Cancel',
     noDataForKey: 'N/A',
-    propertyDetails: {
-        address: (assetAddress: AssetAddress) => {
+    assetDetails: {
+        address: (assetAddress: AssetAddress): string => {
             const {
                 postPreamble,
                 addressLine1,
@@ -28,35 +28,36 @@ export default {
         },
         newTenure: 'New tenure',
     },
-    propertyType: (propertyType: string) => {
-        if (propertyType === 'Dwelling') {
+    assetType: (assetType: AssetType): string => {
+        if (assetType === 'Dwelling') {
             return 'Dwelling';
         }
-        if (propertyType === 'LettableNonDwelling') {
+        if (assetType === 'LettableNonDwelling') {
             return 'Lettable non-dwelling';
         }
-        return propertyType;
+        return assetType;
     },
     tenureDetails: {
         tenureLabel: 'Tenure',
         expandedTenureSection: 'Tenure details',
         viewTenureButtonLabel: 'View tenure',
-        propertyTypeLabel: 'Type',
-        propertyPaymentReferenceLabel: 'Payment reference',
+        assetTypeLabel: 'Type',
+        assetPaymentReferenceLabel: 'Payment reference',
         uprnLabel: 'UPRN',
-        propertyReferenceLabel: 'Reference',
+        assetReferenceLabel: 'Reference',
         active: 'Active',
-        isActive: (isActive: boolean) => (isActive ? 'Active' : 'Inactive'),
+        isActive: (isActive: boolean): string =>
+            isActive ? 'Active' : 'Inactive',
         status: 'Status',
         type: 'Type',
         startDate: 'Start date',
         endDate: 'End date',
         noTenure: 'No tenure',
     },
-    assetCouldNotBeLoaded: 'This asset could not be loaded.',
+    assetCouldNotBeLoaded: 'This property could not be loaded.',
     errors: {
         unableToFetchRecord: 'There was a problem retrieving the record',
-        propertyDoesNotExist:
+        assetDoesNotExist:
             "The property information you've requested does not exist",
         unableToFetchRecordDescription:
             'Please try again. If the issue persists, please contact support.',
