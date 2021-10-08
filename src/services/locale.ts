@@ -53,6 +53,7 @@ export default {
         startDate: 'Start date',
         endDate: 'End date',
         noTenure: 'No tenure',
+        paymentRef: 'Payment ref.',
     },
     assetCouldNotBeLoaded: 'This property could not be loaded.',
     errors: {

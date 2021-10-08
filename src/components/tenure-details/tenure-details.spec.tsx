@@ -44,6 +44,7 @@ describe('TenureDetails', () => {
             screen.getByText(formatDate(mockAssetV1.tenure.startOfTenureDate))
         ).toBeInTheDocument();
         expect(screen.getByText('View tenure')).toBeInTheDocument();
+        screen.getByText(mockAssetV1.tenure.paymentReference);
     });
 
     it('should display No tenure message when no tenure is available', () => {

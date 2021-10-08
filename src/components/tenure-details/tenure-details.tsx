@@ -19,7 +19,14 @@ export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
         return <h4>{locale.tenureDetails.noTenure}</h4>;
     }
 
-    const { id, type, startOfTenureDate, endOfTenureDate, isActive } = tenure;
+    const {
+        id,
+        type,
+        startOfTenureDate,
+        endOfTenureDate,
+        isActive,
+        paymentReference,
+    } = tenure;
 
     return (
         <div className="mtfh-tenure-details">
@@ -36,6 +43,9 @@ export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
                 </SummaryListItem>
                 <SummaryListItem title={locale.tenureDetails.endDate}>
                     {formatDate(endOfTenureDate)}
+                </SummaryListItem>
+                <SummaryListItem title={locale.tenureDetails.paymentRef}>
+                    {paymentReference}
                 </SummaryListItem>
             </SummaryList>
             <Button as={RouterLink} to={`/tenure/${id}`} variant="secondary">
