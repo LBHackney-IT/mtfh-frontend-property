@@ -206,21 +206,16 @@ jobs:
 
     trigger-e2e-pipeline:
         executor: cimg-base
+        parameters:
+            stage:
+                type: string
         steps:
-        - run: |
-                case << pipeline.parameters.run_development_workflow >> in
-                (true) export DEPLOYMENT_ENVIRONMENT='development_environment' ;;
-                esac
-                case << pipeline.parameters.run_staging_workflow >> in
-                (true) export DEPLOYMENT_ENVIRONMENT='staging_environment' ;;
-                esac
-                case << pipeline.parameters.run_production_workflow >> in
-                (true) export DEPLOYMENT_ENVIRONMENT='production_environment' ;;
-                esac
-                curl --location --request POST 'https://circleci.com/api/v2/project/gh/LBHackney-IT/mtfh-tl-e2e-tests/pipeline' \
-                --header 'Circle-Token: '"$CIRCLE_TOKEN"'' \
-                --header 'Content-Type: application/json' \
-                --data '{"branch": "master", "parameters": {"run_workflow_ci": false, "external_trigger": true, "upstream_pipeline_name":  "<< pipeline.project.git_url >>", '\""$DEPLOYMENT_ENVIRONMENT"\"': true}}'
+            - run: |
+                  export DEPLOYMENT_ENVIRONMENT='<<parameters.stage>>_environment'
+                  curl --location --request POST 'https://circleci.com/api/v2/project/gh/LBHackney-IT/mtfh-tl-e2e-tests/pipeline' \
+                  --header 'Circle-Token: '"$CIRCLE_TOKEN"'' \
+                  --header 'Content-Type: application/json' \
+                  --data '{"branch": "master", "parameters": {"run_workflow_ci": false, "external_trigger": true, "upstream_pipeline_name":  "$CIRCLE_PROJECT_REPONAME", '\""$DEPLOYMENT_ENVIRONMENT"\"': true}}'
 
     failure-downstream:
         executor: cimg-base
@@ -269,6 +264,7 @@ workflows:
                           only: main
             - trigger-e2e-pipeline:
                   context: mtfh-mfe-e2e-tests
+                  stage: "development"
                   requires:
                       - build-deploy-development
                   filters:
@@ -311,6 +307,7 @@ workflows:
                           only: main
             - trigger-e2e-pipeline:
                   context: mtfh-mfe-e2e-tests
+                  stage: "staging"
                   requires:
                       - build-deploy-staging
                   filters:
@@ -353,6 +350,7 @@ workflows:
                           only: main
             - trigger-e2e-pipeline:
                   context: mtfh-mfe-e2e-tests
+                  stage: "production"
                   requires:
                       - build-deploy-production
                   filters:
