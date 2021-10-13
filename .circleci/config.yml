@@ -215,7 +215,7 @@ jobs:
                   curl --location --request POST 'https://circleci.com/api/v2/project/gh/LBHackney-IT/mtfh-tl-e2e-tests/pipeline' \
                   --header 'Circle-Token: '"$CIRCLE_TOKEN"'' \
                   --header 'Content-Type: application/json' \
-                  --data '{"branch": "master", "parameters": {"run_workflow_ci": false, "external_trigger": true, "upstream_pipeline_name":  "$CIRCLE_PROJECT_REPONAME", '\""$DEPLOYMENT_ENVIRONMENT"\"': true}}'
+                  --data '{"branch": "master", "parameters": {"run_workflow_ci": false, "external_trigger": true, "upstream_pipeline_name": "<< pipeline.project.git_url >>", '\""$DEPLOYMENT_ENVIRONMENT"\"': true}}'
 
     failure-downstream:
         executor: cimg-base
