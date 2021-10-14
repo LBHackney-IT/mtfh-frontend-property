@@ -1,7 +1,7 @@
 import React from 'react';
 import { rest } from 'msw';
 import { screen, waitFor } from '@testing-library/react';
-import { featureToggleStore } from '@mtfh/common/lib/configuration';
+import { $configuration } from '@mtfh/common/lib/configuration';
 import {
     server,
     render,
@@ -66,8 +66,10 @@ test('it shows new tenure button', async () => {
             )
         )
     );
-    const features = featureToggleStore.getValue();
-    featureToggleStore.next({ MMH: { ...features.MMH, CreateTenure: true } });
+    const features = $configuration.getValue();
+    $configuration.next({
+        MMH: { ...features.MMH, featureToggles: { CreateTenure: true } },
+    });
     render(<AssetView />, {
         url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
