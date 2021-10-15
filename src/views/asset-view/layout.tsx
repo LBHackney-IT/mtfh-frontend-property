@@ -32,6 +32,8 @@ const AssetSideBar = ({
 }: AssetSideBarProperties) => {
     const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
 
+    const hasCreateTenure = useFeatureToggle('MMH.CreateTenure');
+
     return (
         <div className="mtfh-asset-sidebar">
             <SideBar id="property-view-sidebar" {...properties}>
@@ -47,7 +49,7 @@ const AssetSideBar = ({
                     <TenureDetails tenure={tenure} />
                 </SideBarSection>
             </SideBar>
-            {useFeatureToggle('MMH.CreateTenure') &&
+            {hasCreateTenure &&
                 (!tenure ||
                     !tenure.isActive ||
                     !isFutureDate(tenure.endOfTenureDate)) && (
