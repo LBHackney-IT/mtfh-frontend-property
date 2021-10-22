@@ -206,6 +206,7 @@ jobs:
 
     trigger-e2e-pipeline:
         executor: cimg-base
+        resource_class: small
         parameters:
             stage:
                 type: string
@@ -219,6 +220,7 @@ jobs:
 
     failure-downstream:
         executor: cimg-base
+        resource_class: small
         steps:
         - run: |
                 echo downstream e2e tests have failed! Please check the e2e pipeline: ;
