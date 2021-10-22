@@ -1,5 +1,6 @@
 import React from 'react';
 import { rest } from 'msw';
+import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
 import { $configuration } from '@mtfh/common/lib/configuration';
 import {
@@ -43,6 +44,18 @@ test('renders the property view', async () => {
     screen.getByText(/UPRN/);
     screen.getByText(mockAssetV1.assetId);
     screen.getByText(/Reference/);
+});
+
+test('renders the process menu button and contains correct path', async () => {
+    render(<AssetView />, {
+        url: `/property/${mockAssetV1.id}`,
+        path: '/property/:assetId',
+    });
+    await waitFor(() => expect(screen.getByText(locale.static.newProcess)));
+    userEvent.click(screen.getByText(locale.static.newProcess));
+    expect(window.location.pathname).toContain(
+        `/static/processes-menu/property/21293d9b-e8fd-4bbb-8ef6-93a271edd2d4`
+    );
 });
 
 test('it shows the back button', async () => {
