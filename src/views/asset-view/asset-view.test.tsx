@@ -54,7 +54,7 @@ test('renders the process menu button and contains correct path', async () => {
     await waitFor(() => expect(screen.getByText(locale.static.newProcess)));
     userEvent.click(screen.getByText(locale.static.newProcess));
     expect(window.location.pathname).toContain(
-        `/static/processes-menu/property/21293d9b-e8fd-4bbb-8ef6-93a271edd2d4`
+        `/processes/property/21293d9b-e8fd-4bbb-8ef6-93a271edd2d4`
     );
 });
 

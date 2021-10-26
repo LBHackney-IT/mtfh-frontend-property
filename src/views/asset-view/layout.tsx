@@ -71,7 +71,7 @@ const PropertyBody = ({ propertyId }: PropertyBodyProps) => {
             <Button
                 variant="primary"
                 as={RouterLink}
-                to={`/static/processes-menu/property/${propertyId}`}
+                to={`/processes/property/${propertyId}`}
             >
                 {locale.static.newProcess}
             </Button>
