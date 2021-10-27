@@ -55,6 +55,9 @@ export default {
         noTenure: 'No tenure',
         paymentRef: 'Payment ref.',
     },
+    static: {
+        newProcess: 'New Process',
+    },
     assetCouldNotBeLoaded: 'This property could not be loaded.',
     errors: {
         unableToFetchRecord: 'There was a problem retrieving the record',

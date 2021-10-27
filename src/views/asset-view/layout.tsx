@@ -61,6 +61,24 @@ const AssetSideBar = ({
     );
 };
 
+interface PropertyBodyProps {
+    propertyId: string;
+}
+
+const PropertyBody = ({ propertyId }: PropertyBodyProps) => {
+    return (
+        <div>
+            <Button
+                variant="primary"
+                as={RouterLink}
+                to={`/processes/property/${propertyId}`}
+            >
+                {locale.static.newProcess}
+            </Button>
+        </div>
+    );
+};
+
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
     return (
         <PageAnnouncementProvider sessionKey="asset">
@@ -79,7 +97,9 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
                     </>
                 }
                 side={<AssetSideBar assetDetails={assetDetails} />}
-            />
+            >
+                <PropertyBody propertyId={assetDetails.id} />
+            </Layout>
         </PageAnnouncementProvider>
     );
 };
