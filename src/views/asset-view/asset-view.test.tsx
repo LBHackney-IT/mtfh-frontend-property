@@ -69,6 +69,15 @@ test('it shows the back button', async () => {
     );
 });
 
+test('it shows add comment button', async () => {
+    render(<AssetView />, {
+        url: `/property/${mockAssetV1.id}`,
+        path: '/property/:assetId',
+    });
+
+    await waitFor(() => screen.getByText(locale.comments.addComment));
+});
+
 test('it shows new tenure button', async () => {
     server.use(
         rest.get('/api/v1/assets/:id', (req, res, ctx) =>

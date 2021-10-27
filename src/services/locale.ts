@@ -37,6 +37,10 @@ export default {
         }
         return assetType;
     },
+    comments: {
+        heading: 'Comments',
+        addComment: 'Add comment',
+    },
     tenureDetails: {
         tenureLabel: 'Tenure',
         expandedTenureSection: 'Tenure details',
