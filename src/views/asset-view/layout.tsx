@@ -69,16 +69,19 @@ const PropertyBody = ({ propertyId }: PropertyBodyProps) => {
     const hasEnhancedPropertyComments = useFeatureToggle(
         'MMH.EnhancedPropertyComments'
     );
+    const hasProcessMenuButton = useFeatureToggle('MMH.ProcessMenuButton');
 
     return (
         <div>
-            <Button
-                variant="primary"
-                as={RouterLink}
-                to={`/processes/property/${propertyId}`}
-            >
-                {locale.static.newProcess}
-            </Button>
+            {hasProcessMenuButton && (
+                <Button
+                    variant="primary"
+                    as={RouterLink}
+                    to={`/processes/property/${propertyId}`}
+                >
+                    {locale.static.newProcess}
+                </Button>
+            )}
             {hasEnhancedPropertyComments && (
                 <>
                     <h2 className="lbh-heading-h2">
