@@ -1,1 +1,5 @@
 @import '~lbh-frontend/lbh/base';
+
+* {
+    @include lbh-font;
+}
