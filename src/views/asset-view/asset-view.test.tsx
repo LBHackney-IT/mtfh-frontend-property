@@ -14,6 +14,8 @@ import {
 import { locale } from '../../services';
 import { AssetView } from '.';
 
+const features = $configuration.getValue();
+
 test('renders the error on Asset failure', async () => {
     server.use(
         rest.get('/api/v1/assets/:id', (req, res, ctx) =>
@@ -47,6 +49,12 @@ test('renders the property view', async () => {
 });
 
 test('renders the process menu button and contains correct path', async () => {
+    $configuration.next({
+        MMH: {
+            ...features.MMH,
+            featureToggles: { ProcessMenuButton: true },
+        },
+    });
     render(<AssetView />, {
         url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
@@ -70,7 +78,6 @@ test('it shows the back button', async () => {
 });
 
 test('it shows add comment button', async () => {
-    const features = $configuration.getValue();
     $configuration.next({
         MMH: {
             ...features.MMH,
@@ -95,7 +102,6 @@ test('it shows new tenure button', async () => {
             )
         )
     );
-    const features = $configuration.getValue();
     $configuration.next({
         MMH: { ...features.MMH, featureToggles: { CreateTenure: true } },
     });
