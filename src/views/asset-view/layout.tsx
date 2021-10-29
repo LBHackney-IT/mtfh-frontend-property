@@ -12,6 +12,7 @@ import {
     SideBar,
     SideBarSection,
     SideBarProps,
+    CommentList,
 } from '@mtfh/common/lib/components';
 import { Asset } from '@mtfh/common/lib/api/asset/v1';
 import { locale } from '../../services';
@@ -93,6 +94,9 @@ const PropertyBody = ({ propertyId }: PropertyBodyProps) => {
                     >
                         {locale.comments.addComment}
                     </Button>
+                    <div>
+                        <CommentList targetId={propertyId} />
+                    </div>
                 </>
             )}
         </div>

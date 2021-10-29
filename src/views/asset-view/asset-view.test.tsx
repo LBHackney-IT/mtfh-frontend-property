@@ -2,6 +2,7 @@ import React from 'react';
 import { rest } from 'msw';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
+import { formatDate, formatTime } from '@mtfh/common/lib/utils';
 import { $configuration } from '@mtfh/common/lib/configuration';
 import {
     server,
@@ -9,6 +10,7 @@ import {
     mockAssetV1,
     mockAssetLettableNonDwellingV1,
     mockAssetInvalidAssetTypeV1,
+    mockCommentsV2,
 } from '@hackney/mtfh-test-utils';
 
 import { locale } from '../../services';
@@ -77,7 +79,7 @@ test('it shows the back button', async () => {
     );
 });
 
-test('it shows add comment button', async () => {
+test('it shows add comment button and comments list', async () => {
     $configuration.next({
         MMH: {
             ...features.MMH,
@@ -89,7 +91,14 @@ test('it shows add comment button', async () => {
         path: '/property/:assetId',
     });
 
-    await waitFor(() => screen.getByText(locale.comments.addComment));
+    await waitFor(() => {
+        screen.getByText(locale.comments.addComment);
+        screen.getByText(mockCommentsV2[0].title || '');
+        screen.getByText(mockCommentsV2[0].description);
+        screen.getByText(mockCommentsV2[0].author.fullName);
+        screen.getByText(formatDate(mockCommentsV2[0].createdAt));
+        screen.getByText(formatTime(mockCommentsV2[0].createdAt));
+    });
 });
 
 test('it shows new tenure button', async () => {
