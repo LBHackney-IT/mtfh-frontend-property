@@ -1,3 +1,6 @@
+const {
+    ImportMapWebpackPlugin,
+} = require('@hackney/webpack-import-map-plugin');
 const { merge } = require('webpack-merge');
 const singleSpaDefaults = require('webpack-config-single-spa-react-ts');
 const webpack = require('webpack');
@@ -32,6 +35,10 @@ module.exports = (webpackConfigEnv, argv) => {
         plugins: [
             new webpack.EnvironmentPlugin({
                 APP_ENV: dotenv.APP_ENV || 'dev',
+            }),
+            new ImportMapWebpackPlugin({
+                namespace: '@mtfh',
+                basePath: process.env.APP_CDN || 'http://localhost:8010',
             }),
         ],
     });
