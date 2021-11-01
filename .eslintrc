@@ -1,23 +1,7 @@
 {
   "extends": "@hackney/eslint-config",
   "rules": {
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          ["builtin", "external"],
-          ["parent", "internal", "sibling", "index"]
-        ],
-        "pathGroups": [
-          {
-            "pattern": "@pb/**",
-            "group": "internal"
-          }
-        ],
-        "alphabetize": {
-          "order": "desc"
-        }
-      }
-    ]
+    "import/no-extraneous-dependencies": "off",
+    "jsx-a11y/anchor-is-valid": "off"
   }
 }

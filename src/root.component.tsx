@@ -1,14 +1,15 @@
-import React from 'react';
-import { ConfirmationRouter } from '@mtfh/common/lib/components';
+import React from "react";
 
-import App from './app';
+import App from "./app";
 
-import './root.styles.scss';
+import { ConfirmationRouter } from "@mtfh/common/lib/components";
+
+import "./root.styles.scss";
 
 export default function Root(): JSX.Element {
-    return (
-        <ConfirmationRouter>
-            <App />
-        </ConfirmationRouter>
-    );
+  return (
+    <ConfirmationRouter>
+      <App />
+    </ConfirmationRouter>
+  );
 }
