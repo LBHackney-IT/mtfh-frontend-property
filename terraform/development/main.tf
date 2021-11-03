@@ -41,3 +41,9 @@ module "cloudfront-development" {
   project_name= "MTFH Tenants and Leaseholders"
   use_cloudfront_cert = true
 }
+resource "aws_ssm_parameter" "cdn" {
+  name  = "/housing-tl/development/auth-app-url"
+  type  = "String"
+  value = "https://${module.cloudfront-development.cloudfront_domain_name}"
+  overwrite = true
+}
