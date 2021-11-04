@@ -67,38 +67,22 @@ interface PropertyBodyProps {
 }
 
 const PropertyBody = ({ propertyId }: PropertyBodyProps) => {
-    const hasEnhancedPropertyComments = useFeatureToggle(
-        'MMH.EnhancedPropertyComments'
-    );
-    const hasProcessMenuButton = useFeatureToggle('MMH.ProcessMenuButton');
-
     return (
         <div>
-            {hasProcessMenuButton && (
-                <Button
-                    variant="primary"
-                    as={RouterLink}
-                    to={`/processes/property/${propertyId}`}
-                >
-                    {locale.static.newProcess}
-                </Button>
-            )}
-            {hasEnhancedPropertyComments && (
-                <>
-                    <h2 className="lbh-heading-h2">
-                        {locale.comments.heading}
-                    </h2>
-                    <Button
-                        as={RouterLink}
-                        to={`/comment/property/${propertyId}`}
-                    >
-                        {locale.comments.addComment}
-                    </Button>
-                    <div>
-                        <CommentList targetId={propertyId} />
-                    </div>
-                </>
-            )}
+            <Button
+                variant="primary"
+                as={RouterLink}
+                to={`/processes/property/${propertyId}`}
+            >
+                {locale.static.newProcess}
+            </Button>
+            <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
+            <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
+                {locale.comments.addComment}
+            </Button>
+            <div>
+                <CommentList targetId={propertyId} />
+            </div>
         </div>
     );
 };
