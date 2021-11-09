@@ -3,7 +3,6 @@ import { rest } from 'msw';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
 import { formatDate, formatTime } from '@mtfh/common/lib/utils';
-import { $configuration } from '@mtfh/common/lib/configuration';
 import {
     server,
     render,
@@ -11,19 +10,14 @@ import {
     mockAssetLettableNonDwellingV1,
     mockAssetInvalidAssetTypeV1,
     mockCommentsV2,
+    getAssetV1,
 } from '@hackney/mtfh-test-utils';
 
 import { locale } from '../../services';
 import { AssetView } from '.';
 
-const features = $configuration.getValue();
-
 test('renders the error on Asset failure', async () => {
-    server.use(
-        rest.get('/api/v1/assets/:id', (req, res, ctx) =>
-            res.once(ctx.status(500), ctx.json({ error: 'failed' }))
-        )
-    );
+    server.use(getAssetV1(undefined, 500));
     render(<AssetView />, {
         url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
@@ -58,7 +52,7 @@ test('renders the process menu button and contains correct path', async () => {
     await waitFor(() => expect(screen.getByText(locale.static.newProcess)));
     userEvent.click(screen.getByText(locale.static.newProcess));
     expect(window.location.pathname).toContain(
-        `/processes/property/21293d9b-e8fd-4bbb-8ef6-93a271edd2d4`
+        `/processes/property/${mockAssetV1.id}`
     );
 });
 
