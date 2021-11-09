@@ -9,5 +9,5 @@ import {
 beforeEach(() => {
     server.use(getAssetV1());
     server.use(getCommentV2());
-    server.use(getReferenceDataV1([...mockCommentReferenceDataV1]));
+    server.use(getReferenceDataV1(mockCommentReferenceDataV1));
 });
