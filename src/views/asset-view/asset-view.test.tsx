@@ -83,6 +83,17 @@ test('it shows add comment button and comments list', async () => {
     });
 });
 
+test('it shows repairs list', async () => {
+    render(<AssetView />, {
+        url: `/property/${mockAssetV1.id}`,
+        path: '/property/:assetId',
+    });
+
+    await waitFor(() => {
+        screen.getByText(locale.repairs.heading);
+    });
+});
+
 test('it shows new tenure button', async () => {
     server.use(
         rest.get('/api/v1/assets/:id', (req, res, ctx) =>

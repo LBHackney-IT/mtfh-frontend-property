@@ -12,6 +12,7 @@ import {
     SideBarSection,
     SideBarProps,
     CommentList,
+    RepairList,
 } from '@mtfh/common/lib/components';
 import { Asset } from '@mtfh/common/lib/api/asset/v1';
 import { locale } from '../../services';
@@ -62,7 +63,7 @@ interface PropertyBodyProps {
     propertyId: string;
 }
 
-const PropertyBody = ({ propertyId }: PropertyBodyProps) => {
+const PropertyBody = ({ propertyId }: PropertyBodyProps): JSX.Element => {
     return (
         <div>
             <Button
@@ -72,6 +73,8 @@ const PropertyBody = ({ propertyId }: PropertyBodyProps) => {
             >
                 {locale.static.newProcess}
             </Button>
+            <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
+            <RepairList propertyId={propertyId} />
             <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
             <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
                 {locale.comments.addComment}

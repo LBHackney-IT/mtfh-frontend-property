@@ -41,6 +41,9 @@ export default {
         heading: 'Comments',
         addComment: 'Add comment',
     },
+    repairs: {
+        heading: 'Repairs',
+    },
     tenureDetails: {
         tenureLabel: 'Tenure',
         expandedTenureSection: 'Tenure details',
