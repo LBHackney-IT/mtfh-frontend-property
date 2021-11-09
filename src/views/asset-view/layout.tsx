@@ -64,6 +64,8 @@ interface PropertyBodyProps {
 }
 
 const PropertyBody = ({ propertyId }: PropertyBodyProps): JSX.Element => {
+    const hasRepairsList = useFeatureToggle('MMH.RepairsList');
+
     return (
         <div>
             <Button
@@ -73,8 +75,12 @@ const PropertyBody = ({ propertyId }: PropertyBodyProps): JSX.Element => {
             >
                 {locale.static.newProcess}
             </Button>
-            <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
-            <RepairList propertyId={propertyId} />
+            {hasRepairsList && (
+                <>
+                    <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
+                    <RepairList propertyId={propertyId} />
+                </>
+            )}
             <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
             <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
                 {locale.comments.addComment}

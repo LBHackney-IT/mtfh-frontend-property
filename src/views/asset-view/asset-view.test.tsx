@@ -84,6 +84,9 @@ test('it shows add comment button and comments list', async () => {
 });
 
 test('it shows repairs list', async () => {
+    $configuration.next({
+        MMH: { ...features.MMH, featureToggles: { RepairsList: true } },
+    });
     render(<AssetView />, {
         url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
