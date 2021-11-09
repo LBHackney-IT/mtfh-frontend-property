@@ -1,15 +1,21 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 
-import { render, mockAssetV1 } from '@hackney/mtfh-test-utils';
+import {
+    render,
+    mockAssetV1,
+    generateMockAssetTenureV1,
+} from '@hackney/mtfh-test-utils';
 import { AssetDetails } from './asset-details';
+
+const mockActiveAssetTenure = generateMockAssetTenureV1({ isActive: true });
 
 describe('AssetDetails', () => {
     it('should display asset details', () => {
         render(
             <AssetDetails
                 assetAddress={mockAssetV1.assetAddress}
-                assetType={mockAssetV1.tenure.type}
+                assetType={mockActiveAssetTenure.type}
                 assetReference={mockAssetV1.assetId}
             />
         );
