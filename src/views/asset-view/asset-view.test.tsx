@@ -99,9 +99,6 @@ test('it shows new tenure button', async () => {
             )
         )
     );
-    $configuration.next({
-        MMH: { ...features.MMH, featureToggles: { CreateTenure: true } },
-    });
     render(<AssetView />, {
         url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',

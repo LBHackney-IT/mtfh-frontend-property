@@ -2,7 +2,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import React, { FC } from 'react';
 
 import { isFutureDate } from '@mtfh/common/lib/utils';
-import { useFeatureToggle } from '@mtfh/common/lib/hooks';
 import {
     Button,
     Layout,
@@ -33,8 +32,6 @@ const AssetSideBar = ({
 }: AssetSideBarProperties) => {
     const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
 
-    const hasCreateTenure = useFeatureToggle('MMH.CreateTenure');
-
     return (
         <div className="mtfh-asset-sidebar">
             <SideBar id="property-view-sidebar" {...properties}>
@@ -50,14 +47,13 @@ const AssetSideBar = ({
                     <TenureDetails tenure={tenure} />
                 </SideBarSection>
             </SideBar>
-            {hasCreateTenure &&
-                (!tenure ||
-                    !tenure.isActive ||
-                    !isFutureDate(tenure.endOfTenureDate)) && (
-                    <Button as={RouterLink} to={`/tenure/${id}/add`}>
-                        {locale.assetDetails.newTenure}
-                    </Button>
-                )}
+            {(!tenure ||
+                !tenure.isActive ||
+                !isFutureDate(tenure.endOfTenureDate)) && (
+                <Button as={RouterLink} to={`/tenure/${id}/add`}>
+                    {locale.assetDetails.newTenure}
+                </Button>
+            )}
         </div>
     );
 };
