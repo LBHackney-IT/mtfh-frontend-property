@@ -11,6 +11,9 @@ import { TenureDetails } from './tenure-details';
 
 describe('TenureDetails', () => {
     it('should display tenure details with active status', () => {
+        if (!mockAssetV1.tenure)
+            throw new Error('Add a tenure to the asset for tests!');
+
         render(<TenureDetails tenure={mockAssetV1.tenure} />);
         expect(screen.getByText('Type')).toBeInTheDocument();
         expect(screen.getByText('Active')).toBeInTheDocument();
@@ -22,6 +25,9 @@ describe('TenureDetails', () => {
     });
 
     it('should display tenure details with inactive status', () => {
+        if (!mockAssetWithInactiveTenureV1.tenure)
+            throw new Error('Add a tenure to the asset for tests!');
+
         render(<TenureDetails tenure={mockAssetWithInactiveTenureV1.tenure} />);
         expect(screen.getByText('Type')).toBeInTheDocument();
         expect(screen.getByText('Inactive')).toBeInTheDocument();
@@ -37,6 +43,9 @@ describe('TenureDetails', () => {
     });
 
     it('should display tenure details', () => {
+        if (!mockAssetV1.tenure)
+            throw new Error('Add a tenure to the asset for tests!');
+
         render(<TenureDetails tenure={mockAssetV1.tenure} />);
         expect(screen.getByText('Type')).toBeInTheDocument();
         expect(screen.getByText('Start date')).toBeInTheDocument();

@@ -6,6 +6,9 @@ import { AssetDetails } from './asset-details';
 
 describe('AssetDetails', () => {
     it('should display asset details', () => {
+        if (!mockAssetV1.tenure)
+            throw new Error('Add a tenure to the asset for tests!');
+
         render(
             <AssetDetails
                 assetAddress={mockAssetV1.assetAddress}
