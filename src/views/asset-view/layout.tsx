@@ -61,9 +61,13 @@ const AssetSideBar = ({
 
 interface PropertyBodyProps {
     propertyId: string;
+    assetId: string;
 }
 
-const PropertyBody = ({ propertyId }: PropertyBodyProps): JSX.Element => {
+const PropertyBody = ({
+    propertyId,
+    assetId,
+}: PropertyBodyProps): JSX.Element => {
     const hasRepairsList = useFeatureToggle('MMH.RepairsList');
 
     return (
@@ -78,7 +82,7 @@ const PropertyBody = ({ propertyId }: PropertyBodyProps): JSX.Element => {
             {hasRepairsList && (
                 <>
                     <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
-                    <RepairList propertyId={propertyId} />
+                    <RepairList assetId={assetId} />
                 </>
             )}
             <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
@@ -111,7 +115,10 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
                 }
                 side={<AssetSideBar assetDetails={assetDetails} />}
             >
-                <PropertyBody propertyId={assetDetails.id} />
+                <PropertyBody
+                    assetId={assetDetails.assetId}
+                    propertyId={assetDetails.id}
+                />
             </Layout>
         </PageAnnouncementProvider>
     );

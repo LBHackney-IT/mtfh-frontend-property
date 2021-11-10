@@ -10,8 +10,10 @@ import {
     mockAssetLettableNonDwellingV1,
     mockAssetInvalidAssetTypeV1,
     mockCommentsV2,
+    mockRepairWorkOrders,
     getAssetV1,
 } from '@hackney/mtfh-test-utils';
+import { $configuration } from '@mtfh/common/lib/configuration';
 
 import { locale } from '../../services';
 import { AssetView } from '.';
@@ -85,15 +87,22 @@ test('it shows add comment button and comments list', async () => {
 
 test('it shows repairs list', async () => {
     $configuration.next({
-        MMH: { ...features.MMH, featureToggles: { RepairsList: true } },
+        MMH: { configuration: {}, featureToggles: { RepairsList: true } },
     });
     render(<AssetView />, {
         url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
     });
+    const mockOrder = mockRepairWorkOrders[0];
 
     await waitFor(() => {
         screen.getByText(locale.repairs.heading);
+        screen.getByText(
+            `${mockOrder.tradeDescription}: ${mockOrder.description.substring(
+                0,
+                50
+            )}`
+        );
     });
 });
 
