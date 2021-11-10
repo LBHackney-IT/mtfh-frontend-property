@@ -3,6 +3,7 @@ import { rest } from 'msw';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
 import { formatDate, formatTime } from '@mtfh/common/lib/utils';
+import { $configuration } from '@mtfh/common/lib/configuration';
 import {
     server,
     render,
@@ -13,7 +14,6 @@ import {
     mockRepairWorkOrders,
     getAssetV1,
 } from '@hackney/mtfh-test-utils';
-import { $configuration } from '@mtfh/common/lib/configuration';
 
 import { locale } from '../../services';
 import { AssetView } from '.';

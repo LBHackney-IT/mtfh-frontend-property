@@ -18,6 +18,7 @@ import { Asset } from '@mtfh/common/lib/api/asset/v1';
 import { locale } from '../../services';
 import { AssetDetails, TenureDetails } from '../../components';
 import './styles.scss';
+import { useFeatureToggle } from '@mtfh/common/lib/hooks';
 
 export interface AssetLayoutProperties {
     assetDetails: Asset;
