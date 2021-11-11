@@ -11,7 +11,7 @@ import {
     mockAssetLettableNonDwellingV1,
     mockAssetInvalidAssetTypeV1,
     mockCommentsV2,
-    mockRepairWorkOrders,
+    mockWorkOrders,
     getAssetV1,
 } from '@hackney/mtfh-test-utils';
 
@@ -93,7 +93,7 @@ test('it shows repairs list', async () => {
         url: `/property/${mockAssetV1.id}`,
         path: '/property/:assetId',
     });
-    const mockOrder = mockRepairWorkOrders[0];
+    const mockOrder = mockWorkOrders[0];
 
     await waitFor(() => {
         screen.getByText(locale.repairs.heading);

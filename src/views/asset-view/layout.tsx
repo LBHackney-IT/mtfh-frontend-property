@@ -2,6 +2,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import React, { FC } from 'react';
 
 import { isFutureDate } from '@mtfh/common/lib/utils';
+import { useFeatureToggle } from '@mtfh/common/lib/hooks';
 import {
     Button,
     Layout,
@@ -12,13 +13,12 @@ import {
     SideBarSection,
     SideBarProps,
     CommentList,
-    RepairList,
+    WorkOrderList,
 } from '@mtfh/common/lib/components';
 import { Asset } from '@mtfh/common/lib/api/asset/v1';
 import { locale } from '../../services';
 import { AssetDetails, TenureDetails } from '../../components';
 import './styles.scss';
-import { useFeatureToggle } from '@mtfh/common/lib/hooks';
 
 export interface AssetLayoutProperties {
     assetDetails: Asset;
@@ -83,7 +83,7 @@ const PropertyBody = ({
             {hasRepairsList && (
                 <>
                     <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
-                    <RepairList assetId={assetId} />
+                    <WorkOrderList assetId={assetId} />
                 </>
             )}
             <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
