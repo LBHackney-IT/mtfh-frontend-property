@@ -3,6 +3,7 @@ import { rest } from 'msw';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
 import { formatDate, formatTime } from '@mtfh/common/lib/utils';
+import { $configuration } from '@mtfh/common/lib/configuration';
 import {
     server,
     render,
@@ -10,6 +11,7 @@ import {
     mockAssetLettableNonDwellingV1,
     mockAssetInvalidAssetTypeV1,
     mockCommentsV2,
+    mockWorkOrders,
     getAssetV1,
 } from '@hackney/mtfh-test-utils';
 
@@ -80,6 +82,27 @@ test('it shows add comment button and comments list', async () => {
         screen.getByText(mockCommentsV2[0].author.fullName);
         screen.getByText(formatDate(mockCommentsV2[0].createdAt));
         screen.getByText(formatTime(mockCommentsV2[0].createdAt));
+    });
+});
+
+test('it shows repairs list', async () => {
+    $configuration.next({
+        MMH: { configuration: {}, featureToggles: { RepairsList: true } },
+    });
+    render(<AssetView />, {
+        url: `/property/${mockAssetV1.id}`,
+        path: '/property/:assetId',
+    });
+    const mockOrder = mockWorkOrders[0];
+
+    await waitFor(() => {
+        screen.getByText(locale.repairs.heading);
+        screen.getByText(
+            `${mockOrder.tradeDescription}: ${mockOrder.description.substring(
+                0,
+                50
+            )}`
+        );
     });
 });
 

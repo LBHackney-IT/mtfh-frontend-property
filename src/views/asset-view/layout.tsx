@@ -2,6 +2,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import React, { FC } from 'react';
 
 import { isFutureDate } from '@mtfh/common/lib/utils';
+import { useFeatureToggle } from '@mtfh/common/lib/hooks';
 import {
     Button,
     Layout,
@@ -12,6 +13,7 @@ import {
     SideBarSection,
     SideBarProps,
     CommentList,
+    WorkOrderList,
 } from '@mtfh/common/lib/components';
 import { Asset } from '@mtfh/common/lib/api/asset/v1';
 import { locale } from '../../services';
@@ -60,9 +62,15 @@ const AssetSideBar = ({
 
 interface PropertyBodyProps {
     propertyId: string;
+    assetId: string;
 }
 
-const PropertyBody = ({ propertyId }: PropertyBodyProps) => {
+const PropertyBody = ({
+    propertyId,
+    assetId,
+}: PropertyBodyProps): JSX.Element => {
+    const hasRepairsList = useFeatureToggle('MMH.RepairsList');
+
     return (
         <div>
             <Button
@@ -72,6 +80,12 @@ const PropertyBody = ({ propertyId }: PropertyBodyProps) => {
             >
                 {locale.static.newProcess}
             </Button>
+            {hasRepairsList && (
+                <>
+                    <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
+                    <WorkOrderList assetId={assetId} />
+                </>
+            )}
             <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
             <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
                 {locale.comments.addComment}
@@ -102,7 +116,10 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
                 }
                 side={<AssetSideBar assetDetails={assetDetails} />}
             >
-                <PropertyBody propertyId={assetDetails.id} />
+                <PropertyBody
+                    assetId={assetDetails.assetId}
+                    propertyId={assetDetails.id}
+                />
             </Layout>
         </PageAnnouncementProvider>
     );
