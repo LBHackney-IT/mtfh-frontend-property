@@ -4,19 +4,23 @@ import ReactDOM from "react-dom";
 import singleSpaReact from "single-spa-react";
 
 import Root from "./root.component";
+
+import { ErrorSummary } from "@mtfh/common/lib/components";
+
 import "./root.styles.scss";
 
 const lifecycles = singleSpaReact({
   React,
   ReactDOM,
   rootComponent: Root,
-  errorBoundary(error, info, properties) {
-    // TODO: Log this error.
-    console.error(error);
-    console.error(info);
-    console.error(properties);
-
-    return <h1>Something has gone wrong loading the property application.</h1>;
+  errorBoundary() {
+    return (
+      <ErrorSummary
+        id="mtfh-property"
+        title="Error"
+        description="Unable to load property"
+      />
+    );
   },
 });
 
