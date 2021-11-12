@@ -1,2 +1,2 @@
-export * from './config';
-export { default as locale } from './locale';
+export * from "./config";
+export { default as locale } from "./locale";

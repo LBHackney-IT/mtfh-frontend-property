@@ -1,20 +1,20 @@
-import React from 'react';
-import { waitFor, screen } from '@testing-library/react';
-import { render } from '@hackney/mtfh-test-utils';
-import App from './app';
+import React from "react";
 
-test('it shows invalid if no id in url', () => {
-    render(<App />, { url: '/', path: '/' });
-    expect(screen.getByText('404')).toBeInTheDocument();
+import { render } from "@hackney/mtfh-test-utils";
+import { screen } from "@testing-library/react";
+
+import App from "./app";
+
+test("it shows invalid if no id in url", () => {
+  render(<App />, { url: "/", path: "/" });
+  expect(screen.getByText("404")).toBeInTheDocument();
 });
 
-test('it renders property view', async () => {
-    render(<App />, {
-        url: '/property/123',
-        path: '/property/:assetId',
-    });
+test("it renders property view", async () => {
+  render(<App />, {
+    url: "/property/123",
+    path: "/property/:assetId",
+  });
 
-    await waitFor(() =>
-        expect(screen.getByTestId('property')).toBeInTheDocument()
-    );
+  await screen.findByTestId("property");
 });

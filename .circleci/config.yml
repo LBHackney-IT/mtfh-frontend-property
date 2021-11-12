@@ -128,10 +128,15 @@ jobs:
             - run:
                 name: build
                 command: |
+                    export APP_ENV=<<parameters.stage>>
+                    export APP_CDN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-app-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
-                  command: aws s3 sync dist s3://lbh-housing-tl-property-frontend-development.hackney.gov.uk/
+                  command: |
+                    aws s3 sync dist s3://lbh-housing-tl-property-frontend-development.hackney.gov.uk/ --exclude "*.json" --cache-control "public, immutable, max-age=31536000"
+                    aws s3 sync dist s3://lbh-housing-tl-property-frontend-development.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
+
     build-deploy-staging:
         executor: node-executor
         environment:
@@ -145,10 +150,15 @@ jobs:
             - run:
                 name: build
                 command: |
+                    export APP_ENV=<<parameters.stage>>
+                    export APP_CDN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-app-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
-                  command: aws s3 sync dist s3://lbh-housing-tl-property-frontend-staging.hackney.gov.uk/
+                  command: |
+                    aws s3 sync dist s3://lbh-housing-tl-property-frontend-staging.hackney.gov.uk/ --exclude "*.json" --cache-control "public, immutable, max-age=31536000"
+                    aws s3 sync dist s3://lbh-housing-tl-property-frontend-staging.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
+
     build-deploy-production:
         executor: node-executor
         environment:
@@ -162,11 +172,14 @@ jobs:
             - run:
                 name: build
                 command: |
-                    export APP_ENV=production
+                    export APP_ENV=<<parameters.stage>>
+                    export APP_CDN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-app-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
-                  command: aws s3 sync dist s3://lbh-housing-tl-property-frontend-production.hackney.gov.uk/
+                  command: |
+                    aws s3 sync dist s3://lbh-housing-tl-property-frontend-production.hackney.gov.uk/ --exclude "*.json" --cache-control "public, immutable, max-age=31536000"
+                    aws s3 sync dist s3://lbh-housing-tl-property-frontend-production.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     assume-role-development:
         executor: docker-python
