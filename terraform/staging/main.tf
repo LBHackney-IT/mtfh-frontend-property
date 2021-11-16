@@ -37,7 +37,15 @@ module "cloudfront-staging" {
   orginin_access_identity_desc = "T&L property frontend cloudfront identity"
   cname_aliases = []
   environment_name = "staging"
-  cost_code= "B0811"
-  project_name= "MTFH Tenants and Leaseholders"
+  cost_code = "B0811"
+  project_name = "MTFH Tenants and Leaseholders"
   use_cloudfront_cert = true
+  compress = true
+}
+
+resource "aws_ssm_parameter" "cdn" {
+  name  = "/housing-tl/staging/property-app-url"
+  type  = "String"
+  value = "https://${module.cloudfront-staging.cloudfront_domain_name}"
+  overwrite = true
 }
