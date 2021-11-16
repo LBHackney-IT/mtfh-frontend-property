@@ -1,16 +1,3 @@
 {
-  "extends": "@hackney/eslint-config",
-  "rules": {
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": [
-          "src/test-utils.ts",
-          "**/*.+(test|spec).+(j|t)s?(x)",
-          "test?(s)/**/*.+(j|t)s?(x)",
-          "*.config.js"
-        ]
-      }
-    ]
-  }
+  "extends": "@hackney/eslint-config"
 }

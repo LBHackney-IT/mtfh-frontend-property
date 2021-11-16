@@ -1,3 +1,4 @@
+const { ImportMapWebpackPlugin } = require("@hackney/webpack-import-map-plugin");
 const webpack = require("webpack");
 const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
 const { merge } = require("webpack-merge");
@@ -12,7 +13,7 @@ module.exports = (webpackConfigEnv, argv) => {
 
   return merge(defaultConfig, {
     entry: {
-      header: defaultConfig.entry,
+      property: defaultConfig.entry,
     },
     output: {
       filename: "[name].[contenthash].js",
