@@ -90,15 +90,15 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
     <PageAnnouncementProvider sessionKey="asset">
       <PageAnnouncement />
       <Layout
+        backLink={
+          <Link as={RouterLink} to="/search" variant="back-link">
+            {locale.backToSearch}
+          </Link>
+        }
         top={
-          <>
-            <Link as={RouterLink} to="/search" variant="back-link">
-              {locale.backToSearch}
-            </Link>
-            <h1 className="heading">
-              {locale.assetDetails.address(assetDetails.assetAddress)}
-            </h1>
-          </>
+          <h1 className="heading">
+            {locale.assetDetails.address(assetDetails.assetAddress)}
+          </h1>
         }
         side={<AssetSideBar assetDetails={assetDetails} />}
       >
