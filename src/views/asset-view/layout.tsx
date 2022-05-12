@@ -6,8 +6,11 @@ import { locale } from "../../services";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import {
+  Accordion,
+  AccordionItem,
   Button,
   CommentList,
+  Heading,
   Layout,
   Link,
   PageAnnouncement,
@@ -34,6 +37,22 @@ const AssetSideBar = ({ assetDetails, ...properties }: AssetSideBarProperties) =
   return (
     <div className="mtfh-asset-sidebar">
       <SideBar id="property-view-sidebar" {...properties}>
+        <Accordion id="contact-details">
+          <AccordionItem
+            id="discretion-alert"
+            title={locale.tenureDetails.discretionaryAlerts}
+          >
+            <Heading as="h2" variant="h4">
+              Joan Fischer
+            </Heading>
+            <Heading as="h2" variant="h4">
+              Abusive language
+            </Heading>
+            <p style={{ fontSize: "16px", lineHeight: "20px", margin: 0 }}>
+              Tenant verbally abusive to operative, whilst working in tenants property.
+            </p>
+          </AccordionItem>
+        </Accordion>
         <AssetDetails
           assetAddress={assetAddress}
           assetType={assetType}
