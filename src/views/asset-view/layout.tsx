@@ -5,6 +5,7 @@ import { AssetDetails, TenureDetails } from "../../components";
 import { locale } from "../../services";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { usePropertyDiscretionaryAlert } from "@mtfh/common/lib/api/discretionary-alerts/v1";
 import {
   Accordion,
   AccordionItem,
@@ -34,36 +35,50 @@ interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutPrope
 const AssetSideBar = ({ assetDetails, ...properties }: AssetSideBarProperties) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
 
+  const { data } = usePropertyDiscretionaryAlert(assetId);
+  const isAlert = data && data.alerts?.length > 0;
+
   return (
     <div className="mtfh-asset-sidebar">
       <SideBar id="property-view-sidebar" {...properties}>
-        <Accordion id="contact-details">
-          <AccordionItem
-            id="discretion-alert"
-            title={locale.tenureDetails.discretionaryAlerts}
+        <>
+          {isAlert && (
+            <Accordion id="contact-details">
+              <>
+                {data?.alerts.map((alert, index) => {
+                  return (
+                    <AccordionItem
+                      key={`${index}-${alert.alertCode}`}
+                      id="discretion-alert"
+                      title={locale.tenureDetails.discretionaryAlerts}
+                    >
+                      <Heading as="h2" variant="h4">
+                        Joan Fischer
+                      </Heading>
+                      <Heading as="h2" variant="h4">
+                        {alert.description}
+                      </Heading>
+                      <p style={{ fontSize: "16px", lineHeight: "20px", margin: 0 }}>
+                        {alert.reason}
+                      </p>
+                    </AccordionItem>
+                  );
+                })}
+              </>
+            </Accordion>
+          )}
+          <AssetDetails
+            assetAddress={assetAddress}
+            assetType={assetType}
+            assetReference={assetId}
+          />
+          <SideBarSection
+            id="tenure-details"
+            title={locale.tenureDetails.expandedTenureSection}
           >
-            <Heading as="h2" variant="h4">
-              Joan Fischer
-            </Heading>
-            <Heading as="h2" variant="h4">
-              Abusive language
-            </Heading>
-            <p style={{ fontSize: "16px", lineHeight: "20px", margin: 0 }}>
-              Tenant verbally abusive to operative, whilst working in tenants property.
-            </p>
-          </AccordionItem>
-        </Accordion>
-        <AssetDetails
-          assetAddress={assetAddress}
-          assetType={assetType}
-          assetReference={assetId}
-        />
-        <SideBarSection
-          id="tenure-details"
-          title={locale.tenureDetails.expandedTenureSection}
-        >
-          <TenureDetails tenure={tenure} />
-        </SideBarSection>
+            <TenureDetails tenure={tenure} />
+          </SideBarSection>
+        </>
       </SideBar>
       {(!tenure || !tenure.isActive || !isFutureDate(tenure.endOfTenureDate)) && (
         <Button as={RouterLink} to={`/tenure/${id}/add`}>
