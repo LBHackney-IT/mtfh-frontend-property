@@ -53,9 +53,6 @@ const AssetSideBar = ({ assetDetails, ...properties }: AssetSideBarProperties) =
                       title={locale.tenureDetails.discretionaryAlerts}
                     >
                       <Heading as="h2" variant="h4">
-                        Joan Fischer
-                      </Heading>
-                      <Heading as="h2" variant="h4">
                         {alert.description}
                       </Heading>
                       <p style={{ fontSize: "16px", lineHeight: "20px", margin: 0 }}>
