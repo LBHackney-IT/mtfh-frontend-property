@@ -159,27 +159,6 @@ test("it shows new tenure button when tenure id is null", async () => {
   await screen.findByText(locale.assetDetails.newTenure);
 });
 
-test("no new tenure button", async () => {
-  server.use(
-    rest.get("/api/v1/assets/:id", (req, res, ctx) =>
-      res(
-        ctx.status(200),
-        ctx.set("ETag", '"1"'),
-        ctx.json({
-          ...mockAssetLettableNonDwellingV1,
-          tenure: { id: "123", isActive: true },
-        }),
-      ),
-    ),
-  );
-  render(<AssetView />, {
-    url: `/property/${mockAssetV1.id}`,
-    path: "/property/:assetId",
-  });
-
-  expect(screen.queryByText(locale.assetDetails.newTenure)).not.toBeInTheDocument();
-});
-
 test("renders the asset view for lettable-non-dwelling", async () => {
   server.use(
     rest.get("/api/v1/assets/:id", (req, res, ctx) =>
@@ -196,6 +175,7 @@ test("renders the asset view for lettable-non-dwelling", async () => {
   });
 
   await screen.findByText(/Lettable non-dwelling/);
+  expect(screen.queryByText(locale.assetDetails.newTenure)).not.toBeInTheDocument();
 });
 
 test("renders the asset view for invalid asset type", async () => {
