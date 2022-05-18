@@ -39,9 +39,11 @@ export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
           {paymentReference}
         </SummaryListItem>
       </SummaryList>
-      <Button as={RouterLink} to={`/tenure/${id}`} variant="secondary">
-        {locale.tenureDetails.viewTenureButtonLabel}
-      </Button>
+      {id && (
+        <Button as={RouterLink} to={`/tenure/${id}`} variant="secondary">
+          {locale.tenureDetails.viewTenureButtonLabel}
+        </Button>
+      )}
     </div>
   );
 };
