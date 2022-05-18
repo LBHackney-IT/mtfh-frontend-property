@@ -77,7 +77,10 @@ const AssetSideBar = ({ assetDetails, ...properties }: AssetSideBarProperties) =
           </SideBarSection>
         </>
       </SideBar>
-      {(!tenure || !tenure.isActive || !isFutureDate(tenure.endOfTenureDate)) && (
+      {(!tenure ||
+        !tenure.isActive ||
+        !isFutureDate(tenure.endOfTenureDate) ||
+        !tenure.id) && (
         <Button as={RouterLink} to={`/tenure/${id}/add`}>
           {locale.assetDetails.newTenure}
         </Button>
