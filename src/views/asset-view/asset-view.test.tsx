@@ -102,7 +102,7 @@ test("it shows repairs list", async () => {
   });
 });
 
-test("it shows new tenure button", async () => {
+test("it shows new tenure button when tenure is an empty object", async () => {
   server.use(
     rest.get("/api/v1/assets/:id", (req, res, ctx) =>
       res(
@@ -118,6 +118,66 @@ test("it shows new tenure button", async () => {
   });
 
   await screen.findByText(locale.assetDetails.newTenure);
+});
+
+test("it shows new tenure button when tenure is null", async () => {
+  server.use(
+    rest.get("/api/v1/assets/:id", (req, res, ctx) =>
+      res(
+        ctx.status(200),
+        ctx.set("ETag", '"1"'),
+        ctx.json({ ...mockAssetLettableNonDwellingV1, tenure: null }),
+      ),
+    ),
+  );
+  render(<AssetView />, {
+    url: `/property/${mockAssetV1.id}`,
+    path: "/property/:assetId",
+  });
+
+  await screen.findByText(locale.assetDetails.newTenure);
+});
+
+test("it shows new tenure button when tenure id is null", async () => {
+  server.use(
+    rest.get("/api/v1/assets/:id", (req, res, ctx) =>
+      res(
+        ctx.status(200),
+        ctx.set("ETag", '"1"'),
+        ctx.json({
+          ...mockAssetLettableNonDwellingV1,
+          tenure: { id: null, isActive: true },
+        }),
+      ),
+    ),
+  );
+  render(<AssetView />, {
+    url: `/property/${mockAssetV1.id}`,
+    path: "/property/:assetId",
+  });
+
+  await screen.findByText(locale.assetDetails.newTenure);
+});
+
+test("no new tenure button", async () => {
+  server.use(
+    rest.get("/api/v1/assets/:id", (req, res, ctx) =>
+      res(
+        ctx.status(200),
+        ctx.set("ETag", '"1"'),
+        ctx.json({
+          ...mockAssetLettableNonDwellingV1,
+          tenure: { id: "123", isActive: true },
+        }),
+      ),
+    ),
+  );
+  render(<AssetView />, {
+    url: `/property/${mockAssetV1.id}`,
+    path: "/property/:assetId",
+  });
+
+  expect(screen.queryByText(locale.assetDetails.newTenure)).not.toBeInTheDocument();
 });
 
 test("renders the asset view for lettable-non-dwelling", async () => {
