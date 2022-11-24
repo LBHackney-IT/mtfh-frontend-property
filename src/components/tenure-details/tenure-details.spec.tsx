@@ -19,7 +19,9 @@ describe("TenureDetails", () => {
     expect(
       screen.getByText(formatDate(mockActiveAssetTenure.startOfTenureDate)),
     ).toBeInTheDocument();
-    expect(screen.getByText("View tenure")).toBeInTheDocument();
+    expect(screen.getByText("Tenure").getAttribute("href")).toBe(
+      `/tenure/${mockActiveAssetTenure.id}`,
+    );
   });
 
   it("should display tenure details with inactive status", () => {
@@ -30,7 +32,9 @@ describe("TenureDetails", () => {
     expect(
       screen.getByText(formatDate(mockInactiveAssetTenure.startOfTenureDate)),
     ).toBeInTheDocument();
-    expect(screen.getByText("View tenure")).toBeInTheDocument();
+    expect(screen.getByText("Tenure").getAttribute("href")).toBe(
+      `/tenure/${mockInactiveAssetTenure.id}`,
+    );
   });
 
   it("should display No tenure message when no tenure is available", () => {
