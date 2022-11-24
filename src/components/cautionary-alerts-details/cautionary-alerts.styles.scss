@@ -1,0 +1,21 @@
+@import '~lbh-frontend/lbh/base';
+
+.mtfh-cautionary-alerts {
+  padding-bottom: 1rem;
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  & > p {
+    margin-top: 0
+  }
+
+  a {
+    margin-bottom: 20px;
+  }
+
+  .person-link {
+    font-weight: 600;
+  }
+}

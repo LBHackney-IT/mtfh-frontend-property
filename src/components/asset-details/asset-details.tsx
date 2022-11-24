@@ -17,7 +17,7 @@ export const AssetDetails = ({
   assetReference,
 }: AssetDetailsProps): JSX.Element => {
   return (
-    <div className="mtfh-asset-details">
+    <aside className="mtfh-asset-details">
       <SummaryList overrides={[2 / 3]}>
         <SummaryListItem title={locale.tenureDetails.assetTypeLabel}>
           {locale.assetType(assetType)}
@@ -29,6 +29,6 @@ export const AssetDetails = ({
           {assetReference}
         </SummaryListItem>
       </SummaryList>
-    </div>
+    </aside>
   );
 };
