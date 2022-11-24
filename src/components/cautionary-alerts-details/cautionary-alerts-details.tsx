@@ -18,14 +18,16 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
     }
   > = {};
 
-  alerts.forEach((alert) => {
-    if (alertsPerPerson[alert.personId]) {
-      alertsPerPerson[alert.personId].alerts.push(alert.description);
-    } else {
-      alertsPerPerson[alert.personId] = {
-        personName: alert.personName,
-        alerts: [alert.description],
-      };
+  alerts.forEach(({ personId, personName, description }) => {
+    if (personId && personName) {
+      if (alertsPerPerson[personId]) {
+        alertsPerPerson[personId].alerts.push(description);
+      } else {
+        alertsPerPerson[personId] = {
+          personName,
+          alerts: [description],
+        };
+      }
     }
   });
 
