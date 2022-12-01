@@ -5,7 +5,7 @@ import { AssetDetails, TenureDetails } from "../../components";
 import { locale } from "../../services";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { usePropertyDiscretionaryAlert } from "@mtfh/common/lib/api/discretionary-alerts/v1";
+import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
 import {
   Accordion,
   AccordionItem,
@@ -35,7 +35,7 @@ interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutPrope
 const AssetSideBar = ({ assetDetails, ...properties }: AssetSideBarProperties) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
 
-  const { data } = usePropertyDiscretionaryAlert(assetId);
+  const { data } = usePropertyCautionaryAlert(assetId);
   const isAlert = data && data.alerts?.length > 0;
 
   return (
@@ -50,7 +50,7 @@ const AssetSideBar = ({ assetDetails, ...properties }: AssetSideBarProperties) =
                     <AccordionItem
                       key={`${index}-${alert.alertCode}`}
                       id="discretion-alert"
-                      title={locale.tenureDetails.discretionaryAlerts}
+                      title={locale.tenureDetails.cautionaryAlerts}
                     >
                       <Heading as="h2" variant="h4">
                         {alert.description}
