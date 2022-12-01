@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { locale } from "../../services";
 
 import { AssetTenure } from "@mtfh/common/lib/api/asset/v1";
-import { Button, SummaryList, SummaryListItem } from "@mtfh/common/lib/components";
+import { Heading, Link, SummaryList, SummaryListItem } from "@mtfh/common/lib/components";
 import { formatDate } from "@mtfh/common/lib/utils";
 
 import "./tenure-details.styles.scss";
@@ -22,8 +22,12 @@ export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
     tenure;
 
   return (
-    <div className="mtfh-tenure-details">
-      <h2>{locale.tenureDetails.tenureLabel}</h2>
+    <aside className="mtfh-tenure-details">
+      <Heading variant="h2" className="lbh-heading lbh-heading-h3">
+        <Link as={RouterLink} to={`/tenure/${id}`}>
+          {locale.tenureDetails.tenureLabel}
+        </Link>
+      </Heading>
       <SummaryList overrides={[2 / 3]}>
         <SummaryListItem title={locale.tenureDetails.type}>{type}</SummaryListItem>
         <SummaryListItem title={locale.tenureDetails.status}>
@@ -39,11 +43,6 @@ export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
           {paymentReference}
         </SummaryListItem>
       </SummaryList>
-      {id && (
-        <Button as={RouterLink} to={`/tenure/${id}`} variant="secondary">
-          {locale.tenureDetails.viewTenureButtonLabel}
-        </Button>
-      )}
-    </div>
+    </aside>
   );
 };

@@ -62,6 +62,10 @@ export default {
     noTenure: "No tenure",
     paymentRef: "Payment ref.",
   },
+  cautionaryAlerts: {
+    cautionaryAlerts: "Cautionary alerts",
+    none: "None",
+  },
   static: {
     newProcess: "New Process",
   },

@@ -21,6 +21,16 @@ import { AssetView } from ".";
 import { $configuration } from "@mtfh/common/lib/configuration";
 import { formatDate, formatTime } from "@mtfh/common/lib/utils";
 
+beforeEach(() => {
+  jest.resetAllMocks();
+  server.use(
+    rest.get(
+      `/api/v1/cautionary-alerts/properties-new/${mockAssetV1.assetId}`,
+      (req, res, ctx) => res(ctx.status(200), ctx.json({ alerts: [] })),
+    ),
+  );
+});
+
 test("renders the error on Asset failure", async () => {
   server.use(getAssetV1(undefined, 500));
   render(<AssetView />, {

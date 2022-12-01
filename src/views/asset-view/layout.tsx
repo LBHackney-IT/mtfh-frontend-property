@@ -2,14 +2,16 @@ import React, { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { AssetDetails, TenureDetails } from "../../components";
+import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
 import { locale } from "../../services";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
+import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import {
-  Accordion,
-  AccordionItem,
+  Alert as AlertIcon,
   Button,
+  Center,
   CommentList,
   Heading,
   Layout,
@@ -18,7 +20,7 @@ import {
   PageAnnouncementProvider,
   SideBar,
   SideBarProps,
-  SideBarSection,
+  Spinner,
   WorkOrderList,
 } from "@mtfh/common/lib/components";
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
@@ -30,51 +32,28 @@ export interface AssetLayoutProperties {
   assetDetails: Asset;
 }
 
-interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {}
+interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {
+  alerts: Alert[];
+}
 
-const AssetSideBar = ({ assetDetails, ...properties }: AssetSideBarProperties) => {
+const AssetSideBar = ({
+  assetDetails,
+  alerts,
+  ...properties
+}: AssetSideBarProperties) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
-
-  const { data } = usePropertyCautionaryAlert(assetId);
-  const isAlert = data && data.alerts?.length > 0;
 
   return (
     <div className="mtfh-asset-sidebar">
       <SideBar id="property-view-sidebar" {...properties}>
         <>
-          {isAlert && (
-            <Accordion id="contact-details">
-              <>
-                {data?.alerts.map((alert, index) => {
-                  return (
-                    <AccordionItem
-                      key={`${index}-${alert.alertCode}`}
-                      id="discretion-alert"
-                      title={locale.tenureDetails.cautionaryAlerts}
-                    >
-                      <Heading as="h2" variant="h4">
-                        {alert.description}
-                      </Heading>
-                      <p style={{ fontSize: "16px", lineHeight: "20px", margin: 0 }}>
-                        {alert.reason}
-                      </p>
-                    </AccordionItem>
-                  );
-                })}
-              </>
-            </Accordion>
-          )}
           <AssetDetails
             assetAddress={assetAddress}
             assetType={assetType}
             assetReference={assetId}
           />
-          <SideBarSection
-            id="tenure-details"
-            title={locale.tenureDetails.expandedTenureSection}
-          >
-            <TenureDetails tenure={tenure} />
-          </SideBarSection>
+          <CautionaryAlertsDetails alerts={alerts} />
+          <TenureDetails tenure={tenure} />
         </>
       </SideBar>
       {(!tenure ||
@@ -120,6 +99,16 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
 };
 
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
+  const { data } = usePropertyCautionaryAlert(assetDetails.assetId);
+
+  if (!data) {
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
     <PageAnnouncementProvider sessionKey="asset">
       <PageAnnouncement />
@@ -130,11 +119,19 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
           </Link>
         }
         top={
-          <h1 className="heading">
+          <Heading variant="h1">
+            {data.alerts?.length > 0 && (
+              <AlertIcon
+                viewBox="0 0 37 58"
+                width="28"
+                height="44"
+                style={{ margin: "-2px 4px 0 0" }}
+              />
+            )}
             {locale.assetDetails.address(assetDetails.assetAddress)}
-          </h1>
+          </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} />}
+        side={<AssetSideBar assetDetails={assetDetails} alerts={data.alerts} />}
       >
         <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
       </Layout>
