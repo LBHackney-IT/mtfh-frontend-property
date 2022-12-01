@@ -6,8 +6,8 @@ import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-deta
 import { locale } from "../../services";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { usePropertyDiscretionaryAlert } from "@mtfh/common/lib/api/discretionary-alerts/v1";
-import { Alert } from "@mtfh/common/lib/api/discretionary-alerts/v1/types";
+import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
+import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import {
   Alert as AlertIcon,
   Button,
@@ -99,7 +99,7 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
 };
 
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
-  const { data } = usePropertyDiscretionaryAlert(assetDetails.assetId);
+  const { data } = usePropertyCautionaryAlert(assetDetails.assetId);
 
   if (!data) {
     return (
