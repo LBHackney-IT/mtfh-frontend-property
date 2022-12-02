@@ -2,7 +2,7 @@ import React from "react";
 
 import { locale } from "../../services";
 
-import { Alert } from "@mtfh/common/lib/api/discretionary-alerts/v1/types";
+import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import { Alert as AlertIcon, Heading, Link, Text } from "@mtfh/common/lib/components";
 
 import "./cautionary-alerts.styles.scss";
