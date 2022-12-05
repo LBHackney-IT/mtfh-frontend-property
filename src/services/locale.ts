@@ -46,7 +46,6 @@ export default {
   },
   tenureDetails: {
     tenureLabel: "Tenure",
-    CautionaryAlerts: "Caution alert",
     expandedTenureSection: "Tenure details",
     viewTenureButtonLabel: "View tenure",
     assetTypeLabel: "Type",
