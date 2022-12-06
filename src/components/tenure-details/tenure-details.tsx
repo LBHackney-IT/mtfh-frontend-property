@@ -22,7 +22,7 @@ export const TenureDetails = ({ tenure }: TenureDetailsProps): JSX.Element => {
     tenure;
 
   return (
-    <aside className="mtfh-tenure-details">
+    <aside id="tenure-details" className="mtfh-tenure-details">
       <Heading variant="h2" className="lbh-heading lbh-heading-h3">
         <Link as={RouterLink} to={`/tenure/${id}`}>
           {locale.tenureDetails.tenureLabel}
