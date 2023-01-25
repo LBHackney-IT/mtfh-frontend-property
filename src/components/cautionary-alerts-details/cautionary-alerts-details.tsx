@@ -58,11 +58,13 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
           const { personName, alerts } = alertsPerPerson[personId];
           return (
             <Text size="sm" key={personId}>
-              {personId ? 
-              <Link className="person-link" href={`/person/${personId}`}>
-                {personName}
-              </Link> : <Text size="sm">{personName}</Text>
-              }
+              {personId ? (
+                <Link className="person-link" href={`/person/${personId}`}>
+                  {personName}
+                </Link>
+              ) : (
+                <Text size="sm">{personName}</Text>
+              )}
               <br />
               {alerts.map((alert) => {
                 return (
