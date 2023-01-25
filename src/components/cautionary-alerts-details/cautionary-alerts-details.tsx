@@ -56,7 +56,7 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
           const { personName, alerts } = alertsPerPerson[personId];
           return (
             <Text size="sm" key={personId}>
-              {personId != "no_id" ? (
+              {personId !== "no_id" ? (
                 <Link className="person-link" href={`/person/${personId}`}>
                   {personName}
                 </Link>
