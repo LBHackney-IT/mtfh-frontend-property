@@ -17,13 +17,6 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
       alerts: string[];
     }
   > = {};
-  const alertsPerPersonWithoutPersonId: Record<
-    string,
-    {
-      personName: string;
-      alerts: string[];
-    }
-  > = {};
 
   alerts.forEach(({ personId, personName, description }) => {
     if (personId && personName) {
@@ -36,7 +29,7 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
         };
       }
     } else if (personName) {
-      alertsPerPersonWithoutPersonId[description] = {
+      alertsPerPerson[personName] = {
         personName,
         alerts: [description],
       };
@@ -63,9 +56,13 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
           const { personName, alerts } = alertsPerPerson[personId];
           return (
             <Text size="sm" key={personId}>
-              <Link className="person-link" href={`/person/${personId}`}>
-                {personName}
-              </Link>
+              {personId ? (
+                <Link className="person-link" href={`/person/${personId}`}>
+                  {personName}
+                </Link>
+              ) : (
+                <Text size="sm">{personName}</Text>
+              )}
               <br />
               {alerts.map((alert) => {
                 return (
