@@ -19,8 +19,7 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
   > = {};
 
   alerts.forEach(({ personId, personName, description }) => {
-    if (personId) {
-      if (personName) {
+    if (personId && personName) {
         if (alertsPerPerson[personId]) {
           alertsPerPerson[personId].alerts.push(description);
         } else {
@@ -28,7 +27,6 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
             personName,
             alerts: [description],
           };
-        }
       }
     } else if (personName) {
       alertsPerPerson[personName] = {
