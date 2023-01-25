@@ -28,8 +28,8 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
           alerts: [description],
         };
       }
-    } else if(personName){
-      alertsPerPerson[description]  = {
+    } else if (personName) {
+      alertsPerPerson[description] = {
         personName,
         alerts: [description],
       };
