@@ -28,7 +28,7 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
           alerts: [description],
         };
       }
-    } 
+    }
   });
 
   return (

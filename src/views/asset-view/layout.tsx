@@ -100,12 +100,12 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
 };
 
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
-  const { data } = usePropertyCautionaryAlert(assetDetails.assetId);
-  const cautionaryAlerts = data?.alerts;
+  const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
+  const cautionaryAlerts = alertsData?.alerts;
+  const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
   if (assetDetails.tenure) {
-    const { data } = useTenure(assetDetails.tenure?.id);
-    if (data && cautionaryAlerts) {
-      const householdMembers: HouseholdMember[] = data.householdMembers;
+    if (tenure && cautionaryAlerts) {
+      const householdMembers: HouseholdMember[] = tenure.householdMembers;
       cautionaryAlerts.forEach((alert) => {
         householdMembers.forEach((householdMember) => {
           if (alert.personName) {
@@ -118,7 +118,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
     }
   }
 
-  if (!data) {
+  if (!alertsData) {
     return (
       <Center>
         <Spinner />
@@ -137,7 +137,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
         }
         top={
           <Heading variant="h1">
-            {data.alerts?.length > 0 && (
+            {alertsData.alerts?.length > 0 && (
               <AlertIcon
                 viewBox="0 0 37 58"
                 width="28"
@@ -148,12 +148,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
             {locale.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={
-          <AssetSideBar
-            assetDetails={assetDetails}
-            alerts={data.alerts}
-          />
-        }
+        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
       >
         <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
       </Layout>
