@@ -8,6 +8,8 @@ import { locale } from "../../services";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
+import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
+import { HouseholdMember } from "@mtfh/common/lib/api/tenure/v1/types";
 import {
   Alert as AlertIcon,
   Button,
@@ -42,7 +44,6 @@ const AssetSideBar = ({
   ...properties
 }: AssetSideBarProperties) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
-
   return (
     <div className="mtfh-asset-sidebar">
       <SideBar id="property-view-sidebar" {...properties}>
@@ -100,6 +101,22 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
 
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
   const { data } = usePropertyCautionaryAlert(assetDetails.assetId);
+  const cautionaryAlerts = data?.alerts;
+  if (assetDetails.tenure) {
+    const { data } = useTenure(assetDetails.tenure?.id);
+    if (data && cautionaryAlerts) {
+      const householdMembers: HouseholdMember[] = data.householdMembers;
+      cautionaryAlerts.forEach((alert) => {
+        householdMembers.forEach((householdMember) => {
+          if (alert.personName) {
+            if (alert.personName === householdMember.fullName) {
+              alert.personId = householdMember.id;
+            }
+          }
+        });
+      });
+    }
+  }
 
   if (!data) {
     return (
@@ -131,7 +148,12 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
             {locale.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={data.alerts} />}
+        side={
+          <AssetSideBar
+            assetDetails={assetDetails}
+            alerts={data.alerts}
+          />
+        }
       >
         <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
       </Layout>
