@@ -28,11 +28,6 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
           alerts: [description],
         };
       }
-    } else if (personName) {
-      alertsPerPerson["no_id"] = {
-        personName,
-        alerts: [description],
-      };
     }
   });
 
@@ -56,13 +51,9 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
           const { personName, alerts } = alertsPerPerson[personId];
           return (
             <Text size="sm" key={personId}>
-              {personId !== "no_id" ? (
-                <Link className="person-link" href={`/person/${personId}`}>
-                  {personName}
-                </Link>
-              ) : (
-                <Text size="sm">{personName}</Text>
-              )}
+              <Link className="person-link" href={`/person/${personId}`}>
+                {personName}
+              </Link>
               <br />
               {alerts.map((alert) => {
                 return (

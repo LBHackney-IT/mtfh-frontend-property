@@ -8,6 +8,8 @@ import { locale } from "../../services";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
+import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
+import { HouseholdMember } from "@mtfh/common/lib/api/tenure/v1/types";
 import {
   Alert as AlertIcon,
   Button,
@@ -42,7 +44,6 @@ const AssetSideBar = ({
   ...properties
 }: AssetSideBarProperties) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
-
   return (
     <div className="mtfh-asset-sidebar">
       <SideBar id="property-view-sidebar" {...properties}>
@@ -99,9 +100,25 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
 };
 
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
-  const { data } = usePropertyCautionaryAlert(assetDetails.assetId);
+  const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
+  const cautionaryAlerts = alertsData?.alerts;
+  const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
+  if (assetDetails.tenure) {
+    if (tenure && cautionaryAlerts) {
+      const householdMembers: HouseholdMember[] = tenure.householdMembers;
+      cautionaryAlerts.forEach((alert) => {
+        householdMembers.forEach((householdMember) => {
+          if (alert.personName) {
+            if (alert.personName === householdMember.fullName) {
+              alert.personId = householdMember.id;
+            }
+          }
+        });
+      });
+    }
+  }
 
-  if (!data) {
+  if (!alertsData) {
     return (
       <Center>
         <Spinner />
@@ -120,7 +137,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
         }
         top={
           <Heading variant="h1">
-            {data.alerts?.length > 0 && (
+            {alertsData.alerts?.length > 0 && (
               <AlertIcon
                 viewBox="0 0 37 58"
                 width="28"
@@ -131,7 +148,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
             {locale.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={data.alerts} />}
+        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
       >
         <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
       </Layout>
