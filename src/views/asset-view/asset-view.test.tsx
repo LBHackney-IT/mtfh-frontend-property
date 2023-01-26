@@ -203,4 +203,4 @@ test("renders the asset view for invalid asset type", async () => {
   await screen.findByText(locale.assetCouldNotBeLoaded);
 });
 
-//extra tests for retrieving personId to be added here once tested that it is working 
+//extra tests for retrieving personId to be added here once tested that it is working
