@@ -2,6 +2,7 @@ import React from "react";
 
 import {
   getAssetV1,
+  mockActiveTenureV1,
   mockAssetInvalidAssetTypeV1,
   mockAssetLettableNonDwellingV1,
   mockAssetV1,
@@ -203,4 +204,60 @@ test("renders the asset view for invalid asset type", async () => {
   await screen.findByText(locale.assetCouldNotBeLoaded);
 });
 
-//extra tests for retrieving personId to be added here once tested that it is working
+test("renders the asset view for missing person id", async () => {
+  mockActiveTenureV1.householdMembers[0].id = "2d9d6ac5-d376-4ac4-9a00-85659be82d10";
+  mockActiveTenureV1.householdMembers[0].fullName = "FAKE_Alice FAKE_Rowe";
+  mockAssetV1.assetId = "12345";
+  mockActiveTenureV1.tenuredAsset.propertyReference = mockAssetV1.assetId;
+  if (mockAssetV1.tenure) {
+    mockAssetV1.tenure.id = "2d9d6ac5-d376-4ac4-9a00-85659be82d10";
+  }
+
+  const alertsResponse = {
+    propertyReference: mockAssetV1.assetId,
+    uprn: null,
+    addressNumber: null,
+    alerts: [
+      {
+        dateModified: "12/02/2022",
+        modifiedBy: "GoogleSheet",
+        startDate: "12/02/2022",
+        endDate: null,
+        alertCode: null,
+        description: "Domestic Abuse Case - please seek advice",
+        reason: null,
+        assureReference: "123456",
+        personName: "FAKE_Alice FAKE_Rowe",
+        personId: null,
+      },
+    ],
+  };
+
+  server.use(
+    rest.get(`/api/v1/assets/${mockAssetV1.id}`, (req, res, ctx) =>
+      res(ctx.status(200), ctx.set("ETag", '"2"'), ctx.json(mockAssetV1)),
+    ),
+  );
+  server.use(
+    rest.get(
+      `/api/v1/cautionary-alerts/properties-new/${mockAssetV1.assetId}`,
+      (req, res, ctx) => res(ctx.status(200), ctx.json({ alertsResponse })),
+    ),
+  );
+  server.use(
+    rest.get(`/api/v1/tenure/${mockActiveTenureV1.id}`, (req, res, ctx) =>
+      res(ctx.status(200), ctx.set("ETag", '"2"'), ctx.json(mockActiveTenureV1)),
+    ),
+  );
+
+  render(<AssetView />, {
+    url: `/property/${mockAssetV1.id}`,
+    path: "/property/:assetId",
+  });
+
+  await screen.findByText("FAKE_Alice FAKE_Rowe");
+
+  expect(screen.getByText(alertsResponse.alerts[0].personName).getAttribute("href")).toBe(
+    `/person/${mockActiveTenureV1.householdMembers[0].id}`,
+  );
+});
