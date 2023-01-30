@@ -16,6 +16,7 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
 import { locale } from "../../services";
+import { AssetLayout } from "./layout";
 
 import { AssetView } from ".";
 
@@ -207,11 +208,6 @@ test("renders the asset view for invalid asset type", async () => {
 test("renders the asset view for missing person id", async () => {
   mockActiveTenureV1.householdMembers[0].id = "2d9d6ac5-d376-4ac4-9a00-85659be82d10";
   mockActiveTenureV1.householdMembers[0].fullName = "FAKE_Alice FAKE_Rowe";
-  mockAssetV1.assetId = "12345";
-  mockActiveTenureV1.tenuredAsset.propertyReference = mockAssetV1.assetId;
-  if (mockAssetV1.tenure) {
-    mockAssetV1.tenure.id = "2d9d6ac5-d376-4ac4-9a00-85659be82d10";
-  }
 
   const alertsResponse = {
     propertyReference: mockAssetV1.assetId,
@@ -234,23 +230,18 @@ test("renders the asset view for missing person id", async () => {
   };
 
   server.use(
-    rest.get(`/api/v1/assets/${mockAssetV1.id}`, (req, res, ctx) =>
+    rest.get("/api/v1/assets/:id", (req, res, ctx) =>
       res(ctx.status(200), ctx.set("ETag", '"2"'), ctx.json(mockAssetV1)),
     ),
-  );
-  server.use(
-    rest.get(
-      `/api/v1/cautionary-alerts/properties-new/${mockAssetV1.assetId}`,
-      (req, res, ctx) => res(ctx.status(200), ctx.json({ alertsResponse })),
+    rest.get(`/api/v1/cautionary-alerts/properties-new/:propertyId`, (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(alertsResponse)),
     ),
-  );
-  server.use(
-    rest.get(`/api/v1/tenure/${mockActiveTenureV1.id}`, (req, res, ctx) =>
+    rest.get("/api/v1/tenures/:tenureId", (req, res, ctx) =>
       res(ctx.status(200), ctx.set("ETag", '"2"'), ctx.json(mockActiveTenureV1)),
     ),
   );
 
-  render(<AssetView />, {
+  render(<AssetLayout assetDetails={mockAssetV1} />, {
     url: `/property/${mockAssetV1.id}`,
     path: "/property/:assetId",
   });
