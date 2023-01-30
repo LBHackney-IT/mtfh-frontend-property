@@ -16,7 +16,6 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
 import { locale } from "../../services";
-import { AssetLayout } from "./layout";
 
 import { AssetView } from ".";
 
@@ -241,7 +240,7 @@ test("renders the asset view for missing person id", async () => {
     ),
   );
 
-  render(<AssetLayout assetDetails={mockAssetV1} />, {
+  render(<AssetView />, {
     url: `/property/${mockAssetV1.id}`,
     path: "/property/:assetId",
   });
