@@ -53,6 +53,7 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
+          <Button as={RouterLink} to={`/property/${id}/edit`}>Edit</Button>
           <CautionaryAlertsDetails alerts={alerts} />
           <TenureDetails tenure={tenure} />
         </>
