@@ -5,6 +5,8 @@ import { locale } from "../../services";
 import { Link as RouterLink } from "react-router-dom";
 
 import { useAsset } from "@mtfh/common/lib/api/asset/v1";
+import { useAddressLookupUprn } from "@mtfh/common/lib/api/address/v2";
+
 import {
     Alert as AlertIcon,
     Button,
@@ -16,7 +18,7 @@ import {
     Link,
     PageAnnouncement,
     PageAnnouncementProvider,
-    SideBar,
+    SideBar, 
     SideBarProps,
     Spinner,
     WorkOrderList,
@@ -26,6 +28,7 @@ export const AssetEditView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
 
   const { data: asset, ...assetRequest } = useAsset(assetId);
+  const { data: addressLookup } = useAddressLookupUprn(asset?.assetAddress.uprn);
 
   if (assetRequest.error) {
     return (
@@ -61,10 +64,7 @@ export const AssetEditView = (): JSX.Element => {
           </Heading>
         }
         
-      >
-        
-      </Layout>
-        Edit me {console.log(JSON.stringify(asset))}
+      />
        </div>
       ) : (
         <h1>{locale.assetCouldNotBeLoaded}</h1>
