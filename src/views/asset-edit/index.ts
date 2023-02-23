@@ -1,1 +1,1 @@
-export * from "./asset-edit";
+export * from "./asset-edit-view";

@@ -53,6 +53,7 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
+          <Button as={RouterLink} to={`/property/edit/${assetId}`}>Edit address details</Button>
           <CautionaryAlertsDetails alerts={alerts} />
           <TenureDetails tenure={tenure} />
         </>
@@ -61,10 +62,10 @@ const AssetSideBar = ({
         !tenure.isActive ||
         !isFutureDate(tenure.endOfTenureDate) ||
         !tenure.id) && (
-        <Button as={RouterLink} to={`/tenure/${id}/add`}>
-          {locale.assetDetails.newTenure}
-        </Button>
-      )}
+          <Button as={RouterLink} to={`/tenure/${id}/add`}>
+            {locale.assetDetails.newTenure}
+          </Button>
+        )}
     </div>
   );
 };
