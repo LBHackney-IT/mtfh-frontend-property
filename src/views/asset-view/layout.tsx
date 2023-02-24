@@ -29,6 +29,7 @@ import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 
 import "./styles.scss";
+import { AssetEditView } from "../asset-edit-view/asset-edit-view";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -133,9 +134,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
   if (editAddressModeEnabled) {
     return (
       <>
-        <Link onClick={() => setEditAddressModeEnabled(false)} variant="back-link">Back to asset view</Link>
-        <h3>Asset Edit View</h3>
-        <p>{JSON.stringify(assetDetails)}</p>
+        <AssetEditView assetDetails={assetDetails} setEditAddressModeEnabled={setEditAddressModeEnabled}/>
       </>
     )
   }
