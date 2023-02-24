@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { AssetDetails, TenureDetails } from "../../components";
@@ -36,11 +36,13 @@ export interface AssetLayoutProperties {
 
 interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {
   alerts: Alert[];
+  setEditAddressModeEnabled(value: boolean): void;
 }
 
 const AssetSideBar = ({
   assetDetails,
   alerts,
+  setEditAddressModeEnabled,
   ...properties
 }: AssetSideBarProperties) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
@@ -53,7 +55,7 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          <Button as={RouterLink} to={`/property/edit/${assetId}`}>Edit address details</Button>
+          <Button onClick={() => setEditAddressModeEnabled(true)}>Edit address details</Button>
           <CautionaryAlertsDetails alerts={alerts} />
           <TenureDetails tenure={tenure} />
         </>
@@ -103,6 +105,7 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
+  const [editAddressModeEnabled, setEditAddressModeEnabled] = useState(false);
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
   if (assetDetails.tenure) {
     if (tenure && cautionaryAlerts) {
@@ -127,6 +130,16 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
     );
   }
 
+  if (editAddressModeEnabled) {
+    return (
+      <>
+        <Link onClick={() => setEditAddressModeEnabled(false)} variant="back-link">Back to asset view</Link>
+        <h3>Asset Edit View</h3>
+        <p>{JSON.stringify(assetDetails)}</p>
+      </>
+    )
+  }
+
   return (
     <PageAnnouncementProvider sessionKey="asset">
       <PageAnnouncement />
@@ -149,7 +162,11 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
             {locale.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
+        side={<AssetSideBar
+          assetDetails={assetDetails}
+          alerts={alertsData.alerts}
+          setEditAddressModeEnabled={setEditAddressModeEnabled}
+        />}
       >
         <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
       </Layout>
