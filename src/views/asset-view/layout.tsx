@@ -54,7 +54,6 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          {/* <Button onClick={() => setEditAddressModeEnabled(true)}>Edit address details</Button> */}
           <Button as={RouterLink} to={`/property/edit/${id}`}>
             Edit address details
           </Button>
