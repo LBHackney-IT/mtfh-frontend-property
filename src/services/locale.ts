@@ -1,6 +1,7 @@
 import { AssetAddress, AssetType } from "@mtfh/common/lib/api/asset/v1";
 
 export default {
+  asset: "Asset",
   backToSearch: "Search results",
   cancel: "Cancel",
   noDataForKey: "N/A",

@@ -37,13 +37,11 @@ export interface AssetLayoutProperties {
 
 interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {
   alerts: Alert[];
-  setEditAddressModeEnabled(value: boolean): void;
 }
 
 const AssetSideBar = ({
   assetDetails,
   alerts,
-  setEditAddressModeEnabled,
   ...properties
 }: AssetSideBarProperties) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
@@ -56,7 +54,10 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          <Button onClick={() => setEditAddressModeEnabled(true)}>Edit address details</Button>
+          {/* <Button onClick={() => setEditAddressModeEnabled(true)}>Edit address details</Button> */}
+          <Button as={RouterLink} to={`/property/edit/${id}`}>
+            Edit address details
+          </Button>
           <CautionaryAlertsDetails alerts={alerts} />
           <TenureDetails tenure={tenure} />
         </>
@@ -106,7 +107,6 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
-  const [editAddressModeEnabled, setEditAddressModeEnabled] = useState(false);
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
   if (assetDetails.tenure) {
     if (tenure && cautionaryAlerts) {
@@ -129,14 +129,6 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
         <Spinner />
       </Center>
     );
-  }
-
-  if (editAddressModeEnabled) {
-    return (
-      <>
-        <AssetEditView assetDetails={assetDetails} setEditAddressModeEnabled={setEditAddressModeEnabled}/>
-      </>
-    )
   }
 
   return (
@@ -164,7 +156,6 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
         side={<AssetSideBar
           assetDetails={assetDetails}
           alerts={alertsData.alerts}
-          setEditAddressModeEnabled={setEditAddressModeEnabled}
         />}
       >
         <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />

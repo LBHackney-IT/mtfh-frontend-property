@@ -1,21 +1,41 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { useAsset } from "@mtfh/common/lib/api/asset/v1";
+import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
+import { locale } from "../../services";
+import { AssetEditLayout } from "./layout";
 
-import { Link } from "@mtfh/common/lib/components";
+export const AssetEditView = (): JSX.Element => {
+    const { assetId } = useParams<{ assetId: string }>();
 
-export interface AssetEditViewProperties {
-    assetDetails: Asset;
-    setEditAddressModeEnabled(value: boolean): void;
-}
-
-export const AssetEditView = ({ assetDetails, setEditAddressModeEnabled }: AssetEditViewProperties): JSX.Element => {
-
+    const { data: asset, ...assetRequest } = useAsset(assetId);
+  
+    if (assetRequest.error) {
+      return (
+        <ErrorSummary
+          id="property-error"
+          title={locale.errors.unableToFetchRecord}
+          description={locale.errors.unableToFetchRecordDescription}
+        />
+      );
+    }
+  
+    if (!asset) {
+      return (
+        <Center>
+          <Spinner />
+        </Center>
+      );
+    }
+  
     return (
-        <>
-            <Link onClick={() => setEditAddressModeEnabled(false)} variant="back-link">Back to asset view</Link>
-            <h3>Asset Edit View</h3>
-            <p>{JSON.stringify(assetDetails)}</p>
-        </>
+      <>
+        {asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling" ? (
+          <AssetEditLayout assetDetails={asset} />
+        ) : (
+          <h1>{locale.assetCouldNotBeLoaded}</h1>
+        )}
+      </>
     );
 };
