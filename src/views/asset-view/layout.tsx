@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { AssetDetails, TenureDetails } from "../../components";
@@ -23,13 +23,12 @@ import {
   SideBar,
   SideBarProps,
   Spinner,
-  WorkOrderList,
+  WorkOrderList
 } from "@mtfh/common/lib/components";
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 
 import "./styles.scss";
-import { AssetEditView } from "../asset-edit-view/asset-edit-view";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
