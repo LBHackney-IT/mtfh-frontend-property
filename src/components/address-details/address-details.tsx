@@ -1,8 +1,11 @@
 import React from "react";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { Field, Form, Formik, useFormikContext } from "formik";
+import { Field, Form, Formik } from "formik";
+import { Link as RouterLink } from "react-router-dom";
 import { AddressDetailsFormData } from "./schema";
+
+import "./address-details-styles.scss";
 
 export interface AddressDetailsProperties {
     assetDetails: Asset;
@@ -15,6 +18,7 @@ export const AddressDetails = ({
     heading = 'Address details',
     readOnly = false
 }: AddressDetailsProperties): JSX.Element => {
+
     return (
         <>
             <Formik<AddressDetailsFormData>
@@ -37,7 +41,7 @@ export const AddressDetails = ({
                         Address line 1*
                     </label>
                     <Field id="addressLine1" name="addressLine1" className="govuk-input lbh-input" type="text" required disabled={readOnly} />
-                    
+
                     <label className="govuk-label lbh-label" htmlFor="addressLine2">
                         Address line 2
                     </label>
@@ -56,7 +60,22 @@ export const AddressDetails = ({
                     <label className="govuk-label lbh-label" htmlFor="postcode">
                         Postcode
                     </label>
-                    <Field id="postcode" name="postcode" className="govuk-input lbh-input" type="text" required disabled={readOnly} />                    
+                    <Field id="postcode" name="postcode" className="govuk-input lbh-input" type="text" required disabled={readOnly} />
+
+                    {!readOnly &&
+                        <div className="form-actions">
+                            <button className="govuk-button lbh-button" data-module="govuk-button" type="submit" id="submit-address-button">
+                                Update to this address
+                            </button>
+
+                            <RouterLink
+                                to={`/property/${assetDetails.id}`}
+                                className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                            >
+                                Cancel edit address
+                            </RouterLink>
+                        </div>
+                    }
                 </Form>
             </Formik>
         </>

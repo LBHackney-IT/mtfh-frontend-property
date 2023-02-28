@@ -15,6 +15,7 @@
     }
 }
 
-.no-margin {
-    margin: 0 !important
+.form-actions {
+    display: flex;
+    justify-content: space-between;
 }
