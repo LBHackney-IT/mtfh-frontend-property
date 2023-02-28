@@ -5,7 +5,7 @@ export const addressDetailsSchema = () =>
     addressLine1: Yup.string().required(),
     addressLine2: Yup.string().required(),
     addressLine3: Yup.string().required(),
-    addressLine4: Yup.string().required(),
+    addressLine4: Yup.string(),
     postcode: Yup.string().required(),
   });
 

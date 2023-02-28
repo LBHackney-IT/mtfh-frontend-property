@@ -29,6 +29,7 @@ import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 
 import "./styles.scss";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -53,8 +54,8 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          <Button as={RouterLink} to={`/property/edit/${id}`}>
-            Edit address details
+          <Button as={RouterLink} to={`/property/edit/${id}`} isDisabled={assetAddress.uprn ? false : true}>
+            {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN Missing"}
           </Button>
           <CautionaryAlertsDetails alerts={alerts} />
           <TenureDetails tenure={tenure} />

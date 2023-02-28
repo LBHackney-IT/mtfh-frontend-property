@@ -14,6 +14,8 @@ export interface AssetEditLayoutProperties {
 
 export const AssetEditLayout = ({ assetDetails }: AssetEditLayoutProperties): JSX.Element => {
 
+    // Call addresses API, pass UPRN of address (assetDetails.assetAddress.uprn) and pass into editable (non readOnly) AddressDetails component
+
     return (
         <>
             <Link as={RouterLink} to={`/property/${assetDetails.id}`} variant="back-link">

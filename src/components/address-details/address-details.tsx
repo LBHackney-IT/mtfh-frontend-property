@@ -50,12 +50,12 @@ export const AddressDetails = ({
                     <label className="govuk-label lbh-label" htmlFor="addressLine3">
                         Address line 3
                     </label>
-                    <Field id="addressLine3" name="addressLine3" className="govuk-input lbh-input" type="text" required disabled={readOnly} />
+                    <Field id="addressLine3" name="addressLine3" className="govuk-input lbh-input" type="text" disabled={readOnly} />
 
                     <label className="govuk-label lbh-label" htmlFor="addressLine4">
                         Address line 4
                     </label>
-                    <Field id="addressLine4" name="addressLine4" className="govuk-input lbh-input" type="text" required disabled={readOnly} />
+                    <Field id="addressLine4" name="addressLine4" className="govuk-input lbh-input" type="text" disabled={readOnly} />
 
                     <label className="govuk-label lbh-label" htmlFor="postcode">
                         Postcode
