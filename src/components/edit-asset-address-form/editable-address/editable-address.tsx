@@ -68,10 +68,18 @@ export const EditableAddress = ({
                             </label>
                             <Field id="editableAddressLine4" name="editableAddressLine4" className="govuk-input lbh-input" type="text" />
 
-                            <label className="govuk-label lbh-label" htmlFor="editablePostcode">
-                                Postcode
-                            </label>
-                            <Field id="editablePostcode" name="editablePostcode" className="govuk-input lbh-input" type="text" required />
+                            <div className={!errors.editablePostcode ? "govuk-form-group lbh-form-group" : "govuk-form-group govuk-form-group--error lbh-form-group"}>
+                                <label className="govuk-label lbh-label" htmlFor="editablePostcode">
+                                    Postcode
+                                </label>
+                                <span
+                                    id="editablePostcode-input-error"
+                                    className="govuk-error-message lbh-error-message"
+                                >
+                                    <span className="govuk-visually-hidden">Error:</span> {errors.editablePostcode}
+                                </span>
+                                <Field id="editablePostcode" name="editablePostcode" className={!errors.editablePostcode ? "govuk-input lbh-input" : "govuk-input lbh-input govuk-input--error"} type="text" required />
+                            </div>
 
                             <div className="form-actions">
                                 <button className="govuk-button lbh-button" data-module="govuk-button" type="submit" id="submit-address-button">
