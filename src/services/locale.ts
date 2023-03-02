@@ -76,5 +76,6 @@ export default {
     unableToFetchRecordDescription:
       "Please try again. If the issue persists, please contact support.",
     alertTitle: "Error",
+    postcodeInvalid: "Please enter a valid postcode",
   },
 };

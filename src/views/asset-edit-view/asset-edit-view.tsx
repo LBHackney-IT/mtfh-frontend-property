@@ -6,6 +6,7 @@ import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
 import { locale } from "../../services";
 import { AssetEditLayout } from "./layout";
 
+
 export const AssetEditView = (): JSX.Element => {
     const { assetId } = useParams<{ assetId: string }>();
 
