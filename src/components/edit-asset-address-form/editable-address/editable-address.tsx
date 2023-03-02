@@ -34,7 +34,7 @@ export const EditableAddress = ({
                     AddressLine1: llpgAddress?.line1 ? llpgAddress.line1 : "",
                     AddressLine2: llpgAddress?.line2 ? llpgAddress.line2 : "",
                     AddressLine3: llpgAddress?.line3 ? llpgAddress.line3 : "",
-                    AddressLine4: llpgAddress?.line4 ? llpgAddress.line4 : "",
+                    AddressLine4: llpgAddress?.town ? llpgAddress.town : "",
                     Postcode: llpgAddress?.postcode ? llpgAddress.postcode : "",
                 }}
                 validationSchema={editableAddressSchema}
@@ -72,7 +72,7 @@ export const EditableAddress = ({
                             <Field id="AddressLine3" name="AddressLine3" className="govuk-input lbh-input" type="text" />
 
                             <label className="govuk-label lbh-label" htmlFor="AddressLine4">
-                                Address line 4 / Town
+                                Address line 4
                             </label>
                             <Field id="AddressLine4" name="AddressLine4" className="govuk-input lbh-input" type="text" />
 
