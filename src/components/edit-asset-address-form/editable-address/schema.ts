@@ -7,8 +7,8 @@ export const regexUkPostcode = /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9
 export const editableAddressSchema = () =>
   Yup.object({
     editableAddressLine1: Yup.string().required(),
-    editableAddressLine2: Yup.string().required(),
-    editableAddressLine3: Yup.string().required(),
+    editableAddressLine2: Yup.string(),
+    editableAddressLine3: Yup.string(),
     editableAddressLine4: Yup.string(),
     editablePostcode: Yup.string()
     .trim()
