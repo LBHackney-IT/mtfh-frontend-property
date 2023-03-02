@@ -31,11 +31,11 @@ export const EditableAddress = ({
         <>
             <Formik<EditableAddressFormData>
                 initialValues={{
-                    editableAddressLine1: llpgAddress?.line1 ? llpgAddress.line1 : "",
-                    editableAddressLine2: llpgAddress?.line2 ? llpgAddress.line2 : "",
-                    editableAddressLine3: llpgAddress?.line3 ? llpgAddress.line3 : "",
-                    editableAddressLine4: llpgAddress?.line4 ? llpgAddress.line4 : "",
-                    editablePostcode: llpgAddress?.postcode ? llpgAddress.postcode : "",
+                    AddressLine1: llpgAddress?.line1 ? llpgAddress.line1 : "",
+                    AddressLine2: llpgAddress?.line2 ? llpgAddress.line2 : "",
+                    AddressLine3: llpgAddress?.line3 ? llpgAddress.line3 : "",
+                    AddressLine4: llpgAddress?.line4 ? llpgAddress.line4 : "",
+                    Postcode: llpgAddress?.postcode ? llpgAddress.postcode : "",
                 }}
                 validationSchema={editableAddressSchema}
                 onSubmit={async (values) => {
@@ -48,37 +48,45 @@ export const EditableAddress = ({
                         <Form>
                             <h3 className="lbh-heading-h3">Suggestion from the Local Gazetteer</h3>
 
-                            <label className="govuk-label lbh-label" htmlFor="editableAddressLine1">
-                                Address line 1*
-                            </label>
-                            <Field id="editableAddressLine1" name="editableAddressLine1" className="govuk-input lbh-input" type="text" required disabled />
+                            <div className={errors.AddressLine1 && touched.AddressLine1 ? "govuk-form-group govuk-form-group--error lbh-form-group" : "govuk-form-group lbh-form-group"}>
+                                <label className="govuk-label lbh-label" htmlFor="addressLine1">
+                                    Address line 1*
+                                </label>
+                                <span
+                                    id="addressLine1-input-error"
+                                    className="govuk-error-message lbh-error-message"
+                                >
+                                    <span className="govuk-visually-hidden">Error:</span> {errors.AddressLine1}
+                                </span>
+                                <Field id="addressLine1" name="AddressLine1" className={errors.AddressLine1 && touched.AddressLine1 ? "govuk-input lbh-input govuk-input--error" : "govuk-input lbh-input"} type="text" />
+                            </div>
 
-                            <label className="govuk-label lbh-label" htmlFor="editableAddressLine2">
+                            <label className="govuk-label lbh-label" htmlFor="AddressLine2">
                                 Address line 2
                             </label>
-                            <Field id="editableAddressLine2" name="editableAddressLine2" className="govuk-input lbh-input" type="text" />
+                            <Field id="AddressLine2" name="AddressLine2" className="govuk-input lbh-input" type="text" />
 
-                            <label className="govuk-label lbh-label" htmlFor="editableAddressLine3">
+                            <label className="govuk-label lbh-label" htmlFor="AddressLine3">
                                 Address line 3
                             </label>
-                            <Field id="editableAddressLine3" name="editableAddressLine3" className="govuk-input lbh-input" type="text" />
+                            <Field id="AddressLine3" name="AddressLine3" className="govuk-input lbh-input" type="text" />
 
-                            <label className="govuk-label lbh-label" htmlFor="editableAddressLine4">
+                            <label className="govuk-label lbh-label" htmlFor="AddressLine4">
                                 Address line 4 / Town
                             </label>
-                            <Field id="editableAddressLine4" name="editableAddressLine4" className="govuk-input lbh-input" type="text" />
+                            <Field id="AddressLine4" name="AddressLine4" className="govuk-input lbh-input" type="text" />
 
-                            <div className={!errors.editablePostcode ? "govuk-form-group lbh-form-group" : "govuk-form-group govuk-form-group--error lbh-form-group"}>
-                                <label className="govuk-label lbh-label" htmlFor="editablePostcode">
+                            <div className={errors.Postcode && touched.Postcode ? "govuk-form-group govuk-form-group--error lbh-form-group" : "govuk-form-group lbh-form-group"}>
+                                <label className="govuk-label lbh-label" htmlFor="postcode">
                                     Postcode
                                 </label>
                                 <span
-                                    id="editablePostcode-input-error"
+                                    id="Postcode-input-error"
                                     className="govuk-error-message lbh-error-message"
                                 >
-                                    <span className="govuk-visually-hidden">Error:</span> {errors.editablePostcode}
+                                    <span className="govuk-visually-hidden">Error:</span> {errors.Postcode}
                                 </span>
-                                <Field id="editablePostcode" name="editablePostcode" className={!errors.editablePostcode ? "govuk-input lbh-input" : "govuk-input lbh-input govuk-input--error"} type="text" required />
+                                <Field id="postcode" name="Postcode" className={errors.Postcode && touched.Postcode ? "govuk-input lbh-input govuk-input--error" : "govuk-input lbh-input"} type="text" required />
                             </div>
 
                             <div className="form-actions">
