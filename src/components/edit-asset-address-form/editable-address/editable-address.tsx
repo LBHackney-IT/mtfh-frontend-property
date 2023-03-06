@@ -8,15 +8,30 @@ import { Address } from "@mtfh/common/lib/api/address/v1/types";
 import { Center, Spinner } from "@mtfh/common/lib/components";
 
 import "../styles.scss";
+import { Asset, AssetAddress, EditAssetAddressRequest } from "@mtfh/common/lib/api/asset/v1/types";
+import { patchAsset } from "@mtfh/common/lib/api/asset/v1";
+import { locale } from "../../../services";
 
 export interface EditableAddressProperties {
     llpgAddress: Address | null
-    assetId: string
+    assetDetails: Asset
+    setShowError: React.Dispatch<React.SetStateAction<boolean>>
+    setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>
+}
+
+interface PatchAssetFormValues {
+    AddressLine1: string
+    AddressLine2?: string | undefined
+    AddressLine3?: string | undefined
+    AddressLine4?: string | undefined
+    Postcode: string
 }
 
 export const EditableAddress = ({
     llpgAddress,
-    assetId
+    assetDetails,
+    setShowError,
+    setErrorMessage
 }: EditableAddressProperties): JSX.Element => {
 
     if (!llpgAddress) {
@@ -25,6 +40,37 @@ export const EditableAddress = ({
                 <Spinner />
             </Center>
         );
+    }
+
+    const handleSubmit = async (values: PatchAssetFormValues) => {
+        setShowError(false)
+        setErrorMessage(null)
+
+        console.log(values)
+
+        const assetAddress: EditAssetAddressRequest = {
+            assetAddress:
+            {
+                uprn: llpgAddress.UPRN.toString(),
+                addressLine1: values.AddressLine1,
+                addressLine2: values.AddressLine2 ? values.AddressLine2 : "",
+                addressLine3: values.AddressLine3 ? values.AddressLine3 : "",
+                addressLine4: values.AddressLine4 ? values.AddressLine4 : "",
+                postCode: values.Postcode,
+                postPreamble: assetDetails.assetAddress.postPreamble
+            }
+        }
+
+        if (assetDetails?.versionNumber) {
+            const assetVersionNumber = assetDetails.versionNumber.toString()
+
+            let outcome = await patchAsset(assetDetails.id, assetAddress, assetVersionNumber)
+            console.log({ outcome })
+
+        } else {
+            setShowError(true)
+            setErrorMessage(`Asset "version" invalid (value: ${assetDetails?.versionNumber}). This is a required property when updating the asset. Please contact administration.`)
+        }
     }
 
     return (
@@ -38,10 +84,7 @@ export const EditableAddress = ({
                     Postcode: llpgAddress?.postcode ? llpgAddress.postcode : "",
                 }}
                 validationSchema={editableAddressSchema}
-                onSubmit={async (values) => {
-                    await new Promise((r) => setTimeout(r, 500));
-                    alert(JSON.stringify(values, null, 2));
-                }}
+                onSubmit={(values) => handleSubmit(values)}
             >
                 {({ errors, touched }) => (
                     <div id="edit-address-form">
@@ -95,7 +138,7 @@ export const EditableAddress = ({
                                 </button>
 
                                 <RouterLink
-                                    to={`/property/${assetId}`}
+                                    to={`/property/${assetDetails.id}`}
                                     className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
                                 >
                                     Cancel edit address
