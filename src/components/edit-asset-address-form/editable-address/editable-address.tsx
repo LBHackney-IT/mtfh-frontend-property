@@ -64,12 +64,14 @@ export const EditableAddress = ({
         if (assetDetails?.versionNumber) {
             const assetVersionNumber = assetDetails.versionNumber.toString()
 
-            let outcome = await patchAsset(assetDetails.id, assetAddress, assetVersionNumber)
-            console.log({ outcome })
-
+            await patchAsset(assetDetails.id, assetAddress, "1")
+                .catch(() => {
+                    setShowError(true)
+                    setErrorMessage(locale.errors.unableToPatchAssetDescription)
+                })
         } else {
             setShowError(true)
-            setErrorMessage(`Asset "version" invalid (value: ${assetDetails?.versionNumber}). This is a required property when updating the asset. Please contact administration.`)
+            setErrorMessage(`Asset "version" invalid (value: ${assetDetails?.versionNumber}). This is a required property when updating the asset. If the issue persists, please contact support.`)
         }
     }
 
