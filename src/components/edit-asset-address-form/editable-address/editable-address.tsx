@@ -17,6 +17,7 @@ export interface EditableAddressProperties {
     assetDetails: Asset
     setShowError: React.Dispatch<React.SetStateAction<boolean>>
     setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>
+    setCurrentAssetAddress: React.Dispatch<React.SetStateAction<AssetAddress>>
 }
 
 interface PatchAssetFormValues {
@@ -31,7 +32,8 @@ export const EditableAddress = ({
     llpgAddress,
     assetDetails,
     setShowError,
-    setErrorMessage
+    setErrorMessage,
+    setCurrentAssetAddress
 }: EditableAddressProperties): JSX.Element => {
 
     if (!llpgAddress) {
@@ -64,7 +66,20 @@ export const EditableAddress = ({
         if (assetDetails?.versionNumber) {
             const assetVersionNumber = assetDetails.versionNumber.toString()
 
-            await patchAsset(assetDetails.id, assetAddress, "1")
+            await patchAsset(assetDetails.id, assetAddress, assetVersionNumber)
+            .then(() => {
+                // If the update is successful, we update the "Current Address" details (postPreamble and UPRN are unchanged)
+                const newAssetAddress: AssetAddress = {
+                    addressLine1: assetAddress.assetAddress.addressLine1,
+                    addressLine2: assetAddress.assetAddress.addressLine2,
+                    addressLine3: assetAddress.assetAddress.addressLine3,
+                    addressLine4: assetAddress.assetAddress.addressLine4,
+                    postCode: assetAddress.assetAddress.postCode,
+                    postPreamble: assetDetails.assetAddress.postPreamble,
+                    uprn: assetDetails.assetAddress.uprn
+                }
+                setCurrentAssetAddress(newAssetAddress)
+            })
                 .catch(() => {
                     setShowError(true)
                     setErrorMessage(locale.errors.unableToPatchAssetDescription)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1";
 import { locale } from "../../services";
 
 import { Address, getAddressViaUprn } from "@mtfh/common/lib/api/address/v1";
@@ -20,6 +20,7 @@ export interface AssetEditLayoutProperties {
 
 export const AssetEditLayout = ({ assetDetails }: AssetEditLayoutProperties): JSX.Element => {
 
+    const [currentAssetAddress, setCurrentAssetAddress] = useState<AssetAddress>(assetDetails.assetAddress)
     const [llpgAddress, setLlpgAddress] = useState<Address | null>(null);
     const [showError, setShowError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -50,8 +51,8 @@ export const AssetEditLayout = ({ assetDetails }: AssetEditLayoutProperties): JS
             }
             
             <div className="mtfh-address-details">
-                <section><EditableAddress llpgAddress={llpgAddress} assetDetails={assetDetails} setShowError={setShowError} setErrorMessage={setErrorMessage}/></section>
-                <section><ReferenceAddress assetAddressDetails={assetDetails.assetAddress} /></section>
+                <section><EditableAddress llpgAddress={llpgAddress} assetDetails={assetDetails} setCurrentAssetAddress={setCurrentAssetAddress} setShowError={setShowError} setErrorMessage={setErrorMessage}/></section>
+                <section><ReferenceAddress assetAddressDetails={currentAssetAddress} /></section>
             </div>
         </>
     );
