@@ -51,10 +51,10 @@ test("renders the property view", async () => {
 
   await waitFor(() =>
     expect(screen.getAllByRole("heading")[0]).toHaveTextContent(
-      locale.assetDetails.address(mockAssetV1.assetAddress),
+      locale.assets.assetDetails.address(mockAssetV1.assetAddress),
     ),
   );
-  screen.getByText(locale.assetType(mockAssetV1.assetType));
+  screen.getByText(locale.assets.assetType(mockAssetV1.assetType));
   screen.getByText(/UPRN/);
   screen.getByText(mockAssetV1.assetId);
   screen.getByText(/Reference/);
@@ -128,7 +128,7 @@ test("it shows new tenure button when tenure is an empty object", async () => {
     path: "/property/:assetId",
   });
 
-  await screen.findByText(locale.assetDetails.newTenure);
+  await screen.findByText(locale.assets.assetDetails.newTenure);
 });
 
 test("it shows new tenure button when tenure is null", async () => {
@@ -146,7 +146,7 @@ test("it shows new tenure button when tenure is null", async () => {
     path: "/property/:assetId",
   });
 
-  await screen.findByText(locale.assetDetails.newTenure);
+  await screen.findByText(locale.assets.assetDetails.newTenure);
 });
 
 test("it shows new tenure button when tenure id is null", async () => {
@@ -167,7 +167,7 @@ test("it shows new tenure button when tenure id is null", async () => {
     path: "/property/:assetId",
   });
 
-  await screen.findByText(locale.assetDetails.newTenure);
+  await screen.findByText(locale.assets.assetDetails.newTenure);
 });
 
 test("renders the asset view for lettable-non-dwelling", async () => {
@@ -186,7 +186,7 @@ test("renders the asset view for lettable-non-dwelling", async () => {
   });
 
   await screen.findByText(/Lettable non-dwelling/);
-  expect(screen.queryByText(locale.assetDetails.newTenure)).not.toBeInTheDocument();
+  expect(screen.queryByText(locale.assets.assetDetails.newTenure)).not.toBeInTheDocument();
 });
 
 test("renders the asset view for invalid asset type", async () => {

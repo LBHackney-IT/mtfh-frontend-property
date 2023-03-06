@@ -20,7 +20,7 @@ export const AssetDetails = ({
     <aside className="mtfh-asset-details">
       <SummaryList overrides={[2 / 3]}>
         <SummaryListItem title={locale.tenureDetails.assetTypeLabel}>
-          {locale.assetType(assetType)}
+          {locale.assets.assetType(assetType)}
         </SummaryListItem>
         <SummaryListItem title={locale.tenureDetails.uprnLabel}>
           {assetAddress.uprn}

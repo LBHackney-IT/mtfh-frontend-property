@@ -66,7 +66,7 @@ const AssetSideBar = ({
         !isFutureDate(tenure.endOfTenureDate) ||
         !tenure.id) && (
           <Button as={RouterLink} to={`/tenure/${id}/add`}>
-            {locale.assetDetails.newTenure}
+            {locale.assets.assetDetails.newTenure}
           </Button>
         )}
     </div>
@@ -149,7 +149,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
                 style={{ margin: "-2px 4px 0 0" }}
               />
             )}
-            {locale.assetDetails.address(assetDetails.assetAddress)}
+            {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
         side={<AssetSideBar

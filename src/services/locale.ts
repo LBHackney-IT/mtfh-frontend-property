@@ -1,42 +1,44 @@
 import { AssetAddress, AssetType } from "@mtfh/common/lib/api/asset/v1";
 
 export default {
-  asset: "Asset",
   backToSearch: "Search results",
   cancel: "Cancel",
   noDataForKey: "N/A",
-  assetDetails: {
-    address: (assetAddress: AssetAddress): string => {
-      const {
-        postPreamble,
-        addressLine1,
-        addressLine2,
-        addressLine3,
-        addressLine4,
-        postCode,
-      } = assetAddress;
-
-      return [
-        postPreamble,
-        addressLine1,
-        addressLine2,
-        addressLine3,
-        addressLine4,
-        postCode,
-      ]
-        .filter((addressLine) => !!addressLine)
-        .join(" ");
+  assets: {
+    assetDetails: {
+      address: (assetAddress: AssetAddress): string => {
+        const {
+          postPreamble,
+          addressLine1,
+          addressLine2,
+          addressLine3,
+          addressLine4,
+          postCode,
+        } = assetAddress;
+  
+        return [
+          postPreamble,
+          addressLine1,
+          addressLine2,
+          addressLine3,
+          addressLine4,
+          postCode,
+        ]
+          .filter((addressLine) => !!addressLine)
+          .join(" ");
+      },
+      newTenure: "New tenure",
     },
-    newTenure: "New tenure",
-  },
-  assetType: (assetType: AssetType): string => {
-    if (assetType === "Dwelling") {
-      return "Dwelling";
-    }
-    if (assetType === "LettableNonDwelling") {
-      return "Lettable non-dwelling";
-    }
-    return assetType;
+    assetType: (assetType: AssetType): string => {
+      if (assetType === "Dwelling") {
+        return "Dwelling";
+      }
+      if (assetType === "LettableNonDwelling") {
+        return "Lettable non-dwelling";
+      }
+      return assetType;
+    },
+    patchAssetAddressSuccessMessage: "The asset address has been updated successfully."
   },
   comments: {
     heading: "Comments",
