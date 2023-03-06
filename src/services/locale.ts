@@ -79,7 +79,7 @@ export default {
       "Please try again. If the issue persists, please contact support.",
     alertTitle: "Error",
     postcodeInvalid: "Please enter a valid postcode",
-    unableToPatchAsset: "There was a problem amending this asset.",
+    unableToPatchAsset: "There was a problem amending this asset",
     unableToPatchAssetInvalidVersion: "The 'version' property is invalid on this asset. This is a required property when updating the asset.",
     unableToPatchAssetDescription:
       "Please refresh the page and try again. If the issue persists, please contact support.",

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, useFormikContext } from "formik";
 import { Link as RouterLink } from "react-router-dom";
 import { EditableAddressFormData, editableAddressSchema } from "./schema";
 
@@ -15,6 +15,7 @@ import { locale } from "../../../services";
 export interface EditableAddressProperties {
     llpgAddress: Address | null
     assetDetails: Asset
+    setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>
     setShowError: React.Dispatch<React.SetStateAction<boolean>>
     setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>
     setCurrentAssetAddress: React.Dispatch<React.SetStateAction<AssetAddress>>
@@ -31,6 +32,7 @@ interface PatchAssetFormValues {
 export const EditableAddress = ({
     llpgAddress,
     assetDetails,
+    setShowSuccess,
     setShowError,
     setErrorMessage,
     setCurrentAssetAddress
@@ -45,6 +47,7 @@ export const EditableAddress = ({
     }
 
     const handleSubmit = async (values: PatchAssetFormValues) => {
+        setShowSuccess(false)
         setShowError(false)
         setErrorMessage(null)
 
@@ -67,19 +70,20 @@ export const EditableAddress = ({
             const assetVersionNumber = assetDetails.versionNumber.toString()
 
             await patchAsset(assetDetails.id, assetAddress, assetVersionNumber)
-            .then(() => {
-                // If the update is successful, we update the "Current Address" details (postPreamble and UPRN are unchanged)
-                const newAssetAddress: AssetAddress = {
-                    addressLine1: assetAddress.assetAddress.addressLine1,
-                    addressLine2: assetAddress.assetAddress.addressLine2,
-                    addressLine3: assetAddress.assetAddress.addressLine3,
-                    addressLine4: assetAddress.assetAddress.addressLine4,
-                    postCode: assetAddress.assetAddress.postCode,
-                    postPreamble: assetDetails.assetAddress.postPreamble,
-                    uprn: assetDetails.assetAddress.uprn
-                }
-                setCurrentAssetAddress(newAssetAddress)
-            })
+                .then(() => {
+                    // If the update is successful, we update the "Current Address" details (postPreamble and UPRN are unchanged)
+                    const newAssetAddress: AssetAddress = {
+                        addressLine1: assetAddress.assetAddress.addressLine1,
+                        addressLine2: assetAddress.assetAddress.addressLine2,
+                        addressLine3: assetAddress.assetAddress.addressLine3,
+                        addressLine4: assetAddress.assetAddress.addressLine4,
+                        postCode: assetAddress.assetAddress.postCode,
+                        postPreamble: assetDetails.assetAddress.postPreamble,
+                        uprn: assetDetails.assetAddress.uprn
+                    }
+                    setCurrentAssetAddress(newAssetAddress)
+                    setShowSuccess(true)
+                })
                 .catch(() => {
                     setShowError(true)
                     setErrorMessage(locale.errors.unableToPatchAssetDescription)
