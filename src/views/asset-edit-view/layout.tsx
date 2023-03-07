@@ -32,7 +32,7 @@ export const AssetEditLayout = ({
         setLlpgAddress(searchAddressResponse.addresses[0]);
       }
     });
-  });
+  }, []);
 
   return (
     <>
