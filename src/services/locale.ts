@@ -15,7 +15,7 @@ export default {
           addressLine4,
           postCode,
         } = assetAddress;
-  
+
         return [
           postPreamble,
           addressLine1,
@@ -38,7 +38,7 @@ export default {
       }
       return assetType;
     },
-    patchAssetAddressSuccessMessage: "The asset address has been updated successfully."
+    patchAssetAddressSuccessMessage: "The asset address has been updated successfully.",
   },
   comments: {
     heading: "Comments",
@@ -80,7 +80,8 @@ export default {
     alertTitle: "Error",
     postcodeInvalid: "Please enter a valid postcode",
     unableToPatchAsset: "There was a problem amending this asset",
-    unableToPatchAssetInvalidVersion: "The 'version' property is invalid on this asset. This is a required property when updating the asset.",
+    unableToPatchAssetInvalidVersion:
+      "The 'version' property is invalid on this asset. This is a required property when updating the asset.",
     unableToPatchAssetDescription:
       "Please refresh the page and try again. If the issue persists, please contact support.",
   },

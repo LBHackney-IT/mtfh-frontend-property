@@ -186,7 +186,9 @@ test("renders the asset view for lettable-non-dwelling", async () => {
   });
 
   await screen.findByText(/Lettable non-dwelling/);
-  expect(screen.queryByText(locale.assets.assetDetails.newTenure)).not.toBeInTheDocument();
+  expect(
+    screen.queryByText(locale.assets.assetDetails.newTenure),
+  ).not.toBeInTheDocument();
 });
 
 test("renders the asset view for invalid asset type", async () => {

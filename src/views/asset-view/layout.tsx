@@ -23,13 +23,12 @@ import {
   SideBar,
   SideBarProps,
   Spinner,
-  WorkOrderList
+  WorkOrderList,
 } from "@mtfh/common/lib/components";
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 
 import "./styles.scss";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -54,7 +53,11 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          <Button as={RouterLink} to={`/property/edit/${id}`} isDisabled={assetAddress.uprn ? false : true}>
+          <Button
+            as={RouterLink}
+            to={`/property/edit/${id}`}
+            isDisabled={!assetAddress.uprn}
+          >
             {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN Missing"}
           </Button>
           <CautionaryAlertsDetails alerts={alerts} />
@@ -65,10 +68,10 @@ const AssetSideBar = ({
         !tenure.isActive ||
         !isFutureDate(tenure.endOfTenureDate) ||
         !tenure.id) && (
-          <Button as={RouterLink} to={`/tenure/${id}/add`}>
-            {locale.assets.assetDetails.newTenure}
-          </Button>
-        )}
+        <Button as={RouterLink} to={`/tenure/${id}/add`}>
+          {locale.assets.assetDetails.newTenure}
+        </Button>
+      )}
     </div>
   );
 };
@@ -152,10 +155,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar
-          assetDetails={assetDetails}
-          alerts={alertsData.alerts}
-        />}
+        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
       >
         <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
       </Layout>
