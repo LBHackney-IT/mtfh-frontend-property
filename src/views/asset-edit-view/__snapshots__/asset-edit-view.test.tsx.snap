@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the property edit view 1`] = `
+<div>
+  <a
+    class="govuk-back-link lbh-back-link lbh-link--no-visited-state"
+    href="/property/15adc44b-6fde-46e8-af9c-e18b1495c9ab"
+  >
+    Back to asset
+  </a>
+  <h1
+    class="lbh-heading-h1"
+  >
+    Edit property address
+  </h1>
+  <span
+    class="govuk-caption-m lbh-caption"
+  >
+    New Addresses are suggested from the Local Gazetteer to bring some standardisation.
+  </span>
+  <div
+    class="mtfh-address-details"
+  >
+    <section>
+      <div
+        id="edit-address-form"
+      >
+        <form
+          action="#"
+        >
+          <h3
+            class="lbh-heading-h3"
+          >
+            Suggestion from the Local Gazetteer
+          </h3>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="addressLine1"
+            >
+              Address line 1*
+            </label>
+            <span
+              class="govuk-error-message lbh-error-message"
+              id="addressLine1-input-error"
+            >
+              <span
+                class="govuk-visually-hidden"
+              >
+                Error:
+              </span>
+               
+            </span>
+            <input
+              class="govuk-input lbh-input"
+              data-testid="addressLine1"
+              id="addressLine1"
+              name="addressLine1"
+              type="text"
+              value="FLAT B"
+            />
+          </div>
+          <label
+            class="govuk-label lbh-label"
+            for="addressLine2"
+          >
+            Address line 2
+          </label>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="addressLine2"
+            id="addressLine2"
+            name="addressLine2"
+            type="text"
+            value="51 GREENWOOD ROAD"
+          />
+          <label
+            class="govuk-label lbh-label"
+            for="addressLine3"
+          >
+            Address line 3
+          </label>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="addressLine3"
+            id="addressLine3"
+            name="addressLine3"
+            type="text"
+            value="HACKNEY"
+          />
+          <label
+            class="govuk-label lbh-label"
+            for="addressLine4"
+          >
+            Address line 4
+          </label>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="addressLine4"
+            id="addressLine4"
+            name="addressLine4"
+            type="text"
+            value="LONDON"
+          />
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="postcode"
+            >
+              Postcode
+            </label>
+            <span
+              class="govuk-error-message lbh-error-message"
+              id="Postcode-input-error"
+            >
+              <span
+                class="govuk-visually-hidden"
+              >
+                Error:
+              </span>
+               
+            </span>
+            <input
+              class="govuk-input lbh-input"
+              data-testid="postcode"
+              id="postcode"
+              name="postcode"
+              type="text"
+              value="E8 1NT"
+            />
+          </div>
+          <div
+            class="form-actions"
+          >
+            <button
+              class="govuk-button lbh-button"
+              data-module="govuk-button"
+              id="submit-address-button"
+              type="submit"
+            >
+              Update to this address
+            </button>
+            <a
+              class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+              href="/property/15adc44b-6fde-46e8-af9c-e18b1495c9ab"
+            >
+              Cancel edit address
+            </a>
+          </div>
+        </form>
+      </div>
+    </section>
+    <section>
+      <h3
+        class="lbh-heading-h3"
+      >
+        Current address
+      </h3>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="asset-address-line-one-input"
+        >
+          Address line 1*
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="asset-address-line-one"
+          disabled=""
+          id="asset-address-line-one-input"
+          name="asset-address-line-one"
+          required=""
+          type="text"
+          value="51 GREENWOOD ROAD - FLAT B"
+        />
+      </div>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="asset-address-line-two-input"
+        >
+          Address line 2
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="asset-address-line-two"
+          disabled=""
+          id="asset-address-line-two-input"
+          name="asset-address-line-two"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="asset-address-line-three"
+        >
+          Address line 3
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="asset-address-line-three"
+          disabled=""
+          id="asset-address-line-three-input"
+          name="asset-address-line-three"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="asset-address-line-four-input"
+        >
+          Address line 4
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="asset-address-line-four"
+          disabled=""
+          id="asset-address-line-four-input"
+          name="asset-address-line-four"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="asset-postcode-input"
+        >
+          Postcode
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="asset-postcode"
+          disabled=""
+          id="asset-postcode-input"
+          name="asset-postcode"
+          required=""
+          type="text"
+          value="E8 1NT"
+        />
+      </div>
+    </section>
+  </div>
+</div>
+`;

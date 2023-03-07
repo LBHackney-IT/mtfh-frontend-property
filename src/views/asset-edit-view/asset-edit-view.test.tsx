@@ -1,11 +1,10 @@
 import React from "react";
 
 import {
-    getAddressV1,
-    getAssetV1, mockAddresses, mockAssetV1, render,
+    getAssetV1, mockAssetV1, render,
     server
 } from "@hackney/mtfh-test-utils";
-import { logRoles, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 
 import { AssetEditView } from ".";
@@ -20,10 +19,10 @@ const assetData = {
     "assetLocation": null,
     "assetAddress": {
         "uprn": "100021045676",
-        "addressLine1": "FLAT B",
-        "addressLine2": "51 GREENWOOD ROAD",
-        "addressLine3": "HACKNEY",
-        "addressLine4": "LONDON",
+        "addressLine1": "51 GREENWOOD ROAD - FLAT B",
+        "addressLine2": "",
+        "addressLine3": "",
+        "addressLine4": "",
         "postCode": "E8 1NT",
         "postPreamble": null
     },
@@ -108,14 +107,16 @@ test("renders the error on asset load failure", async () => {
     await screen.findByRole("alert");
 });
 
-test("renders the property edit view", async () => {
+test("renders the whole 'Edit property address' view", async () => {
     const { container } = render(<AssetEditView />, {
         url: `/property/edit/${assetData.id}`,
         path: "/property/edit/:assetId",
     });
 
+    // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
     await waitFor(() =>
         expect(screen.getAllByRole("heading")).toHaveLength(3),
     );
-    screen.debug()
+
+    expect(container).toMatchSnapshot();
 });
