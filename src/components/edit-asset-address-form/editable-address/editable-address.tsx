@@ -144,6 +144,7 @@ export const EditableAddress = ({
                       : "govuk-input lbh-input"
                   }
                   type="text"
+                  data-testid="addressLine1"
                 />
               </div>
 
@@ -155,6 +156,7 @@ export const EditableAddress = ({
                 name="addressLine2"
                 className="govuk-input lbh-input"
                 type="text"
+                data-testid="addressLine2"
               />
 
               <label className="govuk-label lbh-label" htmlFor="addressLine3">
@@ -165,6 +167,7 @@ export const EditableAddress = ({
                 name="addressLine3"
                 className="govuk-input lbh-input"
                 type="text"
+                data-testid="addressLine3"
               />
 
               <label className="govuk-label lbh-label" htmlFor="addressLine4">
@@ -175,6 +178,7 @@ export const EditableAddress = ({
                 name="addressLine4"
                 className="govuk-input lbh-input"
                 type="text"
+                data-testid="addressLine4"
               />
 
               <div
@@ -202,7 +206,7 @@ export const EditableAddress = ({
                       : "govuk-input lbh-input"
                   }
                   type="text"
-                  required
+                  data-testid="postcode"
                 />
               </div>
 
