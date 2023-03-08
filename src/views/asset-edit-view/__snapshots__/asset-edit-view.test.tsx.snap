@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders the property edit view 1`] = `
+exports[`renders the whole 'Edit property address' view 1`] = `
 <div>
   <a
     class="govuk-back-link lbh-back-link lbh-link--no-visited-state"
