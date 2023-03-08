@@ -32,6 +32,7 @@ export const AssetEditLayout = ({
         setLlpgAddress(searchAddressResponse.addresses[0]);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
