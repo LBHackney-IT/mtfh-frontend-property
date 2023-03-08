@@ -4,11 +4,11 @@ import {
     getAssetV1, mockAssetV1, render,
     server
 } from "@hackney/mtfh-test-utils";
-import { act, logRoles, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 
-import { AssetEditView } from ".";
 import userEvent from "@testing-library/user-event";
+import { AssetEditView } from ".";
 
 const assetData = {
     "id": "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
@@ -96,12 +96,12 @@ beforeEach(() => {
         }))
 
 
-    // server.use(
-    //     rest.patch(`/api/v1/assets/${assetData.id}/address`, (req, res, ctx) => {
-    //         return res(
-    //             ctx.status(204)
-    //         );
-    //     }))
+    server.use(
+        rest.patch(`/api/v1/assets/${assetData.id}/address`, (req, res, ctx) => {
+            return res(
+                ctx.status(204)
+            );
+        }))
 });
 
 
@@ -134,14 +134,6 @@ test("the current address from the asset is updated using the LLPG address sugge
         url: `/property/edit/${assetData.id}`,
         path: "/property/edit/:assetId",
     });
-
-    server.use(
-        rest.patch("http://localhost/api/v1/assets/15adc44b-6fde-46e8-af9c-e18b1495c9ab/address", (req, res, ctx) => {
-            return res(
-                ctx.json('Success'),
-                ctx.status(204)
-            );
-        }))
 
     // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
     await waitFor(() =>
@@ -184,20 +176,19 @@ test("the current address from the asset is updated using the LLPG address sugge
     const updateButton = screen.getByRole('button', { name: 'Update to this address' })
     expect(updateButton).toBeInTheDocument()
 
-    act(() => {
-         userEvent.click(updateButton)
+    await waitFor(() => {
+        userEvent.click(updateButton)
+
+        // Assert Asset Address Line 1 the same as LPG Address Line 1
+        expect(assetAddressLine1).toHaveValue("FLAT B")
+
+        // Assert Asset AddrLine2 is 51 GREENWOOD ROAD
+        expect(assetAddressLine2).toHaveValue("51 GREENWOOD ROAD")
+
+        // Assert Asset AddrLine3 is HACKNEY
+        expect(assetAddressLine3).toHaveValue("HACKNEY")
+
+        // Assert Asset AddrLine4 is LONDON
+        expect(assetAddressLine4).toHaveValue("LONDON")
     });
-    
-    // Assert Asset Address Line 1 the same as LPG Address Line 1
-    expect(llpgAddressLine1.nodeValue).toEqual(assetAddressLine1.nodeValue)
-
-    // Assert Asset AddrLine2 is 51 GREENWOOD ROAD
-    expect(llpgAddressLine2.nodeValue).toEqual(assetAddressLine2.nodeValue)
-
-    // Assert Asset AddrLine3 is HACKNEY
-    expect(llpgAddressLine3.nodeValue).toEqual(assetAddressLine3.nodeValue)
-
-    // Assert Asset AddrLine4 is LONDON
-    expect(llpgAddressLine4.nodeValue).toEqual(assetAddressLine4.nodeValue)
-
 });
