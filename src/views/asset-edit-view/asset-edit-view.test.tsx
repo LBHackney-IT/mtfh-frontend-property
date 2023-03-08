@@ -179,16 +179,16 @@ test("the current address from the asset is updated using the LLPG address sugge
     await waitFor(() => {
         userEvent.click(updateButton)
 
-        // Assert Asset Address Line 1 the same as LPG Address Line 1
+        // Assert Asset Address Line 1 is FLAT B, the same as LLPG Address Line 1
         expect(assetAddressLine1).toHaveValue("FLAT B")
 
-        // Assert Asset AddrLine2 is 51 GREENWOOD ROAD
+        // Assert Asset AddrLine2 is 51 GREENWOOD ROAD, the same as LLPG Address Line 2
         expect(assetAddressLine2).toHaveValue("51 GREENWOOD ROAD")
 
-        // Assert Asset AddrLine3 is HACKNEY
+        // Assert Asset AddrLine3 is HACKNEY, the same as LLPG Address Line 3
         expect(assetAddressLine3).toHaveValue("HACKNEY")
 
-        // Assert Asset AddrLine4 is LONDON
+        // Assert Asset AddrLine4 is LONDON, the same as LLPG Address Line 1
         expect(assetAddressLine4).toHaveValue("LONDON")
     });
 });
