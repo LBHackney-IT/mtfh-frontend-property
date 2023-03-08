@@ -1,7 +1,7 @@
 import React from "react";
 
 import { getAssetV1, mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
-import { screen, waitFor } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
@@ -179,7 +179,10 @@ test("the current address from the asset is updated using the LLPG address sugge
 
     // Assert Asset AddrLine4 is LONDON, the same as LLPG Address Line 1
     expect(assetAddressLine4).toHaveValue("LONDON");
+
+    screen.debug()
   });
+
 });
 
 test("form action buttons are rendered and are enabled", async () => {
@@ -219,4 +222,24 @@ test("it shows the 'Back to asset' link", async () => {
 
   const backLink = await screen.findByText("Back to asset");
   expect(backLink).toBeVisible();
+});
+
+test("after a successful asset address update, a success message is shown", async () => {
+  render(<AssetEditView />, {
+    url: `/property/edit/${assetData.id}`,
+    path: "/property/edit/:assetId",
+  });
+
+  // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
+  await waitFor(() => expect(screen.getAllByRole("heading")).toHaveLength(3));
+
+  // User click on "Update to this address"
+  const updateButton = screen.getByRole("button", { name: "Update to this address" });
+
+  await waitFor(async () => {
+    userEvent.click(updateButton);
+
+    const successMessage = await screen.findByText("The asset address has been updated successfully.")
+    expect(successMessage).toBeVisible()
+  });
 });

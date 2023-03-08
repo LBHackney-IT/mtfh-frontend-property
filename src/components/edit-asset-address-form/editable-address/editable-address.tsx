@@ -132,7 +132,7 @@ export const EditableAddress = ({
                   id="addressLine1-input-error"
                   className="govuk-error-message lbh-error-message"
                 >
-                  <span className="govuk-visually-hidden">Error:</span>{" "}
+                  <span className="govuk-visually-hidden">Error:</span>
                   {errors.addressLine1}
                 </span>
                 <Field
