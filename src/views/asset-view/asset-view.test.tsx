@@ -253,3 +253,14 @@ test("renders the asset view for missing person id", async () => {
     `/person/${mockActiveTenureV1.householdMembers[0].id}`,
   );
 });
+
+test("it shows the 'Edit address details' button if the property has a valid UPRN", async () => {
+  render(<AssetView />, {
+    url: `/property/${mockAssetV1.id}`,
+    path: "/property/:assetId",
+  });
+
+  const editAddressDetailsBtn = await screen.findByText("Edit address details");
+  expect(editAddressDetailsBtn).toBeVisible();
+  expect(editAddressDetailsBtn).toBeEnabled();
+});

@@ -162,7 +162,6 @@ test("the current address from the asset is updated using the LLPG address sugge
 
   // User click on "Update to this address"
   const updateButton = screen.getByRole("button", { name: "Update to this address" });
-  expect(updateButton).toBeInTheDocument();
 
   // The await is required, as it allows the PATCH API call to be intercepted and the Current Asset Address value to be replaced with the LLPG suggestion.
   // Without it, the test may pass but the below expects would not work as expected.
@@ -181,4 +180,43 @@ test("the current address from the asset is updated using the LLPG address sugge
     // Assert Asset AddrLine4 is LONDON, the same as LLPG Address Line 1
     expect(assetAddressLine4).toHaveValue("LONDON");
   });
+});
+
+test("form action buttons are rendered and are enabled", async () => {
+  render(<AssetEditView />, {
+    url: `/property/edit/${assetData.id}`,
+    path: "/property/edit/:assetId",
+  });
+
+  // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
+  await waitFor(() => expect(screen.getAllByRole("heading")).toHaveLength(3));
+
+  // Assert "Update to this button" is in the DOM and is enabled
+  const updateButton = screen.getByRole("button", { name: "Update to this address" });
+  const cancelButton = screen.getByText("Cancel edit address");
+
+  expect(updateButton).toBeInTheDocument();
+  expect(updateButton).toBeEnabled();
+
+  expect(cancelButton).toBeInTheDocument();
+  expect(cancelButton).toBeEnabled();
+});
+
+test("the URL of the page includes property/edit followed by the asset GUID", async () => {
+  render(<AssetEditView />, {
+    url: `/property/edit/${assetData.id}`,
+    path: "/property/edit/:assetId",
+  });
+
+  expect(window.location.pathname).toContain(`/property/edit/${assetData.id}`);
+});
+
+test("it shows the 'Back to asset' link", async () => {
+  render(<AssetEditView />, {
+    url: `/property/edit/${assetData.id}`,
+    path: "/property/edit/:assetId",
+  });
+
+  const backLink = await screen.findByText("Back to asset");
+  expect(backLink).toBeVisible();
 });
