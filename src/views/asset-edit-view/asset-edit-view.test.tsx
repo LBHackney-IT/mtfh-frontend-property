@@ -176,6 +176,8 @@ test("the current address from the asset is updated using the LLPG address sugge
     const updateButton = screen.getByRole('button', { name: 'Update to this address' })
     expect(updateButton).toBeInTheDocument()
 
+    // The await is required, as it allows the PATCH API call to be intercepted and the Current Asset Address value to be replaced with the LLPG suggestion. 
+    // Without it, the test may pass but the below expects would not work as expected.
     await waitFor(() => {
         userEvent.click(updateButton)
 
