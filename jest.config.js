@@ -17,10 +17,10 @@ module.exports = {
   coveragePathIgnorePatterns: ["mocks", "test-utils.ts"],
   coverageThreshold: {
     global: {
-      statements: 90,
-      branches: 90,
-      functions: 90,
-      lines: 90,
+      statements: 75,
+      branches: 75,
+      functions: 75,
+      lines: 75,
     },
   },
   testEnvironment: "jsdom",

@@ -20,10 +20,10 @@ import "../styles.scss";
 export interface EditableAddressProperties {
   llpgAddress: Address | null;
   assetDetails: Asset;
-  setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowError: React.Dispatch<React.SetStateAction<boolean>>;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
-  setCurrentAssetAddress: React.Dispatch<React.SetStateAction<AssetAddress>>;
+  setShowSuccess: (value: boolean) => void;
+  setShowError: (value: boolean) => void;
+  setErrorMessage: (error: string | null) => void;
+  setCurrentAssetAddress: (assetAddress: AssetAddress) => void;
 }
 
 interface PatchAssetFormValues {
