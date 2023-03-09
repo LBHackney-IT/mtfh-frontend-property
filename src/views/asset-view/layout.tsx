@@ -29,6 +29,8 @@ import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 
 import "./styles.scss";
+import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
+import { propertyAuthorizedGroups } from "../../services/config/config";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -53,13 +55,15 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          <Button
-            as={RouterLink}
-            to={`/property/edit/${id}`}
-            isDisabled={!assetAddress.uprn}
-          >
-            {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN Missing"}
-          </Button>
+          {isAuthorisedForGroups(propertyAuthorizedGroups) &&
+            <Button
+              as={RouterLink}
+              to={`/property/edit/${id}`}
+              isDisabled={!assetAddress.uprn}
+            >
+              {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN Missing"}
+            </Button>
+          }
           <CautionaryAlertsDetails alerts={alerts} />
           <TenureDetails tenure={tenure} />
         </>
@@ -68,10 +72,10 @@ const AssetSideBar = ({
         !tenure.isActive ||
         !isFutureDate(tenure.endOfTenureDate) ||
         !tenure.id) && (
-        <Button as={RouterLink} to={`/tenure/${id}/add`}>
-          {locale.assets.assetDetails.newTenure}
-        </Button>
-      )}
+          <Button as={RouterLink} to={`/tenure/${id}/add`}>
+            {locale.assets.assetDetails.newTenure}
+          </Button>
+        )}
     </div>
   );
 };
