@@ -17,7 +17,7 @@ export const AssetView = (): JSX.Element => {
       <ErrorSummary
         id="property-error"
         title={locale.errors.unableToFetchRecord}
-        description={locale.errors.unableToFetchRecordDescription}
+        description={locale.errors.tryAgainOrContactSupport}
       />
     );
   }

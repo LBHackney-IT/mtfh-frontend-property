@@ -90,7 +90,7 @@ export const EditableAddress = ({
         })
         .catch(() => {
           setShowError(true);
-          setErrorMessage(locale.errors.unableToPatchAssetDescription);
+          setErrorMessage(locale.errors.tryAgainOrContactSupport);
         });
     } else {
       setShowError(true);

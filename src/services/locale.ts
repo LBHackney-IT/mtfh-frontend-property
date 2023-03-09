@@ -75,14 +75,13 @@ export default {
   errors: {
     unableToFetchRecord: "There was a problem retrieving the record",
     assetDoesNotExist: "The property information you've requested does not exist",
-    unableToFetchRecordDescription:
-      "Please try again. If the issue persists, please contact support.",
     alertTitle: "Error",
+    noAddressEditPermissions: "You are not authorized to edit address data",
     postcodeInvalid: "Please enter a valid postcode",
     unableToPatchAsset: "There was a problem amending this asset",
     unableToPatchAssetInvalidVersion:
       "The 'version' property is invalid on this asset. This is a required property when updating the asset.",
-    unableToPatchAssetDescription:
+    tryAgainOrContactSupport:
       "Please refresh the page and try again. If the issue persists, please contact support.",
   },
 };

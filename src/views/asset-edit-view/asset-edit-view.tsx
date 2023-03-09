@@ -6,6 +6,8 @@ import { AssetEditLayout } from "./layout";
 
 import { useAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
+import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
+import { propertyAuthorizedGroups } from "../../services/config/config";
 
 export const AssetEditView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
@@ -17,7 +19,7 @@ export const AssetEditView = (): JSX.Element => {
       <ErrorSummary
         id="property-error"
         title={locale.errors.unableToFetchRecord}
-        description={locale.errors.unableToFetchRecordDescription}
+        description={locale.errors.tryAgainOrContactSupport}
       />
     );
   }
@@ -27,6 +29,15 @@ export const AssetEditView = (): JSX.Element => {
       <Center>
         <Spinner />
       </Center>
+    );
+  }
+
+  if (!isAuthorisedForGroups(propertyAuthorizedGroups)) {
+    return (
+      <ErrorSummary
+        id="unauthorized-error"
+        title={locale.errors.noAddressEditPermissions}
+      />
     );
   }
 
