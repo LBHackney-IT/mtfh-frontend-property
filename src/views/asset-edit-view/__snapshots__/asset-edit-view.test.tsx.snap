@@ -51,7 +51,6 @@ exports[`renders the whole 'Edit property address' view 1`] = `
               >
                 Error:
               </span>
-               
             </span>
             <input
               class="govuk-input lbh-input"

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { getAssetV1, mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
-import { act, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
@@ -179,10 +179,7 @@ test("the current address from the asset is updated using the LLPG address sugge
 
     // Assert Asset AddrLine4 is LONDON, the same as LLPG Address Line 1
     expect(assetAddressLine4).toHaveValue("LONDON");
-
-    screen.debug()
   });
-
 });
 
 test("form action buttons are rendered and are enabled", async () => {
@@ -239,7 +236,9 @@ test("after a successful asset address update, a success message is shown", asyn
   await waitFor(async () => {
     userEvent.click(updateButton);
 
-    const successMessage = await screen.findByText("The asset address has been updated successfully.")
-    expect(successMessage).toBeVisible()
+    const successMessage = await screen.findByText(
+      "The asset address has been updated successfully.",
+    );
+    expect(successMessage).toBeVisible();
   });
 });
