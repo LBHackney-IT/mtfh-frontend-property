@@ -59,6 +59,7 @@ const AssetSideBar = ({
               as={RouterLink}
               to={`/property/edit/${id}`}
               isDisabled={!assetAddress.uprn}
+              data-testid="edit-address-button"
             >
               {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN Missing"}
             </Button>

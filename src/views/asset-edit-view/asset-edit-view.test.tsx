@@ -7,6 +7,8 @@ import { rest } from "msw";
 
 import { AssetEditView } from ".";
 
+import * as auth from "@mtfh/common/lib/auth/auth";
+
 const assetData = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
   assetId: "100021045676",
@@ -77,6 +79,8 @@ const llpgAddressData = {
 
 beforeEach(() => {
   jest.resetAllMocks();
+
+  jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
   server.use(
     rest.get("/api/v1/assets/:id", (req, res, ctx) => {
@@ -240,5 +244,21 @@ test("after a successful asset address update, a success message is shown", asyn
       "The asset address has been updated successfully.",
     );
     expect(successMessage).toBeVisible();
+  });
+});
+
+test("unauthorized message is shown for unauthorized users", async () => {
+  jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
+  render(<AssetEditView />, {
+    url: `/property/edit/${assetData.id}`,
+    path: "/property/edit/:assetId",
+  });
+
+  // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
+  await waitFor(() => {
+    const unauthorizedErrorMessage = screen.getByText(
+      "You are not authorized to edit address data",
+    );
+    expect(unauthorizedErrorMessage).toBeVisible();
   });
 });

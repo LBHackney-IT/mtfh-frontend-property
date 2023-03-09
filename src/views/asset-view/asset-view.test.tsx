@@ -19,6 +19,7 @@ import { locale } from "../../services";
 
 import { AssetView } from ".";
 
+import * as auth from "@mtfh/common/lib/auth/auth";
 import { $configuration } from "@mtfh/common/lib/configuration";
 import { formatDate, formatTime } from "@mtfh/common/lib/utils";
 
@@ -255,6 +256,7 @@ test("renders the asset view for missing person id", async () => {
 });
 
 test("it shows the 'Edit address details' button if the property has a valid UPRN", async () => {
+  jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
   render(<AssetView />, {
     url: `/property/${mockAssetV1.id}`,
     path: "/property/:assetId",
@@ -263,4 +265,15 @@ test("it shows the 'Edit address details' button if the property has a valid UPR
   const editAddressDetailsBtn = await screen.findByText("Edit address details");
   expect(editAddressDetailsBtn).toBeVisible();
   expect(editAddressDetailsBtn).toBeEnabled();
+});
+
+test("it does NOT shows the 'Edit address details' when the user is not authorized to edit address data", async () => {
+  jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
+  render(<AssetView />, {
+    url: `/property/${mockAssetV1.id}`,
+    path: "/property/:assetId",
+  });
+
+  const editAddressDetailsBtn = screen.queryByTestId("edit-address-button");
+  expect(editAddressDetailsBtn).toBeNull();
 });
