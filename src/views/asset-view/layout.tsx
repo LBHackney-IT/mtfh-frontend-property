@@ -4,12 +4,14 @@ import { Link as RouterLink } from "react-router-dom";
 import { AssetDetails, TenureDetails } from "../../components";
 import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
 import { locale } from "../../services";
+import { propertyAuthorizedGroups } from "../../services/config/config";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
 import { HouseholdMember } from "@mtfh/common/lib/api/tenure/v1/types";
+import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import {
   Alert as AlertIcon,
   Button,
@@ -27,10 +29,7 @@ import {
 } from "@mtfh/common/lib/components";
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
-
 import "./styles.scss";
-import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
-import { propertyAuthorizedGroups } from "../../services/config/config";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -55,7 +54,7 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          {isAuthorisedForGroups(propertyAuthorizedGroups) &&
+          {isAuthorisedForGroups(propertyAuthorizedGroups) && (
             <Button
               as={RouterLink}
               to={`/property/edit/${id}`}
@@ -63,7 +62,7 @@ const AssetSideBar = ({
             >
               {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN Missing"}
             </Button>
-          }
+          )}
           <CautionaryAlertsDetails alerts={alerts} />
           <TenureDetails tenure={tenure} />
         </>
@@ -72,10 +71,10 @@ const AssetSideBar = ({
         !tenure.isActive ||
         !isFutureDate(tenure.endOfTenureDate) ||
         !tenure.id) && (
-          <Button as={RouterLink} to={`/tenure/${id}/add`}>
-            {locale.assets.assetDetails.newTenure}
-          </Button>
-        )}
+        <Button as={RouterLink} to={`/tenure/${id}/add`}>
+          {locale.assets.assetDetails.newTenure}
+        </Button>
+      )}
     </div>
   );
 };

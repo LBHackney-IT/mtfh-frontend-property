@@ -2,12 +2,12 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { locale } from "../../services";
+import { propertyAuthorizedGroups } from "../../services/config/config";
 import { AssetEditLayout } from "./layout";
 
 import { useAsset } from "@mtfh/common/lib/api/asset/v1";
-import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
-import { propertyAuthorizedGroups } from "../../services/config/config";
+import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
 
 export const AssetEditView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
