@@ -4,5 +4,10 @@ export const config = {
 
 export const propertyAuthorizedGroups =
   process.env.APP_ENV === "production"
-    ? ["mmh-data-admin"]
-    : ["mmh-general-user-access", "e2e-testing-development"];
+    ? ["mmh-asset-admin"]
+    : [
+        "mmh-project-team",
+        "e2e-testing-development",
+        "e2e-testing-staging",
+        "e2e-testing-production",
+      ];
