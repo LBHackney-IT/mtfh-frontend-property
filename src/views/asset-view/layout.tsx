@@ -57,7 +57,7 @@ const AssetSideBar = ({
           {isAuthorisedForGroups(propertyAuthorizedGroups) && (
             <Button
               as={RouterLink}
-              to={`/property/edit/${id}`}
+              to={assetAddress.uprn ? `/property/edit/${id}` : '#'}
               isDisabled={!assetAddress.uprn}
               data-testid="edit-address-button"
             >
