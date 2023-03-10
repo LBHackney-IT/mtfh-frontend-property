@@ -61,7 +61,7 @@ const AssetSideBar = ({
               isDisabled={!assetAddress.uprn}
               data-testid="edit-address-button"
             >
-              {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN Missing"}
+              {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN missing"}
             </Button>
           )}
           <CautionaryAlertsDetails alerts={alerts} />
