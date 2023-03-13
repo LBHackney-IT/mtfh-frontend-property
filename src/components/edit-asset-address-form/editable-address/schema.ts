@@ -6,7 +6,6 @@ export const regexUkPostcode =
   /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/;
 
 export const editableAddressSchema = () =>
-  // The below are capitalized as they may be used in error messages (ex: "AddressLine1 is a required field")
   Yup.object({
     addressLine1: Yup.string().required("Address Line 1 is a required field"),
     addressLine2: Yup.string(),

@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { locale } from "../../services";
-import { propertyAuthorizedGroups } from "../../services/config/config";
+import { assetAdminAuthGroups } from "../../services/config/config";
 import { AssetEditLayout } from "./layout";
 
 import { useAsset } from "@mtfh/common/lib/api/asset/v1";
@@ -32,7 +32,7 @@ export const AssetEditView = (): JSX.Element => {
     );
   }
 
-  if (!isAuthorisedForGroups(propertyAuthorizedGroups)) {
+  if (!isAuthorisedForGroups(assetAdminAuthGroups)) {
     return (
       <ErrorSummary
         id="unauthorized-error"

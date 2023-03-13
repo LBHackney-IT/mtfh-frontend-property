@@ -19,10 +19,12 @@ import "../styles.scss";
 
 export interface EditableAddressProperties {
   llpgAddress: Address | null;
+  llpgAddressNotAvailable: boolean;
   assetDetails: Asset;
   setShowSuccess: (value: boolean) => void;
   setShowError: (value: boolean) => void;
-  setErrorMessage: (error: string | null) => void;
+  setErrorHeading: (error: string | null) => void;
+  setErrorDescription: (error: string | null) => void;
   setCurrentAssetAddress: (assetAddress: AssetAddress) => void;
 }
 
@@ -36,30 +38,25 @@ interface PatchAssetFormValues {
 
 export const EditableAddress = ({
   llpgAddress,
+  llpgAddressNotAvailable,
   assetDetails,
   setShowSuccess,
   setShowError,
-  setErrorMessage,
+  setErrorHeading,
+  setErrorDescription,
   setCurrentAssetAddress,
 }: EditableAddressProperties): JSX.Element => {
   const [submitEditEnabled, setSubmitEditEnabled] = useState<boolean>(true);
 
-  if (!llpgAddress) {
-    return (
-      <Center>
-        <Spinner />
-      </Center>
-    );
-  }
-
   const handleSubmit = async (values: PatchAssetFormValues) => {
     setShowSuccess(false);
     setShowError(false);
-    setErrorMessage(null);
+    setErrorHeading(null);
+    setErrorDescription(null);
 
     const assetAddress: EditAssetAddressRequest = {
       assetAddress: {
-        uprn: llpgAddress.UPRN.toString(),
+        uprn: assetDetails.assetAddress.uprn,
         addressLine1: values.addressLine1,
         addressLine2: values.addressLine2 ? values.addressLine2 : "",
         addressLine3: values.addressLine3 ? values.addressLine3 : "",
@@ -90,15 +87,25 @@ export const EditableAddress = ({
         })
         .catch(() => {
           setShowError(true);
-          setErrorMessage(locale.errors.tryAgainOrContactSupport);
+          setErrorHeading(locale.errors.unableToPatchAsset);
+          setErrorDescription(locale.errors.tryAgainOrContactSupport);
         });
     } else {
       setShowError(true);
-      setErrorMessage(
+      setErrorHeading(locale.errors.unableToPatchAsset);
+      setErrorDescription(
         `Asset "version" invalid (value: ${assetDetails?.versionNumber}). This is a required property when updating the asset. If the issue persists, please contact support.`,
       );
     }
   };
+
+  if (!llpgAddress && !llpgAddressNotAvailable) {
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
+  }
 
   return (
     <>
@@ -116,7 +123,7 @@ export const EditableAddress = ({
         {({ errors, touched }) => (
           <div id="edit-address-form">
             <Form>
-              <h3 className="lbh-heading-h3">Suggestion from the Local Gazetteer</h3>
+              <h3 className="lbh-heading-h3">{llpgAddressNotAvailable ? "New address details" : "Suggestion from the Local Gazetteer"}</h3>
 
               <div
                 className={
