@@ -19,7 +19,7 @@ import "../styles.scss";
 
 export interface EditableAddressProperties {
   llpgAddress: Address | null;
-  llpgAddressNotAvailable: boolean;
+  loading: boolean;
   assetDetails: Asset;
   setShowSuccess: (value: boolean) => void;
   setShowError: (value: boolean) => void;
@@ -38,7 +38,7 @@ interface PatchAssetFormValues {
 
 export const EditableAddress = ({
   llpgAddress,
-  llpgAddressNotAvailable,
+  loading,
   assetDetails,
   setShowSuccess,
   setShowError,
@@ -99,7 +99,7 @@ export const EditableAddress = ({
     }
   };
 
-  if (!llpgAddress && !llpgAddressNotAvailable) {
+  if (!llpgAddress && loading) {
     return (
       <Center>
         <Spinner />
@@ -123,7 +123,11 @@ export const EditableAddress = ({
         {({ errors, touched }) => (
           <div id="edit-address-form">
             <Form>
-              <h3 className="lbh-heading-h3">{llpgAddressNotAvailable ? "New address details" : "Suggestion from the Local Gazetteer"}</h3>
+              <h3 className="lbh-heading-h3">
+                {llpgAddress
+                  ? "Suggestion from the Local Gazetteer"
+                  : "New address details"}
+              </h3>
 
               <div
                 className={
