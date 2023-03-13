@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { AssetDetails, TenureDetails } from "../../components";
 import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
 import { locale } from "../../services";
-import { propertyAuthorizedGroups } from "../../services/config/config";
+import { assetAdminAuthGroups } from "../../services/config/config";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
@@ -54,7 +54,7 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          {isAuthorisedForGroups(propertyAuthorizedGroups) && (
+          {isAuthorisedForGroups(assetAdminAuthGroups) && (
             <Button
               as={RouterLink}
               to={assetAddress.uprn ? `/property/edit/${id}` : "#"}
