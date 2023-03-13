@@ -4,12 +4,14 @@ import { Link as RouterLink } from "react-router-dom";
 import { AssetDetails, TenureDetails } from "../../components";
 import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
 import { locale } from "../../services";
+import { assetAdminAuthGroups } from "../../services/config/config";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
 import { HouseholdMember } from "@mtfh/common/lib/api/tenure/v1/types";
+import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import {
   Alert as AlertIcon,
   Button,
@@ -27,7 +29,6 @@ import {
 } from "@mtfh/common/lib/components";
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
-
 import "./styles.scss";
 
 export interface AssetLayoutProperties {
@@ -53,6 +54,16 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
+          {isAuthorisedForGroups(assetAdminAuthGroups) && (
+            <Button
+              as={RouterLink}
+              to={assetAddress.uprn ? `/property/edit/${id}` : "#"}
+              isDisabled={!assetAddress.uprn}
+              data-testid="edit-address-button"
+            >
+              {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN missing"}
+            </Button>
+          )}
           <CautionaryAlertsDetails alerts={alerts} />
           <TenureDetails tenure={tenure} />
         </>
@@ -62,7 +73,7 @@ const AssetSideBar = ({
         !isFutureDate(tenure.endOfTenureDate) ||
         !tenure.id) && (
         <Button as={RouterLink} to={`/tenure/${id}/add`}>
-          {locale.assetDetails.newTenure}
+          {locale.assets.assetDetails.newTenure}
         </Button>
       )}
     </div>
@@ -145,7 +156,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
                 style={{ margin: "-2px 4px 0 0" }}
               />
             )}
-            {locale.assetDetails.address(assetDetails.assetAddress)}
+            {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
         side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}

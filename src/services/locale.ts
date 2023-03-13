@@ -4,38 +4,41 @@ export default {
   backToSearch: "Search results",
   cancel: "Cancel",
   noDataForKey: "N/A",
-  assetDetails: {
-    address: (assetAddress: AssetAddress): string => {
-      const {
-        postPreamble,
-        addressLine1,
-        addressLine2,
-        addressLine3,
-        addressLine4,
-        postCode,
-      } = assetAddress;
+  assets: {
+    assetDetails: {
+      address: (assetAddress: AssetAddress): string => {
+        const {
+          postPreamble,
+          addressLine1,
+          addressLine2,
+          addressLine3,
+          addressLine4,
+          postCode,
+        } = assetAddress;
 
-      return [
-        postPreamble,
-        addressLine1,
-        addressLine2,
-        addressLine3,
-        addressLine4,
-        postCode,
-      ]
-        .filter((addressLine) => !!addressLine)
-        .join(" ");
+        return [
+          postPreamble,
+          addressLine1,
+          addressLine2,
+          addressLine3,
+          addressLine4,
+          postCode,
+        ]
+          .filter((addressLine) => !!addressLine)
+          .join(" ");
+      },
+      newTenure: "New tenure",
     },
-    newTenure: "New tenure",
-  },
-  assetType: (assetType: AssetType): string => {
-    if (assetType === "Dwelling") {
-      return "Dwelling";
-    }
-    if (assetType === "LettableNonDwelling") {
-      return "Lettable non-dwelling";
-    }
-    return assetType;
+    assetType: (assetType: AssetType): string => {
+      if (assetType === "Dwelling") {
+        return "Dwelling";
+      }
+      if (assetType === "LettableNonDwelling") {
+        return "Lettable non-dwelling";
+      }
+      return assetType;
+    },
+    patchAssetAddressSuccessMessage: "The asset address has been updated successfully.",
   },
   comments: {
     heading: "Comments",
@@ -72,8 +75,13 @@ export default {
   errors: {
     unableToFetchRecord: "There was a problem retrieving the record",
     assetDoesNotExist: "The property information you've requested does not exist",
-    unableToFetchRecordDescription:
-      "Please try again. If the issue persists, please contact support.",
     alertTitle: "Error",
+    noAddressEditPermissions: "You are not authorized to edit address data",
+    postcodeInvalid: "Please enter a valid postcode",
+    unableToPatchAsset: "There was a problem amending this asset",
+    unableToPatchAssetInvalidVersion:
+      "The 'version' property is invalid on this asset. This is a required property when updating the asset.",
+    tryAgainOrContactSupport:
+      "Please refresh the page and try again. If the issue persists, please contact support.",
   },
 };

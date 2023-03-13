@@ -1,0 +1,17 @@
+@import '~lbh-frontend/lbh/base';
+
+.mtfh-address-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    >section {
+        margin: 0 0 24px 0;
+    }
+
+    input {
+        width: 500px;
+        margin: 6px 0 0;
+    }
+}
