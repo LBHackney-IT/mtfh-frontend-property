@@ -10,6 +10,7 @@ import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
 import "./styles.scss";
+import { useUserFeedback } from "../../services/hooks/useUserFeedback";
 
 export interface AssetEditLayoutProperties {
   assetDetails: Asset;
@@ -23,10 +24,12 @@ export const AssetEditLayout = ({
   );
   const [llpgAddress, setLlpgAddress] = useState<Address | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [showSuccess, setShowSuccess] = useState<boolean>(false);
-  const [showError, setShowError] = useState<boolean>(false);
-  const [errorHeading, setErrorHeading] = useState<string | null>(null);
-  const [errorDescription, setErrorDescription] = useState<string | null>(null);
+  const {
+    showSuccess, setShowSuccess,
+    showError, setShowError,
+    errorHeading, setErrorHeading,
+    errorDescription, setErrorDescription
+  } = useUserFeedback()
 
   useEffect(() => {
     getAddressViaUprn(assetDetails.assetAddress.uprn)
