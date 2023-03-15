@@ -1,12 +1,17 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-
+import { NewAssetView } from "./views/new-asset-view/new-asset-view";
 import { AssetEditView } from "./views/asset-edit-view";
 import { AssetView } from "./views/asset-view";
 
 export default function App(): JSX.Element {
   return (
     <Switch>
+      <Route path="/property/new" exact>
+        <div data-testid="new-property">
+          <NewAssetView />
+        </div>
+      </Route>
       <Route path="/property/:assetId" exact>
         <div data-testid="property">
           <AssetView />

@@ -39,6 +39,7 @@ export default {
       return assetType;
     },
     patchAssetAddressSuccessMessage: "The asset address has been updated successfully.",
+    newPropertyAddedSuccessMessage: "The new asset address has been successfully added.",
   },
   comments: {
     heading: "Comments",
