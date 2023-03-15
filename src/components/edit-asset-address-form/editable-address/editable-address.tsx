@@ -66,7 +66,8 @@ export const EditableAddress = ({
       },
     };
 
-    if (assetDetails?.versionNumber) {
+    // the toString() prevents a version with a potential valid value of Number 0 from being seen as 'falsy'
+    if (assetDetails?.versionNumber?.toString()) {
       const assetVersionNumber = assetDetails.versionNumber.toString();
 
       await patchAsset(assetDetails.id, assetAddress, assetVersionNumber)
