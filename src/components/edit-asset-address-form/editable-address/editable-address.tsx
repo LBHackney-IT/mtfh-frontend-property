@@ -66,37 +66,32 @@ export const EditableAddress = ({
       },
     };
 
-    if (assetDetails?.versionNumber) {
-      const assetVersionNumber = assetDetails.versionNumber.toString();
+    // the toString() prevents a version with a potential valid value of Number 0 from being seen as 'falsy'
+    const assetVersionNumber = assetDetails?.versionNumber?.toString()
+      ? assetDetails.versionNumber.toString()
+      : null;
 
-      await patchAsset(assetDetails.id, assetAddress, assetVersionNumber)
-        .then(() => {
-          // If the update is successful, we update the "Current Address" details (postPreamble and UPRN are unchanged)
-          const newAssetAddress: AssetAddress = {
-            addressLine1: assetAddress.assetAddress.addressLine1,
-            addressLine2: assetAddress.assetAddress.addressLine2,
-            addressLine3: assetAddress.assetAddress.addressLine3,
-            addressLine4: assetAddress.assetAddress.addressLine4,
-            postCode: assetAddress.assetAddress.postCode,
-            postPreamble: assetDetails.assetAddress.postPreamble,
-            uprn: assetDetails.assetAddress.uprn,
-          };
-          setCurrentAssetAddress(newAssetAddress);
-          setShowSuccess(true);
-          setSubmitEditEnabled(false);
-        })
-        .catch(() => {
-          setShowError(true);
-          setErrorHeading(locale.errors.unableToPatchAsset);
-          setErrorDescription(locale.errors.tryAgainOrContactSupport);
-        });
-    } else {
-      setShowError(true);
-      setErrorHeading(locale.errors.unableToPatchAsset);
-      setErrorDescription(
-        `Asset "version" invalid (value: ${assetDetails?.versionNumber}). This is a required property when updating the asset. If the issue persists, please contact support.`,
-      );
-    }
+    await patchAsset(assetDetails.id, assetAddress, assetVersionNumber)
+      .then(() => {
+        // If the update is successful, we update the "Current Address" details (postPreamble and UPRN are unchanged)
+        const newAssetAddress: AssetAddress = {
+          addressLine1: assetAddress.assetAddress.addressLine1,
+          addressLine2: assetAddress.assetAddress.addressLine2,
+          addressLine3: assetAddress.assetAddress.addressLine3,
+          addressLine4: assetAddress.assetAddress.addressLine4,
+          postCode: assetAddress.assetAddress.postCode,
+          postPreamble: assetDetails.assetAddress.postPreamble,
+          uprn: assetDetails.assetAddress.uprn,
+        };
+        setCurrentAssetAddress(newAssetAddress);
+        setShowSuccess(true);
+        setSubmitEditEnabled(false);
+      })
+      .catch(() => {
+        setShowError(true);
+        setErrorHeading(locale.errors.unableToPatchAsset);
+        setErrorDescription(locale.errors.tryAgainOrContactSupport);
+      });
   };
 
   if (!llpgAddress && loading) {
@@ -200,7 +195,7 @@ export const EditableAddress = ({
                 }
               >
                 <label className="govuk-label lbh-label" htmlFor="postcode">
-                  Postcode
+                  Postcode*
                 </label>
                 <span
                   id="Postcode-input-error"

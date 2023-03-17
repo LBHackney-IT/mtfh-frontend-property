@@ -110,7 +110,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
               class="govuk-label lbh-label"
               for="postcode"
             >
-              Postcode
+              Postcode*
             </label>
             <span
               class="govuk-error-message lbh-error-message"
@@ -163,10 +163,10 @@ exports[`renders the whole 'Edit property address' view 1`] = `
         class="govuk-form-group lbh-form-group"
       >
         <label
-          class="govuk-label lbh-label"
+          class="govuk-label lbh-label grey-text"
           for="asset-address-line-one-input"
         >
-          Address line 1*
+          Address line 1
         </label>
         <input
           class="govuk-input lbh-input"
@@ -183,7 +183,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
         class="govuk-form-group lbh-form-group"
       >
         <label
-          class="govuk-label lbh-label"
+          class="govuk-label lbh-label grey-text"
           for="asset-address-line-two-input"
         >
           Address line 2
@@ -202,7 +202,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
         class="govuk-form-group lbh-form-group"
       >
         <label
-          class="govuk-label lbh-label"
+          class="govuk-label lbh-label grey-text"
           for="asset-address-line-three"
         >
           Address line 3
@@ -221,7 +221,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
         class="govuk-form-group lbh-form-group"
       >
         <label
-          class="govuk-label lbh-label"
+          class="govuk-label lbh-label grey-text"
           for="asset-address-line-four-input"
         >
           Address line 4
@@ -240,7 +240,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
         class="govuk-form-group lbh-form-group"
       >
         <label
-          class="govuk-label lbh-label"
+          class="govuk-label lbh-label grey-text"
           for="asset-postcode-input"
         >
           Postcode
