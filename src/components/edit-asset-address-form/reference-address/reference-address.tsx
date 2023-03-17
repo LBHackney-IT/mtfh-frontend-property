@@ -16,8 +16,11 @@ export const ReferenceAddress = ({
       <h3 className="lbh-heading-h3">Current address</h3>
 
       <div className="govuk-form-group lbh-form-group">
-        <label className="govuk-label lbh-label" htmlFor="asset-address-line-one-input">
-          Address line 1*
+        <label
+          className="govuk-label lbh-label grey-text"
+          htmlFor="asset-address-line-one-input"
+        >
+          Address line 1
         </label>
         <input
           className="govuk-input lbh-input"
@@ -31,7 +34,10 @@ export const ReferenceAddress = ({
         />
       </div>
       <div className="govuk-form-group lbh-form-group">
-        <label className="govuk-label lbh-label" htmlFor="asset-address-line-two-input">
+        <label
+          className="govuk-label lbh-label grey-text"
+          htmlFor="asset-address-line-two-input"
+        >
           Address line 2
         </label>
         <input
@@ -45,7 +51,10 @@ export const ReferenceAddress = ({
         />
       </div>
       <div className="govuk-form-group lbh-form-group">
-        <label className="govuk-label lbh-label" htmlFor="asset-address-line-three">
+        <label
+          className="govuk-label lbh-label grey-text"
+          htmlFor="asset-address-line-three"
+        >
           Address line 3
         </label>
         <input
@@ -59,7 +68,10 @@ export const ReferenceAddress = ({
         />
       </div>
       <div className="govuk-form-group lbh-form-group">
-        <label className="govuk-label lbh-label" htmlFor="asset-address-line-four-input">
+        <label
+          className="govuk-label lbh-label grey-text"
+          htmlFor="asset-address-line-four-input"
+        >
           Address line 4
         </label>
         <input
@@ -73,7 +85,7 @@ export const ReferenceAddress = ({
         />
       </div>
       <div className="govuk-form-group lbh-form-group">
-        <label className="govuk-label lbh-label" htmlFor="asset-postcode-input">
+        <label className="govuk-label lbh-label grey-text" htmlFor="asset-postcode-input">
           Postcode
         </label>
         <input

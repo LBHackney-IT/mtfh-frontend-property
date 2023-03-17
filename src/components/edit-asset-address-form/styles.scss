@@ -4,7 +4,18 @@ label {
     margin: 28.5px 0px 6px
 }
 
+.grey-text {
+    color: #505a5f;
+}
+
 .form-actions {
     display: flex;
     justify-content: space-between;
+}
+
+input:disabled {
+    cursor: default;
+    background-color: -internal-light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3));
+    color: #505a5f;
+    border-color: rgba(118, 118, 118, 0.3);
 }
