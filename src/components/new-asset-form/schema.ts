@@ -30,14 +30,15 @@ export const newPropertySchema = () =>
     // Property management
     agent: Yup.string(),
     areaOfficeName: Yup.string(),
-    isCouncilProperty: Yup.boolean().required("Please select an option"),
+    isCouncilProperty: Yup.string().nullable().required("Please select an option"),
     managingOrganisation: Yup.string().required("Managing organisation is a required field"),
-    isTMOManaged: Yup.boolean().required("Please select an option"),
+    isTMOManaged: Yup.string().required("Please select an option"),
 
     // Asset details
     numberOfBedrooms: Yup.string(),
     numberOfLivingRooms: Yup.string(),
     numberOfLifts: Yup.string(),
+    windowType: Yup.string(),
     yearConstructed: Yup.string(),
   });
 
