@@ -198,7 +198,7 @@ export const EditableAddress = ({
                   Postcode*
                 </label>
                 <span
-                  id="Postcode-input-error"
+                  id="postcode-input-error"
                   className="govuk-error-message lbh-error-message"
                 >
                   <span className="govuk-visually-hidden">Error:</span> {errors.postcode}

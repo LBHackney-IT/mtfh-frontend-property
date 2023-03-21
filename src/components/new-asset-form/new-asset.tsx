@@ -10,12 +10,16 @@ export const NewAsset = (): JSX.Element => {
     const [submitEditEnabled, setSubmitEditEnabled] = useState<boolean>(true);
 
     const renderAssetTypeOptions = (): JSX.Element[] => {
-
         return Object.keys(AssetType).map((key, index) => (
             <option key={index} value={key}>
                 {key}
             </option>
         ))
+    }
+
+    const handleSubmit = (values: NewPropertyFormData) => {
+        console.log(values)
+        alert(JSON.stringify(values, null, 2))
     }
 
     return (
@@ -47,34 +51,72 @@ export const NewAsset = (): JSX.Element => {
                     yearConstructed: '',
                 }}
                 validationSchema={newPropertySchema}
-                onSubmit={(values) => console.log('VALUES', values)}
+                onSubmit={(values) => handleSubmit(values)}
             >
-                {({ values, errors }) => (
-
+                {({ values, errors, touched }) => (
                     <div id="new-property-form">
                         <Form>
-                            <label className="govuk-label lbh-label" htmlFor="asset-id">
-                                Asset ID
-                            </label>
-                            <Field
-                                id="asset-id"
-                                name="assetId"
-                                className="govuk-input lbh-input"
-                                type="text"
-                                data-testid="asset-id"
-                            />
-                            <label className="govuk-label lbh-label" htmlFor="asset-type">
-                                Asset Type
-                            </label>
-                            <Field
-                                as="select"
-                                id="asset-type"
-                                name="assetType"
-                                className="govuk-input lbh-input"
-                                data-testid="asset-type">
-                                <option disabled selected value=""> -- Select an option -- </option>
-                                {renderAssetTypeOptions()}
-                            </Field>
+                            <div
+                                className={
+                                    errors.assetId && touched.assetId
+                                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                                        : "govuk-form-group lbh-form-group"
+                                }
+                            >
+                                <label className="govuk-label lbh-label" htmlFor="assetId">
+                                    Asset ID
+                                </label>
+                                <span
+                                    id="assetId-input-error"
+                                    className="govuk-error-message lbh-error-message"
+                                >
+                                    <span className="govuk-visually-hidden">Error:</span>
+                                    {errors.assetId}
+                                </span>
+                                <Field
+                                    id="assetId"
+                                    name="assetId"
+                                    className={
+                                        errors.assetId && touched.assetId
+                                            ? "govuk-input lbh-input govuk-input--error"
+                                            : "govuk-input lbh-input"
+                                    }
+                                    type="text"
+                                    data-testid="assetId"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    errors.assetType && touched.assetType
+                                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                                        : "govuk-form-group lbh-form-group"
+                                }
+                            >
+                                <label className="govuk-label lbh-label" htmlFor="assetType">
+                                    Asset Type
+                                </label>
+                                <span
+                                    id="assetType-input-error"
+                                    className="govuk-error-message lbh-error-message"
+                                >
+                                    <span className="govuk-visually-hidden">Error:</span>
+                                    {errors.assetType}
+                                </span>
+                                <Field
+                                    as="select"
+                                    id="asset-type"
+                                    name="assetType"
+                                    className={
+                                        errors.assetType && touched.assetType
+                                            ? "govuk-input lbh-input govuk-input--error"
+                                            : "govuk-input lbh-input"
+                                    } data-testid="asset-type">
+                                    <option disabled selected value=""> -- Select an option -- </option>
+                                    {renderAssetTypeOptions()}
+                                </Field>
+                            </div>
+
+
                             <label className="govuk-label lbh-label" htmlFor="property-estate">
                                 Estate this property is in
                             </label>
@@ -84,6 +126,7 @@ export const NewAsset = (): JSX.Element => {
                                 name="propertyEstate"
                                 className="govuk-input lbh-input"
                                 data-testid="property-estate">
+                                <option disabled selected value=""> -- Select an option -- </option>
                                 <option value="red">Red</option>
                                 <option value="green">Green</option>
                                 <option value="blue">Blue</option>
@@ -97,6 +140,7 @@ export const NewAsset = (): JSX.Element => {
                                 name="propertyBlock"
                                 className="govuk-input lbh-input"
                                 data-testid="property-block">
+                                <option disabled selected value=""> -- Select an option -- </option>
                                 <option value="red">Red</option>
                                 <option value="green">Green</option>
                                 <option value="blue">Blue</option>
@@ -110,6 +154,7 @@ export const NewAsset = (): JSX.Element => {
                                 name="propertySubBlock"
                                 className="govuk-input lbh-input"
                                 data-testid="property-sub-block">
+                                <option disabled selected value=""> -- Select an option -- </option>
                                 <option value="red">Red</option>
                                 <option value="green">Green</option>
                                 <option value="blue">Blue</option>
@@ -152,16 +197,35 @@ export const NewAsset = (): JSX.Element => {
                                 className="govuk-input lbh-input"
                                 data-testid="uprn"
                             />
-
-                            <label className="govuk-label lbh-label" htmlFor="address-line-1">
-                                Address line 1
-                            </label>
-                            <Field
-                                id="address-line-1"
-                                name="addressLine1"
-                                className="govuk-input lbh-input"
-                                data-testid="address-line-1"
-                            />
+                            <div
+                                className={
+                                    errors.addressLine1 && touched.addressLine1
+                                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                                        : "govuk-form-group lbh-form-group"
+                                }
+                            >
+                                <label className="govuk-label lbh-label" htmlFor="addressLine1">
+                                    Address line 1
+                                </label>
+                                <span
+                                    id="addressLine1-input-error"
+                                    className="govuk-error-message lbh-error-message"
+                                >
+                                    <span className="govuk-visually-hidden">Error:</span>
+                                    {errors.addressLine1}
+                                </span>
+                                <Field
+                                    id="addressLine1"
+                                    name="addressLine1"
+                                    className={
+                                        errors.addressLine1 && touched.addressLine1
+                                            ? "govuk-input lbh-input govuk-input--error"
+                                            : "govuk-input lbh-input"
+                                    }
+                                    type="text"
+                                    data-testid="addressLine1"
+                                />
+                            </div>
                             <label className="govuk-label lbh-label" htmlFor="address-line-2">
                                 Address line 2
                             </label>
@@ -189,15 +253,34 @@ export const NewAsset = (): JSX.Element => {
                                 className="govuk-input lbh-input"
                                 data-testid="address-line-4"
                             />
-                            <label className="govuk-label lbh-label" htmlFor="postcode">
-                                Postcode
-                            </label>
-                            <Field
-                                id="postcode"
-                                name="postcode"
-                                className="govuk-input lbh-input"
-                                data-testid="postcode"
-                            />
+                            <div
+                                className={
+                                    errors.postcode && touched.postcode
+                                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                                        : "govuk-form-group lbh-form-group"
+                                }
+                            >
+                                <label className="govuk-label lbh-label" htmlFor="postcode">
+                                    Postcode*
+                                </label>
+                                <span
+                                    id="postcode-input-error"
+                                    className="govuk-error-message lbh-error-message"
+                                >
+                                    <span className="govuk-visually-hidden">Error:</span> {errors.postcode}
+                                </span>
+                                <Field
+                                    id="postcode"
+                                    name="postcode"
+                                    className={
+                                        errors.postcode && touched.postcode
+                                            ? "govuk-input lbh-input govuk-input--error"
+                                            : "govuk-input lbh-input"
+                                    }
+                                    type="text"
+                                    data-testid="postcode"
+                                />
+                            </div>
                             <h2 className="lbh-heading-h2">
                                 Property management
                             </h2>
@@ -219,9 +302,21 @@ export const NewAsset = (): JSX.Element => {
                                 className="govuk-input lbh-input"
                                 data-testid="area-office-name"
                             />
-                            <div className="govuk-form-group lbh-form-group">
+                            <div
+                                className={
+                                    errors.isCouncilProperty && touched.isCouncilProperty
+                                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                                        : "govuk-form-group lbh-form-group"
+                                }
+                            >
                                 <fieldset className="govuk-fieldset">
                                     <legend className="govuk-label lbh-label">Is LBH property?</legend>
+                                    <span
+                                        id="is-lbh-property-error"
+                                        className="govuk-error-message lbh-error-message"
+                                    >
+                                        <span className="govuk-visually-hidden">Error:</span> {errors.isCouncilProperty}
+                                    </span>
                                     <div className="govuk-radios lbh-radios">
                                         <div className="govuk-radios__item">
                                             <Field
@@ -250,18 +345,49 @@ export const NewAsset = (): JSX.Element => {
                                     </div>
                                 </fieldset>
                             </div>
-                            <label className="govuk-label lbh-label" htmlFor="managing-organisation">
-                                Managing organisation
-                            </label>
-                            <Field
-                                id="managing-organisation"
-                                name="managingOrganisation"
-                                className="govuk-input lbh-input"
-                                data-testid="managing-organisation"
-                            />
-                            <div className="govuk-form-group lbh-form-group">
+                            <div
+                                className={
+                                    errors.managingOrganisation && touched.managingOrganisation
+                                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                                        : "govuk-form-group lbh-form-group"
+                                }
+                            >
+                                <label className="govuk-label lbh-label" htmlFor="managing-organisation">
+                                    Managing organisation
+                                </label>
+                                <span
+                                    id="managing-organisation-input-error"
+                                    className="govuk-error-message lbh-error-message"
+                                >
+                                    <span className="govuk-visually-hidden">Error:</span> {errors.managingOrganisation}
+                                </span>
+                                <Field
+                                    id="managing-organisation"
+                                    name="managingOrganisation"
+                                    className={
+                                        errors.managingOrganisation && touched.managingOrganisation
+                                            ? "govuk-input lbh-input govuk-input--error"
+                                            : "govuk-input lbh-input"
+                                    }
+                                    type="text"
+                                    data-testid="managing-organisation"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    errors.isTMOManaged && touched.isTMOManaged
+                                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                                        : "govuk-form-group lbh-form-group"
+                                }
+                            >
                                 <fieldset className="govuk-fieldset">
                                     <legend className="govuk-label lbh-label">Is TMO managed?</legend>
+                                    <span
+                                        id="is-tmo-managed-error"
+                                        className="govuk-error-message lbh-error-message"
+                                    >
+                                        <span className="govuk-visually-hidden">Error:</span> {errors.isTMOManaged}
+                                    </span>
                                     <div className="govuk-radios lbh-radios">
                                         <div className="govuk-radios__item">
                                             <Field

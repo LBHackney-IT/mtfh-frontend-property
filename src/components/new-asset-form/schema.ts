@@ -8,7 +8,7 @@ export const regexUkPostcode =
 export const newPropertySchema = () =>
   Yup.object({
     assetId: Yup.string().required("Asset ID is a required field"),
-    assetType: Yup.string().required("Asset ID is a required field"),
+    assetType: Yup.string().required("Asset Type is a required field"),
     propertyEstate: Yup.string(),
     propertyBlock: Yup.string(),
     propertySubBlock: Yup.string(),
@@ -18,9 +18,9 @@ export const newPropertySchema = () =>
     // Address
     uprn: Yup.string(),
     addressLine1: Yup.string().required("Address line 1 is a required field"),
-    addressLine2: Yup.string().required("Address line 2 is a required field"),
-    addressLine3: Yup.string().required("Address line 3 is a required field"),
-    addressLine4: Yup.string().required("Address line 4 is a required field"),
+    addressLine2: Yup.string(),
+    addressLine3: Yup.string(),
+    addressLine4: Yup.string(),
     postcode: Yup.string()
       .trim()
       .transform(removeWhitespace)
