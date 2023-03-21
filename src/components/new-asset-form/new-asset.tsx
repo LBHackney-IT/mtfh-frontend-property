@@ -3,10 +3,20 @@ import { Link as RouterLink } from "react-router-dom";
 import React, { useState } from "react";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
 import "./styles.scss";
+import AssetType from "../../enums/asset-type";
 
 export const NewAsset = (): JSX.Element => {
 
     const [submitEditEnabled, setSubmitEditEnabled] = useState<boolean>(true);
+
+    const renderAssetTypeOptions = (): JSX.Element[] => {
+
+        return Object.keys(AssetType).map((key, index) => (
+            <option key={index} value={key}>
+                {key}
+            </option>
+        ))
+    }
 
     return (
         <>
@@ -62,9 +72,8 @@ export const NewAsset = (): JSX.Element => {
                                 name="assetType"
                                 className="govuk-input lbh-input"
                                 data-testid="asset-type">
-                                <option value="red">Red</option>
-                                <option value="green">Green</option>
-                                <option value="blue">Blue</option>
+                                <option disabled selected value=""> -- Select an option -- </option>
+                                {renderAssetTypeOptions()}
                             </Field>
                             <label className="govuk-label lbh-label" htmlFor="property-estate">
                                 Estate this property is in

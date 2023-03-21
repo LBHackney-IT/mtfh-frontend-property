@@ -1,0 +1,32 @@
+const AssetType = {
+    Block: 'Block',
+    Concierge: 'Concierge',
+    Dwelling: 'Dwelling',
+    LettableNonDwelling: 'LettableNonDwelling',
+    MediumRiseBlock: 'BlMediumRiseBlockock',
+    NA: 'NA',
+    TravellerSite: 'TravellerSite',
+    AdministrativeBuilding: 'AdministrativeBuilding',
+    BoilerHouse: 'BoilerHouse',
+    BoosterPump: 'BoosterPump',
+    CleanersFacilities: 'CleanersFacilities',
+    CombinedHeatAndPowerUnit: 'CombinedHeatAndPowerUnit',
+    CommunityHall: 'CommunityHall',
+    Estate: 'Estate',
+    HighRiseBlock: 'HighRiseBlock',
+    Lift: 'Lift',
+    LowRiseBlock: 'LowRiseBlock',
+    NBD: 'NBD',
+    OutBuilding: 'OutBuilding',
+    TerracedBlock: 'TerracedBlock',
+    WalkUpBlock: 'WalkUpBlock',
+    StudioFlat: 'StudioFlat',
+    Flat: 'Flat',
+    Room: 'Room',
+    House: 'House',
+    SelfContainedBedsit: 'SelfContainedBedsit',
+    Maisonette: 'Maisonette',
+    NewBuild: 'NewBuild'
+}
+
+export default AssetType;
