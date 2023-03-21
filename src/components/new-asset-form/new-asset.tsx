@@ -1,9 +1,9 @@
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, useFormikContext } from "formik";
 import { Link as RouterLink } from "react-router-dom";
 import React, { useState } from "react";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
 import "./styles.scss";
-import AssetType from "../../enums/asset-type";
+import { AssetType, assetHasFloorNo, assetHasFloors } from "../../utils/asset-type";
 
 export const NewAsset = (): JSX.Element => {
 
@@ -49,7 +49,7 @@ export const NewAsset = (): JSX.Element => {
                 validationSchema={newPropertySchema}
                 onSubmit={(values) => console.log('VALUES', values)}
             >
-                {({ errors }) => (
+                {({ values, errors }) => (
 
                     <div id="new-property-form">
                         <Form>
@@ -114,25 +114,32 @@ export const NewAsset = (): JSX.Element => {
                                 <option value="green">Green</option>
                                 <option value="blue">Blue</option>
                             </Field>
-                            <label className="govuk-label lbh-label" htmlFor="floor-no">
-                                Floor this property is on
-                            </label>
-                            <Field
-                                id="floor-no"
-                                name="floorNo"
-                                className="govuk-input lbh-input"
-                                data-testid="floor-no"
-                            />
-
-                            <label className="govuk-label lbh-label" htmlFor="total-block-floors">
-                                Number of floors in block
-                            </label>
-                            <Field
-                                id="total-block-floors"
-                                name="totalBlockFloors"
-                                className="govuk-input lbh-input"
-                                data-testid="total-block-floors"
-                            />
+                            {assetHasFloorNo(values.assetType) &&
+                                <>
+                                    <label className="govuk-label lbh-label" htmlFor="floor-no">
+                                        Floor this property is on
+                                    </label>
+                                    <Field
+                                        id="floor-no"
+                                        name="floorNo"
+                                        className="govuk-input lbh-input"
+                                        data-testid="floor-no"
+                                    />
+                                </>
+                            }
+                            {assetHasFloors(values.assetType) &&
+                                <>
+                                    <label className="govuk-label lbh-label" htmlFor="total-block-floors">
+                                        Number of floors in block
+                                    </label>
+                                    <Field
+                                        id="total-block-floors"
+                                        name="totalBlockFloors"
+                                        className="govuk-input lbh-input"
+                                        data-testid="total-block-floors"
+                                    />
+                                </>
+                            }
                             <h2 className="lbh-heading-h2">
                                 Address
                             </h2>
