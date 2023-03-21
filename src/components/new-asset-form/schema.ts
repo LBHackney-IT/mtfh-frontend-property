@@ -30,7 +30,7 @@ export const newPropertySchema = () =>
     // Property management
     agent: Yup.string(),
     areaOfficeName: Yup.string(),
-    isCouncilProperty: Yup.string().nullable().required("Please select an option"),
+    isCouncilProperty: Yup.string().required("Please select an option"),
     managingOrganisation: Yup.string().required("Managing organisation is a required field"),
     isTMOManaged: Yup.string().required("Please select an option"),
 
