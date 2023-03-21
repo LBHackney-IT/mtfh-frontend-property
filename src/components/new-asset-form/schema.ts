@@ -35,7 +35,8 @@ export const newPropertySchema = () =>
     isTMOManaged: Yup.string().required("Please select an option"),
 
     // Asset details
-    numberOfBedrooms: Yup.string(),
+    numberOfBedrooms: Yup.string().test("bedrooms-no-check", "Input is invalid",
+      (value) => { if (value) return isNaN(parseInt(value)) ? false : true }),
     numberOfLivingRooms: Yup.string(),
     numberOfLifts: Yup.string(),
     windowType: Yup.string(),

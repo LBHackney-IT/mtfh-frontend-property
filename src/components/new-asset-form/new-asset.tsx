@@ -115,8 +115,6 @@ export const NewAsset = (): JSX.Element => {
                                     {renderAssetTypeOptions()}
                                 </Field>
                             </div>
-
-
                             <label className="govuk-label lbh-label" htmlFor="property-estate">
                                 Estate this property is in
                             </label>
