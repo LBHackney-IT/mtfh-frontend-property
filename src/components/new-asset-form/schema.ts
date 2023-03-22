@@ -5,6 +5,10 @@ import { removeWhitespace } from "@mtfh/common/lib/utils";
 export const regexUkPostcode =
   /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/;
 
+const isValidNumber = (value: any): boolean => {
+  return isNaN(value) ? false : true
+}
+
 export const newPropertySchema = () =>
   Yup.object({
     assetId: Yup.string().required("Asset ID is a required field"),
@@ -13,8 +17,7 @@ export const newPropertySchema = () =>
     propertyBlock: Yup.string(),
     propertySubBlock: Yup.string(),
     floorNo: Yup.string(),
-    totalBlockFloors: Yup.number().nullable(),
-
+    totalBlockFloors: Yup.number().nullable().min(0, "Only positive values are accepted").typeError('The value must be a valid number'),
     // Address
     uprn: Yup.string(),
     addressLine1: Yup.string().required("Address line 1 is a required field"),
@@ -37,11 +40,13 @@ export const newPropertySchema = () =>
     isTMOManaged: Yup.string().required("Please select an option"),
 
     // Asset details
-    numberOfBedrooms: Yup.number().nullable(),
-    numberOfLivingRooms: Yup.number().nullable(),
-    numberOfLifts: Yup.number().nullable(),
+    numberOfBedrooms: Yup.number().nullable("NONO").min(0, "Only positive values are accepted").typeError('The value must be a valid number'),
+    numberOfLivingRooms: Yup.number().nullable().min(0, "Only positive values are accepted").typeError('The value must be a valid number'),
+    numberOfLifts: Yup.number().nullable().min(0, "Only positive values are accepted").typeError('The value must be a valid number'),
     windowType: Yup.string(),
-    yearConstructed: Yup.number().nullable(),
+    yearConstructed: Yup.number().nullable().min(1800, "The year entered is invalid").typeError('The value must be a valid number'),
   });
+
+
 
 export type NewPropertyFormData = Yup.Asserts<ReturnType<typeof newPropertySchema>>;
