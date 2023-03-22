@@ -74,12 +74,14 @@ export const EditableAddress = ({
     }
     return (
       <>
-        <RouterLink
-          to={`/property/${assetDetails.id}`}
-          className="govuk-button lbh-button"
-        >
-          Back to asset view
-        </RouterLink>
+        <div className="form-actions">
+          <RouterLink
+            to={`/property/${assetDetails.id}`}
+            className="govuk-button lbh-button"
+          >
+            Back to asset view
+          </RouterLink>
+        </div>
       </>
     );
   };
