@@ -13,7 +13,7 @@ export const newPropertySchema = () =>
     propertyBlock: Yup.string(),
     propertySubBlock: Yup.string(),
     floorNo: Yup.string(),
-    totalBlockFloors: Yup.string(),
+    totalBlockFloors: Yup.number().nullable(),
 
     // Address
     uprn: Yup.string(),
@@ -37,17 +37,11 @@ export const newPropertySchema = () =>
     isTMOManaged: Yup.string().required("Please select an option"),
 
     // Asset details
-    numberOfBedrooms: Yup.string().test(
-      "bedrooms-no-check",
-      "Input is invalid",
-      (value) => {
-        if (value) return !isNaN(parseInt(value));
-      },
-    ),
-    numberOfLivingRooms: Yup.string(),
-    numberOfLifts: Yup.string(),
+    numberOfBedrooms: Yup.number().nullable(),
+    numberOfLivingRooms: Yup.number().nullable(),
+    numberOfLifts: Yup.number().nullable(),
     windowType: Yup.string(),
-    yearConstructed: Yup.string(),
+    yearConstructed: Yup.number().nullable(),
   });
 
 export type NewPropertyFormData = Yup.Asserts<ReturnType<typeof newPropertySchema>>;

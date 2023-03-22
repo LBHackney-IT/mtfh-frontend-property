@@ -33,7 +33,7 @@ export const NewAsset = (): JSX.Element => {
           propertyBlock: "",
           propertySubBlock: "",
           floorNo: "",
-          totalBlockFloors: "",
+          totalBlockFloors: null,
           uprn: "",
           addressLine1: "",
           addressLine2: "",
@@ -45,11 +45,11 @@ export const NewAsset = (): JSX.Element => {
           isCouncilProperty: "",
           managingOrganisation: "",
           isTMOManaged: "",
-          numberOfBedrooms: "",
-          numberOfLivingRooms: "",
-          numberOfLifts: "",
+          numberOfBedrooms: null,
+          numberOfLivingRooms: null,
+          numberOfLifts: null,
           windowType: "",
-          yearConstructed: "",
+          yearConstructed: null,
         }}
         validationSchema={newPropertySchema}
         onSubmit={(values) => handleSubmit(values)}
@@ -492,6 +492,8 @@ export const NewAsset = (): JSX.Element => {
                 name="yearConstructed"
                 className="govuk-input lbh-input"
                 data-testid="year-constructed"
+                type="number"
+                min="1900"
               />
               <div className="new-property-form-actions">
                 <button
