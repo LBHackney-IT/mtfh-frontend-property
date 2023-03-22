@@ -1,8 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { NewAssetView } from "./views/new-asset-view/new-asset-view";
+
 import { AssetEditView } from "./views/asset-edit-view";
 import { AssetView } from "./views/asset-view";
+import { NewAssetView } from "./views/new-asset-view/new-asset-view";
 
 export default function App(): JSX.Element {
   return (

@@ -8,19 +8,18 @@ import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import { ErrorSummary } from "@mtfh/common/lib/components";
 
 export const NewAssetView = (): JSX.Element => {
-
-    if (!isAuthorisedForGroups(assetAdminAuthGroups)) {
-        return (
-            <ErrorSummary
-                id="unauthorized-error"
-                title={locale.errors.noAddressEditPermissions}
-            />
-        );
-    }
-
+  if (!isAuthorisedForGroups(assetAdminAuthGroups)) {
     return (
-        <>
-            <NewPropertyLayout />
-        </>
+      <ErrorSummary
+        id="unauthorized-error"
+        title={locale.errors.noAddressEditPermissions}
+      />
     );
+  }
+
+  return (
+    <>
+      <NewPropertyLayout />
+    </>
+  );
 };

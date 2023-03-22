@@ -31,18 +31,23 @@ export const newPropertySchema = () =>
     agent: Yup.string(),
     areaOfficeName: Yup.string(),
     isCouncilProperty: Yup.string().required("Please select an option"),
-    managingOrganisation: Yup.string().required("Managing organisation is a required field"),
+    managingOrganisation: Yup.string().required(
+      "Managing organisation is a required field",
+    ),
     isTMOManaged: Yup.string().required("Please select an option"),
 
     // Asset details
-    numberOfBedrooms: Yup.string().test("bedrooms-no-check", "Input is invalid",
-      (value) => { if (value) return isNaN(parseInt(value)) ? false : true }),
+    numberOfBedrooms: Yup.string().test(
+      "bedrooms-no-check",
+      "Input is invalid",
+      (value) => {
+        if (value) return !isNaN(parseInt(value));
+      },
+    ),
     numberOfLivingRooms: Yup.string(),
     numberOfLifts: Yup.string(),
     windowType: Yup.string(),
     yearConstructed: Yup.string(),
   });
 
-export type NewPropertyFormData = Yup.Asserts<
-  ReturnType<typeof newPropertySchema>
->;
+export type NewPropertyFormData = Yup.Asserts<ReturnType<typeof newPropertySchema>>;
