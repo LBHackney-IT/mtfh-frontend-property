@@ -133,7 +133,7 @@ test("the current address from the asset is updated using the LLPG address sugge
   await waitFor(() => expect(screen.getAllByRole("heading")).toHaveLength(3));
 
   // Assert LLPG Address Line 1 is FLAT B
-  const llpgAddressLine1 = screen.getByTestId("addressLine1");
+  const llpgAddressLine1 = screen.getByTestId("address-line-1");
   expect(llpgAddressLine1).toHaveValue("FLAT B");
 
   // Assert Asset Address Line 1 is 51 GREENWOOD ROAD - FLAT B
@@ -141,7 +141,7 @@ test("the current address from the asset is updated using the LLPG address sugge
   expect(assetAddressLine1).toHaveValue("51 GREENWOOD ROAD - FLAT B");
 
   // Assert LLPG AddrLine2 is 51 GREENWOOD ROAD
-  const llpgAddressLine2 = screen.getByTestId("addressLine2");
+  const llpgAddressLine2 = screen.getByTestId("address-line-2");
   expect(llpgAddressLine2).toHaveValue("51 GREENWOOD ROAD");
 
   // Assert Asset AddrLine2 is ""
@@ -149,7 +149,7 @@ test("the current address from the asset is updated using the LLPG address sugge
   expect(assetAddressLine2).toHaveValue("");
 
   // Assert LLPG AddrLine3 is HACKNEY
-  const llpgAddressLine3 = screen.getByTestId("addressLine3");
+  const llpgAddressLine3 = screen.getByTestId("address-line-3");
   expect(llpgAddressLine3).toHaveValue("HACKNEY");
 
   // Assert Asset AddrLine3 is ""
@@ -157,7 +157,7 @@ test("the current address from the asset is updated using the LLPG address sugge
   expect(assetAddressLine3).toHaveValue("");
 
   // Assert LLPG AddrLine4 is LONDON
-  const llpgAddressLine4 = screen.getByTestId("addressLine4");
+  const llpgAddressLine4 = screen.getByTestId("address-line-4");
   expect(llpgAddressLine4).toHaveValue("LONDON");
 
   // Assert Asset AddrLine4 is ""

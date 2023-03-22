@@ -46,7 +46,43 @@ export const EditableAddress = ({
   setErrorDescription,
   setCurrentAssetAddress,
 }: EditableAddressProperties): JSX.Element => {
-  const [submitEditEnabled, setSubmitEditEnabled] = useState<boolean>(true);
+  const [addressEditSuccessful, setAddressEditSuccessful] = useState<boolean>(false);
+
+  const renderFormActionButtons = () => {
+    if (!addressEditSuccessful) {
+      return (
+        <>
+          <div className="form-actions">
+            <button
+              className="govuk-button lbh-button"
+              data-module="govuk-button"
+              type="submit"
+              id="submit-address-button"
+            >
+              Update to this address
+            </button>
+
+            <RouterLink
+              to={`/property/${assetDetails.id}`}
+              className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+            >
+              Cancel
+            </RouterLink>
+          </div>
+        </>
+      );
+    }
+    return (
+      <>
+        <RouterLink
+          to={`/property/${assetDetails.id}`}
+          className="govuk-button lbh-button"
+        >
+          Back to property view
+        </RouterLink>
+      </>
+    );
+  };
 
   const handleSubmit = async (values: PatchAssetFormValues) => {
     setShowSuccess(false);
@@ -85,7 +121,7 @@ export const EditableAddress = ({
         };
         setCurrentAssetAddress(newAssetAddress);
         setShowSuccess(true);
-        setSubmitEditEnabled(false);
+        setAddressEditSuccessful(true);
       })
       .catch(() => {
         setShowError(true);
@@ -131,18 +167,25 @@ export const EditableAddress = ({
                     : "govuk-form-group lbh-form-group"
                 }
               >
-                <label className="govuk-label lbh-label" htmlFor="addressLine1">
+                <label
+                  className={
+                    addressEditSuccessful
+                      ? "govuk-label lbh-label grey-text"
+                      : "govuk-label lbh-label"
+                  }
+                  htmlFor="address-line-1"
+                >
                   Address line 1*
                 </label>
                 <span
-                  id="addressLine1-input-error"
+                  id="address-line-1-input-error"
                   className="govuk-error-message lbh-error-message"
                 >
                   <span className="govuk-visually-hidden">Error:</span>
                   {errors.addressLine1}
                 </span>
                 <Field
-                  id="addressLine1"
+                  id="address-line-1"
                   name="addressLine1"
                   className={
                     errors.addressLine1 && touched.addressLine1
@@ -150,41 +193,66 @@ export const EditableAddress = ({
                       : "govuk-input lbh-input"
                   }
                   type="text"
-                  data-testid="addressLine1"
+                  data-testid="address-line-1"
+                  disabled={!!addressEditSuccessful}
                 />
               </div>
 
-              <label className="govuk-label lbh-label" htmlFor="addressLine2">
+              <label
+                className={
+                  addressEditSuccessful
+                    ? "govuk-label lbh-label grey-text"
+                    : "govuk-label lbh-label"
+                }
+                htmlFor="address-line-2"
+              >
                 Address line 2
               </label>
               <Field
-                id="addressLine2"
+                id="address-line-2"
                 name="addressLine2"
                 className="govuk-input lbh-input"
                 type="text"
-                data-testid="addressLine2"
+                data-testid="address-line-2"
+                disabled={!!addressEditSuccessful}
               />
 
-              <label className="govuk-label lbh-label" htmlFor="addressLine3">
+              <label
+                className={
+                  addressEditSuccessful
+                    ? "govuk-label lbh-label grey-text"
+                    : "govuk-label lbh-label"
+                }
+                htmlFor="address-line-3"
+              >
                 Address line 3
               </label>
               <Field
-                id="addressLine3"
+                id="address-line-3"
                 name="addressLine3"
                 className="govuk-input lbh-input"
                 type="text"
-                data-testid="addressLine3"
+                data-testid="address-line-3"
+                disabled={!!addressEditSuccessful}
               />
 
-              <label className="govuk-label lbh-label" htmlFor="addressLine4">
+              <label
+                className={
+                  addressEditSuccessful
+                    ? "govuk-label lbh-label grey-text"
+                    : "govuk-label lbh-label"
+                }
+                htmlFor="address-line-4"
+              >
                 Address line 4
               </label>
               <Field
-                id="addressLine4"
+                id="address-line-4"
                 name="addressLine4"
                 className="govuk-input lbh-input"
                 type="text"
-                data-testid="addressLine4"
+                data-testid="address-line-4"
+                disabled={!!addressEditSuccessful}
               />
 
               <div
@@ -194,7 +262,14 @@ export const EditableAddress = ({
                     : "govuk-form-group lbh-form-group"
                 }
               >
-                <label className="govuk-label lbh-label" htmlFor="postcode">
+                <label
+                  className={
+                    addressEditSuccessful
+                      ? "govuk-label lbh-label grey-text"
+                      : "govuk-label lbh-label"
+                  }
+                  htmlFor="postcode"
+                >
                   Postcode*
                 </label>
                 <span
@@ -213,27 +288,10 @@ export const EditableAddress = ({
                   }
                   type="text"
                   data-testid="postcode"
+                  disabled={!!addressEditSuccessful}
                 />
               </div>
-
-              <div className="form-actions">
-                <button
-                  className="govuk-button lbh-button"
-                  data-module="govuk-button"
-                  type="submit"
-                  id="submit-address-button"
-                  disabled={!submitEditEnabled}
-                >
-                  Update to this address
-                </button>
-
-                <RouterLink
-                  to={`/property/${assetDetails.id}`}
-                  className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                >
-                  Cancel edit address
-                </RouterLink>
-              </div>
+              {renderFormActionButtons()}
             </Form>
           </div>
         )}
