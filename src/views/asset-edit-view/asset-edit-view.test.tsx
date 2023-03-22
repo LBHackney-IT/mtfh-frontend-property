@@ -195,9 +195,9 @@ test("form action buttons are rendered and are enabled", async () => {
   // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
   await waitFor(() => expect(screen.getAllByRole("heading")).toHaveLength(3));
 
-  // Assert "Update to this button" is in the DOM and is enabled
+  // Assert "Update to this address" and "Cancel" buttons are in the DOM and are enabled on page load
   const updateButton = screen.getByRole("button", { name: "Update to this address" });
-  const cancelButton = screen.getByText("Cancel edit address");
+  const cancelButton = screen.getByText("Cancel");
 
   expect(updateButton).toBeInTheDocument();
   expect(updateButton).toBeEnabled();
@@ -244,6 +244,33 @@ test("after a successful asset address update, a success message is shown", asyn
       "The asset address has been updated successfully.",
     );
     expect(successMessage).toBeVisible();
+  });
+});
+
+test("after a successful asset address update, the 'submit' and 'cancel' buttons are replaced by a 'back to asset' button", async () => {
+  render(<AssetEditView />, {
+    url: `/property/edit/${assetData.id}`,
+    path: "/property/edit/:assetId",
+  });
+
+  // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
+  await waitFor(() => expect(screen.getAllByRole("heading")).toHaveLength(3));
+
+  // User click on "Update to this address"
+  const updateButton = screen.getByRole("button", { name: "Update to this address" });
+  const cancelButton = screen.getByText("Cancel");
+
+  expect(updateButton).toBeInTheDocument();
+  expect(cancelButton).toBeInTheDocument();
+
+  await waitFor(async () => {
+    userEvent.click(updateButton);
+
+    const backToAssetButton = screen.getByText("Back to asset view");
+
+    expect(updateButton).not.toBeInTheDocument();
+    expect(cancelButton).not.toBeInTheDocument();
+    expect(backToAssetButton).toBeInTheDocument();
   });
 });
 

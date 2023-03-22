@@ -78,7 +78,7 @@ export const EditableAddress = ({
           to={`/property/${assetDetails.id}`}
           className="govuk-button lbh-button"
         >
-          Back to property view
+          Back to asset view
         </RouterLink>
       </>
     );
