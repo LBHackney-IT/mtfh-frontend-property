@@ -38,13 +38,13 @@ exports[`renders the whole 'Edit property address' view 1`] = `
           >
             <label
               class="govuk-label lbh-label"
-              for="addressLine1"
+              for="address-line-1"
             >
               Address line 1*
             </label>
             <span
               class="govuk-error-message lbh-error-message"
-              id="addressLine1-input-error"
+              id="address-line-1-input-error"
             >
               <span
                 class="govuk-visually-hidden"
@@ -54,8 +54,8 @@ exports[`renders the whole 'Edit property address' view 1`] = `
             </span>
             <input
               class="govuk-input lbh-input"
-              data-testid="addressLine1"
-              id="addressLine1"
+              data-testid="address-line-1"
+              id="address-line-1"
               name="addressLine1"
               type="text"
               value="FLAT B"
@@ -63,42 +63,42 @@ exports[`renders the whole 'Edit property address' view 1`] = `
           </div>
           <label
             class="govuk-label lbh-label"
-            for="addressLine2"
+            for="address-line-2"
           >
             Address line 2
           </label>
           <input
             class="govuk-input lbh-input"
-            data-testid="addressLine2"
-            id="addressLine2"
+            data-testid="address-line-2"
+            id="address-line-2"
             name="addressLine2"
             type="text"
             value="51 GREENWOOD ROAD"
           />
           <label
             class="govuk-label lbh-label"
-            for="addressLine3"
+            for="address-line-3"
           >
             Address line 3
           </label>
           <input
             class="govuk-input lbh-input"
-            data-testid="addressLine3"
-            id="addressLine3"
+            data-testid="address-line-3"
+            id="address-line-3"
             name="addressLine3"
             type="text"
             value="HACKNEY"
           />
           <label
             class="govuk-label lbh-label"
-            for="addressLine4"
+            for="address-line-4"
           >
             Address line 4
           </label>
           <input
             class="govuk-input lbh-input"
-            data-testid="addressLine4"
-            id="addressLine4"
+            data-testid="address-line-4"
+            id="address-line-4"
             name="addressLine4"
             type="text"
             value="LONDON"
@@ -147,7 +147,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
               class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
               href="/property/15adc44b-6fde-46e8-af9c-e18b1495c9ab"
             >
-              Cancel edit address
+              Cancel
             </a>
           </div>
         </form>
