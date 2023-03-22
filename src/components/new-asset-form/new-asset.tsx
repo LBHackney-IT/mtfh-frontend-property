@@ -5,7 +5,7 @@ import { Field, Form, Formik, useFormikContext } from "formik";
 
 import { NewPropertyFormData, newPropertySchema } from "./schema";
 import "./styles.scss";
-import { AssetType, assetHasFloorNo, assetHasFloors } from "../../utils/asset-type";
+import { AssetType, assetHasFloorNo, assetHasFloors, assetsCanHaveMultipleBedroomsAndLivingRooms } from "../../utils/asset-type";
 
 export const NewAsset = (): JSX.Element => {
   const [submitEditEnabled, setSubmitEditEnabled] = useState<boolean>(true);
@@ -460,8 +460,9 @@ export const NewAsset = (): JSX.Element => {
                 </fieldset>
               </div>
               <h2 className="lbh-heading-h2">Asset details</h2>
-
-              <div
+              {assetsCanHaveMultipleBedroomsAndLivingRooms(values.assetType) &&
+                <>
+<div
                 className={
                   errors.numberOfBedrooms && touched.numberOfBedrooms
                     ? "govuk-form-group govuk-form-group--error lbh-form-group"
@@ -490,7 +491,6 @@ export const NewAsset = (): JSX.Element => {
                   data-testid="no-of-bedrooms"
                 />
               </div>
-
               <div
                 className={
                   errors.numberOfLivingRooms && touched.numberOfLivingRooms
@@ -520,6 +520,8 @@ export const NewAsset = (): JSX.Element => {
                   data-testid="no-of-living-rooms"
                 />
               </div>
+                </>
+              }
               {assetHasFloors(values.assetType) && (
                 <>
                   <div

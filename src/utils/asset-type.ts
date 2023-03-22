@@ -56,6 +56,15 @@ const assetsWithFloorNo = [
   "Maisonette",
 ];
 
+const assetsWithMultipleBedroomsAndLivingRooms = [
+  "Dwelling",
+  "LettableNonDwelling",
+  "Flat",
+  "Maisonette",
+  "House",
+  "NewBuild"
+];
+
 const assetHasFloors = (assetType: string): boolean => {
   return !!assetTypesWithFloors.includes(assetType);
 };
@@ -64,4 +73,8 @@ const assetHasFloorNo = (assetType: string): boolean => {
   return !!assetsWithFloorNo.includes(assetType);
 };
 
-export { AssetType, assetHasFloors, assetHasFloorNo };
+const assetsCanHaveMultipleBedroomsAndLivingRooms = (assetType: string): boolean => {
+  return !!assetsWithMultipleBedroomsAndLivingRooms.includes(assetType);
+};
+
+export { AssetType, assetHasFloors, assetHasFloorNo, assetsCanHaveMultipleBedroomsAndLivingRooms };
