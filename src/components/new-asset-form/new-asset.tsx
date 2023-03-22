@@ -161,20 +161,16 @@ export const NewAsset = (): JSX.Element => {
                 Sub-block this property is in
               </label>
               <Field
-                as="select"
                 id="property-sub-block"
                 name="propertySubBlock"
-                className="govuk-input lbh-input"
+                className={
+                  errors.propertySubBlock && touched.propertySubBlock
+                    ? "govuk-input lbh-input govuk-input--error"
+                    : "govuk-input lbh-input"
+                }
+                type="text"
                 data-testid="property-sub-block"
-              >
-                <option disabled selected value="">
-                  {" "}
-                  -- Select an option --{" "}
-                </option>
-                <option value="red">Red</option>
-                <option value="green">Green</option>
-                <option value="blue">Blue</option>
-              </Field>
+              />
               {assetHasFloorNo(values.assetType) && (
                 <>
                   <label className="govuk-label lbh-label" htmlFor="floor-no">
