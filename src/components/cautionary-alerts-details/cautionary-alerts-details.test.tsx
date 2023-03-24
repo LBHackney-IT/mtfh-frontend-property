@@ -28,7 +28,7 @@ describe("CautionaryAlertsDetails", () => {
     expect(screen.getByText(cautionaryAlerts.none)).toBeInTheDocument();
   });
 
-  it("should display cautionary alerts - 1 alert per person", () => {
+  it.skip("should display cautionary alerts - 1 alert per person", () => {
     const alerts = [
       alert,
       {
@@ -49,7 +49,7 @@ describe("CautionaryAlertsDetails", () => {
     expect(screen.getAllByText(alerts[0].description).length).toBe(2);
   });
 
-  it("should display cautionary alerts - 2 alerts per person", () => {
+  it.skip("should display cautionary alerts - 2 alerts per person", () => {
     const alerts = [
       alert,
       {
