@@ -6,6 +6,7 @@ import { Field, Form, Formik, useFormikContext } from "formik";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
 import "./styles.scss";
 import { AssetType, assetHasFloorNo, assetHasFloors, assetsCanHaveMultipleBedroomsAndLivingRooms } from "../../utils/asset-type";
+import { InlineAssetSearch } from "../inline-asset-search";
 
 export const NewAsset = (): JSX.Element => {
   const [submitEditEnabled, setSubmitEditEnabled] = useState<boolean>(true);
@@ -54,8 +55,11 @@ export const NewAsset = (): JSX.Element => {
         validationSchema={newPropertySchema}
         onSubmit={(values) => handleSubmit(values)}
       >
-        {({ values, errors, touched }) => (
+        {({ values, errors, touched, handleChange, setFieldValue }) => (
           <div id="new-property-form">
+
+              <pre>{JSON.stringify(values, null, 2)}</pre>
+
             <Form>
               <div
                 className={
@@ -121,42 +125,25 @@ export const NewAsset = (): JSX.Element => {
                   {renderAssetTypeOptions()}
                 </Field>
               </div>
-              <label className="govuk-label lbh-label" htmlFor="property-estate">
-                Estate this property is in
-              </label>
-              <Field
-                as="select"
-                id="property-estate"
-                name="propertyEstate"
-                className="govuk-input lbh-input"
-                data-testid="property-estate"
-              >
-                <option disabled selected value="">
-                  {" "}
-                  -- Select an option --{" "}
-                </option>
-                <option value="red">Red</option>
-                <option value="green">Green</option>
-                <option value="blue">Blue</option>
-              </Field>
-              <label className="govuk-label lbh-label" htmlFor="property-block">
-                Block this property is in
-              </label>
-              <Field
-                as="select"
-                id="property-block"
-                name="propertyBlock"
-                className="govuk-input lbh-input"
-                data-testid="property-block"
-              >
-                <option disabled selected value="">
-                  {" "}
-                  -- Select an option --{" "}
-                </option>
-                <option value="red">Red</option>
-                <option value="green">Green</option>
-                <option value="blue">Blue</option>
-              </Field>
+
+              <InlineAssetSearch
+                  assetTypes={["Estate"]}
+                  name="propertyEstate"
+                  label="Estate this property is in"
+                  onChange={handleChange}
+                  setFieldValue={setFieldValue}
+                  value={values.propertyEstate || ""}
+              />
+         
+              <InlineAssetSearch
+                  assetTypes={["Block"]}
+                  name="propertyBlock"
+                  label="Block this property is in"
+                  onChange={handleChange}
+                  setFieldValue={setFieldValue}
+                  value={values.propertyBlock || ""}
+              />
+
               <label className="govuk-label lbh-label" htmlFor="property-sub-block">
                 Sub-block this property is in
               </label>
