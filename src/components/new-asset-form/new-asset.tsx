@@ -5,11 +5,35 @@ import { Field, Form, Formik, useFormikContext } from "formik";
 
 import { NewPropertyFormData, newPropertySchema } from "./schema";
 import "./styles.scss";
-import { AssetType, assetHasFloorNo, assetHasFloors, assetsCanHaveMultipleBedroomsAndLivingRooms } from "../../utils/asset-type";
+import {
+  AssetType,
+  assetHasFloorNo,
+  assetHasFloors,
+  assetsCanHaveMultipleBedroomsAndLivingRooms,
+} from "../../utils/asset-type";
 import { InlineAssetSearch } from "../inline-asset-search";
 
-export const NewAsset = (): JSX.Element => {
-  const [submitEditEnabled, setSubmitEditEnabled] = useState<boolean>(true);
+import { Asset, createAsset } from "@mtfh/common/lib/api/asset/v1";
+import { assetToCreateAssetAddressRequest } from "../../factories/requestFactory";
+import { locale } from "../../services";
+import { Center, Spinner } from "@mtfh/common";
+
+export interface Props {
+  setShowSuccess: (value: boolean) => void;
+  setShowError: (value: boolean) => void;
+  setErrorHeading: (error: string | null) => void;
+  setErrorDescription: (error: string | null) => void;
+  setNewProperty: (asset: Asset) => void;
+}
+
+export const NewAsset = ({
+  setShowSuccess,
+  setShowError,
+  setErrorHeading,
+  setErrorDescription,
+  setNewProperty
+}: Props) => {
+  const [loading, setLoading] = useState<boolean>(false)
 
   const renderAssetTypeOptions = (): JSX.Element[] => {
     return Object.keys(AssetType).map((key, index) => (
@@ -19,10 +43,39 @@ export const NewAsset = (): JSX.Element => {
     ));
   };
 
-  const handleSubmit = (values: NewPropertyFormData) => {
-    console.log(values);
-    alert(JSON.stringify(values, null, 2));
+  
+
+  const handleSubmit = async (values: NewPropertyFormData) => {
+    setShowSuccess(false);
+    setShowError(false);
+    setErrorHeading(null);
+    setErrorDescription(null);
+
+    const asset = assetToCreateAssetAddressRequest(values);
+
+    setLoading(true)
+    await createAsset(asset)
+      .then(() => {
+        setNewProperty(asset)
+        setShowSuccess(true);
+      })
+      .catch(() => {
+        setShowError(true);
+        setErrorHeading(locale.errors.unableToPatchAsset);
+        setErrorDescription(locale.errors.tryAgainOrContactSupport);
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   };
+
+  if (loading) {
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
+  }
 
   return (
     <>
@@ -57,8 +110,7 @@ export const NewAsset = (): JSX.Element => {
       >
         {({ values, errors, touched, handleChange, setFieldValue }) => (
           <div id="new-property-form">
-
-              <pre>{JSON.stringify(values, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
 
             <Form>
               <div
@@ -127,21 +179,21 @@ export const NewAsset = (): JSX.Element => {
               </div>
 
               <InlineAssetSearch
-                  assetTypes={["Estate"]}
-                  name="propertyEstate"
-                  label="Estate this property is in"
-                  onChange={handleChange}
-                  setFieldValue={setFieldValue}
-                  value={values.propertyEstate || ""}
+                assetTypes={["Estate"]}
+                name="propertyEstate"
+                label="Estate this property is in"
+                onChange={handleChange}
+                setFieldValue={setFieldValue}
+                value={values.propertyEstate || ""}
               />
-         
+
               <InlineAssetSearch
-                  assetTypes={["Block"]}
-                  name="propertyBlock"
-                  label="Block this property is in"
-                  onChange={handleChange}
-                  setFieldValue={setFieldValue}
-                  value={values.propertyBlock || ""}
+                assetTypes={["Block"]}
+                name="propertyBlock"
+                label="Block this property is in"
+                onChange={handleChange}
+                setFieldValue={setFieldValue}
+                value={values.propertyBlock || ""}
               />
 
               <label className="govuk-label lbh-label" htmlFor="property-sub-block">
@@ -447,68 +499,68 @@ export const NewAsset = (): JSX.Element => {
                 </fieldset>
               </div>
               <h2 className="lbh-heading-h2">Asset details</h2>
-              {assetsCanHaveMultipleBedroomsAndLivingRooms(values.assetType) &&
+              {assetsCanHaveMultipleBedroomsAndLivingRooms(values.assetType) && (
                 <>
-<div
-                className={
-                  errors.numberOfBedrooms && touched.numberOfBedrooms
-                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                    : "govuk-form-group lbh-form-group"
-                }
-              >
-                <label className="govuk-label lbh-label" htmlFor="no-of-bedrooms">
-                  Number of bedrooms
-                </label>
-                <span
-                  id="no-of-bedrooms-input-error"
-                  className="govuk-error-message lbh-error-message"
-                >
-                  <span className="govuk-visually-hidden">Error:</span>
-                  {errors.numberOfBedrooms}
-                </span>
-                <Field
-                  id="no-of-bedrooms"
-                  name="numberOfBedrooms"
-                  className={
-                    errors.numberOfBedrooms && touched.numberOfBedrooms
-                      ? "govuk-input lbh-input govuk-input--error"
-                      : "govuk-input lbh-input"
-                  }
-                  type="text"
-                  data-testid="no-of-bedrooms"
-                />
-              </div>
-              <div
-                className={
-                  errors.numberOfLivingRooms && touched.numberOfLivingRooms
-                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                    : "govuk-form-group lbh-form-group"
-                }
-              >
-                <label className="govuk-label lbh-label" htmlFor="no-of-living-rooms">
-                  Number of living rooms
-                </label>
-                <span
-                  id="no-of-living-rooms-input-error"
-                  className="govuk-error-message lbh-error-message"
-                >
-                  <span className="govuk-visually-hidden">Error:</span>
-                  {errors.numberOfLivingRooms}
-                </span>
-                <Field
-                  id="no-of-living-rooms"
-                  name="numberOfLivingRooms"
-                  className={
-                    errors.numberOfLivingRooms && touched.numberOfLivingRooms
-                      ? "govuk-input lbh-input govuk-input--error"
-                      : "govuk-input lbh-input"
-                  }
-                  type="text"
-                  data-testid="no-of-living-rooms"
-                />
-              </div>
+                  <div
+                    className={
+                      errors.numberOfBedrooms && touched.numberOfBedrooms
+                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                        : "govuk-form-group lbh-form-group"
+                    }
+                  >
+                    <label className="govuk-label lbh-label" htmlFor="no-of-bedrooms">
+                      Number of bedrooms
+                    </label>
+                    <span
+                      id="no-of-bedrooms-input-error"
+                      className="govuk-error-message lbh-error-message"
+                    >
+                      <span className="govuk-visually-hidden">Error:</span>
+                      {errors.numberOfBedrooms}
+                    </span>
+                    <Field
+                      id="no-of-bedrooms"
+                      name="numberOfBedrooms"
+                      className={
+                        errors.numberOfBedrooms && touched.numberOfBedrooms
+                          ? "govuk-input lbh-input govuk-input--error"
+                          : "govuk-input lbh-input"
+                      }
+                      type="text"
+                      data-testid="no-of-bedrooms"
+                    />
+                  </div>
+                  <div
+                    className={
+                      errors.numberOfLivingRooms && touched.numberOfLivingRooms
+                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                        : "govuk-form-group lbh-form-group"
+                    }
+                  >
+                    <label className="govuk-label lbh-label" htmlFor="no-of-living-rooms">
+                      Number of living rooms
+                    </label>
+                    <span
+                      id="no-of-living-rooms-input-error"
+                      className="govuk-error-message lbh-error-message"
+                    >
+                      <span className="govuk-visually-hidden">Error:</span>
+                      {errors.numberOfLivingRooms}
+                    </span>
+                    <Field
+                      id="no-of-living-rooms"
+                      name="numberOfLivingRooms"
+                      className={
+                        errors.numberOfLivingRooms && touched.numberOfLivingRooms
+                          ? "govuk-input lbh-input govuk-input--error"
+                          : "govuk-input lbh-input"
+                      }
+                      type="text"
+                      data-testid="no-of-living-rooms"
+                    />
+                  </div>
                 </>
-              }
+              )}
               {assetHasFloors(values.assetType) && (
                 <>
                   <div
@@ -519,7 +571,8 @@ export const NewAsset = (): JSX.Element => {
                     }
                   >
                     <label className="govuk-label lbh-label" htmlFor="no-of-lifts">
-                      Number of lifts                </label>
+                      Number of lifts{" "}
+                    </label>
                     <span
                       id="no-of-lifts-input-error"
                       className="govuk-error-message lbh-error-message"
@@ -585,7 +638,7 @@ export const NewAsset = (): JSX.Element => {
                   data-module="govuk-button"
                   type="submit"
                   id="submit-new-property-button"
-                  disabled={!submitEditEnabled}
+                  // disabled={!submitEditEnabled}
                 >
                   Create new property
                 </button>

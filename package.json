@@ -67,7 +67,7 @@
     "webpack-merge": "5.7.3"
   },
   "dependencies": {
-    "@mtfh/common": "https://github.com/LBHackney-IT/mtfh-frontend-common.git",
+    "@mtfh/common": "https://github.com/LBHackney-IT/mtfh-frontend-common.git#callum/add-create-asset",
     "@mtfh/search": "https://github.com/LBHackney-IT/mtfh-frontend-search",
     "@types/jest": "^26.0.23",
     "@types/react": "17.0.20",
@@ -81,6 +81,7 @@
     "react-router-dom": "5.2.0",
     "single-spa-react": "4.4.0",
     "swr": "1.0.1",
+    "uuid": "^9.0.0",
     "yup": "^1.0.2"
   }
 }

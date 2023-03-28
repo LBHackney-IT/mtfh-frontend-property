@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { NewAsset } from "../../components/new-asset-form";
@@ -6,10 +6,13 @@ import { locale } from "../../services";
 import { useUserFeedback } from "../../services/hooks/useUserFeedback";
 
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
 
 // import "./styles.scss";
 
 export const NewPropertyLayout = (): JSX.Element => {
+  const [newProperty, setNewProperty] = useState<Asset | null>();
+
   const {
     showSuccess,
     setShowSuccess,
@@ -29,10 +32,20 @@ export const NewPropertyLayout = (): JSX.Element => {
       <h1 className="lbh-heading-h1">New property</h1>
 
       {showSuccess && (
-        <StatusBox
-          variant="success"
-          title={locale.assets.newPropertyAddedSuccessMessage}
-        />
+        <StatusBox variant="success" title={locale.assets.newPropertyAddedSuccessMessage}>
+          {
+            // Only include link if visible on MMH
+           ( newProperty?.assetType === "Dwelling" ||
+              newProperty?.assetType === "LettableNonDwelling") && (
+                <div>
+                  {" "}
+                  <Link as={RouterLink} to={`/property/${newProperty?.id}`}>
+                    View property
+                  </Link>{" "}
+                </div>
+              )
+          }
+        </StatusBox>
       )}
 
       {showError && (
@@ -44,7 +57,13 @@ export const NewPropertyLayout = (): JSX.Element => {
       )}
 
       <section>
-        <NewAsset />
+        <NewAsset
+          setShowError={setShowError}
+          setErrorHeading={setErrorHeading}
+          setErrorDescription={setErrorDescription}
+          setShowSuccess={setShowSuccess}
+          setNewProperty={setNewProperty}
+        />
       </section>
     </>
   );

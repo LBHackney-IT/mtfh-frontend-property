@@ -53,7 +53,6 @@ export const InlineAssetSearch = ({
       <InlineSearchForm
         loading={loading}
         onSubmit={(searchText) => {
-          console.log({ searchText });
 
           if (touched) {
             // set field to ""
