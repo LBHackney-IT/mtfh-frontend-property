@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useSearchResults } from "@mtfh/search";
-import { Spinner, Field } from "@mtfh/common";
+
 import { InlineSearchForm } from "../inline-search-form";
+
+import { Field, Spinner } from "@mtfh/common";
 import { AssetType } from "@mtfh/common/lib/api/asset/v1";
+import { useSearchResults } from "@mtfh/search";
 
 interface Props {
   assetTypes: AssetType[];
@@ -26,7 +28,7 @@ export const InlineAssetSearch = ({
   setFieldValue,
 }: Props) => {
   const [touched, setTouched] = useState<boolean>(false);
-  const { fetchResults, error, total, searchResultsData, loading } =
+  const { fetchResults, total, searchResultsData, loading } =
     useSearchResults(assetTypes);
 
   const options = [
@@ -53,7 +55,6 @@ export const InlineAssetSearch = ({
       <InlineSearchForm
         loading={loading}
         onSubmit={(searchText) => {
-
           if (touched) {
             // set field to ""
             setFieldValue(name, "", false);
@@ -75,7 +76,7 @@ export const InlineAssetSearch = ({
 
           <div className="govuk-form-group lbh-form-group">
             <Field
-               // @ts-ignore: it works fine
+              // @ts-ignore: it works fine
               as="select"
               disabled={!touched || !total}
               id={name}

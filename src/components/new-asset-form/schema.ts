@@ -13,7 +13,10 @@ export const newPropertySchema = () =>
     propertyBlock: Yup.string(),
     propertySubBlock: Yup.string(),
     floorNo: Yup.string(),
-    totalBlockFloors: Yup.number().nullable().min(0, "Only positive values are accepted").typeError('The value must be a valid number'),
+    totalBlockFloors: Yup.number()
+      .nullable()
+      .min(0, "Only positive values are accepted")
+      .typeError("The value must be a valid number"),
     // Address
     uprn: Yup.string(),
     addressLine1: Yup.string().required("Address line 1 is a required field"),
@@ -36,13 +39,23 @@ export const newPropertySchema = () =>
     isTMOManaged: Yup.string().required("Please select an option"),
 
     // Asset details
-    numberOfBedrooms: Yup.number().nullable("NONO").min(0, "Only positive values are accepted").typeError('The value must be a valid number'),
-    numberOfLivingRooms: Yup.number().nullable().min(0, "Only positive values are accepted").typeError('The value must be a valid number'),
-    numberOfLifts: Yup.number().nullable().min(0, "Only positive values are accepted").typeError('The value must be a valid number'),
+    numberOfBedrooms: Yup.number()
+      .nullable("NONO")
+      .min(0, "Only positive values are accepted")
+      .typeError("The value must be a valid number"),
+    numberOfLivingRooms: Yup.number()
+      .nullable()
+      .min(0, "Only positive values are accepted")
+      .typeError("The value must be a valid number"),
+    numberOfLifts: Yup.number()
+      .nullable()
+      .min(0, "Only positive values are accepted")
+      .typeError("The value must be a valid number"),
     windowType: Yup.string(),
-    yearConstructed: Yup.number().nullable().min(1800, "The year entered is invalid").typeError('The value must be a valid number'),
+    yearConstructed: Yup.number()
+      .nullable()
+      .min(1800, "The year entered is invalid")
+      .typeError("The value must be a valid number"),
   });
-
-
 
 export type NewPropertyFormData = Yup.Asserts<ReturnType<typeof newPropertySchema>>;

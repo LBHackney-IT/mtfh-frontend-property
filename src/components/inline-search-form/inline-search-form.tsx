@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Button, Input } from "@mtfh/common";
+
 import cn from "classnames";
+
+import { Button, Input } from "@mtfh/common";
 
 interface Props {
   onSubmit: (searchText: string) => void;
@@ -52,9 +54,7 @@ export const InlineSearchForm = ({ onSubmit, className, loading }: Props) => {
         />
       </div>
 
-      <Button type="button" 
-      onClick={handleSubmit}
-      >
+      <Button type="button" onClick={handleSubmit}>
         Search
       </Button>
     </div>

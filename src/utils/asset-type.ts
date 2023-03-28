@@ -62,7 +62,7 @@ const assetsWithMultipleBedroomsAndLivingRooms = [
   "Flat",
   "Maisonette",
   "House",
-  "NewBuild"
+  "NewBuild",
 ];
 
 const assetHasFloors = (assetType: string): boolean => {
@@ -77,4 +77,9 @@ const assetsCanHaveMultipleBedroomsAndLivingRooms = (assetType: string): boolean
   return !!assetsWithMultipleBedroomsAndLivingRooms.includes(assetType);
 };
 
-export { AssetType, assetHasFloors, assetHasFloorNo, assetsCanHaveMultipleBedroomsAndLivingRooms };
+export {
+  AssetType,
+  assetHasFloors,
+  assetHasFloorNo,
+  assetsCanHaveMultipleBedroomsAndLivingRooms,
+};

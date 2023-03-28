@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { Field, Form, Formik, useFormikContext } from "formik";
+import { Field, Form, Formik } from "formik";
 
-import { NewPropertyFormData, newPropertySchema } from "./schema";
 import "./styles.scss";
+
+import { assetToCreateAssetAddressRequest } from "../../factories/requestFactory";
+import { locale } from "../../services";
 import {
   AssetType,
   assetHasFloorNo,
@@ -12,11 +14,10 @@ import {
   assetsCanHaveMultipleBedroomsAndLivingRooms,
 } from "../../utils/asset-type";
 import { InlineAssetSearch } from "../inline-asset-search";
+import { NewPropertyFormData, newPropertySchema } from "./schema";
 
-import { Asset, createAsset } from "@mtfh/common/lib/api/asset/v1";
-import { assetToCreateAssetAddressRequest } from "../../factories/requestFactory";
-import { locale } from "../../services";
 import { Center, Spinner } from "@mtfh/common";
+import { Asset, createAsset } from "@mtfh/common/lib/api/asset/v1";
 
 export interface Props {
   setShowSuccess: (value: boolean) => void;
@@ -31,9 +32,9 @@ export const NewAsset = ({
   setShowError,
   setErrorHeading,
   setErrorDescription,
-  setNewProperty
+  setNewProperty,
 }: Props) => {
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   const renderAssetTypeOptions = (): JSX.Element[] => {
     return Object.keys(AssetType).map((key, index) => (
@@ -43,8 +44,6 @@ export const NewAsset = ({
     ));
   };
 
-  
-
   const handleSubmit = async (values: NewPropertyFormData) => {
     setShowSuccess(false);
     setShowError(false);
@@ -53,10 +52,10 @@ export const NewAsset = ({
 
     const asset = assetToCreateAssetAddressRequest(values);
 
-    setLoading(true)
+    setLoading(true);
     await createAsset(asset)
       .then(() => {
-        setNewProperty(asset)
+        setNewProperty(asset);
         setShowSuccess(true);
       })
       .catch(() => {
@@ -65,8 +64,8 @@ export const NewAsset = ({
         setErrorDescription(locale.errors.tryAgainOrContactSupport);
       })
       .finally(() => {
-        setLoading(false)
-      })
+        setLoading(false);
+      });
   };
 
   if (loading) {

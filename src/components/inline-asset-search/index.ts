@@ -1,1 +1,1 @@
-export * from './inline-asset-search'
+export * from "./inline-asset-search";

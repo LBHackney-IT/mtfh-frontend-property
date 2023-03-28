@@ -5,8 +5,8 @@ import { NewAsset } from "../../components/new-asset-form";
 import { locale } from "../../services";
 import { useUserFeedback } from "../../services/hooks/useUserFeedback";
 
-import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
 // import "./styles.scss";
 
@@ -35,15 +35,15 @@ export const NewPropertyLayout = (): JSX.Element => {
         <StatusBox variant="success" title={locale.assets.newPropertyAddedSuccessMessage}>
           {
             // Only include link if visible on MMH
-           ( newProperty?.assetType === "Dwelling" ||
+            (newProperty?.assetType === "Dwelling" ||
               newProperty?.assetType === "LettableNonDwelling") && (
-                <div>
-                  {" "}
-                  <Link as={RouterLink} to={`/property/${newProperty?.id}`}>
-                    View property
-                  </Link>{" "}
-                </div>
-              )
+              <div>
+                {" "}
+                <Link as={RouterLink} to={`/property/${newProperty?.id}`}>
+                  View property
+                </Link>{" "}
+              </div>
+            )
           }
         </StatusBox>
       )}
