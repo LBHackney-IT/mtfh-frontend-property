@@ -176,39 +176,44 @@ export const NewAsset = ({
                   {renderAssetTypeOptions()}
                 </Field>
               </div>
-
-              <InlineAssetSearch
-                assetTypes={["Estate"]}
-                name="propertyEstate"
-                label="Estate this property is in"
-                onChange={handleChange}
-                setFieldValue={setFieldValue}
-                value={values.propertyEstate || ""}
-              />
-
-              <InlineAssetSearch
-                assetTypes={["Block"]}
-                name="propertyBlock"
-                label="Block this property is in"
-                onChange={handleChange}
-                setFieldValue={setFieldValue}
-                value={values.propertyBlock || ""}
-              />
-
-              <label className="govuk-label lbh-label" htmlFor="property-sub-block">
-                Sub-block this property is in
-              </label>
-              <Field
-                id="property-sub-block"
-                name="propertySubBlock"
-                className={
-                  errors.propertySubBlock && touched.propertySubBlock
-                    ? "govuk-input lbh-input govuk-input--error"
-                    : "govuk-input lbh-input"
-                }
-                type="text"
-                data-testid="property-sub-block"
-              />
+              {values.assetType != "Estate" &&
+                <InlineAssetSearch
+                  assetTypes={["Estate"]}
+                  name="propertyEstate"
+                  label="Estate this property is in"
+                  onChange={handleChange}
+                  setFieldValue={setFieldValue}
+                  value={values.propertyEstate || ""}
+                />
+              }
+              {values.assetType != "Block" && values.assetType != "Estate" &&
+                <InlineAssetSearch
+                  assetTypes={["Block"]}
+                  name="propertyBlock"
+                  label="Block this property is in"
+                  onChange={handleChange}
+                  setFieldValue={setFieldValue}
+                  value={values.propertyBlock || ""}
+                />
+              }
+              {values.assetType != "Block" && values.assetType != "Estate" && (
+                <>
+                  <label className="govuk-label lbh-label" htmlFor="property-sub-block">
+                    Sub-block this property is in
+                  </label>
+                  <Field
+                    id="property-sub-block"
+                    name="propertySubBlock"
+                    className={
+                      errors.propertySubBlock && touched.propertySubBlock
+                        ? "govuk-input lbh-input govuk-input--error"
+                        : "govuk-input lbh-input"
+                    }
+                    type="text"
+                    data-testid="property-sub-block"
+                  />
+                </>
+              )}
               {assetHasFloorNo(values.assetType) && (
                 <>
                   <label className="govuk-label lbh-label" htmlFor="floor-no">
@@ -637,7 +642,7 @@ export const NewAsset = ({
                   data-module="govuk-button"
                   type="submit"
                   id="submit-new-property-button"
-                  // disabled={!submitEditEnabled}
+                // disabled={!submitEditEnabled}
                 >
                   Create new property
                 </button>
