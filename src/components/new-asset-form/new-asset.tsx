@@ -18,6 +18,7 @@ import { NewPropertyFormData, newPropertySchema } from "./schema";
 
 import { Center, Spinner } from "@mtfh/common";
 import { Asset, createAsset } from "@mtfh/common/lib/api/asset/v1";
+import { managingOrganisations } from "../../utils/managing-organisations";
 
 export interface Props {
   setShowSuccess: (value: boolean) => void;
@@ -42,6 +43,18 @@ export const NewAsset = ({
         {key}
       </option>
     ));
+  };
+
+  const renderManagingOrganisationOptions = (): JSX.Element[] => {
+    return managingOrganisations.map((org, index) =>
+      <option
+        key={index}
+        value={org.managingOrganisation}
+        selected={
+          org.managingOrganisation === "London Borough of Hackney" ? true : false}>
+        {org.managingOrganisation}
+      </option>
+    );
   };
 
   const handleSubmit = async (values: NewPropertyFormData) => {
@@ -96,7 +109,7 @@ export const NewAsset = ({
           agent: "",
           areaOfficeName: "",
           isCouncilProperty: "",
-          managingOrganisation: "",
+          managingOrganisation: "London Borough of Hackney",
           isTMOManaged: "",
           numberOfBedrooms: null,
           numberOfLivingRooms: null,
@@ -441,6 +454,7 @@ export const NewAsset = ({
                   {errors.managingOrganisation}
                 </span>
                 <Field
+                  as="select"
                   id="managing-organisation"
                   name="managingOrganisation"
                   className={
@@ -448,9 +462,14 @@ export const NewAsset = ({
                       ? "govuk-input lbh-input govuk-input--error"
                       : "govuk-input lbh-input"
                   }
-                  type="text"
                   data-testid="managing-organisation"
-                />
+                >
+                  <option disabled value="">
+                    {" "}
+                    -- Select an option --{" "}
+                  </option>
+                  {renderManagingOrganisationOptions()}
+                </Field>
               </div>
               <div
                 className={

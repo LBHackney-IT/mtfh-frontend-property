@@ -40,7 +40,7 @@ export const newPropertySchema = () =>
 
     // Asset details
     numberOfBedrooms: Yup.number()
-      .nullable("NONO")
+      .nullable()
       .min(0, "Only positive values are accepted")
       .typeError("The value must be a valid number"),
     numberOfLivingRooms: Yup.number()
