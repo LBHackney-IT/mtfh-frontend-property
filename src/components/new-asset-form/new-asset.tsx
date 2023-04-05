@@ -11,13 +11,13 @@ import {
   AssetType,
   assetHasFloorNo,
   assetHasFloors,
-  assetsCanHaveMultipleBedroomsAndLivingRooms,
+  assetIsOfDwellingType,
 } from "../../utils/asset-type";
 import { InlineAssetSearch } from "../inline-asset-search";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
 
 import { Center, Spinner } from "@mtfh/common";
-import { Asset, createAsset } from "@mtfh/common/lib/api/asset/v1";
+import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
 import { managingOrganisations } from "../../utils/managing-organisations";
 
 export interface Props {
@@ -25,7 +25,7 @@ export interface Props {
   setShowError: (value: boolean) => void;
   setErrorHeading: (error: string | null) => void;
   setErrorDescription: (error: string | null) => void;
-  setNewProperty: (asset: Asset) => void;
+  setNewProperty: (asset: CreateNewAssetRequest) => void;
 }
 
 export const NewAsset = ({
@@ -522,7 +522,7 @@ export const NewAsset = ({
                 </fieldset>
               </div>
               <h2 className="lbh-heading-h2">Asset details</h2>
-              {assetsCanHaveMultipleBedroomsAndLivingRooms(values.assetType) && (
+              {assetIsOfDwellingType(values.assetType) && (
                 <>
                   <div
                     className={
