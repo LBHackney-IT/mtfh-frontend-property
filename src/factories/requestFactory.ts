@@ -48,7 +48,7 @@ export const assetToCreateAssetAddressRequest = (
       numberOfLivingRooms: values?.numberOfLivingRooms || 0,
       yearConstructed: values?.yearConstructed?.toString() || "",
       windowType: values?.windowType || "",
-      numberOfLifts: 0,
+      numberOfLifts: values?.numberOfLifts || 0,
     },
   };
 
