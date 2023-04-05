@@ -5,6 +5,7 @@ import { screen } from "@testing-library/react";
 
 import { locale } from "../../services";
 import { CautionaryAlertsDetails } from "./cautionary-alerts-details";
+
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 
 const { cautionaryAlerts } = locale;
@@ -21,7 +22,7 @@ const alert: Alert = {
   personId: "1",
   reason: "",
   startDate: "",
-  isActive: true
+  isActive: true,
 };
 
 describe("CautionaryAlertsDetails", () => {
