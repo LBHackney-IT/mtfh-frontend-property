@@ -2,11 +2,12 @@ import { v4 as uuidv4 } from "uuid";
 
 import { NewPropertyFormData } from "../components/new-asset-form/schema";
 
-import { CreateAssetAddressRequest } from "@mtfh/common/lib/api/asset/v1/types";
+import { managingOrganisations } from "../utils/managing-organisations";
+import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
 
 export const assetToCreateAssetAddressRequest = (
   values: NewPropertyFormData,
-): CreateAssetAddressRequest => {
+) => {
   const parentAssetIds: string[] = [];
   if (values?.propertyEstate && values.propertyEstate !== "")
     parentAssetIds.push(values.propertyEstate);
@@ -15,7 +16,7 @@ export const assetToCreateAssetAddressRequest = (
   if (values?.propertySubBlock && values.propertySubBlock !== "")
     parentAssetIds.push(values.propertySubBlock);
 
-  const asset: CreateAssetAddressRequest = {
+  const asset: CreateNewAssetRequest = {
     id: uuidv4(),
     assetId: values.assetId,
     assetType: values.assetType,
@@ -40,8 +41,7 @@ export const assetToCreateAssetAddressRequest = (
       isCouncilProperty: values.isCouncilProperty === "Yes",
       managingOrganisation: values.managingOrganisation,
       isTMOManaged: values.isTMOManaged === "Yes",
-      managingOrganisationId: "00000000-0000-0000-0000-000000000000",
-      owner: "",
+      managingOrganisationId: getManagingOrganisationId(values.managingOrganisation),
     },
     assetCharacteristics: {
       numberOfBedrooms: values?.numberOfBedrooms || 0,
@@ -50,10 +50,12 @@ export const assetToCreateAssetAddressRequest = (
       windowType: values?.windowType || "",
       numberOfLifts: 0,
     },
-    rootAsset: "",
-    patches: [],
-    tenure: null,
   };
 
   return asset;
 };
+
+const getManagingOrganisationId = (managingOrganisation: string) => {
+  const match = managingOrganisations.find(org => org.managingOrganisation === managingOrganisation)
+  return match ? match.managingOrganisationId : ""
+}
