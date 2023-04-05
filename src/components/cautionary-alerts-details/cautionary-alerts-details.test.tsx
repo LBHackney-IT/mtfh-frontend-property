@@ -75,10 +75,10 @@ describe("CautionaryAlertsDetails", () => {
     ];
     render(<CautionaryAlertsDetails alerts={alerts} />);
     expect(screen.getByTestId("alert-icon")).toBeInTheDocument();
-    expect(screen.getByText(alerts[0].personName).getAttribute("href")).toBe(
+    expect(screen.getByText(alerts[0].personName!).getAttribute("href")).toBe(
       `/person/${alerts[0].personId}`,
     );
-    expect(screen.getByText(alerts[1].personName).getAttribute("href")).toBe(
+    expect(screen.getByText(alerts[1].personName!).getAttribute("href")).toBe(
       `/person/${alerts[1].personId}`,
     );
     expect(screen.getAllByText(alerts[0].description, { exact: false }).length).toBe(2);
