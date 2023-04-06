@@ -12,7 +12,7 @@ export const NewAssetView = (): JSX.Element => {
     return (
       <ErrorSummary
         id="unauthorized-error"
-        title={locale.errors.noAddressEditPermissions}
+        title={locale.errors.noNewAssetPermissions}
       />
     );
   }
