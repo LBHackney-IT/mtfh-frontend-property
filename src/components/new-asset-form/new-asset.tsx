@@ -19,6 +19,7 @@ import { NewPropertyFormData, newPropertySchema } from "./schema";
 import { Center, Spinner } from "@mtfh/common";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
 import { managingOrganisations } from "../../utils/managing-organisations";
+import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 
 export interface Props {
   setShowSuccess: (value: boolean) => void;
