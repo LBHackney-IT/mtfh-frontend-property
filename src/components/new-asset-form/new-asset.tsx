@@ -15,11 +15,11 @@ import {
 } from "../../utils/asset-type";
 import { InlineAssetSearch } from "../inline-asset-search";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
+import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 
 import { Center, Spinner } from "@mtfh/common";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
 import { managingOrganisations } from "../../utils/managing-organisations";
-import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 
 export interface Props {
   setShowSuccess: (value: boolean) => void;
