@@ -6,6 +6,8 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
 import { AssetEditView } from ".";
+import locale from "../../services/locale";
+
 
 import * as auth from "@mtfh/common/lib/auth/auth";
 
@@ -257,8 +259,8 @@ test("unauthorized message is shown for unauthorized users", async () => {
   // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
   await waitFor(() => {
     const unauthorizedErrorMessage = screen.getByText(
-      "You are not authorized to edit address data",
-    );
+      locale.errors.noAddressEditPermissions,
+      );
     expect(unauthorizedErrorMessage).toBeVisible();
   });
 });
