@@ -51,7 +51,11 @@ export const NewAsset = ({
       <option
         key={index}
         value={org.managingOrganisation}
-        defaultValue={org.managingOrganisation === "London Borough of Hackney" ? "London Borough of Hackney" : undefined}
+        defaultValue={
+          org.managingOrganisation === "London Borough of Hackney"
+            ? "London Borough of Hackney"
+            : undefined
+        }
       >
         {org.managingOrganisation}
       </option>
