@@ -17,7 +17,7 @@ import { Center, Spinner } from "@mtfh/common/lib/components";
 
 import "../styles.scss";
 
-export interface Props {
+export interface EditableAddressProperties {
   llpgAddress: Address | null;
   loading: boolean;
   assetDetails: Asset;
@@ -45,7 +45,7 @@ export const EditableAddress = ({
   setErrorHeading,
   setErrorDescription,
   setCurrentAssetAddress,
-}: Props) => {
+}: EditableAddressProperties) => {
   const [submitEditEnabled, setSubmitEditEnabled] = useState<boolean>(true);
 
   const handleSubmit = async (values: PatchAssetFormValues) => {

@@ -8,8 +8,6 @@ import { useUserFeedback } from "../../services/hooks/useUserFeedback";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
-// import "./styles.scss";
-
 export const NewPropertyLayout = (): JSX.Element => {
   const [newProperty, setNewProperty] = useState<CreateNewAssetRequest | null>();
 
