@@ -114,7 +114,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
             </label>
             <span
               class="govuk-error-message lbh-error-message"
-              id="Postcode-input-error"
+              id="postcode-input-error"
             >
               <span
                 class="govuk-visually-hidden"

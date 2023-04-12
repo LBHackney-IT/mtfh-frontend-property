@@ -35,14 +35,15 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             <span
               class="govuk-visually-hidden"
+              data-testid="error-asset-id"
             >
               Error:
             </span>
           </span>
           <input
             class="govuk-input lbh-input"
-            data-testid="assetId"
-            id="assetId"
+            data-testid="asset-id"
+            id="asset-id"
             name="assetId"
             type="text"
             value=""
@@ -63,6 +64,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             <span
               class="govuk-visually-hidden"
+              data-testid="error-asset-type"
             >
               Error:
             </span>
@@ -372,6 +374,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             <span
               class="govuk-visually-hidden"
+              data-testid="error-address-line-1"
             >
               Error:
             </span>
@@ -439,6 +442,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             <span
               class="govuk-visually-hidden"
+              data-testid="error-postcode"
             >
               Error:
             </span>
@@ -501,6 +505,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             >
               <span
                 class="govuk-visually-hidden"
+                data-testid="error-is-council-property"
               >
                 Error:
               </span>
@@ -514,6 +519,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
               >
                 <input
                   class="govuk-radios__input"
+                  data-testid="is-council-property-yes"
                   id="is-council-property-yes"
                   name="isCouncilProperty"
                   type="radio"
@@ -531,6 +537,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
               >
                 <input
                   class="govuk-radios__input"
+                  data-testid="is-council-property-no"
                   id="is-council-property-no"
                   name="isCouncilProperty"
                   type="radio"
@@ -561,6 +568,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             <span
               class="govuk-visually-hidden"
+              data-testid="error-managing-organisation"
             >
               Error:
             </span>
@@ -637,6 +645,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             >
               <span
                 class="govuk-visually-hidden"
+                data-testid="error-is-tmo-managed"
               >
                 Error:
               </span>
@@ -650,6 +659,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
               >
                 <input
                   class="govuk-radios__input"
+                  data-testid="is-tmo-managed-yes"
                   id="is-tmo-managed-yes"
                   name="isTMOManaged"
                   type="radio"
@@ -667,6 +677,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
               >
                 <input
                   class="govuk-radios__input"
+                  data-testid="is-tmo-managed-no"
                   id="is-tmo-managed-no"
                   name="isTMOManaged"
                   type="radio"
@@ -715,6 +726,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             <span
               class="govuk-visually-hidden"
+              data-testid="year-constructed"
             >
               Error:
             </span>
