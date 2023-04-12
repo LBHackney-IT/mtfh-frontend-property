@@ -51,7 +51,7 @@ export const NewAsset = ({
       <option
         key={index}
         value={org.managingOrganisation}
-        selected={org.managingOrganisation === "London Borough of Hackney"}
+        defaultValue={org.managingOrganisation === "London Borough of Hackney" ? "London Borough of Hackney" : undefined}
       >
         {org.managingOrganisation}
       </option>
@@ -100,7 +100,7 @@ export const NewAsset = ({
           propertyBlock: "",
           propertySubBlock: "",
           floorNo: "",
-          totalBlockFloors: null,
+          totalBlockFloors: undefined,
           uprn: "",
           addressLine1: "",
           addressLine2: "",
@@ -112,11 +112,11 @@ export const NewAsset = ({
           isCouncilProperty: "",
           managingOrganisation: "London Borough of Hackney",
           isTMOManaged: "",
-          numberOfBedrooms: null,
-          numberOfLivingRooms: null,
-          numberOfLifts: null,
+          numberOfBedrooms: undefined,
+          numberOfLivingRooms: undefined,
+          numberOfLifts: undefined,
           windowType: "",
-          yearConstructed: null,
+          yearConstructed: undefined,
         }}
         validationSchema={newPropertySchema}
         onSubmit={(values) => handleSubmit(values)}
@@ -187,7 +187,7 @@ export const NewAsset = ({
                   }
                   data-testid="asset-type"
                 >
-                  <option disabled selected value="">
+                  <option disabled value="">
                     {" "}
                     -- Select an option --{" "}
                   </option>
