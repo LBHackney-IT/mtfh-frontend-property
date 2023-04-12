@@ -1506,7 +1506,6 @@
 
 "@mtfh/common@https://github.com/LBHackney-IT/mtfh-frontend-common.git":
   version "0.0.1"
-  uid "0ffc19d8d9ef76a7c2ffc8bcdcb7749e3b7c59de"
   resolved "https://github.com/LBHackney-IT/mtfh-frontend-common.git#0ffc19d8d9ef76a7c2ffc8bcdcb7749e3b7c59de"
   dependencies:
     "@babel/preset-react" "^7.13.13"
@@ -1531,7 +1530,7 @@
     lbh-frontend "^3.6.1"
     query-string "^7.0.1"
     react-merge-refs "^1.1.0"
-    react-router-dom "5.3.3"
+    react-router-dom "5.2.0"
     rxjs "^7.0.1"
     single-spa "^5.9.3"
     swr "1.0.1"
