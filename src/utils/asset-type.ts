@@ -76,9 +76,4 @@ const assetIsOfDwellingType = (assetType: string): boolean => {
   return !!assetsOfDwellingType.includes(assetType);
 };
 
-export {
-  AssetType,
-  assetHasFloors,
-  assetHasFloorNo,
-  assetIsOfDwellingType,
-};
+export { AssetType, assetHasFloors, assetHasFloorNo, assetIsOfDwellingType };

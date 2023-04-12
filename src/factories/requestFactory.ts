@@ -1,13 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { NewPropertyFormData } from "../components/new-asset-form/schema";
-
 import { managingOrganisations } from "../utils/managing-organisations";
+
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
 
-export const assetToCreateAssetAddressRequest = (
-  values: NewPropertyFormData,
-) => {
+export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) => {
   const parentAssetIds: string[] = [];
   if (values?.propertyEstate && values.propertyEstate !== "")
     parentAssetIds.push(values.propertyEstate);
@@ -56,6 +54,8 @@ export const assetToCreateAssetAddressRequest = (
 };
 
 const getManagingOrganisationId = (managingOrganisation: string) => {
-  const match = managingOrganisations.find(org => org.managingOrganisation === managingOrganisation)
-  return match ? match.managingOrganisationId : ""
-}
+  const match = managingOrganisations.find(
+    (org) => org.managingOrganisation === managingOrganisation,
+  );
+  return match ? match.managingOrganisationId : "";
+};

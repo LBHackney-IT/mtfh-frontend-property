@@ -5,9 +5,9 @@ import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
-import { AssetEditView } from ".";
 import locale from "../../services/locale";
 
+import { AssetEditView } from ".";
 
 import * as auth from "@mtfh/common/lib/auth/auth";
 
@@ -260,7 +260,7 @@ test("unauthorized message is shown for unauthorized users", async () => {
   await waitFor(() => {
     const unauthorizedErrorMessage = screen.getByText(
       locale.errors.noAddressEditPermissions,
-      );
+    );
     expect(unauthorizedErrorMessage).toBeVisible();
   });
 });
