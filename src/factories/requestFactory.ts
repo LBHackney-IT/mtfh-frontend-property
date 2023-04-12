@@ -21,7 +21,7 @@ export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) =>
     parentAssetIds: parentAssetIds.join("#"),
     assetLocation: {
       floorNo: values?.floorNo || "",
-      totalBlockFloors: values?.totalBlockFloors || 0,
+      totalBlockFloors: values?.totalBlockFloors || null,
       parentAssets: [],
     },
     assetAddress: {
@@ -31,7 +31,6 @@ export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) =>
       addressLine3: values?.addressLine3 || "",
       addressLine4: values?.addressLine4 || "",
       postCode: values.postcode,
-      postPreamble: "", // Add postPreamble?
     },
     assetManagement: {
       agent: values?.agent || "",
@@ -42,11 +41,11 @@ export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) =>
       managingOrganisationId: getManagingOrganisationId(values.managingOrganisation),
     },
     assetCharacteristics: {
-      numberOfBedrooms: values?.numberOfBedrooms || 0,
-      numberOfLivingRooms: values?.numberOfLivingRooms || 0,
+      numberOfBedrooms: values?.numberOfBedrooms || null,
+      numberOfLivingRooms: values?.numberOfLivingRooms || null,
       yearConstructed: values?.yearConstructed?.toString() || "",
       windowType: values?.windowType || "",
-      numberOfLifts: values?.numberOfLifts || 0,
+      numberOfLifts: values?.numberOfLifts || null,
     },
   };
 
