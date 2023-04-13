@@ -14,6 +14,21 @@ export const NewPropertyLayout = (): JSX.Element => {
   const [errorHeading, setErrorHeading] = useState<string | null>(null);
   const [errorDescription, setErrorDescription] = useState<string | null>(null);
 
+  const renderNewPropertyLink = () => {
+    return (
+      // Only include link if visible on MMH
+      (newProperty?.assetType === "Dwelling" ||
+        newProperty?.assetType === "LettableNonDwelling") && (
+        <div>
+          {" "}
+          <Link as={RouterLink} to={`/property/${newProperty?.id}`}>
+            View property
+          </Link>{" "}
+        </div>
+      )
+    )
+  }
+
   return (
     <>
       <Link as={RouterLink} to="#" variant="back-link">
@@ -23,18 +38,7 @@ export const NewPropertyLayout = (): JSX.Element => {
 
       {showSuccess && (
         <StatusBox variant="success" title={locale.assets.newPropertyAddedSuccessMessage}>
-          {
-            // Only include link if visible on MMH
-            (newProperty?.assetType === "Dwelling" ||
-              newProperty?.assetType === "LettableNonDwelling") && (
-              <div>
-                {" "}
-                <Link as={RouterLink} to={`/property/${newProperty?.id}`}>
-                  View property
-                </Link>{" "}
-              </div>
-            )
-          }
+          {renderNewPropertyLink()}
         </StatusBox>
       )}
 
