@@ -3,24 +3,16 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { NewAsset } from "../../components/new-asset-form";
 import { locale } from "../../services";
-import { useUserFeedback } from "../../services/hooks/useUserFeedback";
 
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
 export const NewPropertyLayout = (): JSX.Element => {
   const [newProperty, setNewProperty] = useState<CreateNewAssetRequest | null>();
-
-  const {
-    showSuccess,
-    setShowSuccess,
-    showError,
-    setShowError,
-    errorHeading,
-    setErrorHeading,
-    errorDescription,
-    setErrorDescription,
-  } = useUserFeedback();
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [showError, setShowError] = useState<boolean>(false);
+  const [errorHeading, setErrorHeading] = useState<string | null>(null);
+  const [errorDescription, setErrorDescription] = useState<string | null>(null);
 
   return (
     <>

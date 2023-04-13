@@ -4,7 +4,6 @@ import { Link as RouterLink } from "react-router-dom";
 import { EditableAddress } from "../../components/edit-asset-address-form/editable-address";
 import { ReferenceAddress } from "../../components/edit-asset-address-form/reference-address";
 import { locale } from "../../services";
-import { useUserFeedback } from "../../services/hooks/useUserFeedback";
 
 import { Address, getAddressViaUprn } from "@mtfh/common/lib/api/address/v1";
 import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1";
@@ -24,16 +23,10 @@ export const AssetEditLayout = ({
   );
   const [llpgAddress, setLlpgAddress] = useState<Address | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const {
-    showSuccess,
-    setShowSuccess,
-    showError,
-    setShowError,
-    errorHeading,
-    setErrorHeading,
-    errorDescription,
-    setErrorDescription,
-  } = useUserFeedback();
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [showError, setShowError] = useState<boolean>(false);
+  const [errorHeading, setErrorHeading] = useState<string | null>(null);
+  const [errorDescription, setErrorDescription] = useState<string | null>(null);
 
   useEffect(() => {
     getAddressViaUprn(assetDetails.assetAddress.uprn)
