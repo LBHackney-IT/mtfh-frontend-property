@@ -26,8 +26,8 @@ export const NewPropertyLayout = (): JSX.Element => {
           </Link>{" "}
         </div>
       )
-    )
-  }
+    );
+  };
 
   return (
     <>

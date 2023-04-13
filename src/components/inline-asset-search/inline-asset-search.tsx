@@ -46,7 +46,7 @@ export const InlineAssetSearch = ({
     }
     setTouched(true);
     fetchResults(searchText);
-  }
+  };
 
   return (
     <div

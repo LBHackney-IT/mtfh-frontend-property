@@ -20,7 +20,7 @@ export const InlineSearchForm = ({ onSubmit, className, loading }: Props) => {
       e.preventDefault();
       handleSubmit();
     }
-  }
+  };
 
   const handleSubmit = () => {
     if (loading) return;

@@ -6,7 +6,7 @@ import { managingOrganisations } from "../utils/managing-organisations";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
 
 export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) => {
-  const parentAssetIds: string[] = getParentAssetsIds(values)
+  const parentAssetIds: string[] = getParentAssetsIds(values);
 
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
@@ -64,4 +64,4 @@ const getParentAssetsIds = (formValues: NewPropertyFormData) => {
     parentAssetIds.push(formValues.propertySubBlock);
 
   return parentAssetIds;
-}
+};
