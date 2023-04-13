@@ -19,6 +19,7 @@ export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) =>
     assetId: values.assetId,
     assetType: values.assetType,
     parentAssetIds: parentAssetIds.join("#"),
+    isActive: true,
     assetLocation: {
       floorNo: values?.floorNo || "",
       totalBlockFloors: values?.totalBlockFloors || null,
