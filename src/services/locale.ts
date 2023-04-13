@@ -83,6 +83,7 @@ export default {
     unableToPatchAsset: "There was a problem amending this asset",
     unableToPatchAssetInvalidVersion:
       "The 'version' property is invalid on this asset. This is a required property when updating the asset.",
+    unableToCreateNewAsset: "There was a problem creating a new asset",
     tryAgainOrContactSupport:
       "Please refresh the page and try again. If the issue persists, please contact support.",
   },

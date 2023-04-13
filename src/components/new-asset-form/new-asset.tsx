@@ -78,7 +78,7 @@ export const NewAsset = ({
       })
       .catch(() => {
         setShowError(true);
-        setErrorHeading(locale.errors.unableToPatchAsset);
+        setErrorHeading(locale.errors.unableToCreateNewAsset);
         setErrorDescription(locale.errors.tryAgainOrContactSupport);
       })
       .finally(() => {
