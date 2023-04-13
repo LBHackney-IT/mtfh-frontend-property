@@ -133,7 +133,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
             />
           </div>
           <div
-            class="edit-asset-form-actions"
+            class="form-actions"
           >
             <button
               class="govuk-button lbh-button"
