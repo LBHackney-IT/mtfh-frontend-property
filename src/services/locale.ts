@@ -39,6 +39,7 @@ export default {
       return assetType;
     },
     patchAssetAddressSuccessMessage: "The asset address has been updated successfully.",
+    newPropertyAddedSuccessMessage: "The new asset address has been successfully added.",
   },
   comments: {
     heading: "Comments",
@@ -77,6 +78,7 @@ export default {
     assetDoesNotExist: "The property information you've requested does not exist",
     alertTitle: "Error",
     noAddressEditPermissions: "You are not authorized to edit address data",
+    noNewAssetPermissions: "You are not authorized to add new assets",
     postcodeInvalid: "Please enter a valid postcode",
     unableToPatchAsset: "There was a problem amending this asset",
     unableToPatchAssetInvalidVersion:

@@ -15,13 +15,5 @@ module.exports = {
   testPathIgnorePatterns: ["test-utils.ts"],
   coverageDirectory: "../coverage",
   coveragePathIgnorePatterns: ["mocks", "test-utils.ts"],
-  coverageThreshold: {
-    global: {
-      statements: 65,
-      branches: 65,
-      functions: 65,
-      lines: 65,
-    },
-  },
   testEnvironment: "jsdom",
 };

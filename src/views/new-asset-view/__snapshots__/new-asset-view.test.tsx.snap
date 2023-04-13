@@ -1,0 +1,766 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the whole 'New asset form' view 1`] = `
+<div>
+  <a
+    class="govuk-back-link lbh-back-link lbh-link--no-visited-state"
+    href="/"
+  >
+    Back
+  </a>
+  <h1
+    class="lbh-heading-h1"
+  >
+    New property
+  </h1>
+  <section>
+    <div
+      id="new-property-form"
+    >
+      <form
+        action="#"
+      >
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="assetId"
+          >
+            Asset ID
+          </label>
+          <span
+            class="govuk-error-message lbh-error-message"
+            id="assetId-input-error"
+          >
+            <span
+              class="govuk-visually-hidden"
+              data-testid="error-asset-id"
+            >
+              Error:
+            </span>
+          </span>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="asset-id"
+            id="asset-id"
+            name="assetId"
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="assetType"
+          >
+            Asset Type
+          </label>
+          <span
+            class="govuk-error-message lbh-error-message"
+            id="assetType-input-error"
+          >
+            <span
+              class="govuk-visually-hidden"
+              data-testid="error-asset-type"
+            >
+              Error:
+            </span>
+          </span>
+          <select
+            class="govuk-input lbh-input"
+            data-testid="asset-type"
+            id="asset-type"
+            name="assetType"
+          >
+            <option
+              disabled=""
+              value=""
+            >
+               -- Select an option -- 
+            </option>
+            <option
+              value="Block"
+            >
+              Block
+            </option>
+            <option
+              value="Concierge"
+            >
+              Concierge
+            </option>
+            <option
+              value="Dwelling"
+            >
+              Dwelling
+            </option>
+            <option
+              value="LettableNonDwelling"
+            >
+              LettableNonDwelling
+            </option>
+            <option
+              value="MediumRiseBlock"
+            >
+              MediumRiseBlock
+            </option>
+            <option
+              value="NA"
+            >
+              NA
+            </option>
+            <option
+              value="TravellerSite"
+            >
+              TravellerSite
+            </option>
+            <option
+              value="AdministrativeBuilding"
+            >
+              AdministrativeBuilding
+            </option>
+            <option
+              value="BoilerHouse"
+            >
+              BoilerHouse
+            </option>
+            <option
+              value="BoosterPump"
+            >
+              BoosterPump
+            </option>
+            <option
+              value="CleanersFacilities"
+            >
+              CleanersFacilities
+            </option>
+            <option
+              value="CombinedHeatAndPowerUnit"
+            >
+              CombinedHeatAndPowerUnit
+            </option>
+            <option
+              value="CommunityHall"
+            >
+              CommunityHall
+            </option>
+            <option
+              value="Estate"
+            >
+              Estate
+            </option>
+            <option
+              value="HighRiseBlock"
+            >
+              HighRiseBlock
+            </option>
+            <option
+              value="Lift"
+            >
+              Lift
+            </option>
+            <option
+              value="LowRiseBlock"
+            >
+              LowRiseBlock
+            </option>
+            <option
+              value="NBD"
+            >
+              NBD
+            </option>
+            <option
+              value="OutBuilding"
+            >
+              OutBuilding
+            </option>
+            <option
+              value="TerracedBlock"
+            >
+              TerracedBlock
+            </option>
+            <option
+              value="WalkUpBlock"
+            >
+              WalkUpBlock
+            </option>
+            <option
+              value="StudioFlat"
+            >
+              StudioFlat
+            </option>
+            <option
+              value="Flat"
+            >
+              Flat
+            </option>
+            <option
+              value="Room"
+            >
+              Room
+            </option>
+            <option
+              value="House"
+            >
+              House
+            </option>
+            <option
+              value="SelfContainedBedsit"
+            >
+              SelfContainedBedsit
+            </option>
+            <option
+              value="Maisonette"
+            >
+              Maisonette
+            </option>
+            <option
+              value="NewBuild"
+            >
+              NewBuild
+            </option>
+          </select>
+        </div>
+        <div
+          style="border-left: 5px solid #0b0c0c; padding-left: 30px; width: 500px; box-sizing: border-box;"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="propertyEstate"
+          >
+            Estate this property is in
+          </label>
+          <div
+            class=""
+          >
+            <div
+              class="govuk-form-group  lbh-form-group visually-hidden-label"
+            >
+              <input
+                class="govuk-input lbh-input"
+                style="max-width: 100%;"
+                value=""
+              />
+            </div>
+            <button
+              class="govuk-button lbh-button"
+              type="button"
+            >
+              Search
+            </button>
+          </div>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <select
+              class="govuk-form-group lbh-form-group govuk-input lbh-input"
+              data-testid="propertyEstate"
+              disabled=""
+              id="propertyEstate"
+              style="max-width: 100%;"
+            >
+              <label
+                class="govuk-label lbh-label"
+                for="propertyEstate-field"
+              >
+                
+              </label>
+              <option
+                value=""
+              >
+                -- Select an option --
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          style="border-left: 5px solid #0b0c0c; padding-left: 30px; width: 500px; box-sizing: border-box;"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="propertyBlock"
+          >
+            Block this property is in
+          </label>
+          <div
+            class=""
+          >
+            <div
+              class="govuk-form-group  lbh-form-group visually-hidden-label"
+            >
+              <input
+                class="govuk-input lbh-input"
+                style="max-width: 100%;"
+                value=""
+              />
+            </div>
+            <button
+              class="govuk-button lbh-button"
+              type="button"
+            >
+              Search
+            </button>
+          </div>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <select
+              class="govuk-form-group lbh-form-group govuk-input lbh-input"
+              data-testid="propertyBlock"
+              disabled=""
+              id="propertyBlock"
+              style="max-width: 100%;"
+            >
+              <label
+                class="govuk-label lbh-label"
+                for="propertyBlock-field"
+              >
+                
+              </label>
+              <option
+                value=""
+              >
+                -- Select an option --
+              </option>
+            </select>
+          </div>
+        </div>
+        <label
+          class="govuk-label lbh-label"
+          for="property-sub-block"
+        >
+          Sub-block this property is in
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="property-sub-block"
+          id="property-sub-block"
+          name="propertySubBlock"
+          type="text"
+          value=""
+        />
+        <h2
+          class="lbh-heading-h2"
+        >
+          Address
+        </h2>
+        <label
+          class="govuk-label lbh-label"
+          for="uprn"
+        >
+          UPRN
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="uprn"
+          id="uprn"
+          name="uprn"
+          value=""
+        />
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="address-line-1"
+          >
+            Address line 1
+          </label>
+          <span
+            class="govuk-error-message lbh-error-message"
+            id="address-line-1-input-error"
+          >
+            <span
+              class="govuk-visually-hidden"
+              data-testid="error-address-line-1"
+            >
+              Error:
+            </span>
+          </span>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="address-line-1"
+            id="address-line-1"
+            name="addressLine1"
+            type="text"
+            value=""
+          />
+        </div>
+        <label
+          class="govuk-label lbh-label"
+          for="address-line-2"
+        >
+          Address line 2
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="address-line-2"
+          id="address-line-2"
+          name="addressLine2"
+          value=""
+        />
+        <label
+          class="govuk-label lbh-label"
+          for="address-line-3"
+        >
+          Address line 3
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="address-line-3"
+          id="address-line-3"
+          name="addressLine3"
+          value=""
+        />
+        <label
+          class="govuk-label lbh-label"
+          for="address-line-4"
+        >
+          Address line 4
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="address-line-4"
+          id="address-line-4"
+          name="addressLine4"
+          value=""
+        />
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="postcode"
+          >
+            Postcode*
+          </label>
+          <span
+            class="govuk-error-message lbh-error-message"
+            id="postcode-input-error"
+          >
+            <span
+              class="govuk-visually-hidden"
+              data-testid="error-postcode"
+            >
+              Error:
+            </span>
+             
+          </span>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="postcode"
+            id="postcode"
+            name="postcode"
+            type="text"
+            value=""
+          />
+        </div>
+        <h2
+          class="lbh-heading-h2"
+        >
+          Property management
+        </h2>
+        <label
+          class="govuk-label lbh-label"
+          for="agent"
+        >
+          Agent
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="agent"
+          id="agent"
+          name="agent"
+          value=""
+        />
+        <label
+          class="govuk-label lbh-label"
+          for="area-office-name"
+        >
+          Area office name
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="area-office-name"
+          id="area-office-name"
+          name="areaOfficeName"
+          value=""
+        />
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <fieldset
+            class="govuk-fieldset"
+          >
+            <legend
+              class="govuk-label lbh-label"
+            >
+              Is LBH property?
+            </legend>
+            <span
+              class="govuk-error-message lbh-error-message"
+              id="is-lbh-property-error"
+            >
+              <span
+                class="govuk-visually-hidden"
+                data-testid="error-is-council-property"
+              >
+                Error:
+              </span>
+               
+            </span>
+            <div
+              class="govuk-radios lbh-radios"
+            >
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="is-council-property-yes"
+                  id="is-council-property-yes"
+                  name="isCouncilProperty"
+                  type="radio"
+                  value="Yes"
+                />
+                <label
+                  class="govuk-label govuk-radios__label"
+                  for="is-council-property-yes"
+                >
+                  Yes
+                </label>
+              </div>
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="is-council-property-no"
+                  id="is-council-property-no"
+                  name="isCouncilProperty"
+                  type="radio"
+                  value="No"
+                />
+                <label
+                  class="govuk-label govuk-radios__label"
+                  for="is-council-property-no"
+                >
+                  No
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="managing-organisation"
+          >
+            Managing organisation
+          </label>
+          <span
+            class="govuk-error-message lbh-error-message"
+            id="managing-organisation-input-error"
+          >
+            <span
+              class="govuk-visually-hidden"
+              data-testid="error-managing-organisation"
+            >
+              Error:
+            </span>
+             
+          </span>
+          <select
+            class="govuk-input lbh-input"
+            data-testid="managing-organisation"
+            id="managing-organisation"
+            name="managingOrganisation"
+          >
+            <option
+              disabled=""
+              value=""
+            >
+               -- Select an option -- 
+            </option>
+            <option
+              value="London Borough of Hackney"
+            >
+              London Borough of Hackney
+            </option>
+            <option
+              value="Clapton Park Management Organisation"
+            >
+              Clapton Park Management Organisation
+            </option>
+            <option
+              value="Wyke Tenants and Residents Co-operative"
+            >
+              Wyke Tenants and Residents Co-operative
+            </option>
+            <option
+              value="Wenlock Barn TMO"
+            >
+              Wenlock Barn TMO
+            </option>
+            <option
+              value="North & South Arden TMO"
+            >
+              North & South Arden TMO
+            </option>
+            <option
+              value="Suffolk Estate Co-operative"
+            >
+              Suffolk Estate Co-operative
+            </option>
+            <option
+              value="Lordship South TMO"
+            >
+              Lordship South TMO
+            </option>
+            <option
+              value="Cranston Estate TMO"
+            >
+              Cranston Estate TMO
+            </option>
+          </select>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <fieldset
+            class="govuk-fieldset"
+          >
+            <legend
+              class="govuk-label lbh-label"
+            >
+              Is TMO managed?
+            </legend>
+            <span
+              class="govuk-error-message lbh-error-message"
+              id="is-tmo-managed-error"
+            >
+              <span
+                class="govuk-visually-hidden"
+                data-testid="error-is-tmo-managed"
+              >
+                Error:
+              </span>
+               
+            </span>
+            <div
+              class="govuk-radios lbh-radios"
+            >
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="is-tmo-managed-yes"
+                  id="is-tmo-managed-yes"
+                  name="isTMOManaged"
+                  type="radio"
+                  value="Yes"
+                />
+                <label
+                  class="govuk-label govuk-radios__label"
+                  for="is-tmo-managed-yes"
+                >
+                  Yes
+                </label>
+              </div>
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="is-tmo-managed-no"
+                  id="is-tmo-managed-no"
+                  name="isTMOManaged"
+                  type="radio"
+                  value="No"
+                />
+                <label
+                  class="govuk-label govuk-radios__label"
+                  for="is-tmo-managed-no"
+                >
+                  No
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <h2
+          class="lbh-heading-h2"
+        >
+          Asset details
+        </h2>
+        <label
+          class="govuk-label lbh-label"
+          for="window-type"
+        >
+          Window type
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="window-type"
+          id="window-type"
+          name="windowType"
+          value=""
+        />
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="year-constructed"
+          >
+            Year constructed
+          </label>
+          <span
+            class="govuk-error-message lbh-error-message"
+            id="year-constructed-input-error"
+          >
+            <span
+              class="govuk-visually-hidden"
+              data-testid="year-constructed"
+            >
+              Error:
+            </span>
+          </span>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="year-constructed"
+            id="year-constructed"
+            name="yearConstructed"
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="new-property-form-actions"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            id="submit-new-property-button"
+            type="submit"
+          >
+            Create new property
+          </button>
+          <a
+            class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+            href="/"
+            id="cancel-new-property-button"
+          >
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+`;

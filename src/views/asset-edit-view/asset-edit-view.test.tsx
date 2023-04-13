@@ -5,6 +5,8 @@ import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
+import locale from "../../services/locale";
+
 import { AssetEditView } from ".";
 
 import * as auth from "@mtfh/common/lib/auth/auth";
@@ -284,7 +286,7 @@ test("unauthorized message is shown for unauthorized users", async () => {
   // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
   await waitFor(() => {
     const unauthorizedErrorMessage = screen.getByText(
-      "You are not authorized to edit address data",
+      locale.errors.noAddressEditPermissions,
     );
     expect(unauthorizedErrorMessage).toBeVisible();
   });
