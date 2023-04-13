@@ -15,6 +15,13 @@ export const InlineSearchForm = ({ onSubmit, className, loading }: Props) => {
   const [input, setInput] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit();
+    }
+  }
+
   const handleSubmit = () => {
     if (loading) return;
 
@@ -42,12 +49,7 @@ export const InlineSearchForm = ({ onSubmit, className, loading }: Props) => {
 
         <Input
           style={{ maxWidth: "100%" }}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              handleSubmit();
-            }
-          }}
+          onKeyPress={(e) => handleKeyPress(e)}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           error={!!error}

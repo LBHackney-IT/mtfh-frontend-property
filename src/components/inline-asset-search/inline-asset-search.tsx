@@ -39,6 +39,15 @@ export const InlineAssetSearch = ({
     })) || []),
   ];
 
+  const handleSubmit = (searchText: string) => {
+    if (touched) {
+      // set field to ""
+      setFieldValue(name, "", false);
+    }
+    setTouched(true);
+    fetchResults(searchText);
+  }
+
   return (
     <div
       style={{
@@ -54,16 +63,7 @@ export const InlineAssetSearch = ({
 
       <InlineSearchForm
         loading={loading}
-        onSubmit={(searchText) => {
-          if (touched) {
-            // set field to ""
-            setFieldValue(name, "", false);
-          }
-
-          setTouched(true);
-
-          fetchResults(searchText);
-        }}
+        onSubmit={(searchText) => handleSubmit(searchText)}
       />
 
       {loading ? (
