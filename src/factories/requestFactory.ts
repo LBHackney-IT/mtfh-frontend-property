@@ -6,13 +6,7 @@ import { managingOrganisations } from "../utils/managing-organisations";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
 
 export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) => {
-  const parentAssetIds: string[] = [];
-  if (values?.propertyEstate && values.propertyEstate !== "")
-    parentAssetIds.push(values.propertyEstate);
-  if (values?.propertyBlock && values.propertyBlock !== "")
-    parentAssetIds.push(values.propertyBlock);
-  if (values?.propertySubBlock && values.propertySubBlock !== "")
-    parentAssetIds.push(values.propertySubBlock);
+  const parentAssetIds: string[] = getParentAssetsIds(values)
 
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
@@ -59,3 +53,15 @@ const getManagingOrganisationId = (managingOrganisation: string) => {
   );
   return match ? match.managingOrganisationId : "";
 };
+
+const getParentAssetsIds = (formValues: NewPropertyFormData) => {
+  const parentAssetIds = [];
+  if (formValues?.propertyEstate && formValues.propertyEstate !== "")
+    parentAssetIds.push(formValues.propertyEstate);
+  if (formValues?.propertyBlock && formValues.propertyBlock !== "")
+    parentAssetIds.push(formValues.propertyBlock);
+  if (formValues?.propertySubBlock && formValues.propertySubBlock !== "")
+    parentAssetIds.push(formValues.propertySubBlock);
+
+  return parentAssetIds;
+}
