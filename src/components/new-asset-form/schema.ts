@@ -1,7 +1,8 @@
 import * as Yup from "yup";
 
-import { removeWhitespace } from "@mtfh/common/lib/utils";
 import { regexUkPostcode } from "../../utils/uk-postcode-regex";
+
+import { removeWhitespace } from "@mtfh/common/lib/utils";
 
 export const newPropertySchema = () =>
   Yup.object({
