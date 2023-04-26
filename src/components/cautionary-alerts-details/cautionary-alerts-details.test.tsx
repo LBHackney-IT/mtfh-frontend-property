@@ -20,7 +20,7 @@ const alert: Alert = {
   personName: "Joan Fisher",
   personId: "1",
   reason: "",
-  startDate: ""
+  startDate: "",
 };
 
 describe("CautionaryAlertsDetails", () => {
