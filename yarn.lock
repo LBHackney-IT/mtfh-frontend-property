@@ -1530,7 +1530,7 @@
     lbh-frontend "^3.6.1"
     query-string "^7.0.1"
     react-merge-refs "^1.1.0"
-    react-router-dom "5.2.0"
+    react-router-dom "5.3.3"
     rxjs "^7.0.1"
     single-spa "^5.9.3"
     swr "1.0.1"
