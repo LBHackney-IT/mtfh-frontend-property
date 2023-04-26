@@ -31,7 +31,18 @@ module.exports = (webpackConfigEnv, argv) => {
             },
           ],
         },
-        { test: /\.js$/, loader: 'babel', query: {compact: false} }
+        {
+          test: /\.(?:js|mjs|cjs)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', { targets: "defaults" }]
+              ]
+            },
+          },
+        },
       ],
     },
     externals: ["react-router-dom", "formik", "yup"],
