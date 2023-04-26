@@ -32,6 +32,9 @@ module.exports = (webpackConfigEnv, argv) => {
           ],
         },
       ],
+      loaders: [
+        { test: /\.js$/, loader: 'babel', query: {compact: false} }
+      ],
     },
     externals: ["react-router-dom", "formik", "yup"],
     plugins: [
@@ -43,8 +46,5 @@ module.exports = (webpackConfigEnv, argv) => {
         APP_ENV: process.env.APP_ENV || "development",
       }),
     ],
-    loaders: [
-      { test: /\.js$/, loader: 'babel', query: {compact: false} }
-    ]
   });
 };
