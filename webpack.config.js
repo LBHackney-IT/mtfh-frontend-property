@@ -1,7 +1,7 @@
-const {ImportMapWebpackPlugin} = require("@hackney/webpack-import-map-plugin");
+const { ImportMapWebpackPlugin } = require("@hackney/webpack-import-map-plugin");
 const webpack = require("webpack");
 const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
-const {merge} = require("webpack-merge");
+const { merge } = require("webpack-merge");
 
 module.exports = (webpackConfigEnv, argv) => {
     const defaultConfig = singleSpaDefaults({
@@ -41,7 +41,6 @@ module.exports = (webpackConfigEnv, argv) => {
       }),
       new webpack.EnvironmentPlugin({
         APP_ENV: process.env.APP_ENV || "development",
-        CAUTIONARY_ALERT_SPREADSHEET: process.env.CAUTIONARY_ALERT_SPREADSHEET
       }),
     ],
   });

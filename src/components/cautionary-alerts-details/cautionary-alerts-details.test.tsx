@@ -11,7 +11,6 @@ import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 const { cautionaryAlerts } = locale;
 
 const alert: Alert = {
-  alertId: "1234",
   alertCode: "VA",
   assureReference: "",
   dateModified: "",
@@ -22,7 +21,6 @@ const alert: Alert = {
   personId: "1",
   reason: "",
   startDate: "",
-  isActive: true,
 };
 
 describe("CautionaryAlertsDetails", () => {
@@ -32,7 +30,7 @@ describe("CautionaryAlertsDetails", () => {
     expect(screen.getByText(cautionaryAlerts.none)).toBeInTheDocument();
   });
 
-  it.skip("should display cautionary alerts - 1 alert per person", () => {
+  it("should display cautionary alerts - 1 alert per person", () => {
     const alerts = [
       alert,
       {
@@ -53,7 +51,7 @@ describe("CautionaryAlertsDetails", () => {
     expect(screen.getAllByText(alerts[0].description).length).toBe(2);
   });
 
-  it.skip("should display cautionary alerts - 2 alerts per person", () => {
+  it("should display cautionary alerts - 2 alerts per person", () => {
     const alerts = [
       alert,
       {

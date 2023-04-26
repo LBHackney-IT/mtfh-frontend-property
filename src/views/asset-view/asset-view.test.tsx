@@ -207,7 +207,7 @@ test("renders the asset view for invalid asset type", async () => {
   await screen.findByText(locale.assetCouldNotBeLoaded);
 });
 
-it.skip("renders the asset view for missing person id", async () => {
+it("renders the asset view for missing person id", async () => {
   mockActiveTenureV1.householdMembers[0].id = "2d9d6ac5-d376-4ac4-9a00-85659be82d10";
   mockActiveTenureV1.householdMembers[0].fullName = "FAKE_Alice FAKE_Rowe";
 
