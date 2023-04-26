@@ -11,6 +11,7 @@ import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 const { cautionaryAlerts } = locale;
 
 const alert: Alert = {
+  alertId: "1234",
   alertCode: "VA",
   assureReference: "",
   dateModified: "",
@@ -21,6 +22,7 @@ const alert: Alert = {
   personId: "1",
   reason: "",
   startDate: "",
+  isActive: true,
 };
 
 describe("CautionaryAlertsDetails", () => {
