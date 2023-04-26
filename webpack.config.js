@@ -31,8 +31,6 @@ module.exports = (webpackConfigEnv, argv) => {
             },
           ],
         },
-      ],
-      loaders: [
         { test: /\.js$/, loader: 'babel', query: {compact: false} }
       ],
     },
