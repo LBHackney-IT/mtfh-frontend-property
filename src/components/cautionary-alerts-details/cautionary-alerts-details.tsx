@@ -3,7 +3,7 @@ import React from "react";
 import { locale } from "../../services";
 
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
-import { Alert as AlertIcon, Heading, Text } from "@mtfh/common/lib/components";
+import { Alert as AlertIcon, Heading, Link, Text } from "@mtfh/common/lib/components";
 
 import "./cautionary-alerts.styles.scss";
 
@@ -47,13 +47,24 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
       </Heading>
 
       {alerts.length > 0 ? (
-        <Text>
-          Alert(s) found. Check{" "}
-          <a href={process.env.CAUTIONARY_ALERT_SPREADSHEET}>
-            Cautionary Alerts Spreadsheet
-          </a>{" "}
-          for details.
-        </Text>
+        Object.keys(alertsPerPerson).map((personId) => {
+          const { personName, alerts } = alertsPerPerson[personId];
+          return (
+            <Text size="sm" key={personId}>
+              <Link className="person-link" href={`/person/${personId}`}>
+                {personName}
+              </Link>
+              <br />
+              {alerts.map((alert) => {
+                return (
+                  <>
+                    {alert} <br />
+                  </>
+                );
+              })}
+            </Text>
+          );
+        })
       ) : (
         <Text size="sm">{cautionaryAlerts.none}</Text>
       )}
