@@ -5,3 +5,29 @@
         width: 100%;
     }
 }
+#property-body-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    grid-template-areas: 
+    "newprocess propertyhierarchy"
+    "repairs repairs"
+    "comments comments";
+}
+
+#new-process-grid-area {
+    background-color: salmon;
+    grid-area: newprocess;
+}
+#property-hierarchy-grid-area {
+    background-color: rgb(81, 76, 156);
+    grid-area: propertyhierarchy;
+}
+#repairs-grid-area {
+    background-color: rgb(58, 32, 58);
+        grid-area: repairs;
+}
+#comments-grid-area {
+    background-color: yellowgreen;
+        grid-area: comments;
+}

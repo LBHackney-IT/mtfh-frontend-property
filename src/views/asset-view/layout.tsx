@@ -72,10 +72,10 @@ const AssetSideBar = ({
         !tenure.isActive ||
         !isFutureDate(tenure.endOfTenureDate) ||
         !tenure.id) && (
-        <Button as={RouterLink} to={`/tenure/${id}/add`}>
-          {locale.assets.assetDetails.newTenure}
-        </Button>
-      )}
+          <Button as={RouterLink} to={`/tenure/${id}/add`}>
+            {locale.assets.assetDetails.newTenure}
+          </Button>
+        )}
     </div>
   );
 };
@@ -89,24 +89,38 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
   return (
-    <div>
-      <Button variant="primary" as={RouterLink} to={`/processes/property/${propertyId}`}>
-        {locale.static.newProcess}
-      </Button>
-      {hasRepairsList && (
-        <>
-          <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
-          <WorkOrderList assetId={assetId} />
-        </>
-      )}
-      <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
-      <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
-        {locale.comments.addComment}
-      </Button>
-      <div>
-        <CommentList targetId={propertyId} />
+    <>
+      <div id="property-body-grid-container">
+        <div id="new-process-grid-area">
+          <h1>NEW PROCESS</h1>
+          {/* <Button variant="primary" as={RouterLink} to={`/processes/property/${propertyId}`}>
+            {locale.static.newProcess}
+          </Button> */}
+        </div>
+        <div id="property-hierarchy-grid-area">
+          <h1>TREE VIEW</h1>
+        </div>
+        <div id="repairs-grid-area">
+          {hasRepairsList && (
+            <>
+              <h1>REPAIRS</h1>
+              {/* <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
+              <WorkOrderList assetId={assetId} /> */}
+            </>
+          )}
+        </div>
+        <div id="comments-grid-area">
+          <h1>COMMENTS</h1>
+          {/* <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
+          <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
+            {locale.comments.addComment}
+          </Button>
+          <div>
+            <CommentList targetId={propertyId} />
+          </div> */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
