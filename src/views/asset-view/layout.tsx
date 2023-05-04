@@ -92,32 +92,71 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
     <>
       <div id="property-body-grid-container">
         <div id="new-process-grid-area">
-          <h1>NEW PROCESS</h1>
-          {/* <Button variant="primary" as={RouterLink} to={`/processes/property/${propertyId}`}>
+          <Button variant="primary" as={RouterLink} to={`/processes/property/${propertyId}`}>
             {locale.static.newProcess}
-          </Button> */}
+          </Button>
         </div>
         <div id="property-hierarchy-grid-area">
           <h1>TREE VIEW</h1>
+          <div id="property-hierarchy-container">
+    <div>
+      <h3>Primary Property</h3>
+    </div>
+    <ul>
+      <li>
+        <h4>Secondary Property 1</h4>
+        <ul>
+          <li>
+            <h5>Child Property 1</h5>
+          </li>
+          <li>
+            <h5>Child Property 2</h5>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <h4>Secondary Property 2</h4>
+        <ul>
+          <li>
+            <h5>Child Property 3</h5>
+          </li>
+          <li>
+            <h5>Child Property 4</h5>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h4>Secondary Property 3</h4>
+      </li>
+      <li>
+        <h4>Secondary Property 4</h4>
+        <ul>
+          <li>
+            <h5>Child Property 6</h5>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
         </div>
         <div id="repairs-grid-area">
           {hasRepairsList && (
             <>
-              <h1>REPAIRS</h1>
-              {/* <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
-              <WorkOrderList assetId={assetId} /> */}
+              <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
+              <WorkOrderList assetId={assetId} />
             </>
           )}
         </div>
         <div id="comments-grid-area">
-          <h1>COMMENTS</h1>
-          {/* <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
+          <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
           <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
             {locale.comments.addComment}
           </Button>
           <div>
             <CommentList targetId={propertyId} />
-          </div> */}
+          </div>
         </div>
       </div>
     </>
