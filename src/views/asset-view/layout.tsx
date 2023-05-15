@@ -31,6 +31,11 @@ import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 import "./styles.scss";
 
+import TreeView from '@mui/lab/TreeView';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import TreeItem from '@mui/lab/TreeItem';
+
 export interface AssetLayoutProperties {
   assetDetails: Asset;
 }
@@ -98,47 +103,21 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
         </div>
         <div id="property-hierarchy-grid-area">
           <div id="property-hierarchy-container">
-    <div>
-      <h3>Primary Property</h3>
-    </div>
-    <ul>
-      <li>
-        <h4>Secondary Property 1</h4>
-        <ul>
-          <li>
-            <h5>Child Property 1</h5>
-          </li>
-          <li>
-            <h5>Child Property 2</h5>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <h4>Secondary Property 2</h4>
-        <ul>
-          <li>
-            <h5>Child Property 3</h5>
-          </li>
-          <li>
-            <h5>Child Property 4</h5>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <h4>Secondary Property 3</h4>
-      </li>
-      <li>
-        <h4>Secondary Property 4</h4>
-        <ul>
-          <li>
-            <h5>Child Property 6</h5>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
+            <TreeView
+              aria-label="file system navigator"
+              defaultCollapseIcon={<ExpandMoreIcon />}
+              defaultExpandIcon={<ChevronRightIcon />}
+              // sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+            >
+              <TreeItem nodeId="1" label="Estate">
+                <TreeItem nodeId="2" label="Block">
+                <TreeItem nodeId="3" label="Flat 1"/>
+                <TreeItem nodeId="4" label="Flat 2"/>
+                <TreeItem nodeId="5" label="Flat 3"/>
+                </TreeItem>
+              </TreeItem>
+            </TreeView>
+          </div>
         </div>
         <div id="repairs-grid-area">
           {hasRepairsList && (
