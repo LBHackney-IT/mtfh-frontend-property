@@ -35,6 +35,8 @@ import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { green } from "@mui/material/colors";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -85,6 +87,19 @@ const AssetSideBar = ({
   );
 };
 
+const classes = {
+  focused: {
+    bgcolor: "transparent",
+    py: "1px",
+    px: "7px",
+    border: `1px solid red`
+  },
+  selected: {
+    bgcolor: "green",
+    color: "white"
+  }
+};
+
 interface PropertyBodyProps {
   propertyId: string;
   assetId: string;
@@ -107,8 +122,13 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
               aria-label="file system navigator"
               defaultCollapseIcon={<ExpandMoreIcon />}
               defaultExpandIcon={<ChevronRightIcon />}
-              // sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
-            >
+              sx={{
+                ".MuiTreeItem-root": {
+                  ".Mui-focused:not(.Mui-selected)": classes.focused,
+                  ".Mui-selected, .Mui-focused.Mui-selected, .Mui-selected:hover":
+                    classes.selected
+                }
+              }}            >
               <TreeItem nodeId="1" label="Estate">
                 <TreeItem nodeId="2" label="Block">
                 <TreeItem nodeId="3" label="Flat 1"/>
