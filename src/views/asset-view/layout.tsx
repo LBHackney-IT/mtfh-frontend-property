@@ -97,7 +97,6 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
           </Button>
         </div>
         <div id="property-hierarchy-grid-area">
-          <h1>TREE VIEW</h1>
           <div id="property-hierarchy-container">
     <div>
       <h3>Primary Property</h3>
