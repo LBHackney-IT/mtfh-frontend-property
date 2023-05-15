@@ -31,12 +31,11 @@ import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 import "./styles.scss";
 
-import TreeView from '@mui/lab/TreeView';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TreeItem from '@mui/lab/TreeItem';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { green } from "@mui/material/colors";
+import TreeView from '@mui/lab/TreeView';
+import { hierarchyStylesOverride } from "./utils/hierarchyStylesOverride";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -87,19 +86,6 @@ const AssetSideBar = ({
   );
 };
 
-const classes = {
-  focused: {
-    bgcolor: "transparent",
-    py: "1px",
-    px: "7px",
-    border: `1px solid red`
-  },
-  selected: {
-    bgcolor: "green",
-    color: "white"
-  }
-};
-
 interface PropertyBodyProps {
   propertyId: string;
   assetId: string;
@@ -117,6 +103,7 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
           </Button>
         </div>
         <div id="property-hierarchy-grid-area">
+          <h2 className="lbh-heading-h2">{locale.propertyHierarchy.heading}</h2>
           <div id="property-hierarchy-container">
             <TreeView
               aria-label="file system navigator"
@@ -124,16 +111,14 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
               defaultExpandIcon={<ChevronRightIcon />}
               sx={{
                 ".MuiTreeItem-root": {
-                  ".Mui-focused:not(.Mui-selected)": classes.focused,
-                  ".Mui-selected, .Mui-focused.Mui-selected, .Mui-selected:hover":
-                    classes.selected
+                  ".Mui-selected, .Mui-focused.Mui-selected, .Mui-focused:not(.Mui-selected)": hierarchyStylesOverride["hierarchy-item-selected"]
                 }
               }}            >
-              <TreeItem nodeId="1" label="Estate">
-                <TreeItem nodeId="2" label="Block">
-                <TreeItem nodeId="3" label="Flat 1"/>
-                <TreeItem nodeId="4" label="Flat 2"/>
-                <TreeItem nodeId="5" label="Flat 3"/>
+              <TreeItem nodeId="1" label="Bridge Road Estate">
+                <TreeItem nodeId="2" label="Block 3A">
+                  <TreeItem nodeId="3" label="FLAT 1 - Block 3A 142 Lea Bridge Road" />
+                  <TreeItem nodeId="4" label="FLAT 2 - Block 3A 142 Lea Bridge Road" />
+                  <TreeItem nodeId="5" label="FLAT 3 - Block 3A 142 Lea Bridge Road" />
                 </TreeItem>
               </TreeItem>
             </TreeView>

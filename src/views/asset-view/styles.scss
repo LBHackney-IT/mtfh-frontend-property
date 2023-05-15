@@ -5,29 +5,40 @@
         width: 100%;
     }
 }
+
 #property-body-grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 15px;
-    grid-template-areas: 
-    "newprocess propertyhierarchy"
-    "repairs repairs"
-    "comments comments";
+    grid-template-areas:
+        "newprocess propertyhierarchy"
+        "repairs repairs"
+        "comments comments";
 }
 
 #new-process-grid-area {
     grid-area: newprocess;
 }
+
 #property-hierarchy-grid-area {
     grid-area: propertyhierarchy;
 }
+
 #property-hierarchy-grid-area ul {
     padding-left: revert;
 }
 
 #repairs-grid-area {
-        grid-area: repairs;
+    grid-area: repairs;
 }
+
 #comments-grid-area {
-        grid-area: comments;
+    grid-area: comments;
+}
+
+#property-hierarchy-container {
+    div {
+        margin-top: 0 !important;
+        font-family: revert;
+    }
 }
