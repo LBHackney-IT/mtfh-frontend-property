@@ -8,6 +8,7 @@ import { EditableAddressFormData, editableAddressSchema } from "./schema";
 
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
 import { patchAsset } from "@mtfh/common/lib/api/asset/v1";
+import { EditTenureParams, EditTenuredAssetParams, Tenure, TenureAsset, editTenure, editTenuredAsset, useTenure } from "@mtfh/common/lib/api/tenure/v1";
 import {
   Asset,
   AssetAddress,
@@ -26,6 +27,7 @@ export interface EditableAddressProperties {
   setErrorHeading: (error: string | null) => void;
   setErrorDescription: (error: string | null) => void;
   setCurrentAssetAddress: (assetAddress: AssetAddress) => void;
+  tenureApiObj: Tenure | undefined;
 }
 
 interface PatchAssetFormValues {
@@ -45,6 +47,7 @@ export const EditableAddress = ({
   setErrorHeading,
   setErrorDescription,
   setCurrentAssetAddress,
+  tenureApiObj
 }: EditableAddressProperties): JSX.Element => {
   const [addressEditSuccessful, setAddressEditSuccessful] = useState<boolean>(false);
 
@@ -130,6 +133,31 @@ export const EditableAddress = ({
         setErrorHeading(locale.errors.unableToPatchAsset);
         setErrorDescription(locale.errors.tryAgainOrContactSupport);
       });
+
+      const tenureVersionNumber = tenureApiObj?.etag?.toString()
+        ? tenureApiObj.etag.toString()
+        : "0";
+
+      try {
+        const editTenureReq: EditTenuredAssetParams = {
+          tenuredAsset: {
+            id: assetDetails.id,
+            type: assetDetails.assetType,
+            fullAddress: values.addressLine1 + " " + values.postcode,
+            uprn: assetDetails.assetAddress.uprn,
+            propertyReference: assetDetails.assetId
+          },
+          etag: `${tenureVersionNumber}`,
+          id: "",
+          
+        };
+    
+        await editTenuredAsset(tenureApiObj?.id ?? "", editTenureReq)
+      }
+      catch (err) {
+        console.log(err)
+      }
+
   };
 
   if (!llpgAddress && loading) {

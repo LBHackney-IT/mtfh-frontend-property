@@ -6,13 +6,18 @@ import { assetAdminAuthGroups } from "../../services/config/config";
 import { AssetEditLayout } from "./layout";
 
 import { useAsset } from "@mtfh/common/lib/api/asset/v1";
+import { Tenure, useTenure } from "@mtfh/common/lib/api/tenure/v1";
+
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
+import { assetHasFloors } from "utils/asset-type";
 
 export const AssetEditView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
 
   const { data: asset, ...assetRequest } = useAsset(assetId);
+
+  const tenure = useTenure(asset?.tenure ? asset?.tenure.id : null).data;
 
   if (assetRequest.error) {
     return (
@@ -44,7 +49,7 @@ export const AssetEditView = (): JSX.Element => {
   return (
     <>
       {asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling" ? (
-        <AssetEditLayout assetDetails={asset} />
+        <AssetEditLayout assetDetails={asset} tenureApiObject={tenure} />
       ) : (
         <h1>{locale.assetCouldNotBeLoaded}</h1>
       )}
