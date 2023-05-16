@@ -327,20 +327,6 @@ exports[`renders the whole 'New asset form' view 1`] = `
             </select>
           </div>
         </div>
-        <label
-          class="govuk-label lbh-label"
-          for="property-sub-block"
-        >
-          Sub-block this property is in
-        </label>
-        <input
-          class="govuk-input lbh-input"
-          data-testid="property-sub-block"
-          id="property-sub-block"
-          name="propertySubBlock"
-          type="text"
-          value=""
-        />
         <h2
           class="lbh-heading-h2"
         >

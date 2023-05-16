@@ -102,7 +102,7 @@ export const NewAsset = ({
           assetType: "",
           propertyEstate: "",
           propertyBlock: "",
-          propertySubBlock: "",
+          // propertySubBlock: "",
           floorNo: "",
           totalBlockFloors: undefined,
           uprn: "",
@@ -218,7 +218,7 @@ export const NewAsset = ({
                   value={values.propertyBlock || ""}
                 />
               )}
-              {values.assetType !== "Block" && values.assetType !== "Estate" && (
+              {/* {values.assetType !== "Block" && values.assetType !== "Estate" && (
                 <>
                   <label className="govuk-label lbh-label" htmlFor="property-sub-block">
                     Sub-block this property is in
@@ -235,7 +235,7 @@ export const NewAsset = ({
                     data-testid="property-sub-block"
                   />
                 </>
-              )}
+              )} */}
               {assetHasFloorNo(values.assetType) && (
                 <>
                   <label className="govuk-label lbh-label" htmlFor="floor-no">
