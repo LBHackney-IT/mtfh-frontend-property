@@ -60,8 +60,6 @@ const getParentAssetsIds = (formValues: NewPropertyFormData) => {
     parentAssetIds.push(formValues.propertyEstate);
   if (formValues?.propertyBlock && formValues.propertyBlock !== "")
     parentAssetIds.push(formValues.propertyBlock);
-  if (formValues?.propertySubBlock && formValues.propertySubBlock !== "")
-    parentAssetIds.push(formValues.propertySubBlock);
 
   return parentAssetIds;
 };
