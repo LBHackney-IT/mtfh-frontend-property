@@ -8,7 +8,7 @@ import { EditableAddressFormData, editableAddressSchema } from "./schema";
 
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
 import { patchAsset } from "@mtfh/common/lib/api/asset/v1";
-import { EditTenureParams, EditTenuredAssetParams, Tenure, TenureAsset, editTenure, editTenuredAsset, useTenure } from "@mtfh/common/lib/api/tenure/v1";
+import { EditTenureParams, Tenure, TenureAsset, editTenure, useTenure } from "@mtfh/common/lib/api/tenure/v1";
 import {
   Asset,
   AssetAddress,
@@ -139,7 +139,7 @@ export const EditableAddress = ({
         : "0";
 
       try {
-        const editTenureReq: EditTenuredAssetParams = {
+        const editTenureReq: EditTenureParams = {
           tenuredAsset: {
             id: assetDetails.id,
             type: assetDetails.assetType,
@@ -148,11 +148,11 @@ export const EditableAddress = ({
             propertyReference: assetDetails.assetId
           },
           etag: `${tenureVersionNumber}`,
-          id: "",
+          id: tenureApiObj?.id ?? "",
           
         };
     
-        await editTenuredAsset(tenureApiObj?.id ?? "", editTenureReq)
+        await editTenure(editTenureReq)
       }
       catch (err) {
         console.log(err)
