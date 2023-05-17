@@ -12,41 +12,41 @@ import { AssetEditView } from ".";
 import * as auth from "@mtfh/common/lib/auth/auth";
 
 const tenureData = {
-  "startOfTenureDate": "2005-07-11T00:00:00",
-  "endOfTenureDate": null,
-  "paymentReference": "7647050047",
-  "tenureType": {
-      "code": "SEC",
-      "description": "Secure"
+  startOfTenureDate: "2005-07-11T00:00:00",
+  endOfTenureDate: null,
+  paymentReference: "7647050047",
+  tenureType: {
+    code: "SEC",
+    description: "Secure",
   },
-  "tenureSource": null,
-  "terminated": {
-      "isTerminated": false,
-      "reasonForTermination": ""
+  tenureSource: null,
+  terminated: {
+    isTerminated: false,
+    reasonForTermination: "",
   },
-  "fundingSource": null,
-  "numberOfAdultsInProperty": 0,
-  "numberOfChildrenInProperty": 0,
-  "hasOffsiteStorage": null,
-  "furtherAccountInformation": null,
-  "legacyReferences": [
-      {
-          "name": "uh_tag_ref",
-          "value": "051956/01"
-      },
-      {
-          "name": "u_saff_tenancy",
-          "value": "01831970"
-      }
+  fundingSource: null,
+  numberOfAdultsInProperty: 0,
+  numberOfChildrenInProperty: 0,
+  hasOffsiteStorage: null,
+  furtherAccountInformation: null,
+  legacyReferences: [
+    {
+      name: "uh_tag_ref",
+      value: "051956/01",
+    },
+    {
+      name: "u_saff_tenancy",
+      value: "01831970",
+    },
   ],
-  "tenuredAsset": {
-      "id": "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
-      "fullAddress": "51 GREENWOOD ROAD - FLAT B",
-      "uprn": "100021045676",
-      "propertyReference": "100021045676",
-      "isTemporaryAccomodation": false
-  }
-}
+  tenuredAsset: {
+    id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+    fullAddress: "51 GREENWOOD ROAD - FLAT B",
+    uprn: "100021045676",
+    propertyReference: "100021045676",
+    isTemporaryAccomodation: false,
+  },
+};
 
 const assetData = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",

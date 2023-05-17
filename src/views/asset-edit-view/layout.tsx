@@ -7,10 +7,10 @@ import { locale } from "../../services";
 
 import { Address, getAddressViaUprn } from "@mtfh/common/lib/api/address/v1";
 import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1";
+import { Tenure } from "@mtfh/common/lib/api/tenure/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
 import "./styles.scss";
-import { Tenure } from "@mtfh/common/lib/api/tenure/v1";
 
 export interface AssetEditLayoutProperties {
   assetDetails: Asset;
@@ -19,7 +19,7 @@ export interface AssetEditLayoutProperties {
 
 export const AssetEditLayout = ({
   assetDetails,
-  tenureApiObject
+  tenureApiObject,
 }: AssetEditLayoutProperties): JSX.Element => {
   const [currentAssetAddress, setCurrentAssetAddress] = useState<AssetAddress>(
     assetDetails.assetAddress,
