@@ -36,6 +36,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TreeItem from '@mui/lab/TreeItem';
 import TreeView from '@mui/lab/TreeView';
 import { hierarchyStylesOverride } from "./utils/hierarchyStylesOverride";
+import { renderTreeViewItem } from "./utils/treeViewItems";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -91,6 +92,57 @@ interface PropertyBodyProps {
   assetId: string;
 }
 
+const tempAsset1 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  assetType: "BoosterPump",
+  assetAddress: {
+    addressLine1: "Booster Pump",
+  }
+}
+const tempAsset2 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  assetType: "Block",
+  assetAddress: {
+    addressLine1: "Block",
+  }
+}
+const tempAsset3 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  assetType: "Estate",
+  assetAddress: {
+    addressLine1: "Estate",
+  }
+}
+const tempAsset4 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  assetType: "CombinedHeatAndPowerUnit",
+  assetAddress: {
+    addressLine1: "Combined Heat And Power Unit",
+  }
+}
+const tempAsset5 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  assetType: "CommunityHall",
+  assetAddress: {
+    addressLine1: "Community Hall",
+  }
+}
+const tempAsset6 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  assetType: "Lift",
+  assetAddress: {
+    addressLine1: "Lift",
+  }
+}
+const tempAsset7 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  assetType: "Anything Else (House/Flat/Dwelling etc)",
+  assetAddress: {
+    addressLine1: "Anything Else (House/Flat/Dwelling etc)",
+  }
+}
+
+
 const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
@@ -116,9 +168,13 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
               }}            >
               <TreeItem nodeId="1" label="Bridge Road Estate">
                 <TreeItem nodeId="2" label="Block 3A">
-                  <TreeItem nodeId="3" label="FLAT 1 - Block 3A 142 Lea Bridge Road" />
-                  <TreeItem nodeId="4" label="FLAT 2 - Block 3A 142 Lea Bridge Road" />
-                  <TreeItem nodeId="5" label="FLAT 3 - Block 3A 142 Lea Bridge Road" />
+                  {renderTreeViewItem(tempAsset1)}
+                  {renderTreeViewItem(tempAsset2)}
+                  {renderTreeViewItem(tempAsset3)}
+                  {renderTreeViewItem(tempAsset4)}
+                  {renderTreeViewItem(tempAsset5)}
+                  {renderTreeViewItem(tempAsset6)}
+                  {renderTreeViewItem(tempAsset7)}
                 </TreeItem>
               </TreeItem>
             </TreeView>

@@ -6,6 +6,11 @@
     }
 }
 
+.tree-view-item {
+    display: flex;
+    justify-content: flex-start;
+}
+
 #property-body-grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
