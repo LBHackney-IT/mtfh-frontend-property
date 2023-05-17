@@ -86,7 +86,7 @@ export const AssetEditLayout = ({
             setErrorHeading={setErrorHeading}
             setErrorDescription={setErrorDescription}
             setShowSuccess={setShowSuccess}
-            tenureApiObj={tenureApiObject}
+            tenureApiObject={tenureApiObject}
           />
         </section>
         <section>
