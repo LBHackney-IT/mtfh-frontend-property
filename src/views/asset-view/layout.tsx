@@ -37,6 +37,7 @@ import TreeItem from '@mui/lab/TreeItem';
 import TreeView from '@mui/lab/TreeView';
 import { hierarchyStylesOverride } from "./utils/hierarchyStylesOverride";
 import { renderTreeViewItem } from "./utils/treeViewItems";
+import { usePropertyHierarchy } from "./utils/usePropertyHierarchy";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -88,8 +89,8 @@ const AssetSideBar = ({
 };
 
 interface PropertyBodyProps {
-  propertyId: string;
-  assetId: string;
+  assetDetails: Asset;
+  relatedAssetResponse: any; // type to be changed to RelatedAssetResponse eventually
 }
 
 const tempAsset1 = {
@@ -100,42 +101,42 @@ const tempAsset1 = {
   }
 }
 const tempAsset2 = {
-  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ac",
   assetType: "Block",
   assetAddress: {
     addressLine1: "Block",
   }
 }
 const tempAsset3 = {
-  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ad",
   assetType: "Estate",
   assetAddress: {
     addressLine1: "Estate",
   }
 }
 const tempAsset4 = {
-  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ae",
   assetType: "CombinedHeatAndPowerUnit",
   assetAddress: {
     addressLine1: "Combined Heat And Power Unit",
   }
 }
 const tempAsset5 = {
-  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9af",
   assetType: "CommunityHall",
   assetAddress: {
     addressLine1: "Community Hall",
   }
 }
 const tempAsset6 = {
-  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ag",
   assetType: "Lift",
   assetAddress: {
     addressLine1: "Lift",
   }
 }
 const tempAsset7 = {
-  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ah",
   assetType: "Anything Else (House/Flat/Dwelling etc)",
   assetAddress: {
     addressLine1: "Anything Else (House/Flat/Dwelling etc)",
@@ -143,14 +144,15 @@ const tempAsset7 = {
 }
 
 
-const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element => {
+const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
+  const propertyHierarchy = usePropertyHierarchy(relatedAssetResponse)
 
   return (
     <>
       <div id="property-body-grid-container">
         <div id="new-process-grid-area">
-          <Button variant="primary" as={RouterLink} to={`/processes/property/${propertyId}`}>
+          <Button variant="primary" as={RouterLink} to={`/processes/property/${assetDetails.id}`}>
             {locale.static.newProcess}
           </Button>
         </div>
@@ -165,7 +167,7 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
                 ".MuiTreeItem-root": {
                   ".Mui-selected, .Mui-focused.Mui-selected, .Mui-focused:not(.Mui-selected)": hierarchyStylesOverride["hierarchy-item-selected"]
                 }
-              }}            >
+              }}>
               <TreeItem nodeId="1" label="Bridge Road Estate">
                 <TreeItem nodeId="2" label="Block 3A">
                   {renderTreeViewItem(tempAsset1)}
@@ -184,17 +186,17 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
           {hasRepairsList && (
             <>
               <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
-              <WorkOrderList assetId={assetId} />
+              <WorkOrderList assetId={assetDetails.assetId} />
             </>
           )}
         </div>
         <div id="comments-grid-area">
           <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
-          <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
+          <Button as={RouterLink} to={`/comment/property/${assetDetails.id}`}>
             {locale.comments.addComment}
           </Button>
           <div>
-            <CommentList targetId={propertyId} />
+            <CommentList targetId={assetDetails.id} />
           </div>
         </div>
       </div>
@@ -205,6 +207,15 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
+
+  // API call to retrieve related assets, by sending assetDetails.id to GetRelatedAsset new endpoint
+  const relatedAssetResponse = {
+    assetId: "0001234",
+    rootAsset: tempAsset3,
+    parentAssets: [tempAsset2, tempAsset3],
+    childrenAssets: [tempAsset4]
+}
+
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
   if (assetDetails.tenure) {
     if (tenure && cautionaryAlerts) {
@@ -253,7 +264,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
         }
         side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
       >
-        <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
+        <PropertyBody assetDetails={assetDetails} relatedAssetResponse={relatedAssetResponse} />
       </Layout>
     </PageAnnouncementProvider>
   );
