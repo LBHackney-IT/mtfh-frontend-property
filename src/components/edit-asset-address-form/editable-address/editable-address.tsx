@@ -102,12 +102,12 @@ export const EditableAddress = ({
     );
 
     const taskList = [
-      patchAsset(assetDetails.id, editAssetAddressRequest, assetVersionNumber)
-    ]
+      patchAsset(assetDetails.id, editAssetAddressRequest, assetVersionNumber),
+    ];
 
-    if (!!tenureApiObject) {
+    if (tenureApiObject) {
       // tenure must exist to be updated
-      taskList.push(editTenure(editTenureRequest))
+      taskList.push(editTenure(editTenureRequest));
     }
 
     await Promise.all(taskList)
