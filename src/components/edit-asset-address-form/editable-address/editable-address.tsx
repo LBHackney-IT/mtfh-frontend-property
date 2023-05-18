@@ -101,10 +101,16 @@ export const EditableAddress = ({
       tenureApiObject,
     );
 
-    await Promise.all([
+    const taskList = [
       patchAsset(assetDetails.id, editAssetAddressRequest, assetVersionNumber),
-      editTenure(editTenureRequest),
-    ])
+    ];
+
+    if (tenureApiObject) {
+      // tenure must exist to be updated
+      taskList.push(editTenure(editTenureRequest));
+    }
+
+    await Promise.all(taskList)
       .then(() => {
         // If the update is successful, we update the "Current Address" details (postPreamble and UPRN are unchanged)
         const newAssetAddress = buildAssetAddress(editAssetAddressRequest, assetDetails);
