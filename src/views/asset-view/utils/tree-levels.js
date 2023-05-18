@@ -28,15 +28,16 @@ const parentAsset = {
 const currentAsset = {
     id: "id3",
     addressLine1: "address 3",
-    assetType: "Estate"
+    assetType: "Dwelling"
 }
 
 const childAsset = {
     id: "id4",
     addressLine1: "address 4",
-    assetType: "Estate"
+    assetType: "Boiler House"
 }
 
+// Example API response
 const relatedAssetResponse = {
     rootAsset: rootAsset,
     parentAssets: [parentAsset, rootAsset],
@@ -65,7 +66,7 @@ const magicFunction = (relatedAssetResponse) => {
     // Check parentAssets is not an empty array/has at least one Asset element
     if (relatedAssetResponse.parentAssets.length >= 1) {
         console.log('Checking if rootAsset is included within parentAssets')
-        // Check whether parentAssets includes rootAsset, if yes remove it to avoid duplication
+        // Check whether parentAssets includes rootAsset, if yes remove it to avoid duplication (this may lead to parentAsset resulting in an empty array)
         if (relatedAssetResponse.parentAssets.includes(rootAsset)) {
             console.log("rootAsset is included in parentAssets, so it will be removed as it's duplicated")
             relatedAssetResponse.parentAssets = relatedAssetResponse.parentAssets.filter((asset) => { return asset != rootAsset })
@@ -76,14 +77,36 @@ const magicFunction = (relatedAssetResponse) => {
 
     // If we have a rootAsset, then this will always sit at the top level (level 0)
     if (relatedAssetResponse.rootAsset) {
-        let levelKey = `level${hierarchyLevel}`;
+        topToBottomArray.push({ [hierarchyLevel]: rootAsset })
+        hierarchyLevel++
+    }
 
-        topToBottomArray.push({ levelKey: rootAsset })
+    // If there is no parent asset (different from rootAsset), current asset will sit one level down from rootAsset (lvl 1)
+    if (relatedAssetResponse.parentAssets.length === 0) {
+        topToBottomArray.push({ [hierarchyLevel]: currentAsset })
+        hierarchyLevel++
+    } else if ((relatedAssetResponse.parentAssets.length === 1)) {
+        // If there ONE a parent asset (that's not the rootAsset), it will always sit at lvl 1 between rootAsset (lvl 0) and the current asset (lvl 2)
+        topToBottomArray.push({ [hierarchyLevel]: relatedAssetResponse.parentAssets[0] })
+        hierarchyLevel++
+
+        // And the current asset will sit below it
+        topToBottomArray.push({ [hierarchyLevel]: currentAsset })
+        hierarchyLevel++
+    }
+    // REVIEW
+    // If there is MORE THAN ONE parent asset (that's not the rootAsset), we need to find which one amongst these is the immediate parent asset
+    // A new check for (relatedAssetResponse.parentAssets.length > 1) will need to be added, along with a hierarchy system for all Asset Types
+
+    // REVIEW
+    // In the same way as above, we ideally want to find the immediate child or children, so again we'd need a Asset Type hierarchy system
+    // The below, currently, just checks if there are any children asset, if yes it adds the first one to the lower level.
+    if (relatedAssetResponse.childrenAssets.length > 0) {
+        topToBottomArray.push({ [hierarchyLevel]: relatedAssetResponse.childrenAssets[0] })
+        hierarchyLevel++
     }
 
     console.log("topToBottomArray", topToBottomArray)
-
-
 }
 
 magicFunction(relatedAssetResponse);
