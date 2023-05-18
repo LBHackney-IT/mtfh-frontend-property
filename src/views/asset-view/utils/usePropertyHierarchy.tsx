@@ -22,8 +22,11 @@ interface PropertyHierarchyObject {
 export const usePropertyHierarchy = (relatedAssetResponse: RelatedAssetsResponse, currentAsset: Asset) => {
 
     useEffect(() => {
-        const hierarchyArray = generateAssetHierarchyObject(relatedAssetResponse, currentAsset);
+        const hierarchyArray: PropertyHierarchyObject[] | undefined = generateAssetHierarchyObject(relatedAssetResponse, currentAsset);
 
+        if (hierarchyArray?.length) {
+            generatePropertyHierarchyElements(hierarchyArray)
+        }
         return () => {
             true
         }
@@ -36,15 +39,12 @@ const addAssetsToHierarchyLevel = (hierarchyLevel: number, assets: Asset[], hier
     hierarchyArray.push({ level: hierarchyLevel, assets: assets })
 }
 
-
 const generateAssetHierarchyObject = (relatedAssetResponse: RelatedAssetsResponse, currentAsset: Asset) => {
 
     const hierarchyArray: PropertyHierarchyObject[] = [];
     let hierarchyLevel = 0;
 
-    // Given a list of related asset (API response) in this case "relatedAssetResponse"
-
-    // 1. We want to understand how many levels we're working with
+    // Given a list of related asset (API response) in this case "relatedAssetResponse" we want to add the related assets on multiple levels
 
     // Check that rootAsset parentAssets and childrenAssets are not null
     if (!relatedAssetResponse.rootAsset && !relatedAssetResponse.parentAssets.length && !relatedAssetResponse.childrenAssets.length) {
@@ -115,13 +115,26 @@ const generateAssetHierarchyObject = (relatedAssetResponse: RelatedAssetsRespons
     //     },
     //     {
     //         level: 1
+	// 	       assets: [asset]
+    //     }
+    //     {
+    //         level: 2
 	// 	       assets: [asset, asset, asset]
     //     }
     // ]
 
 }
 
-const generatePropertyHierarchyElements = ()
+const generatePropertyHierarchyElements = (hierarchyArray: PropertyHierarchyObject[]) => {
+
+    // Start from last level, generate <TreeviewItem/> elements for assets
+    // <TreeviewItem/><TreeviewItem/><TreeviewItem/>
+
+    // Look at second to last level, generate a <TreeviewItem> </TreeviewItem>
+
+    // 
+
+}
 
 
 export { generateAssetHierarchyObject };

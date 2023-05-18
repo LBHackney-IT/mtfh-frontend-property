@@ -146,7 +146,7 @@ const tempAsset7 = {
 
 const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
-  const propertyHierarchy = usePropertyHierarchy(relatedAssetResponse)
+  const propertyHierarchy = usePropertyHierarchy(relatedAssetResponse, assetDetails)
 
   return (
     <>
