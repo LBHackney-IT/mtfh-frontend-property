@@ -11,6 +11,44 @@ import { AssetEditView } from ".";
 
 import * as auth from "@mtfh/common/lib/auth/auth";
 
+const tenureData = {
+  id: "387ddd25-5b10-452d-ba44-1cfac0583075",
+  startOfTenureDate: "2005-07-11T00:00:00",
+  endOfTenureDate: null,
+  paymentReference: "7647050047",
+  tenureType: {
+    code: "SEC",
+    description: "Secure",
+  },
+  tenureSource: null,
+  terminated: {
+    isTerminated: false,
+    reasonForTermination: "",
+  },
+  fundingSource: null,
+  numberOfAdultsInProperty: 0,
+  numberOfChildrenInProperty: 0,
+  hasOffsiteStorage: null,
+  furtherAccountInformation: null,
+  legacyReferences: [
+    {
+      name: "uh_tag_ref",
+      value: "051956/01",
+    },
+    {
+      name: "u_saff_tenancy",
+      value: "01831970",
+    },
+  ],
+  tenuredAsset: {
+    id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+    fullAddress: "51 GREENWOOD ROAD - FLAT B",
+    uprn: "100021045676",
+    propertyReference: "100021045676",
+    isTemporaryAccomodation: false,
+  },
+};
+
 const assetData = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
   assetId: "100021045676",
@@ -45,7 +83,11 @@ const assetData = {
     readyToLetDate: false,
   },
   assetCharacteristics: null,
-  tenure: null,
+  tenure: {
+    id: "387ddd25-5b10-452d-ba44-1cfac0583075",
+    type: "Asylum Seeker",
+    startOfTenureDate: "2011-01-01T00:00:00Z",
+  },
   versionNumber: 18,
   patches: [
     {
@@ -85,6 +127,12 @@ beforeEach(() => {
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
   server.use(
+    rest.get("/api/v1/tenures/:id", (req, res, ctx) => {
+      return res(ctx.json(tenureData));
+    }),
+  );
+
+  server.use(
     rest.get("/api/v1/assets/:id", (req, res, ctx) => {
       return res(ctx.json(assetData));
     }),
@@ -98,6 +146,12 @@ beforeEach(() => {
 
   server.use(
     rest.patch(`/api/v1/assets/${assetData.id}/address`, (req, res, ctx) => {
+      return res(ctx.status(204));
+    }),
+  );
+
+  server.use(
+    rest.patch(`/api/v1/tenures/:id`, (req, res, ctx) => {
       return res(ctx.status(204));
     }),
   );
@@ -171,6 +225,7 @@ test("the current address from the asset is updated using the LLPG address sugge
 
   // The await is required, as it allows the PATCH API call to be intercepted and the Current Asset Address value to be replaced with the LLPG suggestion.
   // Without it, the test may pass but the below expects would not work as expected.
+
   await waitFor(() => {
     userEvent.click(updateButton);
 

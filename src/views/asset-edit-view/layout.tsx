@@ -7,16 +7,19 @@ import { locale } from "../../services";
 
 import { Address, getAddressViaUprn } from "@mtfh/common/lib/api/address/v1";
 import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1";
+import { Tenure } from "@mtfh/common/lib/api/tenure/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
 import "./styles.scss";
 
 export interface AssetEditLayoutProperties {
   assetDetails: Asset;
+  tenureApiObject: Tenure | undefined;
 }
 
 export const AssetEditLayout = ({
   assetDetails,
+  tenureApiObject,
 }: AssetEditLayoutProperties): JSX.Element => {
   const [currentAssetAddress, setCurrentAssetAddress] = useState<AssetAddress>(
     assetDetails.assetAddress,
@@ -83,6 +86,7 @@ export const AssetEditLayout = ({
             setErrorHeading={setErrorHeading}
             setErrorDescription={setErrorDescription}
             setShowSuccess={setShowSuccess}
+            tenureApiObject={tenureApiObject}
           />
         </section>
         <section>

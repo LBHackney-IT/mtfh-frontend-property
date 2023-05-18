@@ -5,14 +5,18 @@ import { Field, Form, Formik } from "formik";
 
 import { locale } from "../../../services";
 import { EditableAddressFormData, editableAddressSchema } from "./schema";
+import { PatchAssetFormValues } from "./types";
+import {
+  buildAssetAddress,
+  buildEditAssetAddressRequest,
+  buildEditTenureRequest,
+  getAssetVersionNumber,
+} from "./utils";
 
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
 import { patchAsset } from "@mtfh/common/lib/api/asset/v1";
-import {
-  Asset,
-  AssetAddress,
-  EditAssetAddressRequest,
-} from "@mtfh/common/lib/api/asset/v1/types";
+import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1/types";
+import { Tenure, editTenure } from "@mtfh/common/lib/api/tenure/v1";
 import { Center, Spinner } from "@mtfh/common/lib/components";
 
 import "../styles.scss";
@@ -26,14 +30,7 @@ export interface EditableAddressProperties {
   setErrorHeading: (error: string | null) => void;
   setErrorDescription: (error: string | null) => void;
   setCurrentAssetAddress: (assetAddress: AssetAddress) => void;
-}
-
-interface PatchAssetFormValues {
-  addressLine1: string;
-  addressLine2?: string;
-  addressLine3?: string;
-  addressLine4?: string;
-  postcode: string;
+  tenureApiObject: Tenure | undefined;
 }
 
 export const EditableAddress = ({
@@ -45,6 +42,7 @@ export const EditableAddress = ({
   setErrorHeading,
   setErrorDescription,
   setCurrentAssetAddress,
+  tenureApiObject,
 }: EditableAddressProperties): JSX.Element => {
   const [addressEditSuccessful, setAddressEditSuccessful] = useState<boolean>(false);
 
@@ -86,46 +84,38 @@ export const EditableAddress = ({
     );
   };
 
-  const handleSubmit = async (values: PatchAssetFormValues) => {
+  const handleSubmit = async (formValues: PatchAssetFormValues) => {
     setShowSuccess(false);
     setShowError(false);
     setErrorHeading(null);
     setErrorDescription(null);
 
-    const assetAddress: EditAssetAddressRequest = {
-      assetAddress: {
-        uprn: assetDetails.assetAddress.uprn,
-        addressLine1: values.addressLine1,
-        addressLine2: values.addressLine2 ? values.addressLine2 : "",
-        addressLine3: values.addressLine3 ? values.addressLine3 : "",
-        addressLine4: values.addressLine4 ? values.addressLine4 : "",
-        postCode: values.postcode,
-        postPreamble: assetDetails.assetAddress.postPreamble,
-      },
-    };
+    const editAssetAddressRequest = buildEditAssetAddressRequest(
+      formValues,
+      assetDetails,
+    );
+    const assetVersionNumber = getAssetVersionNumber(assetDetails);
+    const editTenureRequest = buildEditTenureRequest(
+      formValues,
+      assetDetails,
+      tenureApiObject,
+    );
 
-    // the toString() prevents a version with a potential valid value of Number 0 from being seen as 'falsy'
-    const assetVersionNumber = assetDetails?.versionNumber?.toString()
-      ? assetDetails.versionNumber.toString()
-      : null;
-
-    await patchAsset(assetDetails.id, assetAddress, assetVersionNumber)
+    await Promise.all([
+      patchAsset(assetDetails.id, editAssetAddressRequest, assetVersionNumber),
+      editTenure(editTenureRequest),
+    ])
       .then(() => {
         // If the update is successful, we update the "Current Address" details (postPreamble and UPRN are unchanged)
-        const newAssetAddress: AssetAddress = {
-          addressLine1: assetAddress.assetAddress.addressLine1,
-          addressLine2: assetAddress.assetAddress.addressLine2,
-          addressLine3: assetAddress.assetAddress.addressLine3,
-          addressLine4: assetAddress.assetAddress.addressLine4,
-          postCode: assetAddress.assetAddress.postCode,
-          postPreamble: assetDetails.assetAddress.postPreamble,
-          uprn: assetDetails.assetAddress.uprn,
-        };
+        const newAssetAddress = buildAssetAddress(editAssetAddressRequest, assetDetails);
+
         setCurrentAssetAddress(newAssetAddress);
         setShowSuccess(true);
         setAddressEditSuccessful(true);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err);
+
         setShowError(true);
         setErrorHeading(locale.errors.unableToPatchAsset);
         setErrorDescription(locale.errors.tryAgainOrContactSupport);
