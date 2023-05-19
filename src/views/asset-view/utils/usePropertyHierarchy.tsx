@@ -1,5 +1,5 @@
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { renderAssetTypeIcon } from "./treeViewItems";
 import TreeItem from '@mui/lab/TreeItem';
 import React from "react";
@@ -24,20 +24,18 @@ interface PropertyHierarchyObject {
 // }
 
 export const usePropertyHierarchy = (relatedAssetResponse: RelatedAssetsResponse, currentAsset: Asset) => {
+    const [propertyHierarchyJsxElements, setPropertyHierarchyJsxElements] = useState<JSX.Element[] | null>(null);
 
     useEffect(() => {
         const hierarchyArray: PropertyHierarchyObject[] | undefined = generateAssetHierarchyObject(relatedAssetResponse, currentAsset);
 
         if (hierarchyArray?.length) {
             // If we have a hierarchy array, it means we can generate JSX elements for the tree view
-            generatePropertyHierarchyElements(hierarchyArray)
-        }
-        return () => {
-            true
+            setPropertyHierarchyJsxElements(generatePropertyHierarchyElements(hierarchyArray))
         }
     }, [])
 
-
+    return propertyHierarchyJsxElements;
 }
 
 const addAssetsToHierarchyLevel = (hierarchyLevel: number, assets: Asset[], hierarchyArray: PropertyHierarchyObject[]) => {
@@ -113,7 +111,7 @@ const generateAssetHierarchyObject = (relatedAssetResponse: RelatedAssetsRespons
     return hierarchyArray;
 }
 
-// example return
+// example returns for generateAssetHierarchyObject (PropertyHierarchyObjects)
 // hierarchyArray = [
 //     {
 //         level: 0
@@ -179,60 +177,64 @@ const generateTreeViewJsxElements = (upperLevelHierarchyObject: PropertyHierarch
                         {nestedAssetTreeViewElements}
                     </TreeItem>
                 </div>
-    
+
             assetTreeViewElements.push(treeViewAssetElement);
         })
     } else {
         upperLevelHierarchyObject.assets.forEach(asset => {
-        const treeViewAssetElement: JSX.Element =
-            <div className="tree-view-item">
-                {renderAssetTypeIcon(asset)}<TreeItem nodeId={asset.id} label={asset.assetAddress.addressLine1} />
-            </div>
+            const treeViewAssetElement: JSX.Element =
+                <div className="tree-view-item">
+                    {renderAssetTypeIcon(asset)}<TreeItem nodeId={asset.id} label={asset.assetAddress.addressLine1} />
+                </div>
 
-        assetTreeViewElements.push(treeViewAssetElement);
-    }) 
+            assetTreeViewElements.push(treeViewAssetElement);
+        })
     }
     return assetTreeViewElements;
+}
+
+const determineHierarchyBottomLevel = (hierarchyArray: PropertyHierarchyObject[]): number => {
+    // Determine how many levels we're working with (example: levels = [0, 1, 2, 3])
+    const levels: number[] = hierarchyArray.map(hierarchyObj => hierarchyObj.level)
+
+    return Math.max(...levels);
 }
 
 const generatePropertyHierarchyElements = (hierarchyArray: PropertyHierarchyObject[]): JSX.Element[] => {
 
     let propertyHierarchyJsxElements: JSX.Element[] = [];
 
-    // Determine how many levels we're working with (example: levels = [0, 1, 2, 3])
-    const levels: number[] = hierarchyArray.map(hierarchyObj => hierarchyObj.level)
+    // Determine bottom level number to start with generateAssetHierarchyObject(the higher the number, the lower the level)
+    let currentHierarchyLevel = determineHierarchyBottomLevel(hierarchyArray);
 
-    // Determine bottom level number
-    const bottomLevelNumber = Math.max(...levels);
-
-    // Find last level object in hierarchyArray, this will be the obj with the highest level number
-    const bottomLevelHierarchyObject: PropertyHierarchyObject = getPropertyHierarchyObjectByLevel(hierarchyArray, bottomLevelNumber)
+    // Find last level object in hierarchyArray, this will be the PropertyHierarchyObject with the highest level number
+    const bottomLevelHierarchyObject: PropertyHierarchyObject = getPropertyHierarchyObjectByLevel(hierarchyArray, currentHierarchyLevel)
 
     // Start from last level, generate <TreeviewItem/> elements for assets. These will have no children!
     const lowestLevelHierarchyJsxElements = generateTreeViewJsxElements(bottomLevelHierarchyObject)
+    propertyHierarchyJsxElements = lowestLevelHierarchyJsxElements;
 
-    // If bottomLevelNumber is 0, it means there's no upper level so we return propertyHierarchyJsxElements
-    if (bottomLevelNumber === 0) {
-        propertyHierarchyJsxElements = lowestLevelHierarchyJsxElements;
+    // If the next level up is > 0 (not the top level), go one level up (currentHierarchyLevel-1), create new set of JSX elements, overwrite existing JSX elements, and return propertyHierarchyJsxElements.
+    // Eventually currentHierarchyLevel will be 1, the code will enter the while loop, currentHierarchyLevel will go to 0 and the JSX elements will also be generated for the top level asset
+    while (currentHierarchyLevel > 0) {
+
+        // Go to the upper level
+        currentHierarchyLevel -= 1;
+
+        // Get PropertyHierarchyObject for upper level
+        const currentLevelHierarchyObject: PropertyHierarchyObject = getPropertyHierarchyObjectByLevel(hierarchyArray, currentHierarchyLevel)
+
+        // Generate JSX tree view elements with nested elements
+        const currentLevelHierarchyJsxElement: JSX.Element[] = generateTreeViewJsxElements(currentLevelHierarchyObject, propertyHierarchyJsxElements)
+        propertyHierarchyJsxElements = currentLevelHierarchyJsxElement;
+    }
+
+    // If currentHierarchyLevel is 0, it means there's no upper level so we return propertyHierarchyJsxElements
+    if (currentHierarchyLevel === 0) {
         return propertyHierarchyJsxElements;
     }
 
-    // Look at the next level up from last level, generate a <TreeviewItem> </TreeviewItem>
-
-    const upperLevel = bottomLevelNumber - 1;
-
-    const upperLevelHierarchyObject: PropertyHierarchyObject = getPropertyHierarchyObjectByLevel(hierarchyArray, upperLevel)
-
-
-
-    const upperLevelHierarchyJsxElement: JSX.Element =
-        <div className="tree-view-item">
-            {renderAssetTypeIcon(asset)}<TreeItem nodeId={asset.id} label={asset.assetAddress.addressLine1} />
-        </div>
-
-    // 
     return propertyHierarchyJsxElements;
 }
 
-
-export { generateAssetHierarchyObject };
+export default usePropertyHierarchy;
