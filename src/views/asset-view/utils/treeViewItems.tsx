@@ -52,4 +52,4 @@ const renderAssetTypeIcon = (asset: any) => {
   }
 }
 
-export { renderTreeViewItem };
+export { renderTreeViewItem, renderAssetTypeIcon };
