@@ -1,14 +1,14 @@
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { useEffect, useState } from "react";
-import { renderAssetTypeIcon } from "./treeViewItems";
 import TreeItem from '@mui/lab/TreeItem';
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { renderAssetTypeIcon } from "./treeViewItems";
 
 // this interface might need to be added to mtfh-common and an equivalent type should be in asset API for when data is returned
 export interface RelatedAssetsResponse {
     rootAsset: Asset;
     parentAssets: Asset[];
     childrenAssets: Asset[];
+    assetId: string;
 }
 
 interface PropertyHierarchyObject {
@@ -20,12 +20,13 @@ interface PropertyHierarchyObject {
 // const relatedAssetResponse = {
 //     rootAsset: rootAsset,
 //     parentAssets: [parentAsset, rootAsset],
-//      current 
+//     currentAsset: [asset], 
 //     childrenAssets: [childAsset]
 // }
 
 export const usePropertyHierarchy = (relatedAssetResponse: RelatedAssetsResponse, currentAsset: Asset) => {
     const [propertyHierarchyJsxElements, setPropertyHierarchyJsxElements] = useState<JSX.Element[] | null>(null);
+    const [propertyHierarchyAssetIds, setPropertyHierarchyAssetIds] = useState<string[] | undefined>(undefined);
 
     useEffect(() => {
         const hierarchyArray: PropertyHierarchyObject[] | undefined = generateAssetHierarchyObject(relatedAssetResponse, currentAsset);
@@ -33,10 +34,11 @@ export const usePropertyHierarchy = (relatedAssetResponse: RelatedAssetsResponse
         if (hierarchyArray?.length) {
             // If we have a hierarchy array, it means we can generate JSX elements for the tree view
             setPropertyHierarchyJsxElements(generatePropertyHierarchyElements(hierarchyArray))
+            setPropertyHierarchyAssetIds(getPropertyHierarchyAssetIds(relatedAssetResponse, currentAsset))
         }
     }, [])
 
-    return propertyHierarchyJsxElements;
+    return { propertyHierarchyJsxElements, propertyHierarchyAssetIds };
 }
 
 const addAssetsToHierarchyLevel = (hierarchyLevel: number, assets: Asset[], hierarchyArray: PropertyHierarchyObject[]) => {
@@ -206,6 +208,31 @@ const generatePropertyHierarchyElements = (hierarchyArray: PropertyHierarchyObje
     }
 
     return propertyHierarchyJsxElements;
+}
+
+const getPropertyHierarchyAssetIds = (relatedAssetResponse: RelatedAssetsResponse, currentAsset: Asset): string[] => {
+    // We have most of this information on the currentAsset already, but as we've not decided yet whether we're adding childrenAssetsIds field to each asset, 
+    // we're using the RelatedAssetsResponse as it'll have all related assets' ids.
+
+    const assetIds: string[] = [];
+
+    assetIds.push(currentAsset.id);
+
+    if (relatedAssetResponse.rootAsset) {
+        assetIds.push(relatedAssetResponse.rootAsset.id);
+    }
+
+    if (relatedAssetResponse.parentAssets.length) {
+        // the below prevents the ID of the rootAsset from being readded, if this is also present in the parentAssets
+        relatedAssetResponse.parentAssets.forEach(relatedParentAsset => { if (!assetIds.includes(relatedParentAsset.id)) assetIds.push(relatedParentAsset.id) })
+    }
+
+    if (relatedAssetResponse.childrenAssets.length) {
+        relatedAssetResponse.childrenAssets.forEach(relatedChildAsset => assetIds.push(relatedChildAsset.id))
+    }
+
+    console.log('returning assetids', assetIds)
+    return assetIds;
 }
 
 export default usePropertyHierarchy;

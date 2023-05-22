@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { AssetDetails, TenureDetails } from "../../components";
@@ -96,6 +96,7 @@ interface PropertyBodyProps {
 const tempAsset1 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
   assetType: "BoosterPump",
+  assetId: "001001",
   assetAddress: {
     addressLine1: "Booster Pump",
   }
@@ -103,6 +104,7 @@ const tempAsset1 = {
 const tempAsset2 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ac",
   assetType: "Block",
+  assetId: "002002",
   assetAddress: {
     addressLine1: "Block Qwe",
   }
@@ -110,6 +112,7 @@ const tempAsset2 = {
 const tempAsset3 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ad",
   assetType: "Estate",
+  assetId: "003003",
   assetAddress: {
     addressLine1: "Estate Asd",
   }
@@ -117,12 +120,14 @@ const tempAsset3 = {
 const tempAsset4 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ae",
   assetType: "CombinedHeatAndPowerUnit",
+  assetId: "004004",
   assetAddress: {
     addressLine1: "Combined Heat And Power Unit",
   }
 }
 const tempAsset5 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9af",
+  assetId: "005005",
   assetType: "CommunityHall",
   assetAddress: {
     addressLine1: "Community Hall",
@@ -131,6 +136,7 @@ const tempAsset5 = {
 const tempAsset6 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ag",
   assetType: "Lift",
+  assetId: "006006",
   assetAddress: {
     addressLine1: "Lift",
   }
@@ -138,6 +144,7 @@ const tempAsset6 = {
 const tempAsset7 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ah",
   assetType: "Anything Else (House/Flat/Dwelling etc)",
+  assetId: "007007",
   assetAddress: {
     addressLine1: "Anything Else (House/Flat/Dwelling etc)",
   }
@@ -146,7 +153,7 @@ const tempAsset7 = {
 
 const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
-  const propertyHierarchy = usePropertyHierarchy(relatedAssetResponse, assetDetails)
+  const { propertyHierarchyJsxElements, propertyHierarchyAssetIds } = usePropertyHierarchy(relatedAssetResponse, assetDetails)
 
   return (
     <>
@@ -156,22 +163,28 @@ const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps)
             {locale.static.newProcess}
           </Button>
         </div>
-        <div id="property-hierarchy-grid-area">
-          <h2 className="lbh-heading-h2">{locale.propertyHierarchy.heading}</h2>
-          <div id="property-hierarchy-container">
-            <TreeView
-              aria-label="file system navigator"
-              defaultCollapseIcon={<ExpandMoreIcon />}
-              defaultExpandIcon={<ChevronRightIcon />}
-              sx={{
-                ".MuiTreeItem-root": {
-                  ".Mui-selected, .Mui-focused.Mui-selected, .Mui-focused:not(.Mui-selected)": hierarchyStylesOverride["hierarchy-item-selected"]
-                }
-              }}>
-              {propertyHierarchy}
-            </TreeView>
+        {propertyHierarchyJsxElements && propertyHierarchyAssetIds && (
+          <div id="property-hierarchy-grid-area">
+            <h2 className="lbh-heading-h2">{locale.propertyHierarchy.heading}</h2>
+            <div id="property-hierarchy-container">
+              <TreeView
+                aria-label="file system navigator"
+                defaultCollapseIcon={<ExpandMoreIcon />}
+                defaultExpandIcon={<ChevronRightIcon />}
+                defaultExpanded={propertyHierarchyAssetIds ? propertyHierarchyAssetIds : undefined}
+                // defaultExpanded={["2d13b5cb-baf2-91fd-c231-8c5c2ee9548c", "15adc44b-6fde-46e8-af9c-e18b1495c9ad", "15adc44b-6fde-46e8-af9c-e18b1495c9ac", "15adc44b-6fde-46e8-af9c-e18b1495c9ae"]}
+                sx={{
+                  ".MuiTreeItem-root": {
+                    ".Mui-selected, .Mui-focused.Mui-selected, .Mui-focused:not(.Mui-selected)": hierarchyStylesOverride["hierarchy-item-selected"]
+                  },
+                  height: 300, flexGrow: 1, overflowY: 'auto'
+                }}
+              >
+                {propertyHierarchyJsxElements}
+              </TreeView>
+            </div>
           </div>
-        </div>
+        )}
         <div id="repairs-grid-area">
           {hasRepairsList && (
             <>
@@ -189,7 +202,7 @@ const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps)
             <CommentList targetId={assetDetails.id} />
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 };
