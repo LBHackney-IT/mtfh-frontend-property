@@ -104,14 +104,14 @@ const tempAsset2 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ac",
   assetType: "Block",
   assetAddress: {
-    addressLine1: "Block",
+    addressLine1: "Block Qwe",
   }
 }
 const tempAsset3 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ad",
   assetType: "Estate",
   assetAddress: {
-    addressLine1: "Estate",
+    addressLine1: "Estate Asd",
   }
 }
 const tempAsset4 = {
