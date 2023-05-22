@@ -168,7 +168,7 @@ const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps)
                   ".Mui-selected, .Mui-focused.Mui-selected, .Mui-focused:not(.Mui-selected)": hierarchyStylesOverride["hierarchy-item-selected"]
                 }
               }}>
-              <TreeItem nodeId="1" label="Bridge Road Estate">
+              {/* <TreeItem nodeId="1" label="Bridge Road Estate">
                 <TreeItem nodeId="2" label="Block 3A">
                   {renderTreeViewItem(tempAsset1)}
                   {renderTreeViewItem(tempAsset2)}
@@ -178,7 +178,8 @@ const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps)
                   {renderTreeViewItem(tempAsset6)}
                   {renderTreeViewItem(tempAsset7)}
                 </TreeItem>
-              </TreeItem>
+              </TreeItem> */}
+              {propertyHierarchy}
             </TreeView>
           </div>
         </div>
@@ -214,7 +215,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
     rootAsset: tempAsset3,
     parentAssets: [tempAsset2, tempAsset3],
     childrenAssets: [tempAsset4]
-}
+  }
 
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
   if (assetDetails.tenure) {

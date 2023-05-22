@@ -27,6 +27,7 @@ export const usePropertyHierarchy = (relatedAssetResponse: RelatedAssetsResponse
     const [propertyHierarchyJsxElements, setPropertyHierarchyJsxElements] = useState<JSX.Element[] | null>(null);
 
     useEffect(() => {
+        // should hierarchyArray be state? probably not
         const hierarchyArray: PropertyHierarchyObject[] | undefined = generateAssetHierarchyObject(relatedAssetResponse, currentAsset);
 
         if (hierarchyArray?.length) {
