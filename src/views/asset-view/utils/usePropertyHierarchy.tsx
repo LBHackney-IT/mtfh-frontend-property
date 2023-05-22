@@ -4,7 +4,8 @@ import { renderAssetTypeIcon } from "./treeViewItems";
 import TreeItem from '@mui/lab/TreeItem';
 import React from "react";
 
-interface RelatedAssetsResponse {
+// this interface might need to be added to mtfh-common and an equivalent type should be in asset API for when data is returned
+export interface RelatedAssetsResponse {
     rootAsset: Asset;
     parentAssets: Asset[];
     childrenAssets: Asset[];
@@ -27,7 +28,6 @@ export const usePropertyHierarchy = (relatedAssetResponse: RelatedAssetsResponse
     const [propertyHierarchyJsxElements, setPropertyHierarchyJsxElements] = useState<JSX.Element[] | null>(null);
 
     useEffect(() => {
-        // should hierarchyArray be state? probably not
         const hierarchyArray: PropertyHierarchyObject[] | undefined = generateAssetHierarchyObject(relatedAssetResponse, currentAsset);
 
         if (hierarchyArray?.length) {
@@ -126,36 +126,6 @@ const generateAssetHierarchyObject = (relatedAssetResponse: RelatedAssetsRespons
 //         level: 2
 // 	       assets: [asset, asset, asset]
 //     }
-// ]
-
-// hierarchyArray = [
-//     {
-//         level: 0
-// 	       assets: [asset]
-//     },
-//     {
-//         level: 1
-// 	       assets: [asset]
-//     }
-// ]
-
-// hierarchyArray = [
-// {
-//     level: 0,
-//        assets: [asset]
-// },
-// {
-//     level: 1,
-//        assets: [asset]
-// },
-// {
-//     level: 2,
-//        assets: [asset]
-// },
-// {
-//     level: 3,
-//        assets: [asset, asset, asset]
-// }
 // ]
 
 const getPropertyHierarchyObjectByLevel = (hierarchyArray: PropertyHierarchyObject[], level: number): PropertyHierarchyObject => {

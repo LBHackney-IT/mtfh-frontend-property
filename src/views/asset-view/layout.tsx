@@ -90,7 +90,7 @@ const AssetSideBar = ({
 
 interface PropertyBodyProps {
   assetDetails: Asset;
-  relatedAssetResponse: any; // type to be changed to RelatedAssetResponse eventually
+  relatedAssetResponse: any; // type to be changed to RelatedAssetResponse eventually, once we work with real data
 }
 
 const tempAsset1 = {
@@ -168,17 +168,6 @@ const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps)
                   ".Mui-selected, .Mui-focused.Mui-selected, .Mui-focused:not(.Mui-selected)": hierarchyStylesOverride["hierarchy-item-selected"]
                 }
               }}>
-              {/* <TreeItem nodeId="1" label="Bridge Road Estate">
-                <TreeItem nodeId="2" label="Block 3A">
-                  {renderTreeViewItem(tempAsset1)}
-                  {renderTreeViewItem(tempAsset2)}
-                  {renderTreeViewItem(tempAsset3)}
-                  {renderTreeViewItem(tempAsset4)}
-                  {renderTreeViewItem(tempAsset5)}
-                  {renderTreeViewItem(tempAsset6)}
-                  {renderTreeViewItem(tempAsset7)}
-                </TreeItem>
-              </TreeItem> */}
               {propertyHierarchy}
             </TreeView>
           </div>
