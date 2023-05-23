@@ -18,9 +18,9 @@ interface PropertyHierarchyObject {
 
 // Example API response
 // const relatedAssetResponse = {
+//     assetId: [assetId], 
 //     rootAsset: rootAsset,
 //     parentAssets: [parentAsset, rootAsset],
-//     currentAsset: [asset], 
 //     childrenAssets: [childAsset]
 // }
 
@@ -32,7 +32,7 @@ export const usePropertyHierarchy = (relatedAssetResponse: RelatedAssetsResponse
         const hierarchyArray: PropertyHierarchyObject[] | undefined = generateAssetHierarchyObject(relatedAssetResponse, currentAsset);
 
         if (hierarchyArray?.length) {
-            // If we have a hierarchy array, it means we can generate JSX elements for the tree view
+            // If we have a hierarchy array, it means we can generate JSX elements for the tree view and get every asset's GUID
             setPropertyHierarchyJsxElements(generatePropertyHierarchyElements(hierarchyArray))
             setPropertyHierarchyAssetIds(getPropertyHierarchyAssetIds(relatedAssetResponse, currentAsset))
         }
@@ -231,7 +231,6 @@ const getPropertyHierarchyAssetIds = (relatedAssetResponse: RelatedAssetsRespons
         relatedAssetResponse.childrenAssets.forEach(relatedChildAsset => assetIds.push(relatedChildAsset.id))
     }
 
-    console.log('returning assetids', assetIds)
     return assetIds;
 }
 
