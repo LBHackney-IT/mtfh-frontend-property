@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { AssetDetails, TenureDetails } from "../../components";
@@ -33,10 +33,8 @@ import "./styles.scss";
 
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import TreeItem from '@mui/lab/TreeItem';
 import TreeView from '@mui/lab/TreeView';
 import { hierarchyStylesOverride } from "./utils/hierarchyStylesOverride";
-import { renderTreeViewItem } from "./utils/treeViewItems";
 import { usePropertyHierarchy } from "./utils/usePropertyHierarchy";
 
 export interface AssetLayoutProperties {
@@ -119,10 +117,18 @@ const tempAsset3 = {
 }
 const tempAsset4 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ae",
-  assetType: "CombinedHeatAndPowerUnit",
+  assetType: "Room",
   assetId: "004004",
   assetAddress: {
-    addressLine1: "Combined Heat And Power Unit",
+    addressLine1: "Bedroom 1",
+  }
+}
+const tempAsset8 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ah",
+  assetType: "Room",
+  assetId: "004004",
+  assetAddress: {
+    addressLine1: "Bedroom 2",
   }
 }
 const tempAsset5 = {
@@ -153,7 +159,6 @@ const tempAsset7 = {
 
 const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
-  const { propertyHierarchyJsxElements, propertyHierarchyAssetIds } = usePropertyHierarchy(relatedAssetResponse, assetDetails)
 
   return (
     <>
@@ -163,28 +168,7 @@ const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps)
             {locale.static.newProcess}
           </Button>
         </div>
-        {propertyHierarchyJsxElements && propertyHierarchyAssetIds && (
-          <div id="property-hierarchy-grid-area">
-            <h2 className="lbh-heading-h2">{locale.propertyHierarchy.heading}</h2>
-            <div id="property-hierarchy-container">
-              <TreeView
-                aria-label="file system navigator"
-                defaultCollapseIcon={<ExpandMoreIcon />}
-                defaultExpandIcon={<ChevronRightIcon />}
-                defaultExpanded={propertyHierarchyAssetIds ? propertyHierarchyAssetIds : undefined}
-                // defaultExpanded={["2d13b5cb-baf2-91fd-c231-8c5c2ee9548c", "15adc44b-6fde-46e8-af9c-e18b1495c9ad", "15adc44b-6fde-46e8-af9c-e18b1495c9ac", "15adc44b-6fde-46e8-af9c-e18b1495c9ae"]}
-                sx={{
-                  ".MuiTreeItem-root": {
-                    ".Mui-selected, .Mui-focused.Mui-selected, .Mui-focused:not(.Mui-selected)": hierarchyStylesOverride["hierarchy-item-selected"]
-                  },
-                  height: 300, flexGrow: 1, overflowY: 'auto'
-                }}
-              >
-                {propertyHierarchyJsxElements}
-              </TreeView>
-            </div>
-          </div>
-        )}
+
         <div id="repairs-grid-area">
           {hasRepairsList && (
             <>
@@ -193,6 +177,7 @@ const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps)
             </>
           )}
         </div>
+        <PropertyHierarchy assetDetails={assetDetails} relatedAssetResponse={relatedAssetResponse} />
         <div id="comments-grid-area">
           <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
           <Button as={RouterLink} to={`/comment/property/${assetDetails.id}`}>
@@ -207,6 +192,42 @@ const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps)
   );
 };
 
+interface PropertyHiearchyProps {
+  assetDetails: Asset;
+  relatedAssetResponse: any; // type to be changed to RelatedAssetResponse eventually, once we work with real data
+}
+
+const PropertyHierarchy = ({ assetDetails, relatedAssetResponse }: PropertyHiearchyProps): JSX.Element => {
+  const { propertyHierarchyJsxElements, propertyHierarchyAssetIds } = usePropertyHierarchy(relatedAssetResponse, assetDetails)
+
+  return (
+    <>
+      {propertyHierarchyJsxElements && propertyHierarchyAssetIds && (
+        <div id="property-hierarchy-grid-area">
+          <h2 className="lbh-heading-h2">{locale.propertyHierarchy.heading}</h2>
+          <div id="property-hierarchy-container">
+            <TreeView
+              aria-label="file system navigator"
+              defaultCollapseIcon={<ExpandMoreIcon />}
+              defaultExpandIcon={<ChevronRightIcon />}
+              defaultExpanded={propertyHierarchyAssetIds ? propertyHierarchyAssetIds : undefined}
+              sx={{
+                ".MuiTreeItem-root": {
+                  ".Mui-selected, .Mui-focused.Mui-selected, .Mui-focused:not(.Mui-selected)": hierarchyStylesOverride["hierarchy-item-selected"]
+                },
+                height: 300, flexGrow: 1, overflowY: 'auto'
+              }}
+            >
+              {propertyHierarchyJsxElements}
+            </TreeView>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
@@ -216,7 +237,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
     assetId: "0001234",
     rootAsset: tempAsset3,
     parentAssets: [tempAsset2, tempAsset3],
-    childrenAssets: [tempAsset4]
+    childrenAssets: [tempAsset4, tempAsset8]
   }
 
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
