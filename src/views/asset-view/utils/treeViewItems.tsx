@@ -48,40 +48,4 @@ const renderAssetTypeIcon = (asset: any) => {
   }
 }
 
-// const renderAssetTypeIconAndLink = (asset: any) => {
-
-//   switch (asset.assetType) {
-
-//     case AssetType.Estate:
-//       return <a href={`/property/${asset.id}`}><HolidayVillageIcon /></a>
-
-//     case AssetType.Block:
-//     case AssetType.MediumRiseBlock:
-//     case AssetType.HighRiseBlock:
-//     case AssetType.LowRiseBlock:
-//     case AssetType.WalkUpBlock:
-//     case AssetType.TerracedBlock:
-//       return <a href={`/property/${asset.id}`}><ApartmentIcon /></a>
-
-//     case AssetType.CombinedHeatAndPowerUnit:
-//       return <a href={`/property/${asset.id}`}><PowerIcon /></a>
-
-//     case AssetType.CommunityHall:
-//       return <a href={`/property/${asset.id}`}><AccountBalanceIcon /></a>
-
-//     case AssetType.Lift:
-//       return <a href={`/property/${asset.id}`}><ElevatorIcon /></a>
-
-//     case AssetType.BoosterPump:
-//     case AssetType.BoilerHouse:
-//       return <a href={`/property/${asset.id}`}><WaterDropIcon /></a>
-
-//     case AssetType.Room:
-//       return <a href={`/property/${asset.id}`}><MeetingRoomIcon /></a>
-
-//     default:
-//       return <a href={`/property/${asset.id}`}><HouseIcon /></a>
-//   }
-// }
-
 export { renderAssetTypeIcon };

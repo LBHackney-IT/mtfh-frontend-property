@@ -34,7 +34,6 @@ import "./styles.scss";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TreeView from '@mui/lab/TreeView';
-import { hierarchyStylesOverride } from "./utils/hierarchyStylesOverride";
 import { usePropertyHierarchy } from "./utils/usePropertyHierarchy";
 
 export interface AssetLayoutProperties {
@@ -199,6 +198,13 @@ interface PropertyHiearchyProps {
 
 const PropertyHierarchy = ({ assetDetails, relatedAssetResponse }: PropertyHiearchyProps): JSX.Element => {
   const { propertyHierarchyJsxElements, propertyHierarchyAssetIds } = usePropertyHierarchy(relatedAssetResponse, assetDetails)
+
+  const hierarchyStylesOverride = {
+    "hierarchy-item-selected": {
+        bgcolor: "white",
+        color: "black"
+    }
+};
 
   return (
     <>
