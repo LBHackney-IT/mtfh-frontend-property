@@ -27,7 +27,6 @@ export const ReferenceAddress = ({
           id="asset-address-line-one-input"
           name="asset-address-line-one"
           type="text"
-          required
           value={assetAddressDetails.addressLine1}
           data-testid="asset-address-line-one"
           disabled
@@ -93,9 +92,22 @@ export const ReferenceAddress = ({
           id="asset-postcode-input"
           name="asset-postcode"
           type="text"
-          required
           value={assetAddressDetails.postCode}
           data-testid="asset-postcode"
+          disabled
+        />
+      </div>
+      <div className="govuk-form-group lbh-form-group">
+        <label className="govuk-label lbh-label grey-text" htmlFor="asset-post-preamble-input">
+          Post preamble
+        </label>
+        <input
+          className="govuk-input lbh-input"
+          id="asset-post-preamble-input"
+          name="asset-post-preamble"
+          type="text"
+          value={assetAddressDetails.postPreamble}
+          data-testid="asset-post-preamble"
           disabled
         />
       </div>

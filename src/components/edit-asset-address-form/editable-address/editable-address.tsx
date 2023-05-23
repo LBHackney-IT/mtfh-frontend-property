@@ -145,6 +145,7 @@ export const EditableAddress = ({
           addressLine3: llpgAddress?.line3 ? llpgAddress.line3 : "",
           addressLine4: llpgAddress?.town ? llpgAddress.town : "",
           postcode: llpgAddress?.postcode ? llpgAddress.postcode : "",
+          postPreamble: "",
         }}
         validationSchema={editableAddressSchema}
         onSubmit={(values) => handleSubmit(values)}
@@ -289,6 +290,26 @@ export const EditableAddress = ({
                   disabled={!!addressEditSuccessful}
                 />
               </div>
+
+              <label
+                className={
+                  addressEditSuccessful
+                    ? "govuk-label lbh-label grey-text"
+                    : "govuk-label lbh-label"
+                }
+                htmlFor="post-preamble"
+              >
+                Post preamble
+              </label>
+              <Field
+                id="post-preamble"
+                name="postPreamble"
+                className="govuk-input lbh-input"
+                type="text"
+                data-testid="post-preamble"
+                disabled={!!addressEditSuccessful}
+              />
+
               {renderFormActionButtons()}
             </Form>
           </div>

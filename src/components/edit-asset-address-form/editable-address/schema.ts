@@ -15,6 +15,7 @@ export const editableAddressSchema = () =>
       .transform(removeWhitespace)
       .required("Postcode is a required field")
       .matches(regexUkPostcode, "Please enter a valid postcode"),
+    postPreamble: Yup.string(),
   });
 
 export type EditableAddressFormData = Yup.Asserts<
