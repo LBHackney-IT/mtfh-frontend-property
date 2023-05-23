@@ -102,11 +102,10 @@ const generateAssetHierarchyObject = (relatedAssetResponse: RelatedAssetsRespons
     // If there is MORE THAN ONE parent asset (that's not the rootAsset), we need to find which one amongst these is the immediate parent asset
     // A new check for (relatedAssetResponse.parentAssets.length > 1) will need to be added, along with a hierarchy system for all Asset Types
 
-    // REVIEW
-    // In the same way as above, we ideally want to find the immediate child or children, so again we'd need a Asset Type hierarchy system
-    // The below, currently, just checks if there are any children asset, if yes it adds the first one to the lower/current level.
+    // Add children assets. We can have multiple children and for each one we'll need a JSX element eventually.
     if (relatedAssetResponse.childrenAssets.length > 0) {
-        const assetsForCurrentLevel = [relatedAssetResponse.childrenAssets[0]]
+        const assetsForCurrentLevel: any[] = [];
+        relatedAssetResponse.childrenAssets.forEach(childAsset => assetsForCurrentLevel.push(childAsset))
         addAssetsToHierarchyLevel(hierarchyLevel, assetsForCurrentLevel, hierarchyArray)
         hierarchyLevel++;
     }
@@ -138,11 +137,11 @@ const getPropertyHierarchyObjectByLevel = (hierarchyArray: PropertyHierarchyObje
     return hierarchyObject!;
 }
 
-const generateTreeViewJsxElements = (upperLevelHierarchyObject: PropertyHierarchyObject, nestedAssetTreeViewElements: JSX.Element[] | null = null): JSX.Element[] => {
+const generateTreeViewJsxElements = (hierarchyObject: PropertyHierarchyObject, nestedAssetTreeViewElements: JSX.Element[] | null = null): JSX.Element[] => {
     let assetTreeViewElements: JSX.Element[] = [];
 
     if (nestedAssetTreeViewElements && nestedAssetTreeViewElements.length) {
-        upperLevelHierarchyObject.assets.forEach(asset => {
+        hierarchyObject.assets.forEach(asset => {
             const treeViewAssetElement: JSX.Element =
                 <div className="tree-view-item">
                     {renderAssetTypeIcon(asset)}
@@ -154,7 +153,7 @@ const generateTreeViewJsxElements = (upperLevelHierarchyObject: PropertyHierarch
             assetTreeViewElements.push(treeViewAssetElement);
         })
     } else {
-        upperLevelHierarchyObject.assets.forEach(asset => {
+        hierarchyObject.assets.forEach(asset => {
             const treeViewAssetElement: JSX.Element =
                 <div className="tree-view-item">
                     {renderAssetTypeIcon(asset)}<TreeItem nodeId={asset.id} label={asset.assetAddress.addressLine1} />

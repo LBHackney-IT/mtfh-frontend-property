@@ -125,7 +125,7 @@ const tempAsset4 = {
 const tempAsset8 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ah",
   assetType: "Room",
-  assetId: "004004",
+  assetId: "008008",
   assetAddress: {
     addressLine1: "Bedroom 2",
   }
