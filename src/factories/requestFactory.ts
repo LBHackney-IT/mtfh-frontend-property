@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { NewPropertyFormData } from "../components/new-asset-form/schema";
-import { managingOrganisations } from "../utils/managing-organisations";
+import { managingOrganisations } from "../components/new-asset-form/utils/managing-organisations";
 
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
 
