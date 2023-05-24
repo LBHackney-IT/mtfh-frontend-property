@@ -4,4 +4,5 @@ export interface PatchAssetFormValues {
   addressLine3?: string;
   addressLine4?: string;
   postcode: string;
+  postPreamble?: string;
 }
