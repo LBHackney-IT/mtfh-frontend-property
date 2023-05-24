@@ -15,12 +15,12 @@ import {
 } from "../../utils/asset-type";
 import { InlineAssetSearch } from "../inline-asset-search";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
+import { renderAreaOfficeNames } from "./utils/area-office-names";
+import { renderManagingOrganisationOptions } from "./utils/managing-organisations";
 
 import { Center, Spinner } from "@mtfh/common";
 import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
-import { renderManagingOrganisationOptions } from "./utils/managing-organisations";
-import { renderAreaOfficeNames } from "./utils/area-office-names";
 
 export interface Props {
   setShowSuccess: (value: boolean) => void;
@@ -721,7 +721,7 @@ export const NewAsset = ({
                   data-module="govuk-button"
                   type="submit"
                   id="submit-new-property-button"
-                // disabled={!submitEditEnabled}
+                  // disabled={!submitEditEnabled}
                 >
                   Create new property
                 </button>

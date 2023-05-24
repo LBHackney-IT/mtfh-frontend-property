@@ -51,4 +51,4 @@ const renderManagingOrganisationOptions = (): JSX.Element[] => {
   ));
 };
 
-export {managingOrganisations, renderManagingOrganisationOptions};
+export { managingOrganisations, renderManagingOrganisationOptions };

@@ -43,6 +43,7 @@ export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) =>
       windowType: values?.windowType ?? "",
       numberOfLifts: values?.numberOfLifts ?? null,
     },
+    patches: undefined,
   };
 
   return asset;
