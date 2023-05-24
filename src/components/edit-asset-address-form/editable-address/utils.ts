@@ -25,7 +25,7 @@ export const buildEditAssetAddressRequest = (
     addressLine3: formValues.addressLine3 ? formValues.addressLine3 : "",
     addressLine4: formValues.addressLine4 ? formValues.addressLine4 : "",
     postCode: formValues.postcode,
-    postPreamble: assetDetails.assetAddress.postPreamble,
+    postPreamble: formValues.postPreamble ? formValues.postPreamble : "",
   },
 });
 
@@ -58,6 +58,6 @@ export const buildAssetAddress = (
   addressLine3: editAssetAddressRequest.assetAddress.addressLine3,
   addressLine4: editAssetAddressRequest.assetAddress.addressLine4,
   postCode: editAssetAddressRequest.assetAddress.postCode,
-  postPreamble: assetDetails.assetAddress.postPreamble,
+  postPreamble: editAssetAddressRequest.assetAddress.postPreamble,
   uprn: assetDetails.assetAddress.uprn,
 });

@@ -50,7 +50,7 @@ export const EditableAddress = ({
     if (!addressEditSuccessful) {
       return (
         <>
-          <div className="form-actions">
+          <div className="edit-asset-form-actions">
             <button
               className="govuk-button lbh-button"
               data-module="govuk-button"
@@ -140,6 +140,7 @@ export const EditableAddress = ({
     <>
       <Formik<EditableAddressFormData>
         initialValues={{
+          postPreamble: "",
           addressLine1: llpgAddress?.line1 ? llpgAddress.line1 : "",
           addressLine2: llpgAddress?.line2 ? llpgAddress.line2 : "",
           addressLine3: llpgAddress?.line3 ? llpgAddress.line3 : "",
@@ -157,6 +158,25 @@ export const EditableAddress = ({
                   ? "Suggestion from the Local Gazetteer"
                   : "New address details"}
               </h3>
+
+              <label
+                className={
+                  addressEditSuccessful
+                    ? "govuk-label lbh-label grey-text"
+                    : "govuk-label lbh-label"
+                }
+                htmlFor="post-preamble"
+              >
+                Post preamble
+              </label>
+              <Field
+                id="post-preamble"
+                name="postPreamble"
+                className="govuk-input lbh-input"
+                type="text"
+                data-testid="post-preamble"
+                disabled={!!addressEditSuccessful}
+              />
 
               <div
                 className={
@@ -289,6 +309,7 @@ export const EditableAddress = ({
                   disabled={!!addressEditSuccessful}
                 />
               </div>
+
               {renderFormActionButtons()}
             </Form>
           </div>
