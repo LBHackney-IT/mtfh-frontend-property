@@ -111,6 +111,7 @@ export const NewAsset = ({
           addressLine3: "",
           addressLine4: "",
           postcode: "",
+          postPreamble: "",
           agent: "",
           areaOfficeName: "",
           isCouncilProperty: "",
@@ -389,6 +390,15 @@ export const NewAsset = ({
                   data-testid="postcode"
                 />
               </div>
+              <label className="govuk-label lbh-label" htmlFor="post-preamble">
+                Post preamble
+              </label>
+              <Field
+                id="post-preamble"
+                name="postPreamble"
+                className="govuk-input lbh-input"
+                data-testid="post-preamble"
+              />
               <h2 className="lbh-heading-h2">Property management</h2>
               <label className="govuk-label lbh-label" htmlFor="agent">
                 Agent
