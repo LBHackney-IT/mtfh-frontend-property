@@ -21,6 +21,7 @@ export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) =>
     },
     assetAddress: {
       uprn: values?.uprn ?? "",
+      postPreamble: values?.postPreamble ?? "",
       addressLine1: values.addressLine1,
       addressLine2: values?.addressLine2 ?? "",
       addressLine3: values?.addressLine3 ?? "",
