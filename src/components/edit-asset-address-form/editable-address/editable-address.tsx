@@ -50,7 +50,7 @@ export const EditableAddress = ({
     if (!addressEditSuccessful) {
       return (
         <>
-          <div className="form-actions">
+          <div className="edit-asset-form-actions">
             <button
               className="govuk-button lbh-button"
               data-module="govuk-button"
