@@ -63,8 +63,8 @@ const assetData = {
     addressLine2: "",
     addressLine3: "",
     addressLine4: "",
-    postCode: "E8 1NT",
-    postPreamble: null,
+    postCode: "E8 1QT",
+    postPreamble: "X",
   },
   assetManagement: {
     agent: null,
@@ -179,7 +179,7 @@ test("renders the whole 'Edit property address' view", async () => {
   expect(container).toMatchSnapshot();
 });
 
-test("the current address from the asset is updated using the LLPG address suggestion", async () => {
+test.only("the current address from the asset is updated using the LLPG address suggestion", async () => {
   render(<AssetEditView />, {
     url: `/property/edit/${assetData.id}`,
     path: "/property/edit/:assetId",
@@ -220,6 +220,27 @@ test("the current address from the asset is updated using the LLPG address sugge
   const assetAddressLine4 = screen.getByTestId("asset-address-line-four");
   expect(assetAddressLine4).toHaveValue("");
 
+  // Assert LLPG postcode is ""
+  const llpgPostcode = screen.getByTestId("postcode");
+  expect(llpgPostcode).toHaveValue("E8 1NT");
+
+  // Assert Asset AddrLine4 is ""
+  const assetPostcode = screen.getByTestId("asset-postcode");
+  expect(assetPostcode).toHaveValue("E8 1QT");
+
+  // Assert LLPG post preamble is ""
+  const llpgPostPreamble = screen.getByTestId("post-preamble");
+  expect(llpgPostPreamble).toHaveValue("");
+
+  // Assert Asset AddrLine4 is ""
+  const assetPostPreamble = screen.getByTestId("asset-post-preamble");
+  expect(assetPostPreamble).toHaveValue("X");
+
+  // Edit post preamble value
+  userEvent.clear(llpgPostPreamble);
+  userEvent.type(llpgPostPreamble, "Y");
+  expect(llpgPostPreamble).toHaveValue("Y");
+
   // User click on "Update to this address"
   const updateButton = screen.getByRole("button", { name: "Update to this address" });
 
@@ -240,6 +261,12 @@ test("the current address from the asset is updated using the LLPG address sugge
 
     // Assert Asset AddrLine4 is LONDON, the same as LLPG Address Line 1
     expect(assetAddressLine4).toHaveValue("LONDON");
+
+    // Assert Asset Postcode is E8 1NT, the same as LLPG Postcode
+    expect(assetPostcode).toHaveValue("E8 1NT");
+
+    // Assert Asset PostPreamble is Y, the same as LLPG Post Preamble
+    expect(assetPostPreamble).toHaveValue("Y");
   });
 });
 
