@@ -91,7 +91,7 @@ const areaOfficeNames = [
   },
 ];
 
-const renderAreaOfficeNames = (): JSX.Element[] => {
+const renderAreaOfficeNamesOptions = (): JSX.Element[] => {
   return areaOfficeNames.map((office, index) => (
     <option key={index} value={office.officeName}>
       {`${office.areaOffice} - ${office.officeName}`}
@@ -99,4 +99,4 @@ const renderAreaOfficeNames = (): JSX.Element[] => {
   ));
 };
 
-export { areaOfficeNames, renderAreaOfficeNames };
+export { areaOfficeNames, renderAreaOfficeNamesOptions };

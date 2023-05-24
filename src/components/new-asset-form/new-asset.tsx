@@ -15,7 +15,7 @@ import {
 } from "../../utils/asset-type";
 import { InlineAssetSearch } from "../inline-asset-search";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
-import { renderAreaOfficeNames } from "./utils/area-office-names";
+import { renderAreaOfficeNamesOptions } from "./utils/area-office-names";
 import { renderManagingOrganisationOptions } from "./utils/managing-organisations";
 
 import { Center, Spinner } from "@mtfh/common";
@@ -408,7 +408,7 @@ export const NewAsset = ({
                   {" "}
                   -- Select an option --{" "}
                 </option>
-                {renderAreaOfficeNames()}
+                {renderAreaOfficeNamesOptions()}
               </Field>
               <div
                 className={
