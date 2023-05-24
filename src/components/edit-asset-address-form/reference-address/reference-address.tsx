@@ -98,7 +98,10 @@ export const ReferenceAddress = ({
         />
       </div>
       <div className="govuk-form-group lbh-form-group">
-        <label className="govuk-label lbh-label grey-text" htmlFor="asset-post-preamble-input">
+        <label
+          className="govuk-label lbh-label grey-text"
+          htmlFor="asset-post-preamble-input"
+        >
           Post preamble
         </label>
         <input

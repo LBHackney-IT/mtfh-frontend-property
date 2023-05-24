@@ -132,6 +132,20 @@ exports[`renders the whole 'Edit property address' view 1`] = `
               value="E8 1NT"
             />
           </div>
+          <label
+            class="govuk-label lbh-label"
+            for="post-preamble"
+          >
+            Post preamble
+          </label>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="post-preamble"
+            id="post-preamble"
+            name="postPreamble"
+            type="text"
+            value=""
+          />
           <div
             class="form-actions"
           >
@@ -174,7 +188,6 @@ exports[`renders the whole 'Edit property address' view 1`] = `
           disabled=""
           id="asset-address-line-one-input"
           name="asset-address-line-one"
-          required=""
           type="text"
           value="51 GREENWOOD ROAD - FLAT B"
         />
@@ -251,9 +264,27 @@ exports[`renders the whole 'Edit property address' view 1`] = `
           disabled=""
           id="asset-postcode-input"
           name="asset-postcode"
-          required=""
           type="text"
           value="E8 1NT"
+        />
+      </div>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label lbh-label grey-text"
+          for="asset-post-preamble-input"
+        >
+          Post preamble
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="asset-post-preamble"
+          disabled=""
+          id="asset-post-preamble-input"
+          name="asset-post-preamble"
+          type="text"
+          value=""
         />
       </div>
     </section>
