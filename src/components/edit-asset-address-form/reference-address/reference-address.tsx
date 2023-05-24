@@ -18,6 +18,23 @@ export const ReferenceAddress = ({
       <div className="govuk-form-group lbh-form-group">
         <label
           className="govuk-label lbh-label grey-text"
+          htmlFor="asset-post-preamble-input"
+        >
+          Post preamble
+        </label>
+        <input
+          className="govuk-input lbh-input"
+          id="asset-post-preamble-input"
+          name="asset-post-preamble"
+          type="text"
+          value={assetAddressDetails.postPreamble}
+          data-testid="asset-post-preamble"
+          disabled
+        />
+      </div>
+      <div className="govuk-form-group lbh-form-group">
+        <label
+          className="govuk-label lbh-label grey-text"
           htmlFor="asset-address-line-one-input"
         >
           Address line 1
@@ -94,23 +111,6 @@ export const ReferenceAddress = ({
           type="text"
           value={assetAddressDetails.postCode}
           data-testid="asset-postcode"
-          disabled
-        />
-      </div>
-      <div className="govuk-form-group lbh-form-group">
-        <label
-          className="govuk-label lbh-label grey-text"
-          htmlFor="asset-post-preamble-input"
-        >
-          Post preamble
-        </label>
-        <input
-          className="govuk-input lbh-input"
-          id="asset-post-preamble-input"
-          name="asset-post-preamble"
-          type="text"
-          value={assetAddressDetails.postPreamble}
-          data-testid="asset-post-preamble"
           disabled
         />
       </div>

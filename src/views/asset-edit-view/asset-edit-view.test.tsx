@@ -179,7 +179,7 @@ test("renders the whole 'Edit property address' view", async () => {
   expect(container).toMatchSnapshot();
 });
 
-test.only("the current address from the asset is updated using the LLPG address suggestion", async () => {
+test("the current address from the asset is updated using the LLPG address suggestion", async () => {
   render(<AssetEditView />, {
     url: `/property/edit/${assetData.id}`,
     path: "/property/edit/:assetId",

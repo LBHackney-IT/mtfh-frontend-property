@@ -33,6 +33,20 @@ exports[`renders the whole 'Edit property address' view 1`] = `
           >
             Suggestion from the Local Gazetteer
           </h3>
+          <label
+            class="govuk-label lbh-label"
+            for="post-preamble"
+          >
+            Post preamble
+          </label>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="post-preamble"
+            id="post-preamble"
+            name="postPreamble"
+            type="text"
+            value=""
+          />
           <div
             class="govuk-form-group lbh-form-group"
           >
@@ -132,22 +146,8 @@ exports[`renders the whole 'Edit property address' view 1`] = `
               value="E8 1NT"
             />
           </div>
-          <label
-            class="govuk-label lbh-label"
-            for="post-preamble"
-          >
-            Post preamble
-          </label>
-          <input
-            class="govuk-input lbh-input"
-            data-testid="post-preamble"
-            id="post-preamble"
-            name="postPreamble"
-            type="text"
-            value=""
-          />
           <div
-            class="form-actions"
+            class="edit-asset-form-actions"
           >
             <button
               class="govuk-button lbh-button"
@@ -173,6 +173,25 @@ exports[`renders the whole 'Edit property address' view 1`] = `
       >
         Current address
       </h3>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label lbh-label grey-text"
+          for="asset-post-preamble-input"
+        >
+          Post preamble
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="asset-post-preamble"
+          disabled=""
+          id="asset-post-preamble-input"
+          name="asset-post-preamble"
+          type="text"
+          value="X"
+        />
+      </div>
       <div
         class="govuk-form-group lbh-form-group"
       >
@@ -265,26 +284,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
           id="asset-postcode-input"
           name="asset-postcode"
           type="text"
-          value="E8 1NT"
-        />
-      </div>
-      <div
-        class="govuk-form-group lbh-form-group"
-      >
-        <label
-          class="govuk-label lbh-label grey-text"
-          for="asset-post-preamble-input"
-        >
-          Post preamble
-        </label>
-        <input
-          class="govuk-input lbh-input"
-          data-testid="asset-post-preamble"
-          disabled=""
-          id="asset-post-preamble-input"
-          name="asset-post-preamble"
-          type="text"
-          value=""
+          value="E8 1QT"
         />
       </div>
     </section>

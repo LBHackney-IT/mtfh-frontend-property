@@ -6,6 +6,7 @@ import { removeWhitespace } from "@mtfh/common/lib/utils";
 
 export const editableAddressSchema = () =>
   Yup.object({
+    postPreamble: Yup.string(),
     addressLine1: Yup.string().required("Address Line 1 is a required field"),
     addressLine2: Yup.string(),
     addressLine3: Yup.string(),
@@ -15,7 +16,6 @@ export const editableAddressSchema = () =>
       .transform(removeWhitespace)
       .required("Postcode is a required field")
       .matches(regexUkPostcode, "Please enter a valid postcode"),
-    postPreamble: Yup.string(),
   });
 
 export type EditableAddressFormData = Yup.Asserts<
