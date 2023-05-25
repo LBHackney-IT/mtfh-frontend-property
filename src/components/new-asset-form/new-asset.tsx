@@ -13,9 +13,10 @@ import {
   assetHasFloors,
   assetIsOfDwellingType,
 } from "../../utils/asset-type";
-import { managingOrganisations } from "../../utils/managing-organisations";
 import { InlineAssetSearch } from "../inline-asset-search";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
+import { renderAreaOfficeNamesOptions } from "./utils/area-office-names";
+import { renderManagingOrganisationOptions } from "./utils/managing-organisations";
 
 import { Center, Spinner } from "@mtfh/common";
 import { createAsset } from "@mtfh/common/lib/api/asset/v1";
@@ -42,22 +43,6 @@ export const NewAsset = ({
     return Object.keys(AssetType).map((key, index) => (
       <option key={index} value={key}>
         {key}
-      </option>
-    ));
-  };
-
-  const renderManagingOrganisationOptions = (): JSX.Element[] => {
-    return managingOrganisations.map((org, index) => (
-      <option
-        key={index}
-        value={org.managingOrganisation}
-        defaultValue={
-          org.managingOrganisation === "London Borough of Hackney"
-            ? "London Borough of Hackney"
-            : undefined
-        }
-      >
-        {org.managingOrganisation}
       </option>
     ));
   };
@@ -111,6 +96,7 @@ export const NewAsset = ({
           addressLine3: "",
           addressLine4: "",
           postcode: "",
+          postPreamble: "",
           agent: "",
           areaOfficeName: "",
           isCouncilProperty: "",
@@ -297,6 +283,15 @@ export const NewAsset = ({
                 className="govuk-input lbh-input"
                 data-testid="uprn"
               />
+              <label className="govuk-label lbh-label" htmlFor="post-preamble">
+                Post preamble
+              </label>
+              <Field
+                id="post-preamble"
+                name="postPreamble"
+                className="govuk-input lbh-input"
+                data-testid="post-preamble"
+              />
               <div
                 className={
                   errors.addressLine1 && touched.addressLine1
@@ -403,11 +398,18 @@ export const NewAsset = ({
                 Area office name
               </label>
               <Field
+                as="select"
                 id="area-office-name"
                 name="areaOfficeName"
                 className="govuk-input lbh-input"
                 data-testid="area-office-name"
-              />
+              >
+                <option disabled value="">
+                  {" "}
+                  -- Select an option --{" "}
+                </option>
+                {renderAreaOfficeNamesOptions()}
+              </Field>
               <div
                 className={
                   errors.isCouncilProperty && touched.isCouncilProperty

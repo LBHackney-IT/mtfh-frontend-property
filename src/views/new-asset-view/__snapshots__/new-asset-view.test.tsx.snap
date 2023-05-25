@@ -345,6 +345,19 @@ exports[`renders the whole 'New asset form' view 1`] = `
           name="uprn"
           value=""
         />
+        <label
+          class="govuk-label lbh-label"
+          for="post-preamble"
+        >
+          Post preamble
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="post-preamble"
+          id="post-preamble"
+          name="postPreamble"
+          value=""
+        />
         <div
           class="govuk-form-group lbh-form-group"
         >
@@ -467,13 +480,129 @@ exports[`renders the whole 'New asset form' view 1`] = `
         >
           Area office name
         </label>
-        <input
+        <select
           class="govuk-input lbh-input"
           data-testid="area-office-name"
           id="area-office-name"
           name="areaOfficeName"
-          value=""
-        />
+        >
+          <option
+            disabled=""
+            value=""
+          >
+             -- Select an option -- 
+          </option>
+          <option
+            value="Temp Accommodation (Annexe)"
+          >
+            AN - Temp Accommodation (Annexe)
+          </option>
+          <option
+            value="Arden Estate TMO (SH)"
+          >
+            AR - Arden Estate TMO (SH)
+          </option>
+          <option
+            value="Temp Accommodation (Bed & Breakfast)"
+          >
+            BB - Temp Accommodation (Bed & Breakfast)
+          </option>
+          <option
+            value="Clapton Park TMO (HN)"
+          >
+            CL - Clapton Park TMO (HN)
+          </option>
+          <option
+            value="Cranston Estate TMO (SH)"
+          >
+            CR - Cranston Estate TMO (SH)
+          </option>
+          <option
+            value="Clapton Panel Area Team"
+          >
+            CT - Clapton Panel Area Team
+          </option>
+          <option
+            value="Downs TMO (SN)"
+          >
+            DO - Downs TMO (SN)
+          </option>
+          <option
+            value="Temp Accommodation (Hostels)"
+          >
+            HL - Temp Accommodation (Hostels)
+          </option>
+          <option
+            value="Homerton (1) Panel Area Team"
+          >
+            HN - Homerton (1) Panel Area Team
+          </option>
+          <option
+            value="Homerton (2) Panel Area Team"
+          >
+            HT - Homerton (2) Panel Area Team
+          </option>
+          <option
+            value="Lordship South TMO (SN)"
+          >
+            LO - Lordship South TMO (SN)
+          </option>
+          <option
+            value="Stamford Hill Panel Area Team"
+          >
+            NE - Stamford Hill Panel Area Team
+          </option>
+          <option
+            value="Temp Accommodation (Private Lease)"
+          >
+            PL - Temp Accommodation (Private Lease)
+          </option>
+          <option
+            value="Central Panel Area Team"
+          >
+            QB - Central Panel Area Team
+          </option>
+          <option
+            value="Shoreditch Panel Area Team"
+          >
+            SH - Shoreditch Panel Area Team
+          </option>
+          <option
+            value="Stoke Newington Panel Area Team"
+          >
+            SN - Stoke Newington Panel Area Team
+          </option>
+          <option
+            value="Suffolk Estate TMO (CE)"
+          >
+            SU - Suffolk Estate TMO (CE)
+          </option>
+          <option
+            value="Tower TMO (CE)"
+          >
+            TO - Tower TMO (CE)
+          </option>
+          <option
+            value="Travellers sites"
+          >
+            TR - Travellers sites
+          </option>
+          <option
+            value="Wenlock Barn TMO (SH)"
+          >
+            WE - Wenlock Barn TMO (SH)
+          </option>
+          <option
+            value="Wick Village TMO (HN)"
+          >
+            WI - Wick Village TMO (HN)
+          </option>
+          <option
+            value="Wyke TMO (HN)"
+          >
+            WY - Wyke TMO (HN)
+          </option>
+        </select>
         <div
           class="govuk-form-group lbh-form-group"
         >

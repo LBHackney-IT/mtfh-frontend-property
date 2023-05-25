@@ -18,6 +18,7 @@ export const newPropertySchema = () =>
       .typeError("The value must be a valid number"),
     // Address
     uprn: Yup.string(),
+    postPreamble: Yup.string(),
     addressLine1: Yup.string().required("Address line 1 is a required field"),
     addressLine2: Yup.string(),
     addressLine3: Yup.string(),

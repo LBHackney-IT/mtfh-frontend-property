@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { NewPropertyFormData } from "../components/new-asset-form/schema";
-import { managingOrganisations } from "../utils/managing-organisations";
+import { managingOrganisations } from "../components/new-asset-form/utils/managing-organisations";
 
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
 
@@ -21,6 +21,7 @@ export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) =>
     },
     assetAddress: {
       uprn: values?.uprn ?? "",
+      postPreamble: values?.postPreamble ?? "",
       addressLine1: values.addressLine1,
       addressLine2: values?.addressLine2 ?? "",
       addressLine3: values?.addressLine3 ?? "",
@@ -42,6 +43,7 @@ export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) =>
       windowType: values?.windowType ?? "",
       numberOfLifts: values?.numberOfLifts ?? null,
     },
+    patches: undefined,
   };
 
   return asset;

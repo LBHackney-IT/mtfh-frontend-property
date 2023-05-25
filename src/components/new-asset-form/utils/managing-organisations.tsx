@@ -1,4 +1,6 @@
-export const managingOrganisations = [
+import React from "react";
+
+const managingOrganisations = [
   {
     managingOrganisation: "London Borough of Hackney",
     managingOrganisationId: "c01e3146-e630-c2cd-e709-18ef57bf3724",
@@ -32,3 +34,21 @@ export const managingOrganisations = [
     managingOrganisationId: "e2098c9a-2186-13e9-b9e0-21c3976a0373",
   },
 ];
+
+const renderManagingOrganisationOptions = (): JSX.Element[] => {
+  return managingOrganisations.map((org, index) => (
+    <option
+      key={index}
+      value={org.managingOrganisation}
+      defaultValue={
+        org.managingOrganisation === "London Borough of Hackney"
+          ? "London Borough of Hackney"
+          : undefined
+      }
+    >
+      {org.managingOrganisation}
+    </option>
+  ));
+};
+
+export { managingOrganisations, renderManagingOrganisationOptions };
