@@ -10,10 +10,12 @@ import {
   buildAssetAddress,
   buildEditAssetAddressRequest,
   buildEditTenureRequest,
+  buildUpdateAddressDetailsRequest,
   getAssetVersionNumber,
 } from "./utils";
 
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
+import { updateAddressDetails, UpdateAddressDetailsRequest } from "@mtfh/common/lib/api/housing-finance-interim-api";
 import { patchAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1/types";
 import { Tenure, editTenure } from "@mtfh/common/lib/api/tenure/v1";
@@ -95,18 +97,22 @@ export const EditableAddress = ({
       assetDetails,
     );
     const assetVersionNumber = getAssetVersionNumber(assetDetails);
-    const editTenureRequest = buildEditTenureRequest(
-      formValues,
-      assetDetails,
-      tenureApiObject,
-    );
+   
+    const updateAddressDetailsRequest = buildUpdateAddressDetailsRequest(formValues);
 
     const taskList = [
       patchAsset(assetDetails.id, editAssetAddressRequest, assetVersionNumber),
+      updateAddressDetails(assetDetails.assetId, updateAddressDetailsRequest),
     ];
 
     if (tenureApiObject) {
       // tenure must exist to be updated
+      const editTenureRequest = buildEditTenureRequest(
+        formValues,
+        assetDetails,
+        tenureApiObject,
+      );
+
       taskList.push(editTenure(editTenureRequest));
     }
 

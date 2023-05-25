@@ -5,6 +5,7 @@ import {
   AssetAddress,
   EditAssetAddressRequest,
 } from "@mtfh/common/lib/api/asset/v1";
+import { UpdateAddressDetailsRequest } from "@mtfh/common/lib/api/housing-finance-interim-api";
 import { EditTenureParams, Tenure } from "@mtfh/common/lib/api/tenure/v1";
 
 export const getTenureVersionNumber = (tenureApiObj: Tenure | undefined) =>
@@ -28,6 +29,15 @@ export const buildEditAssetAddressRequest = (
     postPreamble: formValues.postPreamble ? formValues.postPreamble : "",
   },
 });
+
+export const buildUpdateAddressDetailsRequest = (formValues: PatchAssetFormValues):UpdateAddressDetailsRequest => ({
+  postPreamble: formValues.postPreamble || "",
+  addressLine1: formValues.addressLine1,
+  addressLine2: formValues.addressLine2 || "",
+  addressLine3: formValues.addressLine3 || "",
+  addressLine4: formValues.addressLine4 || "",
+  postCode: formValues.postcode,
+})
 
 export const buildEditTenureRequest = (
   formValues: PatchAssetFormValues,
