@@ -30,14 +30,16 @@ export const buildEditAssetAddressRequest = (
   },
 });
 
-export const buildUpdateAddressDetailsRequest = (formValues: PatchAssetFormValues):UpdateAddressDetailsRequest => ({
+export const buildUpdateAddressDetailsRequest = (
+  formValues: PatchAssetFormValues,
+): UpdateAddressDetailsRequest => ({
   postPreamble: formValues.postPreamble || "",
   addressLine1: formValues.addressLine1,
   addressLine2: formValues.addressLine2 || "",
   addressLine3: formValues.addressLine3 || "",
   addressLine4: formValues.addressLine4 || "",
   postCode: formValues.postcode,
-})
+});
 
 export const buildEditTenureRequest = (
   formValues: PatchAssetFormValues,
