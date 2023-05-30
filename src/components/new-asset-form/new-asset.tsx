@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { Field, Form, Formik } from "formik";
@@ -21,6 +21,37 @@ import { renderManagingOrganisationOptions } from "./utils/managing-organisation
 import { Center, Spinner } from "@mtfh/common";
 import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
+import PropertyPatch from "../../utils/patch";
+
+const initialPatchesState = {
+  patches: [new PropertyPatch(1)],
+}
+
+function reducer(state: any, action: any) {
+  switch (action.type) {
+    case 'add_patch':
+      return {
+        patches: [...state.patches, action.payload],
+      }
+    case 'remove_patch':
+      return {
+        patches: state.patches.filter(
+          (patch: any) => patch.id !== action.payload.id
+        ),
+      }
+    case 'patch_edit': {
+      const patchIndex = state.patches.findIndex(
+        (patch: any) => patch.id == action.payload.patchId
+      )
+
+      state.patches[patchIndex].value =
+        action.payload.targetValue
+      return { patches: state.patches }
+    }
+    default:
+      return state
+  }
+}
 
 export interface Props {
   setShowSuccess: (value: boolean) => void;
@@ -38,6 +69,7 @@ export const NewAsset = ({
   setNewProperty,
 }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [patchesState, dispatch] = useReducer(reducer, initialPatchesState)
 
   const renderAssetTypeOptions = (): JSX.Element[] => {
     return Object.keys(AssetType).map((key, index) => (
@@ -46,6 +78,83 @@ export const NewAsset = ({
       </option>
     ));
   };
+
+  const generateNewPropertyPatchId = () => {
+    const assignedIds = patchesState.patches.map((patch: any) => patch.id)
+
+    // If there are no patches, there will be no assigned Ids,
+    // so we start with ID 1, otherwise we pick the next higher/available one.
+    return assignedIds.length == 0 ? 1 : Math.max(...assignedIds) + 1
+  }
+
+  const renderPropertyPatches = () => {
+    const patches = patchesState.patches.map((patch: any) => {
+      return (
+        <>
+          <div id="patch" key={patch.id}>
+            <Field
+              as="select"
+              id="patches"
+              name="patches"
+              className="govuk-input lbh-input"
+              data-testid="patches"
+              value={patch.value}
+            >
+              <option disabled value="">
+                {" "}
+                -- Select an option --{" "}
+              </option>
+              <option value="1">
+                Patch 1
+              </option>
+              <option value="2">
+                Patch 2
+              </option>
+              <option value="3">
+                Patch 3
+              </option>
+            </Field>
+              <button
+                className="lbh-link"
+                role="button"
+                onClick={(e) => handleRemovePatch(e, patch)}
+                data-testid="patch-remove-link"
+                id="patch-remove-link"
+                onChange={(e) =>
+                  handlePatchEdit(e, patch.id)
+                }
+              >
+                Remove patch
+              </button>
+          </div>
+        </>
+      )
+    })
+    return patches;
+  }
+
+  const handleAddNewPatch = (e: any) => {
+    e.preventDefault()
+    dispatch({
+      type: 'add_patch',
+      payload: new PropertyPatch(generateNewPropertyPatchId()),
+    })
+  }
+
+  const handleRemovePatch = (e: any, patch: any) => {
+    e.preventDefault()
+    dispatch({ type: 'remove_patch', payload: patch })
+  }
+
+  const handlePatchEdit = (e: any, patchId: any) => {
+    dispatch({
+      type: 'patch_edit',
+      payload: {
+        targetValue: e.target.value,
+        patchId: patchId,
+      },
+    })
+  }
 
   const handleSubmit = async (values: NewPropertyFormData) => {
     setShowSuccess(false);
@@ -564,6 +673,33 @@ export const NewAsset = ({
                   </div>
                 </fieldset>
               </div>
+              <label className="govuk-label lbh-label" htmlFor="patches">
+                Patches
+              </label>
+              <div id="property-patches-container">
+                {renderPropertyPatches()}
+              </div>
+              <div>
+                {patchesState.patches.length == 0 ? (
+                  <a
+                    className="lbh-link"
+                    href="#"
+                    onClick={(e) => handleAddNewPatch(e)}
+                    data-testid="add-patch-link"
+                  >
+                    Add a patch
+                  </a>
+                ) : (
+                  <a
+                    className="lbh-link"
+                    href="#"
+                    onClick={(e) => handleAddNewPatch(e)}
+                    data-testid="add-patch-link"
+                  >
+                    Add another patch
+                  </a>
+                )}
+              </div>
               <h2 className="lbh-heading-h2">Asset details</h2>
               {assetIsOfDwellingType(values.assetType) && (
                 <>
@@ -721,7 +857,7 @@ export const NewAsset = ({
                   data-module="govuk-button"
                   type="submit"
                   id="submit-new-property-button"
-                  // disabled={!submitEditEnabled}
+                // disabled={!submitEditEnabled}
                 >
                   Create new property
                 </button>
