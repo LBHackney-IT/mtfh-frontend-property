@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
  
-export default class Tree extends Component {
+export default class PropertyTree extends Component {
   constructor(props) {
     super(props);
  

@@ -30,6 +30,8 @@ import {
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 import "./styles.scss";
+// @ts-ignore
+import { PropertyTree } from "../../utils/property-tree"
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -81,38 +83,121 @@ const AssetSideBar = ({
 };
 
 interface PropertyBodyProps {
-  propertyId: string;
-  assetId: string;
+  assetDetails: Asset;
+  relatedAssetResponse: any; // type to be changed to RelatedAssetResponse eventually, once we work with real data
 }
 
-const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element => {
+const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
   return (
-    <div>
-      <Button variant="primary" as={RouterLink} to={`/processes/property/${propertyId}`}>
-        {locale.static.newProcess}
-      </Button>
-      {hasRepairsList && (
-        <>
-          <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
-          <WorkOrderList assetId={assetId} />
-        </>
-      )}
-      <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
-      <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
-        {locale.comments.addComment}
-      </Button>
-      <div>
-        <CommentList targetId={propertyId} />
-      </div>
-    </div>
+    <>
+      <div id="property-body-grid-container">
+        <div id="new-process-grid-area">
+          <Button variant="primary" as={RouterLink} to={`/processes/property/${assetDetails.id}`}>
+            {locale.static.newProcess}
+          </Button>
+        </div>
+
+        <div id="repairs-grid-area">
+          {hasRepairsList && (
+            <>
+              <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
+              <WorkOrderList assetId={assetDetails.assetId} />
+            </>
+          )}
+        </div>
+        <PropertyTree assetDetails={assetDetails} relatedAssetResponse={relatedAssetResponse} />
+        <div id="comments-grid-area">
+          <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
+          <Button as={RouterLink} to={`/comment/property/${assetDetails.id}`}>
+            {locale.comments.addComment}
+          </Button>
+          <div>
+            <CommentList targetId={assetDetails.id} />
+          </div>
+        </div>
+      </div >
+    </>
   );
 };
+
+const tempAsset1 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  assetType: "BoosterPump",
+  assetId: "001001",
+  assetAddress: {
+    addressLine1: "Booster Pump",
+  }
+}
+const tempAsset2 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ac",
+  assetType: "Block",
+  assetId: "002002",
+  assetAddress: {
+    addressLine1: "Block Qwe",
+  }
+}
+const tempAsset3 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ad",
+  assetType: "Estate",
+  assetId: "003003",
+  assetAddress: {
+    addressLine1: "Estate Asd",
+  }
+}
+const tempAsset4 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ae",
+  assetType: "Room",
+  assetId: "004004",
+  assetAddress: {
+    addressLine1: "Bedroom 1",
+  }
+}
+const tempAsset8 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ah",
+  assetType: "Room",
+  assetId: "008008",
+  assetAddress: {
+    addressLine1: "Bedroom 2",
+  }
+}
+const tempAsset5 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9af",
+  assetId: "005005",
+  assetType: "CommunityHall",
+  assetAddress: {
+    addressLine1: "Community Hall",
+  }
+}
+const tempAsset6 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ag",
+  assetType: "Lift",
+  assetId: "006006",
+  assetAddress: {
+    addressLine1: "Lift",
+  }
+}
+const tempAsset7 = {
+  id: "15adc44b-6fde-46e8-af9c-e18b1495c9ah",
+  assetType: "Anything Else (House/Flat/Dwelling etc)",
+  assetId: "007007",
+  assetAddress: {
+    addressLine1: "Anything Else (House/Flat/Dwelling etc)",
+  }
+}
 
 export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
+
+  const relatedAssetResponse = {
+    assetId: "0001234",
+    rootAsset: tempAsset3,
+    parentAssets: [tempAsset2, tempAsset3],
+    childrenAssets: [tempAsset4, tempAsset8]
+  }
+
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
   if (assetDetails.tenure) {
     if (tenure && cautionaryAlerts) {
@@ -161,7 +246,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
         }
         side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
       >
-        <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
+        <PropertyBody assetDetails={assetDetails} relatedAssetResponse={relatedAssetResponse} />
       </Layout>
     </PageAnnouncementProvider>
   );
