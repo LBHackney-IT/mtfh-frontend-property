@@ -35,6 +35,7 @@ import { PropertyTree } from "../../utils/property-tree"
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
+  assetchildren: Asset[] | undefined;
 }
 
 interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {
@@ -84,12 +85,18 @@ const AssetSideBar = ({
 
 interface PropertyBodyProps {
   assetDetails: Asset;
-  relatedAssetResponse: any; // type to be changed to RelatedAssetResponse eventually, once we work with real data
+  childAssets: Asset[] | undefined;
 }
 
-const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps): JSX.Element => {
-  const hasRepairsList = useFeatureToggle("MMH.RepairsList");
+// interface RelatedAssets {
+//   rootAsset: Asset | undefined;
+//   parentAsset: Asset | undefined;
+//   childAssets: Asset[] | undefined;
+// }
 
+const PropertyBody = ({ assetDetails, childAssets }: PropertyBodyProps): JSX.Element => {
+  const hasRepairsList = useFeatureToggle("MMH.RepairsList");
+  console.log(`My PropertyBody children details are: ${JSON.stringify(childAssets)}`)
   return (
     <>
       <div id="property-body-grid-container">
@@ -107,7 +114,7 @@ const PropertyBody = ({ assetDetails, relatedAssetResponse }: PropertyBodyProps)
             </>
           )}
         </div>
-        <PropertyTree assetDetails={assetDetails} relatedAssetResponse={relatedAssetResponse} />
+        <PropertyTree asset={assetDetails} childAssets={childAssets} />
         <div id="comments-grid-area">
           <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
           <Button as={RouterLink} to={`/comment/property/${assetDetails.id}`}>
@@ -187,16 +194,9 @@ const tempAsset7 = {
   }
 }
 
-export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
+export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails, assetchildren }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
-
-  const relatedAssetResponse = {
-    assetId: "0001234",
-    rootAsset: tempAsset3,
-    parentAssets: [tempAsset2, tempAsset3],
-    childrenAssets: [tempAsset4, tempAsset8]
-  }
 
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
   if (assetDetails.tenure) {
@@ -244,9 +244,9 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
+        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} assetchildren={undefined} />}
       >
-        <PropertyBody assetDetails={assetDetails} relatedAssetResponse={relatedAssetResponse} />
+        <PropertyBody assetDetails={assetDetails} childAssets={assetchildren} />
       </Layout>
     </PageAnnouncementProvider>
   );
