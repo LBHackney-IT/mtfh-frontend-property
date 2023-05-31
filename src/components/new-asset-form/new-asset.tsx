@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { Field, Form, Formik } from "formik";
@@ -18,10 +18,11 @@ import { NewPropertyFormData, newPropertySchema } from "./schema";
 import { renderAreaOfficeNamesOptions } from "./utils/area-office-names";
 import { renderManagingOrganisationOptions } from "./utils/managing-organisations";
 
-import { Center, Spinner } from "@mtfh/common";
+import { Center, Spinner, axiosInstance } from "@mtfh/common";
 import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
 import PropertyPatch from "../../utils/patch";
+import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 const initialPatchesState = {
   patches: [new PropertyPatch(1)],
@@ -53,6 +54,15 @@ function reducer(state: any, action: any) {
   }
 }
 
+const getAllPatchesAndAreas = async (): Promise<Array<Patch>> => {
+  return new Promise<Array<Patch>>((resolve, reject) => {
+    axiosInstance
+      .get<Array<Patch>>("https://2eqzdakhz2.execute-api.eu-west-2.amazonaws.com/development/api/v1/patch/all")
+      .then((res) => resolve(res.data))
+      .catch((error) => reject(error));
+  });
+};
+
 export interface Props {
   setShowSuccess: (value: boolean) => void;
   setShowError: (value: boolean) => void;
@@ -69,7 +79,16 @@ export const NewAsset = ({
   setNewProperty,
 }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [patchesState, dispatch] = useReducer(reducer, initialPatchesState)
+
+  // This state is used to manage the Patch field(s) in the form
+  const [patchesState, dispatch] = useReducer(reducer, initialPatchesState);
+
+  const [patchesAndAreasData, setPatchesAndAreasData] = useState<Patch[]>([]);
+
+  useEffect(() => {
+    getAllPatchesAndAreas().then(res => setPatchesAndAreasData(res));
+  }, [])
+
 
   const renderAssetTypeOptions = (): JSX.Element[] => {
     return Object.keys(AssetType).map((key, index) => (
@@ -77,6 +96,16 @@ export const NewAsset = ({
         {key}
       </option>
     ));
+  };
+
+  const renderPatchOptions = (): JSX.Element[] | undefined => {
+    if (patchesAndAreasData) {
+      return patchesAndAreasData.map(({id, name}) => (
+        <option key={id} value={id}>
+          {name}
+        </option>
+      ));
+    }
   };
 
   const generateNewPropertyPatchId = () => {
@@ -104,28 +133,20 @@ export const NewAsset = ({
                 {" "}
                 -- Select an option --{" "}
               </option>
-              <option value="1">
-                Patch 1
-              </option>
-              <option value="2">
-                Patch 2
-              </option>
-              <option value="3">
-                Patch 3
-              </option>
+              {renderPatchOptions()}
             </Field>
-              <button
-                className="lbh-link"
-                role="button"
-                onClick={(e) => handleRemovePatch(e, patch)}
-                data-testid="patch-remove-link"
-                id="patch-remove-link"
-                onChange={(e) =>
-                  handlePatchEdit(e, patch.id)
-                }
-              >
-                Remove patch
-              </button>
+            <button
+              className="lbh-link"
+              role="button"
+              onClick={(e) => handleRemovePatch(e, patch)}
+              data-testid="patch-remove-link"
+              id="patch-remove-link"
+              onChange={(e) =>
+                handlePatchEdit(e, patch.id)
+              }
+            >
+              Remove patch
+            </button>
           </div>
         </>
       )
