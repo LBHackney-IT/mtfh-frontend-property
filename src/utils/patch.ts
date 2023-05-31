@@ -1,8 +1,8 @@
 class PropertyPatch {
   id: number;
-  value: string | undefined;
+  value: string;
   
-  constructor(id: number, value?: string) {
+  constructor(id: number, value: string = "") {
     // The ID is used for keeping track of Patch fields on the screen
     this.id = id
 

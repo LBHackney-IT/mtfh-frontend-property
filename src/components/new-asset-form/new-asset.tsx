@@ -25,7 +25,7 @@ import PropertyPatch from "../../utils/patch";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 const initialPatchesState = {
-  patches: [new PropertyPatch(1, "")],
+  patches: [new PropertyPatch(1)],
 }
 
 function reducer(state: any, action: any) {
@@ -45,8 +45,7 @@ function reducer(state: any, action: any) {
         (patch: any) => patch.id == action.payload.patchId
       )
 
-      state.patches[patchIndex].value =
-        action.payload.targetValue
+      state.patches[patchIndex].value = action.payload.targetValue
       return { patches: state.patches }
     }
     default:
@@ -100,7 +99,7 @@ export const NewAsset = ({
 
   const renderPatchOptions = (): JSX.Element[] | undefined => {
     if (patchesAndAreasData) {
-      return patchesAndAreasData.map(({id, name}) => (
+      return patchesAndAreasData.map(({ id, name }) => (
         <option key={id} value={id}>
           {name}
         </option>
@@ -128,6 +127,9 @@ export const NewAsset = ({
               className="govuk-input lbh-input"
               data-testid="patches"
               value={patch.value}
+              onChange={(e: any) =>
+                handlePatchEdit(e, patch.id)
+              }
             >
               <option disabled value="">
                 {" "}
@@ -141,9 +143,6 @@ export const NewAsset = ({
               onClick={(e) => handleRemovePatch(e, patch)}
               data-testid="patch-remove-link"
               id="patch-remove-link"
-              onChange={(e) =>
-                handlePatchEdit(e, patch.id)
-              }
             >
               Remove patch
             </button>
@@ -243,8 +242,6 @@ export const NewAsset = ({
       >
         {({ values, errors, touched, handleChange, setFieldValue }) => (
           <div id="new-property-form">
-            {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-
             <Form>
               <div
                 className={
@@ -256,15 +253,18 @@ export const NewAsset = ({
                 <label className="govuk-label lbh-label" htmlFor="assetId">
                   Asset ID
                 </label>
-                <span
-                  id="assetId-input-error"
-                  className="govuk-error-message lbh-error-message"
-                >
-                  <span className="govuk-visually-hidden" data-testid="error-asset-id">
-                    Error:
+                {errors.assetId && touched.assetId && (
+                  <span
+                    id="assetId-input-error"
+                    className="govuk-error-message lbh-error-message"
+                  >
+                    <span className="govuk-visually-hidden" data-testid="error-asset-id">
+                      Error:
+                    </span>
+                    {errors.assetId}
                   </span>
-                  {errors.assetId}
-                </span>
+                )
+                }
                 <Field
                   id="asset-id"
                   name="assetId"
@@ -287,15 +287,18 @@ export const NewAsset = ({
                 <label className="govuk-label lbh-label" htmlFor="assetType">
                   Asset Type
                 </label>
-                <span
-                  id="assetType-input-error"
-                  className="govuk-error-message lbh-error-message"
-                >
-                  <span className="govuk-visually-hidden" data-testid="error-asset-type">
-                    Error:
+                {errors.assetType && touched.assetType && (
+                  <span
+                    id="assetType-input-error"
+                    className="govuk-error-message lbh-error-message"
+                  >
+                    <span className="govuk-visually-hidden" data-testid="error-asset-type">
+                      Error:
+                    </span>
+                    {errors.assetType}
                   </span>
-                  {errors.assetType}
-                </span>
+                )
+                }
                 <Field
                   as="select"
                   id="asset-type"
@@ -377,18 +380,20 @@ export const NewAsset = ({
                     <label className="govuk-label lbh-label" htmlFor="total-block-floors">
                       Number of floors in block
                     </label>
-                    <span
-                      id="total-block-floors-input-error"
-                      className="govuk-error-message lbh-error-message"
-                    >
+                    {errors.totalBlockFloors && touched.totalBlockFloors && (
                       <span
-                        className="govuk-visually-hidden"
-                        data-testid="error-total-block-floors"
+                        id="total-block-floors-input-error"
+                        className="govuk-error-message lbh-error-message"
                       >
-                        Error:
+                        <span
+                          className="govuk-visually-hidden"
+                          data-testid="error-total-block-floors"
+                        >
+                          Error:
+                        </span>
+                        {errors.totalBlockFloors}
                       </span>
-                      {errors.totalBlockFloors}
-                    </span>
+                    )}
                     <Field
                       id="total-block-floors"
                       name="totalBlockFloors"
@@ -432,18 +437,20 @@ export const NewAsset = ({
                 <label className="govuk-label lbh-label" htmlFor="address-line-1">
                   Address line 1
                 </label>
-                <span
-                  id="address-line-1-input-error"
-                  className="govuk-error-message lbh-error-message"
-                >
+                {errors.addressLine1 && touched.addressLine1 && (
                   <span
-                    className="govuk-visually-hidden"
-                    data-testid="error-address-line-1"
+                    id="address-line-1-input-error"
+                    className="govuk-error-message lbh-error-message"
                   >
-                    Error:
+                    <span
+                      className="govuk-visually-hidden"
+                      data-testid="error-address-line-1"
+                    >
+                      Error:
+                    </span>
+                    {errors.addressLine1}
                   </span>
-                  {errors.addressLine1}
-                </span>
+                )}
                 <Field
                   id="address-line-1"
                   name="addressLine1"
@@ -491,17 +498,19 @@ export const NewAsset = ({
                 }
               >
                 <label className="govuk-label lbh-label" htmlFor="postcode">
-                  Postcode*
+                  Postcode
                 </label>
-                <span
-                  id="postcode-input-error"
-                  className="govuk-error-message lbh-error-message"
-                >
-                  <span className="govuk-visually-hidden" data-testid="error-postcode">
-                    Error:
-                  </span>{" "}
-                  {errors.postcode}
-                </span>
+                {errors.postcode && touched.postcode && (
+                  <span
+                    id="postcode-input-error"
+                    className="govuk-error-message lbh-error-message"
+                  >
+                    <span className="govuk-visually-hidden" data-testid="error-postcode">
+                      Error:
+                    </span>{" "}
+                    {errors.postcode}
+                  </span>
+                )}
                 <Field
                   id="postcode"
                   name="postcode"
@@ -549,18 +558,20 @@ export const NewAsset = ({
               >
                 <fieldset className="govuk-fieldset">
                   <legend className="govuk-label lbh-label">Is LBH property?</legend>
-                  <span
-                    id="is-lbh-property-error"
-                    className="govuk-error-message lbh-error-message"
-                  >
+                  {errors.isCouncilProperty && touched.isCouncilProperty && (
                     <span
-                      className="govuk-visually-hidden"
-                      data-testid="error-is-council-property"
+                      id="is-lbh-property-error"
+                      className="govuk-error-message lbh-error-message"
                     >
-                      Error:
-                    </span>{" "}
-                    {errors.isCouncilProperty}
-                  </span>
+                      <span
+                        className="govuk-visually-hidden"
+                        data-testid="error-is-council-property"
+                      >
+                        Error:
+                      </span>{" "}
+                      {errors.isCouncilProperty}
+                    </span>
+                  )}
                   <div className="govuk-radios lbh-radios">
                     <div className="govuk-radios__item">
                       <Field
@@ -607,18 +618,21 @@ export const NewAsset = ({
                 <label className="govuk-label lbh-label" htmlFor="managing-organisation">
                   Managing organisation
                 </label>
-                <span
-                  id="managing-organisation-input-error"
-                  className="govuk-error-message lbh-error-message"
-                >
+                {errors.managingOrganisation && touched.managingOrganisation && (
+
                   <span
-                    className="govuk-visually-hidden"
-                    data-testid="error-managing-organisation"
+                    id="managing-organisation-input-error"
+                    className="govuk-error-message lbh-error-message"
                   >
-                    Error:
-                  </span>{" "}
-                  {errors.managingOrganisation}
-                </span>
+                    <span
+                      className="govuk-visually-hidden"
+                      data-testid="error-managing-organisation"
+                    >
+                      Error:
+                    </span>{" "}
+                    {errors.managingOrganisation}
+                  </span>
+                )}
                 <Field
                   as="select"
                   id="managing-organisation"
@@ -646,18 +660,21 @@ export const NewAsset = ({
               >
                 <fieldset className="govuk-fieldset">
                   <legend className="govuk-label lbh-label">Is TMO managed?</legend>
-                  <span
-                    id="is-tmo-managed-error"
-                    className="govuk-error-message lbh-error-message"
-                  >
+                  {errors.isTMOManaged && touched.isTMOManaged && (
+
                     <span
-                      className="govuk-visually-hidden"
-                      data-testid="error-is-tmo-managed"
+                      id="is-tmo-managed-error"
+                      className="govuk-error-message lbh-error-message"
                     >
-                      Error:
-                    </span>{" "}
-                    {errors.isTMOManaged}
-                  </span>
+                      <span
+                        className="govuk-visually-hidden"
+                        data-testid="error-is-tmo-managed"
+                      >
+                        Error:
+                      </span>{" "}
+                      {errors.isTMOManaged}
+                    </span>
+                  )}
                   <div className="govuk-radios lbh-radios">
                     <div className="govuk-radios__item">
                       <Field
@@ -734,18 +751,21 @@ export const NewAsset = ({
                     <label className="govuk-label lbh-label" htmlFor="no-of-bedrooms">
                       Number of bedrooms
                     </label>
-                    <span
-                      id="no-of-bedrooms-input-error"
-                      className="govuk-error-message lbh-error-message"
-                    >
+                    {errors.numberOfBedrooms && touched.numberOfBedrooms && (
+
                       <span
-                        className="govuk-visually-hidden"
-                        data-testid="error-no-of-bedrooms"
+                        id="no-of-bedrooms-input-error"
+                        className="govuk-error-message lbh-error-message"
                       >
-                        Error:
+                        <span
+                          className="govuk-visually-hidden"
+                          data-testid="error-no-of-bedrooms"
+                        >
+                          Error:
+                        </span>
+                        {errors.numberOfBedrooms}
                       </span>
-                      {errors.numberOfBedrooms}
-                    </span>
+                    )}
                     <Field
                       id="no-of-bedrooms"
                       name="numberOfBedrooms"
@@ -768,18 +788,21 @@ export const NewAsset = ({
                     <label className="govuk-label lbh-label" htmlFor="no-of-living-rooms">
                       Number of living rooms
                     </label>
-                    <span
-                      id="no-of-living-rooms-input-error"
-                      className="govuk-error-message lbh-error-message"
-                    >
+                    {errors.numberOfLivingRooms && touched.numberOfLivingRooms && (
+
                       <span
-                        className="govuk-visually-hidden"
-                        data-testid="error-no-of-living-rooms"
+                        id="no-of-living-rooms-input-error"
+                        className="govuk-error-message lbh-error-message"
                       >
-                        Error:
+                        <span
+                          className="govuk-visually-hidden"
+                          data-testid="error-no-of-living-rooms"
+                        >
+                          Error:
+                        </span>
+                        {errors.numberOfLivingRooms}
                       </span>
-                      {errors.numberOfLivingRooms}
-                    </span>
+                    )}
                     <Field
                       id="no-of-living-rooms"
                       name="numberOfLivingRooms"
@@ -806,18 +829,21 @@ export const NewAsset = ({
                     <label className="govuk-label lbh-label" htmlFor="no-of-lifts">
                       Number of lifts{" "}
                     </label>
-                    <span
-                      id="no-of-lifts-input-error"
-                      className="govuk-error-message lbh-error-message"
-                    >
+                    {errors.numberOfLifts && touched.numberOfLifts && (
+
                       <span
-                        className="govuk-visually-hidden"
-                        data-testid="error-no-of-lifts"
+                        id="no-of-lifts-input-error"
+                        className="govuk-error-message lbh-error-message"
                       >
-                        Error:
+                        <span
+                          className="govuk-visually-hidden"
+                          data-testid="error-no-of-lifts"
+                        >
+                          Error:
+                        </span>
+                        {errors.numberOfLifts}
                       </span>
-                      {errors.numberOfLifts}
-                    </span>
+                    )}
                     <Field
                       id="no-of-lifts"
                       name="numberOfLifts"
@@ -851,15 +877,18 @@ export const NewAsset = ({
                 <label className="govuk-label lbh-label" htmlFor="year-constructed">
                   Year constructed
                 </label>
-                <span
-                  id="year-constructed-input-error"
-                  className="govuk-error-message lbh-error-message"
-                >
-                  <span className="govuk-visually-hidden" data-testid="year-constructed">
-                    Error:
+                {errors.yearConstructed && touched.yearConstructed && (
+
+                  <span
+                    id="year-constructed-input-error"
+                    className="govuk-error-message lbh-error-message"
+                  >
+                    <span className="govuk-visually-hidden" data-testid="year-constructed">
+                      Error:
+                    </span>
+                    {errors.yearConstructed}
                   </span>
-                  {errors.yearConstructed}
-                </span>
+                )}
                 <Field
                   id="year-constructed"
                   name="yearConstructed"
