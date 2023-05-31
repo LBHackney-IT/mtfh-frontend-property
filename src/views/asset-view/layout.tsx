@@ -36,6 +36,7 @@ import { PropertyTree } from "../../utils/property-tree"
 export interface AssetLayoutProperties {
   assetDetails: Asset;
   assetchildren: Asset[] | undefined;
+  assetparents: Asset[] | undefined;
 }
 
 interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {
@@ -86,6 +87,7 @@ const AssetSideBar = ({
 interface PropertyBodyProps {
   assetDetails: Asset;
   childAssets: Asset[] | undefined;
+  parentAssets: Asset[] | undefined;
 }
 
 // interface RelatedAssets {
@@ -94,7 +96,7 @@ interface PropertyBodyProps {
 //   childAssets: Asset[] | undefined;
 // }
 
-const PropertyBody = ({ assetDetails, childAssets }: PropertyBodyProps): JSX.Element => {
+const PropertyBody = ({ assetDetails, childAssets, parentAssets }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
   console.log(`My PropertyBody children details are: ${JSON.stringify(childAssets)}`)
   return (
@@ -114,7 +116,7 @@ const PropertyBody = ({ assetDetails, childAssets }: PropertyBodyProps): JSX.Ele
             </>
           )}
         </div>
-        <PropertyTree asset={assetDetails} childAssets={childAssets} />
+        <PropertyTree asset={assetDetails} childAssets={childAssets} parentAssets={parentAssets} />
         <div id="comments-grid-area">
           <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
           <Button as={RouterLink} to={`/comment/property/${assetDetails.id}`}>
@@ -194,7 +196,7 @@ const tempAsset7 = {
   }
 }
 
-export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails, assetchildren }) => {
+export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails, assetchildren, assetparents }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
 
@@ -244,9 +246,9 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails, assetchil
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} assetchildren={undefined} />}
+        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} assetchildren={undefined} assetparents={undefined} />}
       >
-        <PropertyBody assetDetails={assetDetails} childAssets={assetchildren} />
+        <PropertyBody assetDetails={assetDetails} childAssets={assetchildren} parentAssets={assetparents} />
       </Layout>
     </PageAnnouncementProvider>
   );
