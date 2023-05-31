@@ -116,41 +116,49 @@ export const NewAsset = ({
   }
 
   const renderPropertyPatches = () => {
-    const patches = patchesState.patches.map((patch: any) => {
+    if (patchesAndAreasData.length) {
+      const patches = patchesState.patches.map((patch: any) => {
+        return (
+          <>
+            <div id="patch" key={patch.id}>
+              <Field
+                as="select"
+                id="patches"
+                name="patches"
+                className="govuk-input lbh-input"
+                data-testid="patches"
+                value={patch.value}
+                onChange={(e: any) =>
+                  handlePatchEdit(e, patch.id)
+                }
+              >
+                <option disabled value="">
+                  {" "}
+                  -- Select an option --{" "}
+                </option>
+                {renderPatchOptions()}
+              </Field>
+              <button
+                className="lbh-link"
+                role="button"
+                onClick={(e) => handleRemovePatch(e, patch)}
+                data-testid="patch-remove-link"
+                id="patch-remove-link"
+              >
+                Remove patch
+              </button>
+            </div>
+          </>
+        )
+      })
+      return patches;
+    } else {
       return (
-        <>
-          <div id="patch" key={patch.id}>
-            <Field
-              as="select"
-              id="patches"
-              name="patches"
-              className="govuk-input lbh-input"
-              data-testid="patches"
-              value={patch.value}
-              onChange={(e: any) =>
-                handlePatchEdit(e, patch.id)
-              }
-            >
-              <option disabled value="">
-                {" "}
-                -- Select an option --{" "}
-              </option>
-              {renderPatchOptions()}
-            </Field>
-            <button
-              className="lbh-link"
-              role="button"
-              onClick={(e) => handleRemovePatch(e, patch)}
-              data-testid="patch-remove-link"
-              id="patch-remove-link"
-            >
-              Remove patch
-            </button>
-          </div>
-        </>
-      )
-    })
-    return patches;
+        <div>
+          <Spinner />
+        </div>
+        )
+    }
   }
 
   const handleAddNewPatch = (e: any) => {
