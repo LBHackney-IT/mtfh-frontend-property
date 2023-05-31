@@ -25,7 +25,7 @@ import PropertyPatch from "../../utils/patch";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 const initialPatchesState = {
-  patches: [new PropertyPatch(1)],
+  patches: [new PropertyPatch(1, "")],
 }
 
 function reducer(state: any, action: any) {
