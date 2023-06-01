@@ -1,11 +1,11 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { Field, Form, Formik } from "formik";
 
 import "./styles.scss";
 
-import { assetToCreateAssetAddressRequest } from "../../factories/requestFactory";
+import { assembleCreateNewAssetRequest } from "../../factories/requestFactory";
 import { locale } from "../../services";
 import {
   AssetType,
@@ -21,8 +21,8 @@ import { renderManagingOrganisationOptions } from "./utils/managing-organisation
 import { Center, Spinner, axiosInstance } from "@mtfh/common";
 import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
-import PropertyPatch from "../../utils/patch";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
+import PropertyPatch from "../../utils/patch";
 
 const initialPatchesState = {
   patches: [new PropertyPatch(1)],
@@ -157,7 +157,7 @@ export const NewAsset = ({
         <div>
           <Spinner />
         </div>
-        )
+      )
     }
   }
 
@@ -184,13 +184,23 @@ export const NewAsset = ({
     })
   }
 
+  const getFullPatchData = (patchesState: any) => {
+    // Get patches GUIDs from patchesState
+    const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
+    console.log("patchesGUIDS array", patchesGuids);
+
+    // Return full patch objects with the above GUIDs in patchesAndAreasData
+    return patchesAndAreasData.filter((patchObject: Patch) => patchesGuids.includes(patchObject.id))
+  }
+
   const handleSubmit = async (values: NewPropertyFormData) => {
     setShowSuccess(false);
     setShowError(false);
     setErrorHeading(null);
     setErrorDescription(null);
 
-    const asset = assetToCreateAssetAddressRequest(values);
+    const patches = getFullPatchData(patchesState);
+    const asset = assembleCreateNewAssetRequest(values, patches);
 
     setLoading(true);
     await createAsset(asset)
@@ -239,6 +249,7 @@ export const NewAsset = ({
           isCouncilProperty: "",
           managingOrganisation: "London Borough of Hackney",
           isTMOManaged: "",
+          patches: patchesState,
           numberOfBedrooms: undefined,
           numberOfLivingRooms: undefined,
           numberOfLifts: undefined,
