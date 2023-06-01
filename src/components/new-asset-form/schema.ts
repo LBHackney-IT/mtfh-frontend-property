@@ -37,6 +37,10 @@ export const newPropertySchema = () =>
       "Managing organisation is a required field",
     ),
     isTMOManaged: Yup.string().required("Please select an option"),
+    patches: Yup.array().of(Yup.object().shape({
+      id: Yup.string(),
+      value: Yup.string().nullable()
+    })).nullable(),
 
     // Asset details
     numberOfBedrooms: Yup.number()
