@@ -1,11 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
-
 import { NewPropertyFormData } from "../components/new-asset-form/schema";
 import { managingOrganisations } from "../components/new-asset-form/utils/managing-organisations";
-
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
+import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
-export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) => {
+export const assembleCreateNewAssetRequest = (values: NewPropertyFormData, patches: Patch[]) => {
   const parentAssetIds: string[] = getParentAssetsIds(values);
 
   const asset: CreateNewAssetRequest = {
@@ -43,7 +42,7 @@ export const assetToCreateAssetAddressRequest = (values: NewPropertyFormData) =>
       windowType: values?.windowType ?? "",
       numberOfLifts: values?.numberOfLifts ?? null,
     },
-    patches: undefined,
+    patches: patches.length ? patches : undefined,
   };
 
   return asset;
