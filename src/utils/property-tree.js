@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
-import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import 'react-sortable-tree/style.css';
 
 export const PropertyTree = (props) => {
