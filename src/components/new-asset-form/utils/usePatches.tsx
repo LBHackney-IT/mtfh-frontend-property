@@ -18,12 +18,12 @@ function reducer(state: any, action: any) {
         case 'remove_patch':
             return {
                 patches: state.patches.filter(
-                    (patch: any) => patch.id !== action.payload.id
+                    (patch: PropertyPatch) => patch.id !== action.payload
                 ),
             }
         case 'patch_edit': {
             const patchIndex = state.patches.findIndex(
-                (patch: any) => patch.id == action.payload.patchId
+                (patch: PropertyPatch) => patch.id == action.payload.patchId
             )
 
             state.patches[patchIndex].value = action.payload.targetValue
@@ -57,7 +57,7 @@ export const usePatches = () => {
     };
 
     const generateNewPropertyPatchId = () => {
-        const assignedIds = patchesState.patches.map((patch: any) => patch.id)
+        const assignedIds = patchesState.patches.map((patch: PropertyPatch) => patch.id)
 
         // If there are no patches, there will be no assigned Ids,
         // so we start with ID 1, otherwise we pick the next higher/available one.
@@ -75,40 +75,40 @@ export const usePatches = () => {
     const renderPatchFormField = () => {
         return (
             <>
-            <label className="govuk-label lbh-label" htmlFor="patches">
-                Patches
-              </label>
-              <div id="property-patches-container">
-                {renderPropertyPatches()}
-              </div>
-              <div>
-                {patchesState.patches.length == 0 ? (
-                  <a
-                    className="lbh-link"
-                    href="#"
-                    onClick={(e) => handleAddNewPatch(e)}
-                    data-testid="add-patch-link"
-                  >
-                    Add a patch
-                  </a>
-                ) : (
-                  <a
-                    className="lbh-link"
-                    href="#"
-                    onClick={(e) => handleAddNewPatch(e)}
-                    data-testid="add-patch-link"
-                  >
-                    Add another patch
-                  </a>
-                )}
-              </div>
+                <label className="govuk-label lbh-label" htmlFor="patches">
+                    Patches
+                </label>
+                <div id="property-patches-container">
+                    {renderPropertyPatches()}
+                </div>
+                <div>
+                    {patchesState.patches.length == 0 ? (
+                        <a
+                            className="lbh-link"
+                            href="#"
+                            onClick={(e) => handleAddNewPatch(e)}
+                            data-testid="add-patch-link"
+                        >
+                            Add a patch
+                        </a>
+                    ) : (
+                        <a
+                            className="lbh-link"
+                            href="#"
+                            onClick={(e) => handleAddNewPatch(e)}
+                            data-testid="add-patch-link"
+                        >
+                            Add another patch
+                        </a>
+                    )}
+                </div>
             </>
         )
     }
 
     const renderPropertyPatches = () => {
         if (patchesAndAreasData.length) {
-            const patches = patchesState.patches.map((patch: any) => {
+            const patches = patchesState.patches.map((patch: PropertyPatch) => {
                 return (
                     <>
                         <div id="patch" key={patch.id}>
@@ -119,6 +119,7 @@ export const usePatches = () => {
                                 className="govuk-input lbh-input"
                                 data-testid="patches"
                                 value={patch.value}
+                                key={patch.id}
                                 onChange={(e: any) =>
                                     handlePatchEdit(e, patch.id)
                                 }
@@ -132,7 +133,7 @@ export const usePatches = () => {
                             <button
                                 className="lbh-link"
                                 role="button"
-                                onClick={(e) => handleRemovePatch(e, patch)}
+                                onClick={(e) => handleRemovePatch(e, patch.id)}
                                 data-testid="patch-remove-link"
                                 id="patch-remove-link"
                             >
@@ -160,12 +161,12 @@ export const usePatches = () => {
         })
     }
 
-    const handleRemovePatch = (e: any, patch: any) => {
+    const handleRemovePatch = (e: any, patchId: number) => {
         e.preventDefault()
-        dispatch({ type: 'remove_patch', payload: patch })
+        dispatch({ type: 'remove_patch', payload: patchId })
     }
 
-    const handlePatchEdit = (e: any, patchId: any) => {
+    const handlePatchEdit = (e: any, patchId: number) => {
         dispatch({
             type: 'patch_edit',
             payload: {

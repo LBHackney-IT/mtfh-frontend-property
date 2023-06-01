@@ -23,7 +23,7 @@ import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
 import { usePatches } from "./utils/usePatches";
 
-export interface Props {
+export interface NewAssetProps {
   setShowSuccess: (value: boolean) => void;
   setShowError: (value: boolean) => void;
   setErrorHeading: (error: string | null) => void;
@@ -37,7 +37,7 @@ export const NewAsset = ({
   setErrorHeading,
   setErrorDescription,
   setNewProperty,
-}: Props) => {
+}: NewAssetProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { getFullPatchData, patchesState, renderPatchFormField} = usePatches();
 
@@ -756,7 +756,6 @@ export const NewAsset = ({
                   data-module="govuk-button"
                   type="submit"
                   id="submit-new-property-button"
-                // disabled={!submitEditEnabled}
                 >
                   Create new property
                 </button>
