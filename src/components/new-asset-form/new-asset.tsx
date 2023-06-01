@@ -17,11 +17,11 @@ import { InlineAssetSearch } from "../inline-asset-search";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
 import { renderAreaOfficeNamesOptions } from "./utils/area-office-names";
 import { renderManagingOrganisationOptions } from "./utils/managing-organisations";
+import { usePatches } from "./utils/usePatches";
 
 import { Center, Spinner } from "@mtfh/common";
 import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
-import { usePatches } from "./utils/usePatches";
 
 export interface NewAssetProps {
   setShowSuccess: (value: boolean) => void;
@@ -39,7 +39,7 @@ export const NewAsset = ({
   setNewProperty,
 }: NewAssetProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { getFullPatchData, patchesState, renderPatchFormField} = usePatches();
+  const { getFullPatchData, patchesState, renderPatchFormField } = usePatches();
 
   const renderAssetTypeOptions = (): JSX.Element[] => {
     return Object.keys(AssetType).map((key, index) => (
@@ -138,8 +138,7 @@ export const NewAsset = ({
                     </span>
                     {errors.assetId}
                   </span>
-                )
-                }
+                )}
                 <Field
                   id="asset-id"
                   name="assetId"
@@ -167,13 +166,15 @@ export const NewAsset = ({
                     id="assetType-input-error"
                     className="govuk-error-message lbh-error-message"
                   >
-                    <span className="govuk-visually-hidden" data-testid="error-asset-type">
+                    <span
+                      className="govuk-visually-hidden"
+                      data-testid="error-asset-type"
+                    >
                       Error:
                     </span>
                     {errors.assetType}
                   </span>
-                )
-                }
+                )}
                 <Field
                   as="select"
                   id="asset-type"
@@ -494,7 +495,6 @@ export const NewAsset = ({
                   Managing organisation
                 </label>
                 {errors.managingOrganisation && touched.managingOrganisation && (
-
                   <span
                     id="managing-organisation-input-error"
                     className="govuk-error-message lbh-error-message"
@@ -536,7 +536,6 @@ export const NewAsset = ({
                 <fieldset className="govuk-fieldset">
                   <legend className="govuk-label lbh-label">Is TMO managed?</legend>
                   {errors.isTMOManaged && touched.isTMOManaged && (
-
                     <span
                       id="is-tmo-managed-error"
                       className="govuk-error-message lbh-error-message"
@@ -601,7 +600,6 @@ export const NewAsset = ({
                       Number of bedrooms
                     </label>
                     {errors.numberOfBedrooms && touched.numberOfBedrooms && (
-
                       <span
                         id="no-of-bedrooms-input-error"
                         className="govuk-error-message lbh-error-message"
@@ -638,7 +636,6 @@ export const NewAsset = ({
                       Number of living rooms
                     </label>
                     {errors.numberOfLivingRooms && touched.numberOfLivingRooms && (
-
                       <span
                         id="no-of-living-rooms-input-error"
                         className="govuk-error-message lbh-error-message"
@@ -679,7 +676,6 @@ export const NewAsset = ({
                       Number of lifts{" "}
                     </label>
                     {errors.numberOfLifts && touched.numberOfLifts && (
-
                       <span
                         id="no-of-lifts-input-error"
                         className="govuk-error-message lbh-error-message"
@@ -727,12 +723,14 @@ export const NewAsset = ({
                   Year constructed
                 </label>
                 {errors.yearConstructed && touched.yearConstructed && (
-
                   <span
                     id="year-constructed-input-error"
                     className="govuk-error-message lbh-error-message"
                   >
-                    <span className="govuk-visually-hidden" data-testid="year-constructed">
+                    <span
+                      className="govuk-visually-hidden"
+                      data-testid="year-constructed"
+                    >
                       Error:
                     </span>
                     {errors.yearConstructed}
