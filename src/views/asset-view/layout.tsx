@@ -5,6 +5,7 @@ import { AssetDetails, TenureDetails } from "../../components";
 import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
 import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
+import { PropertyTree } from "../../utils/property-tree";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
@@ -30,7 +31,6 @@ import {
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 import "./styles.scss";
-import { PropertyTree } from "../../utils/property-tree"
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -89,14 +89,22 @@ interface PropertyBodyProps {
   parentAssets: Asset[] | undefined;
 }
 
-const PropertyBody = ({ assetDetails, childAssets, parentAssets }: PropertyBodyProps): JSX.Element => {
+const PropertyBody = ({
+  assetDetails,
+  childAssets,
+  parentAssets,
+}: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
-  
+
   return (
     <>
       <div id="property-body-grid-container">
         <div id="new-process-grid-area">
-          <Button variant="primary" as={RouterLink} to={`/processes/property/${assetDetails.id}`}>
+          <Button
+            variant="primary"
+            as={RouterLink}
+            to={`/processes/property/${assetDetails.id}`}
+          >
             {locale.static.newProcess}
           </Button>
         </div>
@@ -109,7 +117,11 @@ const PropertyBody = ({ assetDetails, childAssets, parentAssets }: PropertyBodyP
             </>
           )}
         </div>
-        <PropertyTree asset={assetDetails} childAssets={childAssets} parentAssets={parentAssets} />
+        <PropertyTree
+          asset={assetDetails}
+          childAssets={childAssets}
+          parentAssets={parentAssets}
+        />
         <div id="comments-grid-area">
           <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
           <Button as={RouterLink} to={`/comment/property/${assetDetails.id}`}>
@@ -119,7 +131,7 @@ const PropertyBody = ({ assetDetails, childAssets, parentAssets }: PropertyBodyP
             <CommentList targetId={assetDetails.id} />
           </div>
         </div>
-      </div >
+      </div>
     </>
   );
 };
@@ -130,66 +142,70 @@ const tempAsset1 = {
   assetId: "001001",
   assetAddress: {
     addressLine1: "Booster Pump",
-  }
-}
+  },
+};
 const tempAsset2 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ac",
   assetType: "Block",
   assetId: "002002",
   assetAddress: {
     addressLine1: "Block Qwe",
-  }
-}
+  },
+};
 const tempAsset3 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ad",
   assetType: "Estate",
   assetId: "003003",
   assetAddress: {
     addressLine1: "Estate Asd",
-  }
-}
+  },
+};
 const tempAsset4 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ae",
   assetType: "Room",
   assetId: "004004",
   assetAddress: {
     addressLine1: "Bedroom 1",
-  }
-}
+  },
+};
 const tempAsset8 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ah",
   assetType: "Room",
   assetId: "008008",
   assetAddress: {
     addressLine1: "Bedroom 2",
-  }
-}
+  },
+};
 const tempAsset5 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9af",
   assetId: "005005",
   assetType: "CommunityHall",
   assetAddress: {
     addressLine1: "Community Hall",
-  }
-}
+  },
+};
 const tempAsset6 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ag",
   assetType: "Lift",
   assetId: "006006",
   assetAddress: {
     addressLine1: "Lift",
-  }
-}
+  },
+};
 const tempAsset7 = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ah",
   assetType: "Anything Else (House/Flat/Dwelling etc)",
   assetId: "007007",
   assetAddress: {
     addressLine1: "Anything Else (House/Flat/Dwelling etc)",
-  }
-}
+  },
+};
 
-export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails, assetchildren, assetparents }) => {
+export const AssetLayout: FC<AssetLayoutProperties> = ({
+  assetDetails,
+  assetchildren,
+  assetparents,
+}) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
 
@@ -239,9 +255,20 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails, assetchil
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} assetchildren={undefined} assetparents={undefined} />}
+        side={
+          <AssetSideBar
+            assetDetails={assetDetails}
+            alerts={alertsData.alerts}
+            assetchildren={undefined}
+            assetparents={undefined}
+          />
+        }
       >
-        <PropertyBody assetDetails={assetDetails} childAssets={assetchildren} parentAssets={assetparents} />
+        <PropertyBody
+          assetDetails={assetDetails}
+          childAssets={assetchildren}
+          parentAssets={assetparents}
+        />
       </Layout>
     </PageAnnouncementProvider>
   );
