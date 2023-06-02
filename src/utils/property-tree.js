@@ -5,11 +5,7 @@ import 'react-sortable-tree/style.css';
 export const PropertyTree = (props) => {
   const {asset, childAssets, parentAssets} = props;
 
-  const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c"
-
-  console.log(`My details are: ${JSON.stringify(asset)}`)
-  console.log(`My children details are: ${JSON.stringify(childAssets)}`)
-  console.log(`My parent details are: ${JSON.stringify(asset.assetLocation.parentAssets)}`)
+  const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c" // Hackney Homes
 
   const childNodes = [];
 
@@ -18,18 +14,14 @@ export const PropertyTree = (props) => {
     for (const [i, v] of childAssets.entries()) {
       
        if (i < 5) {
-        console.log(`Adding regular child prompt: ${JSON.stringify(v.id)}`)
         childNodes.push(generateNode(v.assetAddress.addressLine1, [], v.id))
-        //childNodes.push({ title: v.assetAddress.addressLine1, children: [] })
         continue;
       }
       if (i === 5) {
-        console.log(`Adding MORE prompt: ${JSON.stringify(v.id)}`)
         childNodes.push({ title: '<< MORE.... >>', children: [] })
         continue;
       }
       if (i > 5) {
-        console.log(`Too many children, not adding prompt: ${JSON.stringify(v.id)}`)
         continue;
       }
     }
@@ -37,25 +29,23 @@ export const PropertyTree = (props) => {
 
   const treeData = [];
 
-  //Generate me
+  //Generate principle
   var principle = { title: 'Principle', children: [{ title: `${asset.assetAddress.addressLine1} (this asset)`, children: [...childNodes], expanded: true}], expanded: true }
 
   // Add parents and principle
   if (asset.assetLocation.parentAssets) {
-
     
     let validParents = asset.assetLocation.parentAssets.filter((el) => !excludedTreeAssets.includes(el.id)) 
     
     for (const [i, v] of validParents.entries()) {
-      console.log(`Processing parents: ${i} of ${validParents.length}`)
+      
+      // Attach princple to last parent
       if (i === validParents.length - 1) {
-        console.log(`Adding principle parent: ${JSON.stringify(v.id)}`)
         principle.title = <a href={`/property/${v.id}`}>{v.name}</a>;
         treeData.push(principle)
       }
       else 
       {
-        console.log(`Adding parent: ${JSON.stringify(v.id)}`)
         treeData.push(generateNode(v.name, [], v.id))
       }
     }
@@ -69,7 +59,6 @@ export const PropertyTree = (props) => {
         <SortableTree
           treeData={treeData}
           onChange={onChangeHander}
-          //theme={FileExplorerTheme}
         />
       </div>
     ); 
