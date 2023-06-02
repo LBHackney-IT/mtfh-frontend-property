@@ -4,6 +4,7 @@ import { Field } from "formik";
 
 import { locale } from "../../../services";
 import PropertyPatch from "../../../utils/patch";
+import { reducer } from "./reducer";
 
 import { Spinner } from "@mtfh/common";
 import { getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
@@ -12,31 +13,6 @@ import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 const initialPatchesState = {
   patches: [new PropertyPatch(1)],
 };
-
-function reducer(state: any, action: any) {
-  switch (action.type) {
-    case "add_patch":
-      return {
-        patches: [...state.patches, action.payload],
-      };
-    case "remove_patch":
-      return {
-        patches: state.patches.filter(
-          (patch: PropertyPatch) => patch.id !== action.payload,
-        ),
-      };
-    case "patch_edit": {
-      const patchIndex = state.patches.findIndex(
-        (patch: PropertyPatch) => patch.id === action.payload.patchId,
-      );
-
-      state.patches[patchIndex].value = action.payload.targetValue;
-      return { patches: state.patches };
-    }
-    default:
-      return state;
-  }
-}
 
 export const usePatches = (
   setErrorHeading: (error: string | null) => void,
