@@ -1,8 +1,16 @@
+import { Asset } from '@mtfh/common/lib/api/asset/v1/types';
 import React, { Component } from 'react';
+// @ts-ignore
 import SortableTree from 'react-sortable-tree';
 import 'react-sortable-tree/style.css';
 
-export const PropertyTree = (props) => {
+interface PropertyTreeProps {
+  asset: Asset;
+  childAssets: Asset[] | undefined;
+  parentAssets: Asset[] | undefined;
+}
+
+export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
   const {asset, childAssets, parentAssets} = props;
 
   const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c" // Hackney Homes
@@ -30,7 +38,7 @@ export const PropertyTree = (props) => {
   const treeData = [];
 
   //Generate principle
-  var principle = { title: 'Principle', children: [{ title: `${asset.assetAddress.addressLine1} (this asset)`, children: [...childNodes], expanded: true}], expanded: true }
+  var principle = { title: <span>Principle</span>, children: [{ title: `${asset.assetAddress.addressLine1} (this asset)`, children: [...childNodes], expanded: true}], expanded: true }
 
   // Add parents and principle
   if (asset.assetLocation.parentAssets) {
@@ -51,7 +59,7 @@ export const PropertyTree = (props) => {
     }
   }
 
-  const onChangeHander = (e) => {
+  const onChangeHander = (e: Event) => {
     console.log(e)
   }
     return (
@@ -64,7 +72,7 @@ export const PropertyTree = (props) => {
     ); 
 }
 
-const generateNode = (name, childList, id) => {
+const generateNode = (name: string, childList: Array<JSX.Element>, id: string) => {
   let node =  <a href={`/property/${id}`}>{name}</a>
 
   return { title: node, children: [childList] }

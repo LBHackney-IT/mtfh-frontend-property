@@ -30,7 +30,6 @@ import {
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 import "./styles.scss";
-// @ts-ignore
 import { PropertyTree } from "../../utils/property-tree"
 
 export interface AssetLayoutProperties {
@@ -90,15 +89,9 @@ interface PropertyBodyProps {
   parentAssets: Asset[] | undefined;
 }
 
-// interface RelatedAssets {
-//   rootAsset: Asset | undefined;
-//   parentAsset: Asset | undefined;
-//   childAssets: Asset[] | undefined;
-// }
-
 const PropertyBody = ({ assetDetails, childAssets, parentAssets }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
-  console.log(`My PropertyBody children details are: ${JSON.stringify(childAssets)}`)
+  
   return (
     <>
       <div id="property-body-grid-container">
