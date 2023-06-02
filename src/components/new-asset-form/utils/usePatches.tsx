@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 
 import { Field } from "formik";
 
+import { locale } from "../../../services";
 import PropertyPatch from "../../../utils/patch";
 
 import { Spinner } from "@mtfh/common";
@@ -37,7 +38,11 @@ function reducer(state: any, action: any) {
   }
 }
 
-export const usePatches = () => {
+export const usePatches = (
+  setErrorHeading: (error: string | null) => void,
+  setErrorDescription: (error: string | null) => void,
+  setShowError: (value: boolean) => void,
+) => {
   // This state is used to manage the Patch field(s) in the New Asset form
   const [patchesState, dispatch] = useReducer(reducer, initialPatchesState);
 
@@ -45,7 +50,15 @@ export const usePatches = () => {
   const [patchesAndAreasData, setPatchesAndAreasData] = useState<Patch[]>([]);
 
   useEffect(() => {
-    getAllPatchesAndAreas().then((res) => setPatchesAndAreasData(res));
+    getAllPatchesAndAreas()
+      .then((res) => setPatchesAndAreasData(res))
+      .catch((error) => {
+        console.error("Unable to retrieve patch data. Error:", error);
+        setErrorHeading("Unable to retrieve patch data");
+        setErrorDescription(locale.errors.tryAgainOrContactSupport);
+        setShowError(true);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderPatchOptions = (): JSX.Element[] | undefined => {

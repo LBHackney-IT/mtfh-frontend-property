@@ -39,7 +39,11 @@ export const NewAsset = ({
   setNewProperty,
 }: NewAssetProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { getFullPatchData, patchesState, renderPatchFormField } = usePatches();
+  const { getFullPatchData, patchesState, renderPatchFormField } = usePatches(
+    setErrorHeading,
+    setErrorDescription,
+    setShowError,
+  );
 
   const renderAssetTypeOptions = (): JSX.Element[] => {
     return Object.keys(AssetType).map((key, index) => (
