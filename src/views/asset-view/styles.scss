@@ -5,3 +5,19 @@
         width: 100%;
     }
 }
+
+.rst__nodeContent, .rst__nodeContent * {
+    margin-top: revert !important;
+  }
+  
+.rst__lineBlock {
+margin-top: revert !important;
+}
+
+.rst__rowContent {
+margin-top: revert !important;
+}
+
+.rst__node {
+margin-top: revert !important;
+}

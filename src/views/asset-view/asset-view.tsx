@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { locale } from "../../services";
 import { AssetLayout } from "./layout";
 
-import { Asset, useAsset, useChildAssets, useParentAssets } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, useAsset, useChildAssets, getParentAssets } from "@mtfh/common/lib/api/asset/v1";
 import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
 
 export const AssetView = (): JSX.Element => {
@@ -12,7 +12,7 @@ export const AssetView = (): JSX.Element => {
 []
   const { data: asset, ...assetRequest } = useAsset(assetId);
 
-  const { parentAssets } = useParentAssets(assetId);
+  const { parentAssets } = getParentAssets(assetId);
 
   const { data: childAssetResponse, ...Request } = useChildAssets(assetId);
 

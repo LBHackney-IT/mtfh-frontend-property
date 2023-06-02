@@ -19,7 +19,8 @@ export const PropertyTree = (props) => {
       
        if (i < 5) {
         console.log(`Adding regular child prompt: ${JSON.stringify(v.id)}`)
-        childNodes.push({ title: v.assetAddress.addressLine1, children: [] })
+        childNodes.push(generateNode(v.assetAddress.addressLine1, [], v.id))
+        //childNodes.push({ title: v.assetAddress.addressLine1, children: [] })
         continue;
       }
       if (i === 5) {
@@ -37,7 +38,7 @@ export const PropertyTree = (props) => {
   const treeData = [];
 
   //Generate me
-  var principle = { title: 'Principle', children: [{ title: asset.assetAddress.addressLine1, children: [...childNodes], expanded: true}], expanded: true }
+  var principle = { title: 'Principle', children: [{ title: `${asset.assetAddress.addressLine1} (this asset)`, children: [...childNodes], expanded: true}], expanded: true }
 
   // Add parents and principle
   if (asset.assetLocation.parentAssets) {
@@ -46,15 +47,16 @@ export const PropertyTree = (props) => {
     let validParents = asset.assetLocation.parentAssets.filter((el) => !excludedTreeAssets.includes(el.id)) 
     
     for (const [i, v] of validParents.entries()) {
+      console.log(`Processing parents: ${i} of ${validParents.length}`)
       if (i === validParents.length - 1) {
-        console.log(`Adding principle: ${JSON.stringify(v.id)}`)
-        principle.title = v.name;
+        console.log(`Adding principle parent: ${JSON.stringify(v.id)}`)
+        principle.title = <a href={`/property/${v.id}`}>{v.name}</a>;
         treeData.push(principle)
       }
       else 
       {
         console.log(`Adding parent: ${JSON.stringify(v.id)}`)
-        treeData.push({ title: v.name, children: [] })
+        treeData.push(generateNode(v.name, [], v.id))
       }
     }
   }
@@ -73,6 +75,8 @@ export const PropertyTree = (props) => {
     ); 
 }
 
-const generateNode = (name, childList) => {
-  return { title: name, children: [childList]  }
+const generateNode = (name, childList, id) => {
+  let node =  <a href={`/property/${id}`}>{name}</a>
+
+  return { title: node, children: [childList] }
 }
