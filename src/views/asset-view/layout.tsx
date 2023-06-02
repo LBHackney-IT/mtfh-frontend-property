@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { AssetDetails, TenureDetails } from "../../components";
+import { AssetDetails, PropertySpecification, TenureDetails } from "../../components";
 import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
 import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
 
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, AssetCharacteristics } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
@@ -33,7 +33,10 @@ import "./styles.scss";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
+  assetCharacteristics: AssetCharacteristics;
 }
+
+export interface AssetCharacteristicsProperties {}
 
 interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {
   alerts: Alert[];
@@ -41,10 +44,18 @@ interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutPrope
 
 const AssetSideBar = ({
   assetDetails,
+  assetCharacteristics,
   alerts,
   ...properties
 }: AssetSideBarProperties) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
+  const {
+    numberOfBedrooms,
+    numberOfLifts,
+    numberOfLivingRooms,
+    windowType,
+    yearConstructed,
+  } = assetCharacteristics;
   return (
     <div className="mtfh-asset-sidebar">
       <SideBar id="property-view-sidebar" {...properties}>
@@ -54,6 +65,20 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
+          <details className="govuk-details" data-module="govuk-details">
+            <summary className="govuk-details__summary">
+              <span className="govuk-details__summary-text">Property Specification</span>
+            </summary>
+            <div className="govuk-details__text">
+              <PropertySpecification
+                numberOfBedrooms={numberOfBedrooms}
+                numberOfLifts={numberOfLifts}
+                numberOfLivingRooms={numberOfLivingRooms}
+                windowType={windowType}
+                yearConstructed={yearConstructed}
+              />
+            </div>
+          </details>
           {isAuthorisedForGroups(assetAdminAuthGroups) && (
             <Button
               as={RouterLink}
@@ -110,7 +135,10 @@ const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element =
   );
 };
 
-export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
+export const AssetLayout: FC<AssetLayoutProperties> = ({
+  assetDetails,
+  assetCharacteristics,
+}) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
@@ -159,7 +187,13 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
+        side={
+          <AssetSideBar
+            assetDetails={assetDetails}
+            assetCharacteristics={assetCharacteristics}
+            alerts={alertsData.alerts}
+          />
+        }
       >
         <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
       </Layout>

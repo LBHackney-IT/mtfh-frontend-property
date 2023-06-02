@@ -1,4 +1,8 @@
-import { AssetAddress, AssetType } from "@mtfh/common/lib/api/asset/v1";
+import {
+  AssetAddress,
+  AssetCharacteristics,
+  AssetType,
+} from "@mtfh/common/lib/api/asset/v1";
 
 export default {
   backToSearch: "Search results",
@@ -28,6 +32,25 @@ export default {
           .join(" ");
       },
       newTenure: "New tenure",
+    },
+    assetCharacteristics: {
+      propSpec: (propSpec: AssetCharacteristics): any => {
+        const {
+          numberOfBedrooms,
+          numberOfLifts,
+          numberOfLivingRooms,
+          windowType,
+          yearConstructed,
+        } = propSpec;
+
+        return [
+          numberOfBedrooms,
+          numberOfLifts,
+          numberOfLivingRooms,
+          windowType,
+          yearConstructed,
+        ];
+      },
     },
     assetType: (assetType: AssetType): string => {
       if (assetType === "Dwelling") {
@@ -71,6 +94,13 @@ export default {
   },
   static: {
     newProcess: "New Process",
+  },
+  assetCharacteristics: {
+    numberOfBedroomsLabel: "Number of Bedrooms",
+    numberOfLiftsLabel: "Number of Lifts",
+    numberOfLivingRoomsLabel: "Number of Living rooms",
+    windowTypeLabel: "Window Type",
+    yearConstructedLabel: "Year Constructed",
   },
   assetCouldNotBeLoaded: "This property could not be loaded.",
   errors: {
