@@ -20,7 +20,7 @@
     margin-right: 20px;
 }
 
-#patch {
+.patch {
     display: flex;
 }
 
@@ -28,8 +28,8 @@
     font-size: 16px !important;
 }
 
-#patch-remove-link {
+.patch-remove-link {
     margin-left: 10px;
     margin-top: 0px;
-    font-size: 16px;
+    font-size: 16px !important;
 }

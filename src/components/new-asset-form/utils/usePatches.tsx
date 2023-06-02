@@ -102,15 +102,14 @@ export const usePatches = (
       const patches = patchesState.patches.map((patch: PropertyPatch) => {
         return (
           <>
-            <div id="patch" key={patch.id}>
+            <div className="patch" key={patch.id}>
               <Field
                 as="select"
-                id="patches"
-                name="patches"
+                id={`patch-dropdown-${patch.id}`}
                 className="govuk-input lbh-input"
-                data-testid="patches"
+                data-testid={`patch-dropdown-${patch.id}`}
                 value={patch.value}
-                key={patch.id}
+                key={`patch-dropdown-${patch.id}`}
                 onChange={(e: any) => handlePatchEdit(e, patch.id)}
               >
                 <option disabled value="">
@@ -120,10 +119,11 @@ export const usePatches = (
                 {renderPatchOptions()}
               </Field>
               <button
-                className="lbh-link"
+                className="lbh-link patch-remove-link"
                 onClick={(e) => handleRemovePatch(e, patch.id)}
-                data-testid="patch-remove-link"
-                id="patch-remove-link"
+                data-testid={`patch-remove-link-${patch.id}`}
+                id={`patch-remove-link-${patch.id}`}
+                key={`patch-remove-link-${patch.id}`}
               >
                 Remove patch
               </button>
