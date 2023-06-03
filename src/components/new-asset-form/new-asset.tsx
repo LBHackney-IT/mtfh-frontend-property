@@ -13,17 +13,17 @@ import {
   assetHasFloors,
   assetIsOfDwellingType,
 } from "../../utils/asset-type";
+import PropertyPatch from "../../utils/patch";
 import { InlineAssetSearch } from "../inline-asset-search";
+import { PatchesField } from "./patches-field";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
 import { renderAreaOfficeNamesOptions } from "./utils/area-office-names";
 import { renderManagingOrganisationOptions } from "./utils/managing-organisations";
-import PropertyPatch from "../../utils/patch";
 import { reducer } from "./utils/reducer";
 
 import { Center, Spinner } from "@mtfh/common";
 import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
-import { PatchesField } from "./patches-field";
 import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
 
 export interface NewAssetProps {
@@ -79,7 +79,7 @@ export const NewAsset = ({
 
     // Return full patch objects with the above GUIDs in patchesAndAreasData
     return patchesAndAreasData.filter((patchObject: Patch) =>
-      patchesGuids.includes(patchObject.id)
+      patchesGuids.includes(patchObject.id),
     );
   };
 

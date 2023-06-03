@@ -13,16 +13,11 @@ export interface PatchesFieldProps {
   patchesAndAreasData: Patch[];
 }
 
-const initialPatchesState = {
-  patches: [new PropertyPatch(1)],
-};
-
 export const PatchesField = ({
   patchesState,
   dispatch,
-  patchesAndAreasData
+  patchesAndAreasData,
 }: PatchesFieldProps) => {
-
   const renderPatchOptions = (): JSX.Element[] | undefined => {
     if (patchesAndAreasData) {
       return patchesAndAreasData.map(({ id, name }) => (
@@ -39,16 +34,6 @@ export const PatchesField = ({
     // If there are no patches, there will be no assigned Ids,
     // so we start with ID 1, otherwise we pick the next higher/available one.
     return assignedIds.length === 0 ? 1 : Math.max(...assignedIds) + 1;
-  };
-
-  const getFullPatchData = (patchesState: any) => {
-    // Get patches GUIDs from patchesState
-    const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
-
-    // Return full patch objects with the above GUIDs in patchesAndAreasData
-    return patchesAndAreasData.filter((patchObject: Patch) =>
-      patchesGuids.includes(patchObject.id),
-    );
   };
 
   const renderPropertyPatches = () => {
