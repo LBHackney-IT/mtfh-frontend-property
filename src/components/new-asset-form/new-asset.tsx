@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { Field, Form, Formik } from "formik";
@@ -17,11 +17,14 @@ import { InlineAssetSearch } from "../inline-asset-search";
 import { NewPropertyFormData, newPropertySchema } from "./schema";
 import { renderAreaOfficeNamesOptions } from "./utils/area-office-names";
 import { renderManagingOrganisationOptions } from "./utils/managing-organisations";
-import { usePatches } from "./utils/usePatches";
+import PropertyPatch from "../../utils/patch";
+import { reducer } from "./utils/reducer";
 
 import { Center, Spinner } from "@mtfh/common";
 import { createAsset } from "@mtfh/common/lib/api/asset/v1";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
+import { PatchesField } from "./patches-field";
+import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
 
 export interface NewAssetProps {
   setShowSuccess: (value: boolean) => void;
@@ -31,6 +34,10 @@ export interface NewAssetProps {
   setNewProperty: (asset: CreateNewAssetRequest) => void;
 }
 
+const initialPatchesState = {
+  patches: [new PropertyPatch(1)],
+};
+
 export const NewAsset = ({
   setShowSuccess,
   setShowError,
@@ -39,11 +46,24 @@ export const NewAsset = ({
   setNewProperty,
 }: NewAssetProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { getFullPatchData, patchesState, renderPatchFormField } = usePatches(
-    setErrorHeading,
-    setErrorDescription,
-    setShowError,
-  );
+
+  // This state is used to manage the Patch field(s) in the New Asset form
+  const [patchesState, dispatch] = useReducer(reducer, initialPatchesState);
+
+  // Data from API request
+  const [patchesAndAreasData, setPatchesAndAreasData] = useState<Patch[]>([]);
+
+  useEffect(() => {
+    getAllPatchesAndAreas()
+      .then((res) => setPatchesAndAreasData(res))
+      .catch((error) => {
+        console.error("Unable to retrieve patch data. Error:", error);
+        setErrorHeading("Unable to retrieve patch data");
+        setErrorDescription(locale.errors.tryAgainOrContactSupport);
+        setShowError(true);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderAssetTypeOptions = (): JSX.Element[] => {
     return Object.keys(AssetType).map((key, index) => (
@@ -51,6 +71,16 @@ export const NewAsset = ({
         {key}
       </option>
     ));
+  };
+
+  const getFullPatchData = (patchesState: any) => {
+    // Get patches GUIDs from patchesState
+    const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
+
+    // Return full patch objects with the above GUIDs in patchesAndAreasData
+    return patchesAndAreasData.filter((patchObject: Patch) =>
+      patchesGuids.includes(patchObject.id)
+    );
   };
 
   const handleSubmit = async (values: NewPropertyFormData) => {
@@ -589,7 +619,11 @@ export const NewAsset = ({
                   </div>
                 </fieldset>
               </div>
-              {renderPatchFormField()}
+              <PatchesField
+                patchesState={patchesState}
+                dispatch={dispatch}
+                patchesAndAreasData={patchesAndAreasData}
+              />
               <h2 className="lbh-heading-h2">Asset details</h2>
               {assetIsOfDwellingType(values.assetType) && (
                 <>

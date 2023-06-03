@@ -1,41 +1,27 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React from "react";
 
 import { Field } from "formik";
 
-import { locale } from "../../../services";
-import PropertyPatch from "../../../utils/patch";
-import { reducer } from "./reducer";
+import PropertyPatch from "../../utils/patch";
 
 import { Spinner } from "@mtfh/common";
-import { getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
+
+export interface PatchesFieldProps {
+  patchesState: any;
+  dispatch: any;
+  patchesAndAreasData: Patch[];
+}
 
 const initialPatchesState = {
   patches: [new PropertyPatch(1)],
 };
 
-export const usePatches = (
-  setErrorHeading: (error: string | null) => void,
-  setErrorDescription: (error: string | null) => void,
-  setShowError: (value: boolean) => void,
-) => {
-  // This state is used to manage the Patch field(s) in the New Asset form
-  const [patchesState, dispatch] = useReducer(reducer, initialPatchesState);
-
-  // Data from API request
-  const [patchesAndAreasData, setPatchesAndAreasData] = useState<Patch[]>([]);
-
-  useEffect(() => {
-    getAllPatchesAndAreas()
-      .then((res) => setPatchesAndAreasData(res))
-      .catch((error) => {
-        console.error("Unable to retrieve patch data. Error:", error);
-        setErrorHeading("Unable to retrieve patch data");
-        setErrorDescription(locale.errors.tryAgainOrContactSupport);
-        setShowError(true);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+export const PatchesField = ({
+  patchesState,
+  dispatch,
+  patchesAndAreasData
+}: PatchesFieldProps) => {
 
   const renderPatchOptions = (): JSX.Element[] | undefined => {
     if (patchesAndAreasData) {
@@ -62,38 +48,6 @@ export const usePatches = (
     // Return full patch objects with the above GUIDs in patchesAndAreasData
     return patchesAndAreasData.filter((patchObject: Patch) =>
       patchesGuids.includes(patchObject.id),
-    );
-  };
-
-  const renderPatchFormField = () => {
-    return (
-      <>
-        <label className="govuk-label lbh-label" htmlFor="patches">
-          Patches
-        </label>
-        <div id="property-patches-container">{renderPropertyPatches()}</div>
-        <div>
-          {patchesState.patches.length === 0 ? (
-            <button
-              className="lbh-link"
-              onClick={(e) => handleAddNewPatch(e)}
-              data-testid="patch-add-link"
-              id="patch-add-link"
-            >
-              Add a patch
-            </button>
-          ) : (
-            <button
-              className="lbh-link"
-              onClick={(e) => handleAddNewPatch(e)}
-              data-testid="patch-add-link"
-              id="patch-add-link"
-            >
-              Add another patch
-            </button>
-          )}
-        </div>
-      </>
     );
   };
 
@@ -163,9 +117,33 @@ export const usePatches = (
     });
   };
 
-  return {
-    getFullPatchData,
-    patchesState,
-    renderPatchFormField,
-  };
+  return (
+    <>
+      <label className="govuk-label lbh-label" htmlFor="patches">
+        Patches
+      </label>
+      <div id="property-patches-container">{renderPropertyPatches()}</div>
+      <div>
+        {patchesState.patches.length === 0 ? (
+          <button
+            className="lbh-link"
+            onClick={(e) => handleAddNewPatch(e)}
+            data-testid="patch-add-link"
+            id="patch-add-link"
+          >
+            Add a patch
+          </button>
+        ) : (
+          <button
+            className="lbh-link"
+            onClick={(e) => handleAddNewPatch(e)}
+            data-testid="patch-add-link"
+            id="patch-add-link"
+          >
+            Add another patch
+          </button>
+        )}
+      </div>
+    </>
+  );
 };
