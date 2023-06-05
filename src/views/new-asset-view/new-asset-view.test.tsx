@@ -15,6 +15,8 @@ beforeEach(() => {
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 });
 
+// some change
+
 test("renders the whole 'New asset form' view", async () => {
   const { container } = render(<NewAssetView />);
 
