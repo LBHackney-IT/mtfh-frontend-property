@@ -8,7 +8,6 @@ import "react-sortable-tree/style.css";
 interface PropertyTreeProps {
   asset: Asset;
   childAssets: Asset[] | undefined;
-  parentAssets: Asset[] | undefined;
 }
 
 export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
@@ -58,7 +57,13 @@ const generateNode = (name: string, childList: Array<JSX.Element>, id: string) =
 
   return { title: node, children: [childList] };
 };
-function generatePrinciple(asset: Asset, childNodes: ({ title: JSX.Element; children: JSX.Element[][]; } | { title: string; children: never[]; })[]) {
+function generatePrinciple(
+  asset: Asset,
+  childNodes: (
+    | { title: JSX.Element; children: JSX.Element[][] }
+    | { title: string; children: never[] }
+  )[],
+) {
   return {
     title: <span>Principle</span>,
     children: [
@@ -72,10 +77,26 @@ function generatePrinciple(asset: Asset, childNodes: ({ title: JSX.Element; chil
   };
 }
 
-function addParentsAndPrinciple(asset: Asset, excludedTreeAssets: string, principle: { title: JSX.Element; children: { title: string; children: ({ title: JSX.Element; children: JSX.Element[][]; } | { title: string; children: never[]; })[]; expanded: boolean; }[]; expanded: boolean; }, treeData: any[]) {
+function addParentsAndPrinciple(
+  asset: Asset,
+  excludedTreeAssets: string,
+  principle: {
+    title: JSX.Element;
+    children: {
+      title: string;
+      children: (
+        | { title: JSX.Element; children: JSX.Element[][] }
+        | { title: string; children: never[] }
+      )[];
+      expanded: boolean;
+    }[];
+    expanded: boolean;
+  },
+  treeData: any[],
+) {
   if (asset.assetLocation.parentAssets) {
     const validParents = asset.assetLocation.parentAssets.filter(
-      (el) => !excludedTreeAssets.includes(el.id)
+      (el) => !excludedTreeAssets.includes(el.id),
     );
 
     for (const [i, v] of validParents.entries()) {
@@ -89,4 +110,3 @@ function addParentsAndPrinciple(asset: Asset, excludedTreeAssets: string, princi
     }
   }
 }
-
