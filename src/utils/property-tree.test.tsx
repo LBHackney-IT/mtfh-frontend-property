@@ -1,7 +1,7 @@
 import React from "react";
 
 import { mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
-import { screen, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { rest } from "msw";
 
 import { testValidDwellingFixture, testValidchildAssetsFixture } from "../test-fixtures";
@@ -35,7 +35,7 @@ test("renders the property tree correctly", async () => {
 });
 
 test("doesn't render the Hackney Housing ancestor", async () => {
-  const { container } = render(
+  render(
     <PropertyTree
       asset={testValidDwellingFixture}
       childAssets={testValidchildAssetsFixture}
@@ -50,7 +50,7 @@ test("doesn't render the Hackney Housing ancestor", async () => {
 });
 
 test("renders components with links", async () => {
-  const { container } = render(
+  render(
     <PropertyTree
       asset={testValidDwellingFixture}
       childAssets={testValidchildAssetsFixture}

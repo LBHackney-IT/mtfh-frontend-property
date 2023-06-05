@@ -5,7 +5,6 @@ import { locale } from "../../services";
 import { AssetLayout } from "./layout";
 
 import {
-  Asset,
   getParentAssets,
   useAsset,
   useChildAssets,
@@ -14,12 +13,12 @@ import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
 
 export const AssetView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
-  [];
+  
   const { data: asset, ...assetRequest } = useAsset(assetId);
 
   const { parentAssets } = getParentAssets(assetId);
 
-  const { data: childAssetResponse, ...Request } = useChildAssets(assetId);
+  const { data: childAssetResponse } = useChildAssets(assetId);
 
   if (assetRequest.error) {
     return (

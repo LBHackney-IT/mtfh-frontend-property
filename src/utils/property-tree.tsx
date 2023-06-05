@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 // @ts-ignore
 import SortableTree from "react-sortable-tree";
 
@@ -12,7 +12,7 @@ interface PropertyTreeProps {
 }
 
 export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
-  const { asset, childAssets, parentAssets } = props;
+  const { asset, childAssets } = props;
 
   const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c"; // Hackney Homes
 
