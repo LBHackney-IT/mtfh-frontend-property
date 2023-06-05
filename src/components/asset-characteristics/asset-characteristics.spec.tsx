@@ -3,6 +3,7 @@ import React from "react";
 import { mockAssetV1, render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 
+import { locale } from "../../services";
 import { PropertySpecification } from "./asset-characteristics";
 
 describe("AssetCharacteristics", () => {
@@ -16,10 +17,20 @@ describe("AssetCharacteristics", () => {
         yearConstructed={mockAssetV1.assetCharacteristics.yearConstructed}
       />,
     );
-    expect(screen.getByText("Number Of Bedrooms")).toBeInTheDocument();
-    expect(screen.getByText("Number Of Lifts")).toBeInTheDocument();
-    expect(screen.getByText("Number of Living rooms")).toBeInTheDocument();
-    expect(screen.getByText("Window Type")).toBeInTheDocument();
-    expect(screen.getByText("Year Constructed")).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.assetCharacteristics.numberOfBedroomsLabel),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.assetCharacteristics.numberOfLiftsLabel),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.assetCharacteristics.numberOfBedroomsLabel),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.assetCharacteristics.windowTypeLabel),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.assetCharacteristics.yearConstructedLabel),
+    ).toBeInTheDocument();
   });
 });
