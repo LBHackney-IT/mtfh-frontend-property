@@ -99,6 +99,13 @@ const PropertyBody = ({
   return (
     <>
       <div id="property-body-grid-container">
+        <div id="property-tree-grid-area">
+          <PropertyTree
+            asset={assetDetails}
+            childAssets={childAssets}
+            parentAssets={parentAssets}
+          />
+        </div>
         <div id="new-process-grid-area">
           <Button
             variant="primary"
@@ -108,7 +115,6 @@ const PropertyBody = ({
             {locale.static.newProcess}
           </Button>
         </div>
-
         <div id="repairs-grid-area">
           {hasRepairsList && (
             <>
@@ -117,11 +123,6 @@ const PropertyBody = ({
             </>
           )}
         </div>
-        <PropertyTree
-          asset={assetDetails}
-          childAssets={childAssets}
-          parentAssets={parentAssets}
-        />
         <div id="comments-grid-area">
           <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
           <Button as={RouterLink} to={`/comment/property/${assetDetails.id}`}>

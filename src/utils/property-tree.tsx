@@ -71,7 +71,7 @@ export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
     console.log(e);
   };
   return (
-    <div style={{ height: 800 }}>
+    <div style={{ height: 300 }}>
       <SortableTree treeData={treeData} onChange={onChangeHander} />
     </div>
   );
