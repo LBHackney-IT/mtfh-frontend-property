@@ -35,7 +35,6 @@ import "./styles.scss";
 export interface AssetLayoutProperties {
   assetDetails: Asset;
   assetchildren: Asset[] | undefined;
-  assetparents: Asset[] | undefined;
 }
 
 interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {
@@ -86,13 +85,11 @@ const AssetSideBar = ({
 interface PropertyBodyProps {
   assetDetails: Asset;
   childAssets: Asset[] | undefined;
-  parentAssets: Asset[] | undefined;
 }
 
 const PropertyBody = ({
   assetDetails,
-  childAssets,
-  parentAssets,
+  childAssets
 }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
@@ -103,7 +100,6 @@ const PropertyBody = ({
           <PropertyTree
             asset={assetDetails}
             childAssets={childAssets}
-            parentAssets={parentAssets}
           />
         </div>
         <div id="new-process-grid-area">
@@ -139,8 +135,7 @@ const PropertyBody = ({
 
 export const AssetLayout: FC<AssetLayoutProperties> = ({
   assetDetails,
-  assetchildren,
-  assetparents,
+  assetchildren
 }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
@@ -196,14 +191,12 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({
             assetDetails={assetDetails}
             alerts={alertsData.alerts}
             assetchildren={undefined}
-            assetparents={undefined}
           />
         }
       >
         <PropertyBody
           assetDetails={assetDetails}
           childAssets={assetchildren}
-          parentAssets={assetparents}
         />
       </Layout>
     </PageAnnouncementProvider>

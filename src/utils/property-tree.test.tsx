@@ -22,7 +22,6 @@ test("renders the property tree correctly", async () => {
     <PropertyTree
       asset={testValidDwellingFixture}
       childAssets={testValidchildAssetsFixture}
-      parentAssets={[]}
     />,
     {},
   );
@@ -39,7 +38,6 @@ test("doesn't render the Hackney Housing ancestor", async () => {
     <PropertyTree
       asset={testValidDwellingFixture}
       childAssets={testValidchildAssetsFixture}
-      parentAssets={[]}
     />,
     {},
   );
@@ -54,7 +52,6 @@ test("renders components with links", async () => {
     <PropertyTree
       asset={testValidDwellingFixture}
       childAssets={testValidchildAssetsFixture}
-      parentAssets={[]}
     />,
     {},
   );
