@@ -35,37 +35,13 @@ export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
     }
   }
 
-  const treeData = [];
+  const treeData: Array<JSX.Element> = [];
 
   //Generate principle
-  const principle = {
-    title: <span>Principle</span>,
-    children: [
-      {
-        title: `${asset.assetAddress.addressLine1} (this asset)`,
-        children: [...childNodes],
-        expanded: true,
-      },
-    ],
-    expanded: true,
-  };
+  const principle = generatePrinciple(asset, childNodes);
 
   // Add parents and principle
-  if (asset.assetLocation.parentAssets) {
-    const validParents = asset.assetLocation.parentAssets.filter(
-      (el) => !excludedTreeAssets.includes(el.id),
-    );
-
-    for (const [i, v] of validParents.entries()) {
-      // Attach princple to last parent
-      if (i === validParents.length - 1) {
-        principle.title = <a href={`/property/${v.id}`}>{v.name}</a>;
-        treeData.push(principle);
-      } else {
-        treeData.push(generateNode(v.name, [], v.id));
-      }
-    }
-  }
+  addParentsAndPrinciple(asset, excludedTreeAssets, principle, treeData);
 
   const onChangeHander = (e: Event) => {
     console.log(e);
@@ -82,3 +58,35 @@ const generateNode = (name: string, childList: Array<JSX.Element>, id: string) =
 
   return { title: node, children: [childList] };
 };
+function generatePrinciple(asset: Asset, childNodes: ({ title: JSX.Element; children: JSX.Element[][]; } | { title: string; children: never[]; })[]) {
+  return {
+    title: <span>Principle</span>,
+    children: [
+      {
+        title: `${asset.assetAddress.addressLine1} (this asset)`,
+        children: [...childNodes],
+        expanded: true,
+      },
+    ],
+    expanded: true,
+  };
+}
+
+function addParentsAndPrinciple(asset: Asset, excludedTreeAssets: string, principle: { title: JSX.Element; children: { title: string; children: ({ title: JSX.Element; children: JSX.Element[][]; } | { title: string; children: never[]; })[]; expanded: boolean; }[]; expanded: boolean; }, treeData: any[]) {
+  if (asset.assetLocation.parentAssets) {
+    const validParents = asset.assetLocation.parentAssets.filter(
+      (el) => !excludedTreeAssets.includes(el.id)
+    );
+
+    for (const [i, v] of validParents.entries()) {
+      // Attach princple to last parent
+      if (i === validParents.length - 1) {
+        principle.title = <a href={`/property/${v.id}`}>{v.name}</a>;
+        treeData.push(principle);
+      } else {
+        treeData.push(generateNode(v.name, [], v.id));
+      }
+    }
+  }
+}
+
