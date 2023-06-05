@@ -87,20 +87,14 @@ interface PropertyBodyProps {
   childAssets: Asset[] | undefined;
 }
 
-const PropertyBody = ({
-  assetDetails,
-  childAssets
-}: PropertyBodyProps): JSX.Element => {
+const PropertyBody = ({ assetDetails, childAssets }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
   return (
     <>
       <div id="property-body-grid-container">
         <div id="property-tree-grid-area">
-          <PropertyTree
-            asset={assetDetails}
-            childAssets={childAssets}
-          />
+          <PropertyTree asset={assetDetails} childAssets={childAssets} />
         </div>
         <div id="new-process-grid-area">
           <Button
@@ -135,7 +129,7 @@ const PropertyBody = ({
 
 export const AssetLayout: FC<AssetLayoutProperties> = ({
   assetDetails,
-  assetchildren
+  assetchildren,
 }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
@@ -194,10 +188,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({
           />
         }
       >
-        <PropertyBody
-          assetDetails={assetDetails}
-          childAssets={assetchildren}
-        />
+        <PropertyBody assetDetails={assetDetails} childAssets={assetchildren} />
       </Layout>
     </PageAnnouncementProvider>
   );
