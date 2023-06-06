@@ -26,7 +26,13 @@
     box-shadow: 0 0 0 0;
 }
 
-.rst__loadingHandle, .rst__moveHandle {
+.rst__moveHandle {
+    box-shadow: none !important;
+    background: none !important;
+    width: 0;
+}
+
+.rst__loadingHandle {
     box-shadow: none !important;
     background: none !important;
 }
