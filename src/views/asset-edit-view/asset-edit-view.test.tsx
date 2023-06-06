@@ -157,7 +157,7 @@ beforeEach(() => {
   );
 
   server.use(
-    rest.patch(`/api/v1/assets/:id`, (req, res, ctx) => {
+    rest.patch(`/api/v1/asset/:id`, (req, res, ctx) => {
       return res(ctx.status(204));
     }),
   );
