@@ -28,7 +28,7 @@ test("renders the property tree correctly", async () => {
 
   expect(container).toMatchSnapshot();
 
-  screen.getByText("12 PITCAIRN HOUSE");
+  screen.getByText("12 PITCAIRN HOUSE (this asset)");
   screen.getByText("Gge 12 Pitcairn House St Thomass Square");
   screen.getByText("1-93 Pitcairn House");
 });
@@ -57,6 +57,6 @@ test("renders components with links", async () => {
   );
 
   expect(screen.getByText("1-93 Pitcairn House").getAttribute("href")).toBe(
-    `/propety/a65918aa-e441-bc34-e49d-fa8671f768da`,
+    `/property/a65918aa-e441-bc34-e49d-fa8671f768da`,
   );
 });
