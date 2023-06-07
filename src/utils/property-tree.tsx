@@ -53,7 +53,11 @@ export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
 };
 
 const generateNode = (name: string, childList: Array<JSX.Element>, id: string) => {
-  const node = <a className="lbh-link govuk-link" href={`/property/${id}`}>{name}</a>;
+  const node = (
+    <a className="lbh-link govuk-link" href={`/property/${id}`}>
+      {name}
+    </a>
+  );
 
   return { title: node, children: [childList] };
 };
@@ -102,7 +106,11 @@ function addParentsAndPrinciple(
     for (const [i, v] of validParents.entries()) {
       // Attach princple to last parent
       if (i === validParents.length - 1) {
-        principle.title = <a className="lbh-link govuk-link" href={`/property/${v.id}`}>{v.name}</a>;
+        principle.title = (
+          <a className="lbh-link govuk-link" href={`/property/${v.id}`}>
+            {v.name}
+          </a>
+        );
         treeData.push(principle);
       } else {
         treeData.push(generateNode(v.name, [], v.id));

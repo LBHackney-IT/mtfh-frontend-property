@@ -94,7 +94,7 @@ const PropertyBody = ({ assetDetails, childAssets }: PropertyBodyProps): JSX.Ele
     <>
       <div id="property-body-grid-container">
         <div id="property-tree-grid-area">
-        <h2 className="lbh-heading-h2">{locale.hierarchy.heading}</h2>
+          <h2 className="lbh-heading-h2">{locale.hierarchy.heading}</h2>
           <PropertyTree asset={assetDetails} childAssets={childAssets} />
         </div>
         <div id="new-process-grid-area">
