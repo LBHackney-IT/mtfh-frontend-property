@@ -47,7 +47,7 @@ export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
   };
   return (
     <div style={{ height: 300 }}>
-      <SortableTree treeData={treeData} onChange={onChangeHander} />
+      <SortableTree treeData={treeData} onChange={onChangeHander} isVirtualized={false} />
     </div>
   );
 };
