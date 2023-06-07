@@ -155,6 +155,12 @@ beforeEach(() => {
       return res(ctx.status(204));
     }),
   );
+
+  server.use(
+    rest.patch(`/api/v1/asset/:id`, (req, res, ctx) => {
+      return res(ctx.status(204));
+    }),
+  );
 });
 
 test("renders the error on asset load failure", async () => {
