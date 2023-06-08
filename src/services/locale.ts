@@ -37,18 +37,32 @@ export default {
       propSpec: (propSpec: AssetCharacteristics): any => {
         const {
           numberOfBedrooms,
+          numberOfSingleBeds,
+          numberOfDoubleBeds,
           numberOfLifts,
           numberOfLivingRooms,
+          numberOfFloors,
+          totalBlockFloors,
+          heating,
           windowType,
+          propertyFactor,
           yearConstructed,
+          architecturalType,
         } = propSpec;
 
         return [
           numberOfBedrooms,
+          numberOfSingleBeds,
+          numberOfDoubleBeds,
           numberOfLifts,
           numberOfLivingRooms,
+          numberOfFloors,
+          totalBlockFloors,
+          heating,
           windowType,
+          propertyFactor,
           yearConstructed,
+          architecturalType,
         ];
       },
     },
@@ -97,10 +111,17 @@ export default {
   },
   assetCharacteristics: {
     numberOfBedroomsLabel: "Number of Bedrooms",
+    numberOfSingleBeds: "Number of single beds",
+    numberOfDoubleBeds: "Number of double beds",
     numberOfLiftsLabel: "Number of Lifts",
     numberOfLivingRoomsLabel: "Number of Living rooms",
+    numberOfFloors: "Number of floors in the dwelling",
+    totalBlockFloors: "Number of floors in block",
+    heating: "Heating",
     windowTypeLabel: "Window Type",
+    propertyFactor: "Property factor",
     yearConstructedLabel: "Year Constructed",
+    architecturalType: "Architectural type"
   },
   assetCouldNotBeLoaded: "This property could not be loaded.",
   errors: {
