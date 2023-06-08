@@ -5,6 +5,7 @@ import { AssetDetails, TenureDetails } from "../../components";
 import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
 import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
+import { PropertyTree } from "../../utils/property-tree";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
@@ -33,6 +34,7 @@ import "./styles.scss";
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
+  assetchildren: Asset[] | undefined;
 }
 
 interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {
@@ -81,38 +83,58 @@ const AssetSideBar = ({
 };
 
 interface PropertyBodyProps {
-  propertyId: string;
-  assetId: string;
+  assetDetails: Asset;
+  childAssets: Asset[] | undefined;
 }
 
-const PropertyBody = ({ propertyId, assetId }: PropertyBodyProps): JSX.Element => {
+const PropertyBody = ({ assetDetails, childAssets }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
   return (
-    <div>
-      <Button variant="primary" as={RouterLink} to={`/processes/property/${propertyId}`}>
-        {locale.static.newProcess}
-      </Button>
-      {hasRepairsList && (
-        <>
-          <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
-          <WorkOrderList assetId={assetId} />
-        </>
-      )}
-      <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
-      <Button as={RouterLink} to={`/comment/property/${propertyId}`}>
-        {locale.comments.addComment}
-      </Button>
-      <div>
-        <CommentList targetId={propertyId} />
+    <>
+      <div id="property-body-grid-container">
+        <div id="property-tree-grid-area">
+          <h2 className="lbh-heading-h2">{locale.hierarchy.heading}</h2>
+          <PropertyTree asset={assetDetails} childAssets={childAssets} />
+        </div>
+        <div id="new-process-grid-area">
+          <Button
+            variant="primary"
+            as={RouterLink}
+            to={`/processes/property/${assetDetails.id}`}
+          >
+            {locale.static.newProcess}
+          </Button>
+        </div>
+        <div id="repairs-grid-area">
+          {hasRepairsList && (
+            <>
+              <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
+              <WorkOrderList assetId={assetDetails.assetId} />
+            </>
+          )}
+        </div>
+        <div id="comments-grid-area">
+          <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
+          <Button as={RouterLink} to={`/comment/property/${assetDetails.id}`}>
+            {locale.comments.addComment}
+          </Button>
+          <div>
+            <CommentList targetId={assetDetails.id} />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
+export const AssetLayout: FC<AssetLayoutProperties> = ({
+  assetDetails,
+  assetchildren,
+}) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
+
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
   if (assetDetails.tenure) {
     if (tenure && cautionaryAlerts) {
@@ -159,9 +181,15 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({ assetDetails }) => {
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
+        side={
+          <AssetSideBar
+            assetDetails={assetDetails}
+            alerts={alertsData.alerts}
+            assetchildren={undefined}
+          />
+        }
       >
-        <PropertyBody assetId={assetDetails.assetId} propertyId={assetDetails.id} />
+        <PropertyBody assetDetails={assetDetails} childAssets={assetchildren} />
       </Layout>
     </PageAnnouncementProvider>
   );

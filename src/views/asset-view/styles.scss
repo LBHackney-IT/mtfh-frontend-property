@@ -5,3 +5,34 @@
         width: 100%;
     }
 }
+
+.rst__nodeContent, .rst__nodeContent * {
+    margin-top: revert !important;
+  }
+  
+.rst__lineBlock {
+    margin-top: revert !important;
+}
+
+.rst__rowContent {
+    margin-top: revert !important;
+}
+
+.rst__node {
+    margin-top: revert !important;
+}
+
+.rst__rowContents {
+    box-shadow: 0 0 0 0;
+}
+
+.rst__moveHandle {
+    box-shadow: none !important;
+    background: none !important;
+    width: 0;
+}
+
+.rst__loadingHandle {
+    box-shadow: none !important;
+    background: none !important;
+}
