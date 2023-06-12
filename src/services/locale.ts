@@ -48,9 +48,6 @@ export default {
   repairs: {
     heading: "Repairs",
   },
-  hierarchy: {
-    heading: "Asset hierarchy",
-  },
   tenureDetails: {
     tenureLabel: "Tenure",
     expandedTenureSection: "Tenure details",
