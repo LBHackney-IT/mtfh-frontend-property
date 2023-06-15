@@ -29,17 +29,6 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             Asset ID
           </label>
-          <span
-            class="govuk-error-message lbh-error-message"
-            id="assetId-input-error"
-          >
-            <span
-              class="govuk-visually-hidden"
-              data-testid="error-asset-id"
-            >
-              Error:
-            </span>
-          </span>
           <input
             class="govuk-input lbh-input"
             data-testid="asset-id"
@@ -58,17 +47,6 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             Asset Type
           </label>
-          <span
-            class="govuk-error-message lbh-error-message"
-            id="assetType-input-error"
-          >
-            <span
-              class="govuk-visually-hidden"
-              data-testid="error-asset-type"
-            >
-              Error:
-            </span>
-          </span>
           <select
             class="govuk-input lbh-input"
             data-testid="asset-type"
@@ -367,17 +345,6 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             Address line 1
           </label>
-          <span
-            class="govuk-error-message lbh-error-message"
-            id="address-line-1-input-error"
-          >
-            <span
-              class="govuk-visually-hidden"
-              data-testid="error-address-line-1"
-            >
-              Error:
-            </span>
-          </span>
           <input
             class="govuk-input lbh-input"
             data-testid="address-line-1"
@@ -433,20 +400,8 @@ exports[`renders the whole 'New asset form' view 1`] = `
             class="govuk-label lbh-label"
             for="postcode"
           >
-            Postcode*
+            Postcode
           </label>
-          <span
-            class="govuk-error-message lbh-error-message"
-            id="postcode-input-error"
-          >
-            <span
-              class="govuk-visually-hidden"
-              data-testid="error-postcode"
-            >
-              Error:
-            </span>
-             
-          </span>
           <input
             class="govuk-input lbh-input"
             data-testid="postcode"
@@ -614,18 +569,6 @@ exports[`renders the whole 'New asset form' view 1`] = `
             >
               Is LBH property?
             </legend>
-            <span
-              class="govuk-error-message lbh-error-message"
-              id="is-lbh-property-error"
-            >
-              <span
-                class="govuk-visually-hidden"
-                data-testid="error-is-council-property"
-              >
-                Error:
-              </span>
-               
-            </span>
             <div
               class="govuk-radios lbh-radios"
             >
@@ -677,18 +620,6 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             Managing organisation
           </label>
-          <span
-            class="govuk-error-message lbh-error-message"
-            id="managing-organisation-input-error"
-          >
-            <span
-              class="govuk-visually-hidden"
-              data-testid="error-managing-organisation"
-            >
-              Error:
-            </span>
-             
-          </span>
           <select
             class="govuk-input lbh-input"
             data-testid="managing-organisation"
@@ -754,18 +685,6 @@ exports[`renders the whole 'New asset form' view 1`] = `
             >
               Is TMO managed?
             </legend>
-            <span
-              class="govuk-error-message lbh-error-message"
-              id="is-tmo-managed-error"
-            >
-              <span
-                class="govuk-visually-hidden"
-                data-testid="error-is-tmo-managed"
-              >
-                Error:
-              </span>
-               
-            </span>
             <div
               class="govuk-radios lbh-radios"
             >
@@ -808,6 +727,68 @@ exports[`renders the whole 'New asset form' view 1`] = `
             </div>
           </fieldset>
         </div>
+        <label
+          class="govuk-label lbh-label"
+          for="patches"
+        >
+          Patches
+        </label>
+        <div
+          id="property-patches-container"
+        >
+          <div>
+            <svg
+              class="mtfh-icon"
+              focusable="false"
+              height="50"
+              stroke="#00703c"
+              viewBox="0 0 42 42"
+              width="50"
+            >
+              <title>
+                Loading...
+              </title>
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  stroke-width="5"
+                  transform="translate(3 3)"
+                >
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="18"
+                    stroke-opacity=".5"
+                  />
+                  <path
+                    d="M36 18c0-9.94-8.06-18-18-18"
+                    transform="rotate(112.708 18 18)"
+                  >
+                    <animatetransform
+                      attributeName="transform"
+                      dur="1s"
+                      from="0 18 18"
+                      repeatCount="indefinite"
+                      to="360 18 18"
+                      type="rotate"
+                    />
+                  </path>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <button
+            class="lbh-link"
+            data-testid="patch-add-link"
+            id="patch-add-link"
+          >
+            Add another patch
+          </button>
+        </div>
         <h2
           class="lbh-heading-h2"
         >
@@ -835,17 +816,6 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             Year constructed
           </label>
-          <span
-            class="govuk-error-message lbh-error-message"
-            id="year-constructed-input-error"
-          >
-            <span
-              class="govuk-visually-hidden"
-              data-testid="year-constructed"
-            >
-              Error:
-            </span>
-          </span>
           <input
             class="govuk-input lbh-input"
             data-testid="year-constructed"

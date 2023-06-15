@@ -1,17 +1,35 @@
 @import '~lbh-frontend/lbh/base';
 
 #new-property-form {
-    input, select {
+
+    input,
+    select {
         width: 500px;
     }
 }
 
 .new-property-form-actions {
-    button, a {
+
+    button,
+    a {
         width: 240px;
     }
 }
 
 #submit-new-property-button {
     margin-right: 20px;
+}
+
+.patch {
+    display: flex;
+}
+
+#patch-add-link {
+    font-size: 16px !important;
+}
+
+.patch-remove-link {
+    margin-left: 10px;
+    margin-top: 0px;
+    font-size: 16px !important;
 }
