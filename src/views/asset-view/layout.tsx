@@ -49,13 +49,7 @@ const AssetSideBar = ({
   ...properties
 }: AssetSideBarProperties) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
-  const {
-    numberOfBedrooms,
-    numberOfLifts,
-    numberOfLivingRooms,
-    windowType,
-    yearConstructed,
-  } = assetCharacteristics;
+
   return (
     <div className="mtfh-asset-sidebar">
       <SideBar id="property-view-sidebar" {...properties}>
@@ -70,13 +64,7 @@ const AssetSideBar = ({
               <span className="govuk-details__summary-text">Property Specification</span>
             </summary>
             <div className="govuk-details__text">
-              <PropertySpecification
-                numberOfBedrooms={numberOfBedrooms}
-                numberOfLifts={numberOfLifts}
-                numberOfLivingRooms={numberOfLivingRooms}
-                windowType={windowType}
-                yearConstructed={yearConstructed}
-              />
+              <PropertySpecification assetCharacteristics={assetCharacteristics} />
             </div>
           </details>
           {isAuthorisedForGroups(assetAdminAuthGroups) && (

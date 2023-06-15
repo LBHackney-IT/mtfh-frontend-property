@@ -7,30 +7,34 @@ import { locale } from "../../services";
 import { PropertySpecification } from "./asset-characteristics";
 
 describe("AssetCharacteristics", () => {
-  it("should display Property Specification", () => {
+  beforeEach(() => {
     render(
-      <PropertySpecification
-        numberOfBedrooms={mockAssetV1.assetCharacteristics.numberOfBedrooms}
-        numberOfLifts={mockAssetV1.assetCharacteristics.numberOfLifts}
-        numberOfLivingRooms={mockAssetV1.assetCharacteristics.windowType}
-        windowType={mockAssetV1.assetCharacteristics.windowType}
-        yearConstructed={mockAssetV1.assetCharacteristics.yearConstructed}
-      />,
+      <PropertySpecification assetCharacteristics={mockAssetV1.assetCharacteristics} />,
     );
-    expect(
-      screen.getByText(locale.assetCharacteristics.numberOfBedroomsLabel),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(locale.assetCharacteristics.numberOfLiftsLabel),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(locale.assetCharacteristics.numberOfBedroomsLabel),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(locale.assetCharacteristics.windowTypeLabel),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(locale.assetCharacteristics.yearConstructedLabel),
-    ).toBeInTheDocument();
+  });
+
+  it("should display the correct characteristic headers", () => {
+    for (const characteristic in mockAssetV1.assetCharacteristics) {
+      const summaryRow = screen.getByTestId(characteristic);
+
+      const expectedHeader =
+        locale.assetCharacteristics[
+          characteristic as keyof typeof locale.assetCharacteristics
+        ];
+      const expectedHeaderString = expectedHeader?.toString() || "";
+
+      expect(summaryRow?.textContent).toContain(expectedHeaderString);
+    }
+  });
+
+  it("should display the correct characteristic values", () => {
+    for (const characteristic in mockAssetV1.assetCharacteristics) {
+      const summaryRow = screen.getByTestId(characteristic);
+
+      const expectedValue = mockAssetV1[characteristic as keyof typeof mockAssetV1];
+      const expectedValueString = expectedValue?.toString() || "";
+
+      expect(summaryRow?.textContent).toContain(expectedValueString);
+    }
   });
 });
