@@ -35,7 +35,7 @@ import "./styles.scss";
 export interface AssetLayoutProperties {
   assetDetails: Asset;
   assetCharacteristics: AssetCharacteristics;
-  assetchildren: Asset[] | undefined;
+  assetChildren: Asset[] | undefined;
 }
 
 export interface AssetCharacteristicsProperties {}
@@ -143,7 +143,7 @@ const PropertyBody = ({ assetDetails, childAssets }: PropertyBodyProps): JSX.Ele
 export const AssetLayout: FC<AssetLayoutProperties> = ({
   assetDetails,
   assetCharacteristics,
-  assetchildren
+  assetChildren,
 }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
@@ -199,11 +199,11 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({
             assetDetails={assetDetails}
             assetCharacteristics={assetCharacteristics}
             alerts={alertsData.alerts}
-            assetchildren={undefined}
+            assetChildren={undefined}
           />
         }
       >
-        <PropertyBody assetDetails={assetDetails} childAssets={assetchildren} />
+        <PropertyBody assetDetails={assetDetails} childAssets={assetChildren} />
       </Layout>
     </PageAnnouncementProvider>
   );

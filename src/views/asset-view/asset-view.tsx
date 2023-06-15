@@ -38,7 +38,7 @@ export const AssetView = (): JSX.Element => {
         <AssetLayout
           assetDetails={asset}
           assetCharacteristics={asset.assetCharacteristics}
-          assetchildren={childAssetResponse?.childAssets}
+          assetChildren={childAssetResponse?.childAssets}
         />
       ) : (
         <h1>{locale.assetCouldNotBeLoaded}</h1>
