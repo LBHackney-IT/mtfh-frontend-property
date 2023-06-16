@@ -73,25 +73,32 @@ export const PropertySpecification = ({
 
   // Loop through props as SummaryListItems
   return (
-    <aside className="mtfh-asset-charateristics">
-      <SummaryList overrides={[0.5, 0.5]} variant="base">
-        {Object.keys(propSpecProps)
-          // Sort the labels not null on top
-          .sort((label) => {
-            if (propSpecProps[label].value == null) return 1;
-            return -1;
-          })
-          .map((item, index) => (
-            <SummaryListItem
-              key={index}
-              title={propSpecProps[item] && propSpecProps[item].label}
-              fallback={" "}
-              data-testid={item?.toString()}
-            >
-              {propSpecProps[item as keyof AssetCharacteristics]?.value?.toString()}
-            </SummaryListItem>
-          ))}
-      </SummaryList>
-    </aside>
+    <details className="govuk-details" data-module="govuk-details">
+      <summary className="govuk-details__summary">
+        <span className="govuk-details__summary-text">Property Specification</span>
+      </summary>
+      <div className="govuk-details__text">
+        <aside className="mtfh-asset-charateristics">
+          <SummaryList overrides={[0.5, 0.5]} variant="base">
+            {Object.keys(propSpecProps)
+              // Sort the labels not null on top
+              .sort((label) => {
+                if (propSpecProps[label].value == null) return 1;
+                return -1;
+              })
+              .map((item, index) => (
+                <SummaryListItem
+                  key={index}
+                  title={propSpecProps[item] && propSpecProps[item].label}
+                  fallback={" "}
+                  data-testid={item?.toString()}
+                >
+                  {propSpecProps[item as keyof AssetCharacteristics]?.value?.toString()}
+                </SummaryListItem>
+              ))}
+          </SummaryList>
+        </aside>
+      </div>
+    </details>
   );
 };

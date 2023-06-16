@@ -61,14 +61,7 @@ const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          <details className="govuk-details" data-module="govuk-details">
-            <summary className="govuk-details__summary">
-              <span className="govuk-details__summary-text">Property Specification</span>
-            </summary>
-            <div className="govuk-details__text">
-              <PropertySpecification assetCharacteristics={assetCharacteristics} />
-            </div>
-          </details>
+          <PropertySpecification assetCharacteristics={assetCharacteristics} />
           {isAuthorisedForGroups(assetAdminAuthGroups) && (
             <Button
               as={RouterLink}
