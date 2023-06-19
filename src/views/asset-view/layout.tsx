@@ -1,33 +1,30 @@
 import React, { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
+
 import { AssetDetails, PropertySpecification, TenureDetails } from "../../components";
 import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
+
+import { AssetSideBar } from "../../components/asset-sidebar";
+import { PropertyBody } from "../../components/property-body";
+
 import { locale } from "../../services";
-import { assetAdminAuthGroups } from "../../services/config/config";
-import { PropertyTree } from "../../utils/property-tree";
 
 import { Asset, AssetCharacteristics } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
-import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
 import { HouseholdMember } from "@mtfh/common/lib/api/tenure/v1/types";
-import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import {
   Alert as AlertIcon,
-  Button,
   Center,
-  CommentList,
   Heading,
   Layout,
   Link,
   PageAnnouncement,
   PageAnnouncementProvider,
-  SideBar,
-  SideBarProps,
   Spinner,
-  WorkOrderList,
 } from "@mtfh/common/lib/components";
+
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 import "./styles.scss";
@@ -88,10 +85,12 @@ const AssetSideBar = ({
   );
 };
 
-interface PropertyBodyProps {
+
+export interface Props {
   assetDetails: Asset;
-  childAssets: Asset[] | undefined;
+  assetChildren: Asset[] | undefined;
 }
+
 
 const PropertyBody = ({ assetDetails, childAssets }: PropertyBodyProps): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
@@ -138,23 +137,24 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({
   assetCharacteristics,
   assetChildren,
 }) => {
+
+export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
+
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
 
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
-  if (assetDetails.tenure) {
-    if (tenure && cautionaryAlerts) {
-      const householdMembers: HouseholdMember[] = tenure.householdMembers;
-      cautionaryAlerts.forEach((alert) => {
-        householdMembers.forEach((householdMember) => {
-          if (alert.personName) {
-            if (alert.personName === householdMember.fullName) {
-              alert.personId = householdMember.id;
-            }
-          }
-        });
+
+  if (assetDetails.tenure && tenure && cautionaryAlerts) {
+    const householdMembers: HouseholdMember[] = tenure.householdMembers;
+
+    cautionaryAlerts.forEach((alert) => {
+      householdMembers.forEach((householdMember) => {
+        if (alert.personName && alert.personName === householdMember.fullName) {
+          alert.personId = householdMember.id;
+        }
       });
-    }
+    });
   }
 
   if (!alertsData) {
@@ -187,6 +187,7 @@ export const AssetLayout: FC<AssetLayoutProperties> = ({
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
+        
         side={
           <AssetSideBar
             assetDetails={assetDetails}
