@@ -5,11 +5,7 @@ import { locale } from "../../services";
 import { PropertyTree } from "../../utils/property-tree";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import {
-  Button,
-  CommentList,
-  WorkOrderList,
-} from "@mtfh/common/lib/components";
+import { Button, CommentList, WorkOrderList } from "@mtfh/common/lib/components";
 import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 
 interface Props {
