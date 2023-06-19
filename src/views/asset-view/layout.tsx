@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
+import { AssetSideBar } from "../../components/asset-sidebar";
+import { PropertyBody } from "../../components/property-body";
 import { locale } from "../../services";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -16,11 +18,7 @@ import {
   PageAnnouncement,
   PageAnnouncementProvider,
   Spinner,
-  WorkOrderList,
 } from "@mtfh/common/lib/components";
-
-import { AssetSideBar } from "../../components/asset-sidebar";
-import { PropertyBody } from "../../components/property-body";
 
 import "./styles.scss";
 
@@ -81,7 +79,7 @@ export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
           <AssetSideBar
             assetDetails={assetDetails}
             alerts={alertsData.alerts}
-            assetchildren={undefined}
+            assetchildren={assetchildren}
           />
         }
       >

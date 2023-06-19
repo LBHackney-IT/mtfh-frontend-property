@@ -1,22 +1,16 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { AssetDetails, TenureDetails } from "../../components";
-import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
+import { AssetDetails, TenureDetails } from "..";
 import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
+import { CautionaryAlertsDetails } from "../cautionary-alerts-details/cautionary-alerts-details";
 
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
-import {
-  Button,
-  Link,
-  SideBar,
-  SideBarProps,
-} from "@mtfh/common/lib/components";
-import { useFeatureToggle } from "@mtfh/common/lib/hooks";
+import { Button, SideBar, SideBarProps } from "@mtfh/common/lib/components";
 import { isFutureDate } from "@mtfh/common/lib/utils";
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
 
 interface Props extends Partial<SideBarProps> {
   alerts: Alert[];
