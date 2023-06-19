@@ -34,7 +34,9 @@ export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => 
             assetReference={assetId}
           />
           {isAuthorisedForGroups(assetAdminAuthGroups) && (
-            <Button
+           <>
+           <div style={{color: "hsl(0, 50%, 50%)"}}>Confirm that all assetTypes can edit the address</div>
+ <Button
               as={RouterLink}
               to={assetAddress.uprn ? `/property/edit/${id}` : "#"}
               isDisabled={!assetAddress.uprn}
@@ -42,6 +44,7 @@ export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => 
             >
               {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN missing"}
             </Button>
+           </>
           )}
           <CautionaryAlertsDetails alerts={alerts} />
           <TenureDetails tenure={tenure} />

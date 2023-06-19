@@ -33,15 +33,6 @@ export const AssetView = (): JSX.Element => {
   }
 
   return (
-    <>
-      {asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling" ? (
-        <AssetLayout
-          assetDetails={asset}
-          assetChildren={childAssetResponse?.childAssets}
-        />
-      ) : (
-        <h1>{locale.assetCouldNotBeLoaded}</h1>
-      )}
-    </>
+    <AssetLayout assetDetails={asset} assetChildren={childAssetResponse?.childAssets} />
   );
 };
