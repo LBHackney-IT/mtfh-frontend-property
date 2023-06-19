@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { locale } from "../../services";
 import { AssetLayout } from "./layout";
 
-import { useAsset, useChildAssets } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, useAsset, useChildAssets } from "@mtfh/common/lib/api/asset/v1";
 import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
 
 export const AssetView = (): JSX.Element => {
@@ -12,6 +12,10 @@ export const AssetView = (): JSX.Element => {
 
   const { data: asset, ...assetRequest } = useAsset(assetId);
   const { data: childAssetResponse } = useChildAssets(assetId);
+
+  const isDwellingOrLettableNonDwelling = (asset: Asset) => {
+    return asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling";
+  };
 
   if (assetRequest.error) {
     return (
@@ -31,17 +35,10 @@ export const AssetView = (): JSX.Element => {
     );
   }
 
-  // What we have already addresses, data box with time and uprn, cautionary alerts, tenure, processes, repairs, comments and hierarchy.
-  // We won’t need tenure or Cautionary Alerts, or processes. We should have comments or repairs.
-
-  // {asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling" ? (
-
-  const showTenureInformation =
-    asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling";
-  const showCautionaryAlerts =
-    asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling";
-  const enableNewProcesses =
-    asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling";
+  const showTenureInformation = isDwellingOrLettableNonDwelling(asset);
+  const showCautionaryAlerts = isDwellingOrLettableNonDwelling(asset);
+  const enableNewProcesses = isDwellingOrLettableNonDwelling(asset);
+  const enableEditAddress = isDwellingOrLettableNonDwelling(asset);
 
   return (
     <AssetLayout
@@ -50,6 +47,7 @@ export const AssetView = (): JSX.Element => {
       showTenureInformation={showTenureInformation}
       showCautionaryAlerts={showCautionaryAlerts}
       enableNewProcesses={enableNewProcesses}
+      enableEditAddress={enableEditAddress}
     />
   );
 };

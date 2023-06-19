@@ -17,6 +17,7 @@ interface Props extends Partial<SideBarProps> {
   assetDetails: Asset;
   showTenureInformation: boolean;
   showCautionaryAlerts: boolean;
+  enableEditAddress: boolean;
 }
 
 export const AssetSideBar = ({
@@ -24,6 +25,7 @@ export const AssetSideBar = ({
   alerts,
   showTenureInformation,
   showCautionaryAlerts,
+  enableEditAddress,
   ...properties
 }: Props) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
@@ -41,11 +43,7 @@ export const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
-          {isAuthorisedForGroups(assetAdminAuthGroups) && (
-            <>
-              <div style={{ color: "hsl(0, 50%, 50%)" }}>
-                Confirm that all assetTypes can edit the address
-              </div>
+          {enableEditAddress && isAuthorisedForGroups(assetAdminAuthGroups) && (
               <Button
                 as={RouterLink}
                 to={assetAddress.uprn ? `/property/edit/${id}` : "#"}
@@ -54,7 +52,6 @@ export const AssetSideBar = ({
               >
                 {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN missing"}
               </Button>
-            </>
           )}
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
           {showTenureInformation && (

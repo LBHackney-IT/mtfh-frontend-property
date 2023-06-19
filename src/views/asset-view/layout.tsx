@@ -27,6 +27,7 @@ export interface Props {
   showTenureInformation: boolean;
   showCautionaryAlerts: boolean;
   enableNewProcesses: boolean;
+  enableEditAddress: boolean;
 }
 
 export const AssetLayout: FC<Props> = ({
@@ -35,6 +36,7 @@ export const AssetLayout: FC<Props> = ({
   showTenureInformation,
   showCautionaryAlerts,
   enableNewProcesses,
+  enableEditAddress,
 }) => {
   const { alertsData, isLoading: isLoadingCautionaryAlerts } = useCautionaryAlerts(
     assetDetails.assetId,
@@ -94,6 +96,7 @@ export const AssetLayout: FC<Props> = ({
             alerts={alertsData}
             showTenureInformation={showTenureInformation}
             showCautionaryAlerts={showCautionaryAlerts}
+            enableEditAddress={enableEditAddress}
           />
         }
       >
