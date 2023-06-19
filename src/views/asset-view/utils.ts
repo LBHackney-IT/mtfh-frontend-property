@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { axiosInstance } from "@mtfh/common";
-import { config } from "@mtfh/common/lib/config";
 import { Alert, CautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
+import { config } from "@mtfh/common/lib/config";
 
 const getCautionaryAlerts = async (assetId: string) => {
-  return await axiosInstance.get<CautionaryAlert>(
+  return axiosInstance.get<CautionaryAlert>(
     `${config.cautionaryApiUrlV1}/cautionary-alerts/properties-new/${assetId}`,
   );
 };
@@ -28,6 +28,7 @@ export const useCautionaryAlerts = (assetId: string, shouldLoad: boolean) => {
       .finally(() => {
         setIsLoading(false);
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { alertsData, isLoading };

@@ -14,7 +14,11 @@ interface Props {
   enableNewProcesses: boolean;
 }
 
-export const PropertyBody = ({ assetDetails, childAssets, enableNewProcesses: showProcesses }: Props): JSX.Element => {
+export const PropertyBody = ({
+  assetDetails,
+  childAssets,
+  enableNewProcesses: showProcesses,
+}: Props): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
   return (
@@ -23,19 +27,17 @@ export const PropertyBody = ({ assetDetails, childAssets, enableNewProcesses: sh
         <div id="property-tree-grid-area">
           <PropertyTree asset={assetDetails} childAssets={childAssets} />
         </div>
-        {
-          showProcesses && (
-            <div id="new-process-grid-area">
-          <Button
-            variant="primary"
-            as={RouterLink}
-            to={`/processes/property/${assetDetails.id}`}
-          >
-            {locale.static.newProcess}
-          </Button>
-        </div>
-          )
-        }
+        {showProcesses && (
+          <div id="new-process-grid-area">
+            <Button
+              variant="primary"
+              as={RouterLink}
+              to={`/processes/property/${assetDetails.id}`}
+            >
+              {locale.static.newProcess}
+            </Button>
+          </div>
+        )}
         <div id="repairs-grid-area">
           {hasRepairsList && (
             <>

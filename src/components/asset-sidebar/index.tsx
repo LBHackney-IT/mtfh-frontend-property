@@ -56,11 +56,7 @@ export const AssetSideBar = ({
               </Button>
             </>
           )}
-          {
-            showCautionaryAlerts && (
-              <CautionaryAlertsDetails alerts={alerts} />
-            )
-          }
+          {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
           {showTenureInformation && (
             <>
               <TenureDetails tenure={tenure} />
