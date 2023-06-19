@@ -28,7 +28,7 @@ export const useCautionaryAlerts = (assetId: string, shouldLoad: boolean) => {
       .finally(() => {
         setIsLoading(false);
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { alertsData, isLoading };
