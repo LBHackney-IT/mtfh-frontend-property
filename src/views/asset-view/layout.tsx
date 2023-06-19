@@ -79,7 +79,6 @@ export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
           <AssetSideBar
             assetDetails={assetDetails}
             alerts={alertsData.alerts}
-            assetChildren={undefined}
           />
         }
       >
