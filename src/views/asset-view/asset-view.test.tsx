@@ -3,7 +3,6 @@ import React from "react";
 import {
   getAssetV1,
   mockActiveTenureV1,
-  mockAssetInvalidAssetTypeV1,
   mockAssetLettableNonDwellingV1,
   mockAssetV1,
   mockCommentsV2,
