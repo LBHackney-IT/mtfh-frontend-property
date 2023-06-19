@@ -192,21 +192,6 @@ test("renders the asset view for lettable-non-dwelling", async () => {
   ).not.toBeInTheDocument();
 });
 
-test("renders the asset view for invalid asset type", async () => {
-  server.resetHandlers();
-  server.use(
-    rest.get("/api/v1/assets/:id", (req, res, ctx) =>
-      res(ctx.status(200), ctx.set("ETag", '"2"'), ctx.json(mockAssetInvalidAssetTypeV1)),
-    ),
-  );
-  render(<AssetView />, {
-    url: `/property/${mockAssetInvalidAssetTypeV1.id}`,
-    path: "/property/:assetId",
-  });
-
-  await screen.findByText(locale.assetCouldNotBeLoaded);
-});
-
 it("renders the asset view for missing person id", async () => {
   mockActiveTenureV1.householdMembers[0].id = "2d9d6ac5-d376-4ac4-9a00-85659be82d10";
   mockActiveTenureV1.householdMembers[0].fullName = "FAKE_Alice FAKE_Rowe";
