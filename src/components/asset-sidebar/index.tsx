@@ -15,7 +15,7 @@ import { isFutureDate } from "@mtfh/common/lib/utils";
 interface Props extends Partial<SideBarProps> {
   alerts: Alert[];
   assetDetails: Asset;
-  assetchildren: Asset[] | undefined;
+  assetChildren: Asset[] | undefined;
 }
 
 export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => {

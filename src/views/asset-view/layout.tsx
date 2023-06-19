@@ -24,10 +24,10 @@ import "./styles.scss";
 
 export interface Props {
   assetDetails: Asset;
-  assetchildren: Asset[] | undefined;
+  assetChildren: Asset[] | undefined;
 }
 
-export const AssetLayout: FC<Props> = ({ assetDetails, assetchildren }) => {
+export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
 
@@ -79,11 +79,11 @@ export const AssetLayout: FC<Props> = ({ assetDetails, assetchildren }) => {
           <AssetSideBar
             assetDetails={assetDetails}
             alerts={alertsData.alerts}
-            assetchildren={undefined}
+            assetChildren={undefined}
           />
         }
       >
-        <PropertyBody assetDetails={assetDetails} childAssets={assetchildren} />
+        <PropertyBody assetDetails={assetDetails} childAssets={assetChildren} />
       </Layout>
     </PageAnnouncementProvider>
   );
