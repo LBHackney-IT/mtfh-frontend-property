@@ -75,12 +75,7 @@ export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={
-          <AssetSideBar
-            assetDetails={assetDetails}
-            alerts={alertsData.alerts}
-          />
-        }
+        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
       >
         <PropertyBody assetDetails={assetDetails} childAssets={assetChildren} />
       </Layout>
