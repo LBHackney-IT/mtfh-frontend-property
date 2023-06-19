@@ -20,11 +20,9 @@ interface Props extends Partial<SideBarProps> {
 export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
 
-  const showTenure = () => {
-    return (
-      !tenure || !tenure.isActive || !isFutureDate(tenure.endOfTenureDate) || !tenure.id
-    );
-  };
+  // only show button when there is no active tenure on the asset
+  const showAddTenureButton = () =>
+    !tenure || !tenure.isActive || !isFutureDate(tenure.endOfTenureDate) || !tenure.id;
 
   return (
     <div className="mtfh-asset-sidebar">
@@ -50,7 +48,7 @@ export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => 
         </>
       </SideBar>
 
-      {showTenure() && (
+      {showAddTenureButton() && (
         <Button as={RouterLink} to={`/tenure/${id}/add`}>
           {locale.assets.assetDetails.newTenure}
         </Button>
