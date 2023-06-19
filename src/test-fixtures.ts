@@ -1,6 +1,18 @@
 import { Asset } from "@mtfh/common/lib/api/asset/v1/types";
 
-export const testValidDwellingFixture: Asset = {
+// Create NewAsset interface without assetCharacteristics
+// This is for compatibility and will need to be removed once we expand common and perhaps test-utils to use the new models
+export interface AssetWithOldCharacteristics extends Omit<Asset, "assetCharacteristics"> {
+  assetCharacteristics: {
+    numberOfBedrooms: number;
+    numberOfLifts: number;
+    numberOfLivingRooms: number;
+    windowType: string;
+    yearConstructed: string;
+  };
+}
+
+export const testValidDwellingFixture: AssetWithOldCharacteristics = {
   id: "2d13b5cb-baf2-91fd-c231-8c5c2ee9548c",
   assetId: "00023400",
   assetType: "Dwelling",
@@ -63,7 +75,27 @@ export const testValidDwellingFixture: Asset = {
   },
 };
 
-export const testValidchildAssetsFixture = [
+export interface ValidChildAsset extends AssetWithOldCharacteristics {
+  isAssetCautionaryAlerted: boolean;
+  isActive: boolean;
+  assetStatus: null;
+  assetContract: null;
+
+  assetManagement: {
+    agent: string;
+    areaOfficeName: string;
+    isCouncilProperty: boolean;
+    managingOrganisation: string;
+    managingOrganisationId: string;
+    owner: string;
+    isTMOManaged: boolean;
+    propertyOccupiedStatus: string;
+    isNoRepairsMaintenance: boolean;
+    isTemporaryAccomodation: boolean;
+  };
+}
+
+export const testValidChildAssetFixture: ValidChildAsset[] = [
   {
     id: "77ec7c49-1ec5-0ef5-bd51-3fbccce7e96e",
     assetId: "00049158",

@@ -3,11 +3,13 @@ import React from "react";
 import SortableTree from "react-sortable-tree";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1/types";
+
 import "react-sortable-tree/style.css";
+import { AssetWithOldCharacteristics, ValidChildAsset } from "test-fixtures";
 
 interface PropertyTreeProps {
-  asset: Asset;
-  childAssets: Asset[] | undefined;
+  asset: Asset | AssetWithOldCharacteristics;
+  childAssets: Asset[] | ValidChildAsset[] | undefined;
 }
 
 export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
@@ -62,7 +64,7 @@ const generateNode = (name: string, childList: Array<JSX.Element>, id: string) =
   return { title: node, children: [childList] };
 };
 function generatePrinciple(
-  asset: Asset,
+  asset: Asset | AssetWithOldCharacteristics,
   childNodes: (
     | { title: JSX.Element; children: JSX.Element[][] }
     | { title: string; children: never[] }
@@ -82,7 +84,7 @@ function generatePrinciple(
 }
 
 function addParentsAndPrinciple(
-  asset: Asset,
+  asset: Asset | AssetWithOldCharacteristics,
   excludedTreeAssets: string,
   principle: {
     title: JSX.Element;

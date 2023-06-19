@@ -1,13 +1,8 @@
 import React, { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-
-import { AssetDetails, PropertySpecification, TenureDetails } from "../../components";
-import { CautionaryAlertsDetails } from "../../components/cautionary-alerts-details/cautionary-alerts-details";
-
 import { AssetSideBar } from "../../components/asset-sidebar";
 import { PropertyBody } from "../../components/property-body";
-
 import { locale } from "../../services";
 
 import { Asset, AssetCharacteristics } from "@mtfh/common/lib/api/asset/v1";
@@ -25,9 +20,13 @@ import {
   Spinner,
 } from "@mtfh/common/lib/components";
 
-import { useFeatureToggle } from "@mtfh/common/lib/hooks";
-import { isFutureDate } from "@mtfh/common/lib/utils";
 import "./styles.scss";
+
+export interface Props {
+  assetDetails: Asset;
+  assetCharacteristics: AssetCharacteristics;
+  assetChildren: Asset[] | undefined;
+}
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
@@ -35,111 +34,11 @@ export interface AssetLayoutProperties {
   assetChildren: Asset[] | undefined;
 }
 
-export interface AssetCharacteristicsProperties {}
-
-interface AssetSideBarProperties extends Partial<SideBarProps>, AssetLayoutProperties {
-  alerts: Alert[];
-}
-
-const AssetSideBar = ({
-  assetDetails,
-  assetCharacteristics,
-  alerts,
-  ...properties
-}: AssetSideBarProperties) => {
-  const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
-
-  return (
-    <div className="mtfh-asset-sidebar">
-      <SideBar id="property-view-sidebar" {...properties}>
-        <>
-          <AssetDetails
-            assetAddress={assetAddress}
-            assetType={assetType}
-            assetReference={assetId}
-          />
-          <PropertySpecification assetCharacteristics={assetCharacteristics} />
-          {isAuthorisedForGroups(assetAdminAuthGroups) && (
-            <Button
-              as={RouterLink}
-              to={assetAddress.uprn ? `/property/edit/${id}` : "#"}
-              isDisabled={!assetAddress.uprn}
-              data-testid="edit-address-button"
-            >
-              {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN missing"}
-            </Button>
-          )}
-          <CautionaryAlertsDetails alerts={alerts} />
-          <TenureDetails tenure={tenure} />
-        </>
-      </SideBar>
-      {(!tenure ||
-        !tenure.isActive ||
-        !isFutureDate(tenure.endOfTenureDate) ||
-        !tenure.id) && (
-        <Button as={RouterLink} to={`/tenure/${id}/add`}>
-          {locale.assets.assetDetails.newTenure}
-        </Button>
-      )}
-    </div>
-  );
-};
-
-
-export interface Props {
-  assetDetails: Asset;
-  assetChildren: Asset[] | undefined;
-}
-
-
-const PropertyBody = ({ assetDetails, childAssets }: PropertyBodyProps): JSX.Element => {
-  const hasRepairsList = useFeatureToggle("MMH.RepairsList");
-
-  return (
-    <>
-      <div id="property-body-grid-container">
-        <div id="property-tree-grid-area">
-          <PropertyTree asset={assetDetails} childAssets={childAssets} />
-        </div>
-        <div id="new-process-grid-area">
-          <Button
-            variant="primary"
-            as={RouterLink}
-            to={`/processes/property/${assetDetails.id}`}
-          >
-            {locale.static.newProcess}
-          </Button>
-        </div>
-        <div id="repairs-grid-area">
-          {hasRepairsList && (
-            <>
-              <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
-              <WorkOrderList assetId={assetDetails.assetId} />
-            </>
-          )}
-        </div>
-        <div id="comments-grid-area">
-          <h2 className="lbh-heading-h2">{locale.comments.heading}</h2>
-          <Button as={RouterLink} to={`/comment/property/${assetDetails.id}`}>
-            {locale.comments.addComment}
-          </Button>
-          <div>
-            <CommentList targetId={assetDetails.id} />
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export const AssetLayout: FC<AssetLayoutProperties> = ({
+export const AssetLayout: FC<Props> = ({
   assetDetails,
   assetCharacteristics,
   assetChildren,
 }) => {
-
-export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
-
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
 
@@ -187,13 +86,11 @@ export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        
         side={
           <AssetSideBar
             assetDetails={assetDetails}
             assetCharacteristics={assetCharacteristics}
             alerts={alertsData.alerts}
-            assetChildren={undefined}
           />
         }
       >
