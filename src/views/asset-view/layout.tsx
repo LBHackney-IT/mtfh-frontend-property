@@ -25,9 +25,18 @@ import "./styles.scss";
 export interface Props {
   assetDetails: Asset;
   assetChildren: Asset[] | undefined;
+  showTenureInformation: boolean;
+  showCautionaryAlerts: boolean;
+  enableNewProcesses: boolean;
 }
 
-export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
+export const AssetLayout: FC<Props> = ({
+  assetDetails,
+  assetChildren,
+  showTenureInformation,
+  showCautionaryAlerts,
+  enableNewProcesses,
+}) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
 
@@ -64,7 +73,7 @@ export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
         }
         top={
           <Heading variant="h1">
-            {alertsData.alerts?.length > 0 && (
+            {showCautionaryAlerts && alertsData.alerts?.length > 0 && (
               <AlertIcon
                 viewBox="0 0 37 58"
                 width="28"
@@ -75,9 +84,20 @@ export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
+        side={
+          <AssetSideBar
+            assetDetails={assetDetails}
+            alerts={alertsData.alerts}
+            showTenureInformation={showTenureInformation}
+            showCautionaryAlerts={showCautionaryAlerts}
+          />
+        }
       >
-        <PropertyBody assetDetails={assetDetails} childAssets={assetChildren} />
+        <PropertyBody
+          assetDetails={assetDetails}
+          childAssets={assetChildren}
+          enableNewProcesses={enableNewProcesses}
+        />
       </Layout>
     </PageAnnouncementProvider>
   );

@@ -15,9 +15,17 @@ import { isFutureDate } from "@mtfh/common/lib/utils";
 interface Props extends Partial<SideBarProps> {
   alerts: Alert[];
   assetDetails: Asset;
+  showTenureInformation: boolean;
+  showCautionaryAlerts: boolean;
 }
 
-export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => {
+export const AssetSideBar = ({
+  assetDetails,
+  alerts,
+  showTenureInformation,
+  showCautionaryAlerts,
+  ...properties
+}: Props) => {
   const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
 
   // only show button when there is no active tenure on the asset
@@ -34,28 +42,37 @@ export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => 
             assetReference={assetId}
           />
           {isAuthorisedForGroups(assetAdminAuthGroups) && (
-           <>
-           <div style={{color: "hsl(0, 50%, 50%)"}}>Confirm that all assetTypes can edit the address</div>
- <Button
-              as={RouterLink}
-              to={assetAddress.uprn ? `/property/edit/${id}` : "#"}
-              isDisabled={!assetAddress.uprn}
-              data-testid="edit-address-button"
-            >
-              {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN missing"}
-            </Button>
-           </>
+            <>
+              <div style={{ color: "hsl(0, 50%, 50%)" }}>
+                Confirm that all assetTypes can edit the address
+              </div>
+              <Button
+                as={RouterLink}
+                to={assetAddress.uprn ? `/property/edit/${id}` : "#"}
+                isDisabled={!assetAddress.uprn}
+                data-testid="edit-address-button"
+              >
+                {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN missing"}
+              </Button>
+            </>
           )}
-          <CautionaryAlertsDetails alerts={alerts} />
-          <TenureDetails tenure={tenure} />
+          {
+            showCautionaryAlerts && (
+              <CautionaryAlertsDetails alerts={alerts} />
+            )
+          }
+          {showTenureInformation && (
+            <>
+              <TenureDetails tenure={tenure} />
+              {showAddTenureButton() && (
+                <Button as={RouterLink} to={`/tenure/${id}/add`}>
+                  {locale.assets.assetDetails.newTenure}
+                </Button>
+              )}
+            </>
+          )}
         </>
       </SideBar>
-
-      {showAddTenureButton() && (
-        <Button as={RouterLink} to={`/tenure/${id}/add`}>
-          {locale.assets.assetDetails.newTenure}
-        </Button>
-      )}
     </div>
   );
 };

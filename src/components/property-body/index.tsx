@@ -11,9 +11,10 @@ import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 interface Props {
   assetDetails: Asset;
   childAssets: Asset[] | undefined;
+  enableNewProcesses: boolean;
 }
 
-export const PropertyBody = ({ assetDetails, childAssets }: Props): JSX.Element => {
+export const PropertyBody = ({ assetDetails, childAssets, enableNewProcesses: showProcesses }: Props): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
   return (
@@ -22,7 +23,9 @@ export const PropertyBody = ({ assetDetails, childAssets }: Props): JSX.Element 
         <div id="property-tree-grid-area">
           <PropertyTree asset={assetDetails} childAssets={childAssets} />
         </div>
-        <div id="new-process-grid-area">
+        {
+          showProcesses && (
+            <div id="new-process-grid-area">
           <Button
             variant="primary"
             as={RouterLink}
@@ -31,6 +34,8 @@ export const PropertyBody = ({ assetDetails, childAssets }: Props): JSX.Element 
             {locale.static.newProcess}
           </Button>
         </div>
+          )
+        }
         <div id="repairs-grid-area">
           {hasRepairsList && (
             <>
