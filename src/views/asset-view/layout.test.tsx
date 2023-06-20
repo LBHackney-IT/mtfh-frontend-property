@@ -67,8 +67,6 @@ const alert: Alert = {
   isActive: true,
 };
 
-// const mockApiRequest
-
 beforeEach(() => {
   jest.resetAllMocks();
 
