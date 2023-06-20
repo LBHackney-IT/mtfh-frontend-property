@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { axiosInstance } from "@mtfh/common";
-import { Alert, CautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
-import { config } from "@mtfh/common/lib/config";
-
-const getCautionaryAlerts = async (assetId: string) => {
-  return axiosInstance.get<CautionaryAlert>(
-    `${config.cautionaryApiUrlV1}/cautionary-alerts/properties-new/${assetId}`,
-  );
-};
+import { getPropertyCautionaryAlerts } from "@mtfh/common/lib/api/cautionary-alerts/v1";
+import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 
 export const useCautionaryAlerts = (assetId: string, shouldLoad: boolean) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +14,7 @@ export const useCautionaryAlerts = (assetId: string, shouldLoad: boolean) => {
       return;
     }
 
-    getCautionaryAlerts(assetId).then((res) => {
+    getPropertyCautionaryAlerts(assetId).then((res) => {
       setAlertsData(res?.data?.alerts || []);
       // only set loading as false if successfully loaded data
       setIsLoading(false);
