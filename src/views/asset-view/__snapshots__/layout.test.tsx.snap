@@ -186,49 +186,252 @@ exports[`it hides the cautionary alerts icon 1`] = `
 exports[`it shows the new cautionary alerts icon 1`] = `
 <div>
   <div
-    class="mtfh-center mtfh-center--horizontal mtfh-center--vertical"
+    class="mtfh-layout"
   >
-    <svg
-      class="mtfh-icon"
-      focusable="false"
-      height="50"
-      stroke="#00703c"
-      viewBox="0 0 42 42"
-      width="50"
+    <a
+      class="govuk-back-link lbh-back-link lbh-link--no-visited-state"
+      href="/search"
     >
-      <title>
-        Loading...
-      </title>
-      <g
-        fill="none"
-        fill-rule="evenodd"
+      Search results
+    </a>
+    <div
+      id="content"
+    />
+    <h1
+      class="lbh-heading-h1"
+    >
+      <span
+        data-test="cautionary-alerts-icon"
       >
-        <g
-          stroke-width="5"
-          transform="translate(3 3)"
+        <svg
+          class="mtfh-icon"
+          focusable="false"
+          height="44"
+          style="margin: -2px 4px 0px 0px;"
+          viewBox="0 0 37 58"
+          width="28"
         >
-          <circle
-            cx="18"
-            cy="18"
-            r="18"
-            stroke-opacity=".5"
+          <path
+            d="M16.5 42.6212C18.7688 42.6212 20.625 40.7605 20.625 38.4863H12.375C12.375 40.7605 14.2312 42.6212 16.5 42.6212Z"
+            fill="#BE3A34"
           />
           <path
-            d="M36 18c0-9.94-8.06-18-18-18"
-            transform="rotate(112.708 18 18)"
+            d="M28.875 30.2225V19.8849C28.875 13.5376 25.5131 8.22412 19.5938 6.81821V5.4123C19.5938 3.69627 18.2119 2.31104 16.5 2.31104C14.7881 2.31104 13.4062 3.69627 13.4062 5.4123V6.81821C7.5075 8.22412 4.125 13.517 4.125 19.8849V30.2225L0 34.3575V36.425H33V34.3575L31.1268 32.4797L28.875 30.2225Z"
+            fill="#BE3A34"
+          />
+          <path
+            d="M17.5808 25.7373H15.4363L14.988 17.1504H18.0291L17.5808 25.7373ZM14.9529 28.7432C14.9529 28.1924 15.1023 27.8057 15.4011 27.583C15.7058 27.3604 16.072 27.249 16.4998 27.249C16.9158 27.249 17.2732 27.3604 17.572 27.583C17.8767 27.8057 18.0291 28.1924 18.0291 28.7432C18.0291 29.2705 17.8767 29.6514 17.572 29.8857C17.2732 30.1201 16.9158 30.2373 16.4998 30.2373C16.072 30.2373 15.7058 30.1201 15.4011 29.8857C15.1023 29.6514 14.9529 29.2705 14.9529 28.7432Z"
+            fill="white"
+          />
+        </svg>
+      </span>
+      123 Test Block(CAN BE DELETED) FK8 1FH
+    </h1>
+    <div
+      class="mtfh-layout__container"
+    >
+      <div
+        class="mtfh-layout__aside"
+      >
+        <div
+          class="mtfh-asset-sidebar"
+        >
+          <div
+            class="mtfh-sidebar"
           >
-            <animatetransform
-              attributeName="transform"
-              dur="1s"
-              from="0 18 18"
-              repeatCount="indefinite"
-              to="360 18 18"
-              type="rotate"
-            />
-          </path>
-        </g>
-      </g>
-    </svg>
+            <div
+              id="property-view-sidebar"
+            >
+              <aside
+                class="mtfh-asset-details"
+              >
+                <dl
+                  class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list"
+                >
+                  <div
+                    class="govuk-summary-list__row"
+                  >
+                    <dt
+                      class="govuk-summary-list__key govuk-!-width-two-thirds"
+                    >
+                      Type
+                    </dt>
+                    <dd
+                      class="govuk-summary-list__value"
+                    >
+                      Block
+                    </dd>
+                  </div>
+                  <div
+                    class="govuk-summary-list__row"
+                  >
+                    <dt
+                      class="govuk-summary-list__key"
+                    >
+                      UPRN
+                    </dt>
+                    <dd
+                      class="govuk-summary-list__value"
+                    >
+                      10008355547
+                    </dd>
+                  </div>
+                  <div
+                    class="govuk-summary-list__row"
+                  >
+                    <dt
+                      class="govuk-summary-list__key"
+                    >
+                      Reference
+                    </dt>
+                    <dd
+                      class="govuk-summary-list__value"
+                    >
+                      0019062023
+                    </dd>
+                  </div>
+                </dl>
+              </aside>
+              <aside
+                class="mtfh-cautionary-alerts"
+              >
+                <h2
+                  class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+                >
+                  <svg
+                    class="mtfh-icon"
+                    data-testid="alert-icon"
+                    focusable="false"
+                    height="26"
+                    style="margin-right: 4px;"
+                    viewBox="0 0 37 58"
+                    width="16"
+                  >
+                    <path
+                      d="M16.5 42.6212C18.7688 42.6212 20.625 40.7605 20.625 38.4863H12.375C12.375 40.7605 14.2312 42.6212 16.5 42.6212Z"
+                      fill="#BE3A34"
+                    />
+                    <path
+                      d="M28.875 30.2225V19.8849C28.875 13.5376 25.5131 8.22412 19.5938 6.81821V5.4123C19.5938 3.69627 18.2119 2.31104 16.5 2.31104C14.7881 2.31104 13.4062 3.69627 13.4062 5.4123V6.81821C7.5075 8.22412 4.125 13.517 4.125 19.8849V30.2225L0 34.3575V36.425H33V34.3575L31.1268 32.4797L28.875 30.2225Z"
+                      fill="#BE3A34"
+                    />
+                    <path
+                      d="M17.5808 25.7373H15.4363L14.988 17.1504H18.0291L17.5808 25.7373ZM14.9529 28.7432C14.9529 28.1924 15.1023 27.8057 15.4011 27.583C15.7058 27.3604 16.072 27.249 16.4998 27.249C16.9158 27.249 17.2732 27.3604 17.572 27.583C17.8767 27.8057 18.0291 28.1924 18.0291 28.7432C18.0291 29.2705 17.8767 29.6514 17.572 29.8857C17.2732 30.1201 16.9158 30.2373 16.4998 30.2373C16.072 30.2373 15.7058 30.1201 15.4011 29.8857C15.1023 29.6514 14.9529 29.2705 14.9529 28.7432Z"
+                      fill="white"
+                    />
+                  </svg>
+                  Cautionary alerts
+                </h2>
+                <p
+                  class="lbh-body-s"
+                >
+                  <a
+                    class="govuk-link lbh-link lbh-link--no-visited-state person-link"
+                    href="/person/1"
+                  >
+                    Joan Fisher
+                  </a>
+                  <br />
+                  Verbal Abuse
+                   
+                  <br />
+                </p>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mtfh-layout__main"
+      >
+        <div
+          id="property-body-grid-container"
+        >
+          <div
+            id="property-tree-grid-area"
+          >
+            <div
+              style="height: 300px;"
+            >
+              <div
+                class="rst__tree"
+              >
+                <div>
+                  <div
+                    class="rst__placeholder"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="repairs-grid-area"
+          />
+          <div
+            id="comments-grid-area"
+          >
+            <h2
+              class="lbh-heading-h2"
+            >
+              Comments
+            </h2>
+            <a
+              class="govuk-button lbh-button"
+              href="/comment/property/769894bd-b0bc-47eb-a780-322372c2448f"
+            >
+              Add comment
+            </a>
+            <div>
+              <div
+                class="mtfh-center mtfh-center--horizontal mtfh-center--vertical"
+              >
+                <svg
+                  class="mtfh-icon"
+                  focusable="false"
+                  height="50"
+                  stroke="#00703c"
+                  viewBox="0 0 42 42"
+                  width="50"
+                >
+                  <title>
+                    Loading...
+                  </title>
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                  >
+                    <g
+                      stroke-width="5"
+                      transform="translate(3 3)"
+                    >
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="18"
+                        stroke-opacity=".5"
+                      />
+                      <path
+                        d="M36 18c0-9.94-8.06-18-18-18"
+                        transform="rotate(112.708 18 18)"
+                      >
+                        <animatetransform
+                          attributeName="transform"
+                          dur="1s"
+                          from="0 18 18"
+                          repeatCount="indefinite"
+                          to="360 18 18"
+                          type="rotate"
+                        />
+                      </path>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;

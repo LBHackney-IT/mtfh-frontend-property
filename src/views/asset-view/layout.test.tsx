@@ -1,10 +1,11 @@
 import React from "react";
-
-import { render } from "@hackney/mtfh-test-utils";
-import { screen } from "@testing-library/react";
-
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { render, server } from "@hackney/mtfh-test-utils";
+import { waitFor } from "@testing-library/react";
+import { rest } from "msw";
 import { AssetLayout } from "./layout";
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
+import * as auth from "@mtfh/common/lib/auth/auth";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
@@ -48,14 +49,44 @@ const assetData: Asset = {
   parentAssetIds: "",
 };
 
-test("it shows the new cautionary alerts icon", () => {
+const alert: Alert = {
+  alertId: "1234",
+  alertCode: "VA",
+  assureReference: "",
+  dateModified: "",
+  description: "Verbal Abuse",
+  endDate: null,
+  modifiedBy: "",
+  personName: "Joan Fisher",
+  personId: "1",
+  reason: "",
+  startDate: "",
+  isActive: true,
+};
+
+// const mockApiRequest
+
+beforeEach(() => {
+  jest.resetAllMocks();
+
+  jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
+
+  server.use(
+    rest.get(
+      `/api/v1/cautionary-alerts/properties-new/${assetData.assetId}`,
+      (req, res, ctx) => res(ctx.status(200), ctx.json({ alerts: [alert] })),
+    ),
+  );
+});
+
+test("it shows the new cautionary alerts icon", async () => {
   // Arrange
   const { container } = render(
     <AssetLayout
       assetDetails={assetData}
       assetChildren={[]}
       showTenureInformation={false}
-      showCautionaryAlerts={true}
+      showCautionaryAlerts
       enableNewProcesses={false}
       enableEditAddress={false}
     />,
@@ -66,9 +97,14 @@ test("it shows the new cautionary alerts icon", () => {
   );
 
   // Assert
-  const cautionaryAlertsIcon = container.querySelector(".mtfh-icon");
+  await waitFor(async () => {
+    // eslint-disable-next-line testing-library/no-node-access, testing-library/no-container
+    const cautionaryAlertsIcon = container.querySelector(
+      "[data-test='cautionary-alerts-icon']",
+    );
 
-  expect(cautionaryAlertsIcon).toBeVisible();
+    expect(cautionaryAlertsIcon).toBeVisible();
+  });
 
   expect(container).toMatchSnapshot();
 });
@@ -91,7 +127,10 @@ test("it hides the cautionary alerts icon", () => {
   );
 
   // Assert
-  const newProcessButton = screen.queryByText("New Process");
+  // eslint-disable-next-line testing-library/no-node-access, testing-library/no-container
+  const newProcessButton = container.querySelector(
+    "[data-test='cautionary-alerts-icon']",
+  );
 
   expect(newProcessButton).not.toBeInTheDocument();
 

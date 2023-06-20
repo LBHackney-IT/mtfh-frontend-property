@@ -1,9 +1,6 @@
 import React from "react";
-
 import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
-import { rest } from "msw";
-
 import { PropertyBody } from ".";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 
@@ -52,7 +49,7 @@ const assetData: Asset = {
 test("it shows the new process button", () => {
   // Arrange
   const { container } = render(
-    <PropertyBody assetDetails={assetData} childAssets={[]} enableNewProcesses={true} />,
+    <PropertyBody assetDetails={assetData} childAssets={[]} enableNewProcesses />,
     {
       url: `/property/${assetData.id}`,
       path: "/property/:assetId",

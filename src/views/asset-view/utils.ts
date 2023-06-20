@@ -21,13 +21,11 @@ export const useCautionaryAlerts = (assetId: string, shouldLoad: boolean) => {
       return;
     }
 
-    getCautionaryAlerts(assetId)
-      .then((res) => {
-        setAlertsData(res?.data?.alerts || []);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    getCautionaryAlerts(assetId).then((res) => {
+      setAlertsData(res?.data?.alerts || []);
+      // only set loading as false if successfully loaded data
+      setIsLoading(false);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

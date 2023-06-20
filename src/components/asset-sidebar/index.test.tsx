@@ -1,13 +1,10 @@
 import React from "react";
-
 import { render, server } from "@hackney/mtfh-test-utils";
-import { screen, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { rest } from "msw";
-
-import * as auth from "@mtfh/common/lib/auth/auth";
-
 import { AssetSideBar } from ".";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import * as auth from "@mtfh/common/lib/auth/auth";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
@@ -70,7 +67,7 @@ test("it shows the edit address button", () => {
     <AssetSideBar
       alerts={[]}
       assetDetails={assetData}
-      enableEditAddress={true}
+      enableEditAddress
       showCautionaryAlerts={false}
       showTenureInformation={false}
     />,
@@ -119,7 +116,7 @@ test("it shows cautionary alerts", () => {
       alerts={[]}
       assetDetails={assetData}
       enableEditAddress={false}
-      showCautionaryAlerts={true}
+      showCautionaryAlerts
       showTenureInformation={false}
     />,
     {
@@ -168,7 +165,7 @@ test("it shows tenure information", () => {
       assetDetails={assetData}
       enableEditAddress={false}
       showCautionaryAlerts={false}
-      showTenureInformation={true}
+      showTenureInformation
     />,
     {
       url: `/property/${assetData.id}`,

@@ -1,11 +1,9 @@
 import React, { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
-
 import { AssetSideBar } from "../../components/asset-sidebar";
 import { PropertyBody } from "../../components/property-body";
 import { locale } from "../../services";
 import { useCautionaryAlerts } from "./utils";
-
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
 import {
@@ -80,12 +78,14 @@ export const AssetLayout: FC<Props> = ({
         top={
           <Heading variant="h1">
             {showCautionaryAlerts && alertsData.length > 0 && (
-              <AlertIcon
-                viewBox="0 0 37 58"
-                width="28"
-                height="44"
-                style={{ margin: "-2px 4px 0 0" }}
-              />
+              <span data-test="cautionary-alerts-icon">
+                <AlertIcon
+                  viewBox="0 0 37 58"
+                  width="28"
+                  height="44"
+                  style={{ margin: "-2px 4px 0 0" }}
+                />
+              </span>
             )}
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
