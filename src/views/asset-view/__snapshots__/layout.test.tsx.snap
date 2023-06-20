@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it hides the cautionary alerts icon 1`] = `
+<div>
+  <div
+    class="mtfh-layout"
+  >
+    <a
+      class="govuk-back-link lbh-back-link lbh-link--no-visited-state"
+      href="/search"
+    >
+      Search results
+    </a>
+    <div
+      id="content"
+    />
+    <h1
+      class="lbh-heading-h1"
+    >
+      123 Test Block(CAN BE DELETED) FK8 1FH
+    </h1>
+    <div
+      class="mtfh-layout__container"
+    >
+      <div
+        class="mtfh-layout__aside"
+      >
+        <div
+          class="mtfh-asset-sidebar"
+        >
+          <div
+            class="mtfh-sidebar"
+          >
+            <div
+              id="property-view-sidebar"
+            >
+              <aside
+                class="mtfh-asset-details"
+              >
+                <dl
+                  class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list"
+                >
+                  <div
+                    class="govuk-summary-list__row"
+                  >
+                    <dt
+                      class="govuk-summary-list__key govuk-!-width-two-thirds"
+                    >
+                      Type
+                    </dt>
+                    <dd
+                      class="govuk-summary-list__value"
+                    >
+                      Block
+                    </dd>
+                  </div>
+                  <div
+                    class="govuk-summary-list__row"
+                  >
+                    <dt
+                      class="govuk-summary-list__key"
+                    >
+                      UPRN
+                    </dt>
+                    <dd
+                      class="govuk-summary-list__value"
+                    >
+                      10008355547
+                    </dd>
+                  </div>
+                  <div
+                    class="govuk-summary-list__row"
+                  >
+                    <dt
+                      class="govuk-summary-list__key"
+                    >
+                      Reference
+                    </dt>
+                    <dd
+                      class="govuk-summary-list__value"
+                    >
+                      0019062023
+                    </dd>
+                  </div>
+                </dl>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mtfh-layout__main"
+      >
+        <div
+          id="property-body-grid-container"
+        >
+          <div
+            id="property-tree-grid-area"
+          >
+            <div
+              style="height: 300px;"
+            >
+              <div
+                class="rst__tree"
+              >
+                <div>
+                  <div
+                    class="rst__placeholder"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="repairs-grid-area"
+          />
+          <div
+            id="comments-grid-area"
+          >
+            <h2
+              class="lbh-heading-h2"
+            >
+              Comments
+            </h2>
+            <a
+              class="govuk-button lbh-button"
+              href="/comment/property/769894bd-b0bc-47eb-a780-322372c2448f"
+            >
+              Add comment
+            </a>
+            <div>
+              <div
+                class="mtfh-center mtfh-center--horizontal mtfh-center--vertical"
+              >
+                <svg
+                  class="mtfh-icon"
+                  focusable="false"
+                  height="50"
+                  stroke="#00703c"
+                  viewBox="0 0 42 42"
+                  width="50"
+                >
+                  <title>
+                    Loading...
+                  </title>
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                  >
+                    <g
+                      stroke-width="5"
+                      transform="translate(3 3)"
+                    >
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="18"
+                        stroke-opacity=".5"
+                      />
+                      <path
+                        d="M36 18c0-9.94-8.06-18-18-18"
+                        transform="rotate(112.708 18 18)"
+                      >
+                        <animatetransform
+                          attributeName="transform"
+                          dur="1s"
+                          from="0 18 18"
+                          repeatCount="indefinite"
+                          to="360 18 18"
+                          type="rotate"
+                        />
+                      </path>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`it shows the new cautionary alerts icon 1`] = `
+<div>
+  <div
+    class="mtfh-center mtfh-center--horizontal mtfh-center--vertical"
+  >
+    <svg
+      class="mtfh-icon"
+      focusable="false"
+      height="50"
+      stroke="#00703c"
+      viewBox="0 0 42 42"
+      width="50"
+    >
+      <title>
+        Loading...
+      </title>
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <g
+          stroke-width="5"
+          transform="translate(3 3)"
+        >
+          <circle
+            cx="18"
+            cy="18"
+            r="18"
+            stroke-opacity=".5"
+          />
+          <path
+            d="M36 18c0-9.94-8.06-18-18-18"
+            transform="rotate(112.708 18 18)"
+          >
+            <animatetransform
+              attributeName="transform"
+              dur="1s"
+              from="0 18 18"
+              repeatCount="indefinite"
+              to="360 18 18"
+              type="rotate"
+            />
+          </path>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+`;
