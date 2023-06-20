@@ -64,61 +64,12 @@ beforeEach(() => {
   );
 });
 
-test("it shows the edit address button", () => {
-  // Arrange
-  const { container } = render(
-    <AssetSideBar
-      alerts={[]}
-      assetDetails={assetData}
-      enableEditAddress
-      showCautionaryAlerts={false}
-      showTenureInformation={false}
-    />,
-    {
-      url: `/property/${assetData.id}`,
-      path: "/property/:assetId",
-    },
-  );
-
-  // Assert
-  const editAddressButton = screen.getByText("Edit address details");
-
-  expect(editAddressButton).toBeVisible();
-
-  expect(container).toMatchSnapshot();
-});
-
-test("it hides the edit address button", () => {
-  // Arrange
-  const { container } = render(
-    <AssetSideBar
-      alerts={[]}
-      assetDetails={assetData}
-      enableEditAddress={false}
-      showCautionaryAlerts={false}
-      showTenureInformation={false}
-    />,
-    {
-      url: `/property/${assetData.id}`,
-      path: "/property/:assetId",
-    },
-  );
-
-  // Assert
-  const editAddressButton = screen.queryByText("Edit address details");
-
-  expect(editAddressButton).not.toBeInTheDocument();
-
-  expect(container).toMatchSnapshot();
-});
-
 test("it shows cautionary alerts", () => {
   // Arrange
   const { container } = render(
     <AssetSideBar
       alerts={[]}
       assetDetails={assetData}
-      enableEditAddress={false}
       showCautionaryAlerts
       showTenureInformation={false}
     />,
@@ -142,7 +93,6 @@ test("it hides cautionary alerts", () => {
     <AssetSideBar
       alerts={[]}
       assetDetails={assetData}
-      enableEditAddress={false}
       showCautionaryAlerts={false}
       showTenureInformation={false}
     />,
@@ -166,7 +116,6 @@ test("it shows tenure information", () => {
     <AssetSideBar
       alerts={[]}
       assetDetails={assetData}
-      enableEditAddress={false}
       showCautionaryAlerts={false}
       showTenureInformation
     />,
@@ -190,7 +139,6 @@ test("it hides tenure information", () => {
     <AssetSideBar
       alerts={[]}
       assetDetails={assetData}
-      enableEditAddress={false}
       showCautionaryAlerts={false}
       showTenureInformation={false}
     />,

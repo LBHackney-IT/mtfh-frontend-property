@@ -61,6 +61,13 @@ exports[`it hides cautionary alerts 1`] = `
             </div>
           </dl>
         </aside>
+        <a
+          class="govuk-button lbh-button"
+          data-testid="edit-address-button"
+          href="/property/edit/769894bd-b0bc-47eb-a780-322372c2448f"
+        >
+          Edit address details
+        </a>
       </div>
     </div>
   </div>
@@ -128,73 +135,13 @@ exports[`it hides tenure information 1`] = `
             </div>
           </dl>
         </aside>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`it hides the edit address button 1`] = `
-<div>
-  <div
-    class="mtfh-asset-sidebar"
-  >
-    <div
-      class="mtfh-sidebar"
-    >
-      <div
-        id="property-view-sidebar"
-      >
-        <aside
-          class="mtfh-asset-details"
+        <a
+          class="govuk-button lbh-button"
+          data-testid="edit-address-button"
+          href="/property/edit/769894bd-b0bc-47eb-a780-322372c2448f"
         >
-          <dl
-            class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list"
-          >
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key govuk-!-width-two-thirds"
-              >
-                Type
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                Block
-              </dd>
-            </div>
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key"
-              >
-                UPRN
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                10008355547
-              </dd>
-            </div>
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key"
-              >
-                Reference
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                0019062023
-              </dd>
-            </div>
-          </dl>
-        </aside>
+          Edit address details
+        </a>
       </div>
     </div>
   </div>
@@ -262,6 +209,13 @@ exports[`it shows cautionary alerts 1`] = `
             </div>
           </dl>
         </aside>
+        <a
+          class="govuk-button lbh-button"
+          data-testid="edit-address-button"
+          href="/property/edit/769894bd-b0bc-47eb-a780-322372c2448f"
+        >
+          Edit address details
+        </a>
         <aside
           class="mtfh-cautionary-alerts"
         >
@@ -343,6 +297,13 @@ exports[`it shows tenure information 1`] = `
             </div>
           </dl>
         </aside>
+        <a
+          class="govuk-button lbh-button"
+          data-testid="edit-address-button"
+          href="/property/edit/769894bd-b0bc-47eb-a780-322372c2448f"
+        >
+          Edit address details
+        </a>
         <aside
           class="mtfh-tenure-details"
           id="tenure-details"
@@ -437,80 +398,6 @@ exports[`it shows tenure information 1`] = `
           href="/tenure/769894bd-b0bc-47eb-a780-322372c2448f/add"
         >
           New tenure
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`it shows the edit address button 1`] = `
-<div>
-  <div
-    class="mtfh-asset-sidebar"
-  >
-    <div
-      class="mtfh-sidebar"
-    >
-      <div
-        id="property-view-sidebar"
-      >
-        <aside
-          class="mtfh-asset-details"
-        >
-          <dl
-            class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list"
-          >
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key govuk-!-width-two-thirds"
-              >
-                Type
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                Block
-              </dd>
-            </div>
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key"
-              >
-                UPRN
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                10008355547
-              </dd>
-            </div>
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key"
-              >
-                Reference
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                0019062023
-              </dd>
-            </div>
-          </dl>
-        </aside>
-        <a
-          class="govuk-button lbh-button"
-          data-testid="edit-address-button"
-          href="/property/edit/769894bd-b0bc-47eb-a780-322372c2448f"
-        >
-          Edit address details
         </a>
       </div>
     </div>

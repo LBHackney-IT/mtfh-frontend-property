@@ -84,6 +84,13 @@ exports[`it hides the cautionary alerts icon 1`] = `
                   </div>
                 </dl>
               </aside>
+              <a
+                class="govuk-button lbh-button"
+                data-testid="edit-address-button"
+                href="/property/edit/769894bd-b0bc-47eb-a780-322372c2448f"
+              >
+                Edit address details
+              </a>
             </div>
           </div>
         </div>
@@ -292,6 +299,13 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                   </div>
                 </dl>
               </aside>
+              <a
+                class="govuk-button lbh-button"
+                data-testid="edit-address-button"
+                href="/property/edit/769894bd-b0bc-47eb-a780-322372c2448f"
+              >
+                Edit address details
+              </a>
               <aside
                 class="mtfh-cautionary-alerts"
               >

@@ -232,11 +232,17 @@ it("renders the asset view for missing person id", async () => {
     path: "/property/:assetId",
   });
 
-  await screen.findByText("FAKE_Alice FAKE_Rowe");
 
-  expect(screen.getByText(alertsResponse.alerts[0].personName).getAttribute("href")).toBe(
-    `/person/${mockActiveTenureV1.householdMembers[0].id}`,
-  );
+
+  await waitFor(async () => {
+    await screen.findByText("FAKE_Alice FAKE_Rowe");
+
+    expect(screen.getByText(alertsResponse.alerts[0].personName).getAttribute("href")).toBe(
+      `/person/${mockActiveTenureV1.householdMembers[0].id}`,
+    );
+  });
+
+  
 });
 
 test("it shows the 'Edit address details' button if the property has a valid UPRN", async () => {
@@ -246,9 +252,10 @@ test("it shows the 'Edit address details' button if the property has a valid UPR
     path: "/property/:assetId",
   });
 
-  const editAddressDetailsBtn = await screen.findByText("Edit address details");
-  expect(editAddressDetailsBtn).toBeVisible();
-  expect(editAddressDetailsBtn).toBeEnabled();
+    const editAddressDetailsBtn = await screen.findByText("Edit address details");
+
+    expect(editAddressDetailsBtn).toBeVisible();
+    expect(editAddressDetailsBtn).toBeEnabled();  
 });
 
 test("it does NOT shows the 'Edit address details' when the user is not authorized to edit address data", async () => {

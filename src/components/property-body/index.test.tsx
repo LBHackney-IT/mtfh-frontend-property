@@ -1,11 +1,13 @@
 import React from "react";
 
-import { render } from "@hackney/mtfh-test-utils";
+import { render, server } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
+import { rest } from "msw";
 
 import { PropertyBody } from ".";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import * as auth from "@mtfh/common/lib/auth/auth";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
@@ -48,6 +50,19 @@ const assetData: Asset = {
   rootAsset: "",
   parentAssetIds: "",
 };
+
+beforeEach(() => {
+  jest.resetAllMocks();
+
+  jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
+
+  server.use(
+    rest.get(
+      `/api/v1/cautionary-alerts/properties-new/${assetData.assetId}`,
+      (req, res, ctx) => res(ctx.status(200), ctx.json({ alerts: [] })),
+    ),
+  );
+});
 
 test("it shows the new process button", () => {
   // Arrange

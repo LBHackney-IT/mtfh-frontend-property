@@ -38,7 +38,6 @@ export const AssetView = (): JSX.Element => {
   const showTenureInformation = isDwellingOrLettableNonDwelling(asset);
   const showCautionaryAlerts = isDwellingOrLettableNonDwelling(asset);
   const enableNewProcesses = isDwellingOrLettableNonDwelling(asset);
-  const enableEditAddress = isDwellingOrLettableNonDwelling(asset);
 
   return (
     <AssetLayout
@@ -47,7 +46,6 @@ export const AssetView = (): JSX.Element => {
       showTenureInformation={showTenureInformation}
       showCautionaryAlerts={showCautionaryAlerts}
       enableNewProcesses={enableNewProcesses}
-      enableEditAddress={enableEditAddress}
     />
   );
 };
