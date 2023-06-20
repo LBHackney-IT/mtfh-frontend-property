@@ -32,7 +32,7 @@ describe("AssetCharacteristics", () => {
       const summaryRow = screen.getByTestId(characteristic);
 
       const expectedValue = mockAssetV1[characteristic as keyof typeof mockAssetV1];
-      const expectedValueString = expectedValue?.toString() || "";
+      const expectedValueString = expectedValue?.toString() ?? "";
 
       expect(summaryRow?.textContent).toContain(expectedValueString);
     }

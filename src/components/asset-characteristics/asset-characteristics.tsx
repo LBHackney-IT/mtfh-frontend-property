@@ -80,10 +80,10 @@ export const PropertySpecification = ({
       <div className="govuk-details__text">
         <aside className="mtfh-asset-charateristics">
           <SummaryList overrides={[0.5, 0.5]} variant="base">
-            {Object.keys(propSpecProps).map((item, index) => (
+            {Object.keys(propSpecProps).map((item) => (
               <SummaryListItem
-                key={index}
-                title={propSpecProps[item] && propSpecProps[item].label}
+                key={propSpecProps[item]?.label}
+                title={propSpecProps[item]?.label}
                 fallback={" "}
                 data-testid={item?.toString()}
               >
