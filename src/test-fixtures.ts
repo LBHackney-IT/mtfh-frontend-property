@@ -2,7 +2,8 @@ import { Asset } from "@mtfh/common/lib/api/asset/v1/types";
 
 // Create NewAsset interface without assetCharacteristics
 // This is for compatibility and will need to be removed once we expand common and perhaps test-utils to use the new models
-export interface AssetWithOldCharacteristics extends Omit<Asset, "assetCharacteristics"> {
+export interface AssetWithOldCharacteristics
+  extends Omit<Asset, "assetCharacteristics" | "rentGroup"> {
   assetCharacteristics: {
     numberOfBedrooms: number;
     numberOfLifts: number;

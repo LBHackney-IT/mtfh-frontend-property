@@ -1508,9 +1508,9 @@
     outvariant "^1.2.0"
     strict-event-emitter "^0.2.0"
 
-"@mtfh/common@https://github.com/LBHackney-IT/mtfh-frontend-common":
+"@mtfh/common@https://github.com/LBHackney-IT/mtfh-frontend-common#main":
   version "0.0.1"
-  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common#21f7e00725b62f0c26c353500fa22e637f873361"
+  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common#a4cea44a60959ca336d953bdf86c86a7b252c51f"
   dependencies:
     "@babel/preset-react" "^7.13.13"
     "@radix-ui/react-polymorphic" "^0.0.12"
