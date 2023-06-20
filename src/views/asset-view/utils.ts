@@ -15,10 +15,10 @@ export const useCautionaryAlerts = (assetId: string, shouldLoad: boolean) => {
     }
 
     getPropertyCautionaryAlerts(assetId).then((res) => {
-      setAlertsData(res?.data?.alerts || []);
+      setAlertsData(res?.alerts || []);
       // only set loading as false if successfully loaded data
       setIsLoading(false);
-    });
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
