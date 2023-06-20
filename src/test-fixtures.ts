@@ -1,23 +1,11 @@
-import { Asset } from "@mtfh/common/lib/api/asset/v1/types";
+import { Asset, RentGroup } from "@mtfh/common/lib/api/asset/v1/types";
 
-// Create NewAsset interface without assetCharacteristics
-// This is for compatibility and will need to be removed once we expand common and perhaps test-utils to use the new models
-export interface AssetWithOldCharacteristics
-  extends Omit<Asset, "assetCharacteristics" | "rentGroup"> {
-  assetCharacteristics: {
-    numberOfBedrooms: number;
-    numberOfLifts: number;
-    numberOfLivingRooms: number;
-    windowType: string;
-    yearConstructed: string;
-  };
-}
-
-export const testValidDwellingFixture: AssetWithOldCharacteristics = {
+export const testValidDwellingFixture: Asset = {
   id: "2d13b5cb-baf2-91fd-c231-8c5c2ee9548c",
   assetId: "00023400",
   assetType: "Dwelling",
   rootAsset: "14edf718-19ff-ff43-4679-f8ef404fa029",
+  rentGroup: RentGroup.HRA,
   parentAssetIds:
     "656feda1-896f-b136-da84-163ee4f1be6c#14edf718-19ff-ff43-4679-f8ef404fa029#a65918aa-e441-bc34-e49d-fa8671f768da",
   assetLocation: {
@@ -60,11 +48,18 @@ export const testValidDwellingFixture: AssetWithOldCharacteristics = {
     isTMOManaged: false,
   },
   assetCharacteristics: {
-    numberOfBedrooms: 0,
+    numberOfBedrooms: 2,
     numberOfLifts: 1,
     numberOfLivingRooms: 1,
     windowType: "DBL",
-    yearConstructed: "1995",
+    yearConstructed: "2077",
+    numberOfSingleBeds: 1,
+    numberOfDoubleBeds: 1,
+    numberOfFloors: 2,
+    totalBlockFloors: 5,
+    heating: "FCB",
+    propertyFactor: "4.5",
+    architecturalType: "PRE45MR-FLT",
   },
   tenure: {
     id: "35ffe2a1-ee7f-c09d-df11-c065d97fa7d0",
@@ -76,7 +71,7 @@ export const testValidDwellingFixture: AssetWithOldCharacteristics = {
   },
 };
 
-export interface ValidChildAsset extends AssetWithOldCharacteristics {
+export interface ValidChildAsset extends Asset {
   isAssetCautionaryAlerted: boolean;
   isActive: boolean;
   assetStatus: null;
@@ -92,7 +87,7 @@ export interface ValidChildAsset extends AssetWithOldCharacteristics {
     isTMOManaged: boolean;
     propertyOccupiedStatus: string;
     isNoRepairsMaintenance: boolean;
-    isTemporaryAccomodation: boolean;
+    isTemporaryAccommodation: boolean;
   };
 }
 
@@ -102,6 +97,7 @@ export const testValidChildAssetFixture: ValidChildAsset[] = [
     assetId: "00049158",
     assetType: "LettableNonDwelling",
     isAssetCautionaryAlerted: false,
+    rentGroup: RentGroup.HRA,
     assetAddress: {
       uprn: "00049158",
       addressLine1: "Gge 12 Pitcairn House St Thomass Square",
@@ -123,11 +119,18 @@ export const testValidChildAssetFixture: ValidChildAsset[] = [
     isActive: false,
     parentAssetIds: "2d13b5cb-baf2-91fd-c231-8c5c2ee9548c",
     assetCharacteristics: {
-      numberOfBedrooms: 0,
+      numberOfBedrooms: 2,
       numberOfLifts: 1,
       numberOfLivingRooms: 1,
       windowType: "DBL",
-      yearConstructed: "1995",
+      yearConstructed: "2077",
+      numberOfSingleBeds: 1,
+      numberOfDoubleBeds: 1,
+      numberOfFloors: 2,
+      totalBlockFloors: 5,
+      heating: "FCB",
+      propertyFactor: "4.5",
+      architecturalType: "PRE45MR-FLT",
     },
     assetManagement: {
       agent: "Hackney Homes",
@@ -139,7 +142,7 @@ export const testValidChildAssetFixture: ValidChildAsset[] = [
       isTMOManaged: false,
       propertyOccupiedStatus: "OC",
       isNoRepairsMaintenance: false,
-      isTemporaryAccomodation: false,
+      isTemporaryAccommodation: false,
     },
     assetStatus: null,
     assetLocation: {
