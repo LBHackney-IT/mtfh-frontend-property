@@ -17,7 +17,7 @@ interface Props {
 export const PropertyBody = ({
   assetDetails,
   childAssets,
-  enableNewProcesses: showProcesses,
+  enableNewProcesses,
 }: Props): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
@@ -27,7 +27,7 @@ export const PropertyBody = ({
         <div id="property-tree-grid-area">
           <PropertyTree asset={assetDetails} childAssets={childAssets} />
         </div>
-        {showProcesses && (
+        {enableNewProcesses && (
           <div id="new-process-grid-area">
             <Button
               variant="primary"
