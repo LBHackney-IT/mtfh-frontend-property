@@ -35,17 +35,13 @@ export const AssetView = (): JSX.Element => {
     );
   }
 
-  const showTenureInformation = isDwellingOrLettableNonDwelling(asset);
-  const showCautionaryAlerts = isDwellingOrLettableNonDwelling(asset);
-  const enableNewProcesses = isDwellingOrLettableNonDwelling(asset);
-
   return (
     <AssetLayout
       assetDetails={asset}
       assetChildren={childAssetResponse?.childAssets}
-      showTenureInformation={showTenureInformation}
-      showCautionaryAlerts={showCautionaryAlerts}
-      enableNewProcesses={enableNewProcesses}
+      showTenureInformation={isDwellingOrLettableNonDwelling(asset)}
+      showCautionaryAlerts={isDwellingOrLettableNonDwelling(asset)}
+      enableNewProcesses={isDwellingOrLettableNonDwelling(asset)}
     />
   );
 };
