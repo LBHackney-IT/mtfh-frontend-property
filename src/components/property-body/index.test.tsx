@@ -1,7 +1,10 @@
 import React from "react";
+
 import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
+
 import { PropertyBody } from ".";
+
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 
 const assetData: Asset = {
