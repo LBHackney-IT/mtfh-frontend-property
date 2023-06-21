@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { locale } from "../../services";
 import { AssetLayout } from "./layout";
 
-import { useAsset, useChildAssets } from "@mtfh/common/lib/api/asset/v1";
+import { useAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
 
 export const AssetView = (): JSX.Element => {
@@ -12,7 +12,7 @@ export const AssetView = (): JSX.Element => {
 
   const { data: asset, ...assetRequest } = useAsset(assetId);
 
-  const { data: childAssetResponse } = useChildAssets(assetId);
+  // const { data: childAssetResponse } = useChildAssets(assetId);
 
   if (assetRequest.error) {
     return (
@@ -37,8 +37,8 @@ export const AssetView = (): JSX.Element => {
       {asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling" ? (
         <AssetLayout
           assetDetails={asset}
-          assetCharacteristics={asset.assetCharacteristics}
-          assetChildren={childAssetResponse?.childAssets}
+          // assetChildren={childAssetResponse?.childAssets}
+          assetChildren={undefined}
         />
       ) : (
         <h1>{locale.assetCouldNotBeLoaded}</h1>
