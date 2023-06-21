@@ -8,8 +8,8 @@ import { assetAdminAuthGroups } from "../../services/config/config";
 import { ErrorSummary } from "@mtfh/common/lib/components";
 
 export const NewAssetView = (): JSX.Element => {
-  <ErrorSummary id="unauthorized-error" title={locale.errors.noNewAssetPermissions} />
-  
+  return <ErrorSummary id="unauthorized-error" title={locale.errors.noNewAssetPermissions} />
+
   // if (!isAuthorisedForGroups(assetAdminAuthGroups)) {
   //   return (
   //     <ErrorSummary id="unauthorized-error" title={locale.errors.noNewAssetPermissions} />
