@@ -19,9 +19,9 @@ export const PropertyBody = ({ assetDetails, childAssets }: Props): JSX.Element 
   return (
     <>
       <div id="property-body-grid-container">
-        <div id="property-tree-grid-area">
+        {/* <div id="property-tree-grid-area">
           <PropertyTree asset={assetDetails} childAssets={childAssets} />
-        </div>
+        </div> */}
         <div id="new-process-grid-area">
           <Button
             variant="primary"

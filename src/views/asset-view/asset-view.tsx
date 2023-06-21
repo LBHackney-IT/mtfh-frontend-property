@@ -12,7 +12,7 @@ export const AssetView = (): JSX.Element => {
 
   const { data: asset, ...assetRequest } = useAsset(assetId);
 
-  const { data: childAssetResponse } = useChildAssets(assetId);
+  // const { data: childAssetResponse } = useChildAssets(assetId);
 
   if (assetRequest.error) {
     return (
@@ -37,7 +37,8 @@ export const AssetView = (): JSX.Element => {
       {asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling" ? (
         <AssetLayout
           assetDetails={asset}
-          assetChildren={childAssetResponse?.childAssets}
+          // assetChildren={childAssetResponse?.childAssets}
+          assetChildren={undefined}
         />
       ) : (
         <h1>{locale.assetCouldNotBeLoaded}</h1>
