@@ -11,15 +11,12 @@ interface PropertyTreeProps {
 }
 
 interface AssetWithParentsAndChildren {
-  title: any;
+  title: React.ReactNode;
   children:
-  | Array<AssetWithParentsAndChildren>
-  | null
-  | {
-    title: string;
-    children: null;
-  };
-  expanded: boolean;
+    | Array<AssetWithParentsAndChildren>
+    | null
+    | { title: string; children: null };
+  expanded?: boolean;
 }
 
 export const PropertyTree = ({
@@ -28,10 +25,10 @@ export const PropertyTree = ({
 }: PropertyTreeProps): JSX.Element => {
   const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c"; // Hackney Homes
 
-  const [treeViewData, setTreeViewData] = useState<Array<AssetWithParentsAndChildren>>([]);
+  const [treeViewData, setTreeViewData] = useState<AssetWithParentsAndChildren[]>([]);
 
-  const addChildrenAssets = () => {
-    const childrenAssets: any = [];
+  const addChildrenAssets = (): AssetWithParentsAndChildren[] => {
+    const childrenAssets: AssetWithParentsAndChildren[] = [];
 
     if (childAssets) {
       for (const [i, v] of childAssets.entries()) {
@@ -50,7 +47,7 @@ export const PropertyTree = ({
 
   const generateNode = (
     name: string,
-    childList: Array<AssetWithParentsAndChildren>,
+    childList: AssetWithParentsAndChildren[],
     id: string
   ): AssetWithParentsAndChildren => {
     const node = (
@@ -64,7 +61,7 @@ export const PropertyTree = ({
 
   const generatePrinciple = (
     asset: Asset,
-    childNodes: Array<AssetWithParentsAndChildren>
+    childNodes: AssetWithParentsAndChildren[]
   ): AssetWithParentsAndChildren => {
     if (asset.assetLocation?.parentAssets?.length) {
       return {
@@ -95,11 +92,11 @@ export const PropertyTree = ({
 
   const addParentsAndPrinciple = (
     asset: Asset,
-    childNodes: Array<AssetWithParentsAndChildren>,
+    childNodes: AssetWithParentsAndChildren[],
     excludedTreeAssets: string,
     principle: AssetWithParentsAndChildren
   ) => {
-    const treeViewElements: Array<AssetWithParentsAndChildren> = [];
+    const treeViewElements: AssetWithParentsAndChildren[] = [];
 
     if (asset.assetLocation?.parentAssets?.length) {
       const validParents = asset.assetLocation.parentAssets.filter(
@@ -133,7 +130,7 @@ export const PropertyTree = ({
     addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle);
   }, []);
 
-  const onChangeHandler = (treeData: Array<AssetWithParentsAndChildren>) => {
+  const onChangeHandler = (treeData: AssetWithParentsAndChildren[]) => {
     setTreeViewData(treeData);
   };
 
