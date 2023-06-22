@@ -6,7 +6,7 @@ import { rest } from "msw";
 
 import { PropertyTree } from "./property-tree";
 
-import { testValidDwellingFixture, testValidchildAssetsFixture } from "test-fixtures";
+import { testValidDwellingFixture, testValidchildAssetsFixture } from "../../utils/test-fixtures";
 
 beforeEach(() => {
   jest.resetAllMocks();
