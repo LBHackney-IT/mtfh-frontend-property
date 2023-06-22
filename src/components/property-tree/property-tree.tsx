@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // @ts-ignore
 import SortableTree from "react-sortable-tree";
 
@@ -24,9 +24,12 @@ interface AssetWithParentsAndChildren {
 }
 
 export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Element => {
+
   const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c"; // Hackney Homes
 
-  const treeData: JSX.Element[] = [];
+  // const treeData: Array<JSX.Element> = [];
+
+  const [treeViewData, setTreeViewData] = useState<any>([])
 
   const addChildrenAssets = () => {
     const childrenAssets = [];
@@ -48,9 +51,9 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
     }
 
     return childrenAssets;
-  };
+  }
 
-  const generateNode = (name: string, childList: JSX.Element[], id: string) => {
+  const generateNode = (name: string, childList: Array<JSX.Element>, id: string) => {
     const node = (
       <a className="lbh-link govuk-link" href={`/property/${id}`}>
         {name}
@@ -91,7 +94,11 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
       ],
       expanded: true,
     };
-  };
+  }
+
+  useEffect(() => {
+    addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle);
+  }, [])
 
   const addParentsAndPrinciple = (
     asset: Asset,
@@ -101,8 +108,10 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
     )[],
     excludedTreeAssets: string,
     principle: AssetWithParentsAndChildren,
-    treeData: any[],
   ) => {
+
+    const treeViewElements = []
+
     if (asset.assetLocation?.parentAssets?.length) {
       const validParents = asset.assetLocation.parentAssets.filter(
         (el) => !excludedTreeAssets.includes(el.id),
@@ -116,33 +125,31 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
               {v.name}
             </a>
           );
-          treeData.push(principle);
+          treeViewElements.push(principle)
         } else {
-          treeData.push(generateNode(v.name, [], v.id));
+          treeViewElements.push(generateNode(v.name, [], v.id))
         }
       }
     } else {
-      treeData.push(generatePrinciple(asset, childNodes));
+      treeViewElements.push(generatePrinciple(asset, childNodes))
     }
-  };
+
+    setTreeViewData(treeViewElements)
+  }
 
   const childNodes = addChildrenAssets();
 
   const principle = generatePrinciple(asset, childNodes);
 
-  addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle, treeData);
 
   const onChangeHandler = (e: Event) => {
     console.log(e);
+    setTreeViewData(e);
   };
 
   return (
     <div>
-      <SortableTree
-        treeData={treeData}
-        onChange={onChangeHandler}
-        isVirtualized={false}
-      />
+      <SortableTree treeData={treeViewData} onChange={onChangeHandler} isVirtualized={false} />
     </div>
   );
 };
