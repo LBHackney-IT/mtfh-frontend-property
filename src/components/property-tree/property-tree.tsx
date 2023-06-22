@@ -11,64 +11,60 @@ interface PropertyTreeProps {
 }
 
 interface AssetWithParentsAndChildren {
-  title: JSX.Element;
-  children: {
+  title: any;
+  children:
+  | Array<AssetWithParentsAndChildren>
+  | null
+  | {
     title: string;
-    children: (
-      | { title: JSX.Element; children: JSX.Element[][] }
-      | { title: string; children: never[] }
-    )[];
-    expanded: boolean;
-  }[];
+    children: null;
+  };
   expanded: boolean;
 }
 
-export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Element => {
-
+export const PropertyTree = ({
+  asset,
+  childAssets,
+}: PropertyTreeProps): JSX.Element => {
   const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c"; // Hackney Homes
 
-  // const treeData: Array<JSX.Element> = [];
-
-  const [treeViewData, setTreeViewData] = useState<any>([])
+  const [treeViewData, setTreeViewData] = useState<Array<AssetWithParentsAndChildren>>([]);
 
   const addChildrenAssets = () => {
-    const childrenAssets = [];
+    const childrenAssets: any = [];
 
     if (childAssets) {
       for (const [i, v] of childAssets.entries()) {
         if (i < 5) {
           childrenAssets.push(generateNode(v.assetAddress.addressLine1, [], v.id));
-          continue;
-        }
-        if (i === 5) {
-          childrenAssets.push({ title: "<< MORE.... >>", children: [] });
-          continue;
-        }
-        if (i > 5) {
-          continue;
+        } else if (i === 5) {
+          childrenAssets.push({ title: "<< MORE.... >>", children: null });
+        } else {
+          break;
         }
       }
     }
 
     return childrenAssets;
-  }
+  };
 
-  const generateNode = (name: string, childList: Array<JSX.Element>, id: string) => {
+  const generateNode = (
+    name: string,
+    childList: Array<AssetWithParentsAndChildren>,
+    id: string
+  ): AssetWithParentsAndChildren => {
     const node = (
       <a className="lbh-link govuk-link" href={`/property/${id}`}>
         {name}
       </a>
     );
 
-    return { title: node, children: [childList] };
+    return { title: node, children: childList, expanded: false };
   };
 
   const generatePrinciple = (
     asset: Asset,
-    childNodes: (
-      | { title: JSX.Element; children: JSX.Element[][] }
-      | { title: string; children: never[] }
-    )[],
+    childNodes: Array<AssetWithParentsAndChildren>
   ): AssetWithParentsAndChildren => {
     if (asset.assetLocation?.parentAssets?.length) {
       return {
@@ -76,45 +72,38 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
         children: [
           {
             title: `${asset.assetAddress.addressLine1} (this asset)`,
-            children: [...childNodes],
+            children: childNodes,
             expanded: true,
           },
         ],
         expanded: true,
       };
     }
+
     return {
       title: <span>Hackney</span>,
       children: [
         {
           title: `${asset.assetAddress.addressLine1} (this asset)`,
-          children: [...childNodes],
+          children: childNodes,
           expanded: true,
         },
       ],
       expanded: true,
     };
-  }
-
-  useEffect(() => {
-    addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle);
-  }, [])
+  };
 
   const addParentsAndPrinciple = (
     asset: Asset,
-    childNodes: (
-      | { title: JSX.Element; children: JSX.Element[][] }
-      | { title: string; children: never[] }
-    )[],
+    childNodes: Array<AssetWithParentsAndChildren>,
     excludedTreeAssets: string,
-    principle: AssetWithParentsAndChildren,
+    principle: AssetWithParentsAndChildren
   ) => {
-
-    const treeViewElements = []
+    const treeViewElements: Array<AssetWithParentsAndChildren> = [];
 
     if (asset.assetLocation?.parentAssets?.length) {
       const validParents = asset.assetLocation.parentAssets.filter(
-        (el) => !excludedTreeAssets.includes(el.id),
+        (el) => !excludedTreeAssets.includes(el.id)
       );
 
       for (const [i, v] of validParents.entries()) {
@@ -125,31 +114,36 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
               {v.name}
             </a>
           );
-          treeViewElements.push(principle)
+          treeViewElements.push(principle);
         } else {
-          treeViewElements.push(generateNode(v.name, [], v.id))
+          treeViewElements.push(generateNode(v.name, [], v.id));
         }
       }
     } else {
-      treeViewElements.push(generatePrinciple(asset, childNodes))
+      treeViewElements.push(generatePrinciple(asset, childNodes));
     }
 
-    setTreeViewData(treeViewElements)
-  }
+    setTreeViewData(treeViewElements);
+  };
 
   const childNodes = addChildrenAssets();
-
   const principle = generatePrinciple(asset, childNodes);
 
+  useEffect(() => {
+    addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle);
+  }, []);
 
-  const onChangeHandler = (e: Event) => {
-    console.log(e);
-    setTreeViewData(e);
+  const onChangeHandler = (treeData: Array<AssetWithParentsAndChildren>) => {
+    setTreeViewData(treeData);
   };
 
   return (
     <div>
-      <SortableTree treeData={treeViewData} onChange={onChangeHandler} isVirtualized={false} />
+      <SortableTree
+        treeData={treeViewData}
+        onChange={onChangeHandler}
+        isVirtualized={false}
+      />
     </div>
   );
 };
