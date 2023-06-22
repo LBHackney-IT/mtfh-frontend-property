@@ -87,7 +87,7 @@ const generateNode = (name: string, childList: Array<JSX.Element>, id: string) =
 function generatePrinciple(
   asset: Asset, childNodes: (| { title: JSX.Element; children: JSX.Element[][] } | { title: string; children: never[] })[],): AssetWithParentsAndChildren | AssetWithChildren {
   
-  if (asset.assetLocation.parentAssets.length) {
+  if (asset.assetLocation?.parentAssets?.length) {
     return {
       title: <span>Principle</span>,
       children: [
@@ -101,8 +101,14 @@ function generatePrinciple(
     };
   } else {
     return {
-      title: `${asset.assetAddress.addressLine1} (this asset)`,
-      children: [...childNodes],
+      title: <span>Hackney</span>,
+      children: [
+        {
+          title: `${asset.assetAddress.addressLine1} (this asset)`,
+          children: [...childNodes],
+          expanded: true,
+        },
+      ],
       expanded: true,
     };
   }
@@ -117,7 +123,7 @@ function addParentsAndPrinciple(
   treeData: any[],
 ) {
 
-  if (asset.assetLocation.parentAssets.length) {
+  if (asset.assetLocation?.parentAssets?.length) {
     const validParents = asset.assetLocation.parentAssets.filter(
       (el) => !excludedTreeAssets.includes(el.id),
     );
