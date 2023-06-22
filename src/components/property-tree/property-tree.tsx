@@ -12,17 +12,11 @@ interface PropertyTreeProps {
 
 interface AssetWithParentsAndChildren {
   title: React.ReactNode;
-  children:
-    | Array<AssetWithParentsAndChildren>
-    | null
-    | { title: string; children: null };
+  children: Array<AssetWithParentsAndChildren> | null | { title: string; children: null };
   expanded?: boolean;
 }
 
-export const PropertyTree = ({
-  asset,
-  childAssets,
-}: PropertyTreeProps): JSX.Element => {
+export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Element => {
   const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c"; // Hackney Homes
 
   const [treeViewData, setTreeViewData] = useState<AssetWithParentsAndChildren[]>([]);
@@ -48,7 +42,7 @@ export const PropertyTree = ({
   const generateNode = (
     name: string,
     childList: AssetWithParentsAndChildren[],
-    id: string
+    id: string,
   ): AssetWithParentsAndChildren => {
     const node = (
       <a className="lbh-link govuk-link" href={`/property/${id}`}>
@@ -61,7 +55,7 @@ export const PropertyTree = ({
 
   const generatePrinciple = (
     asset: Asset,
-    childNodes: AssetWithParentsAndChildren[]
+    childNodes: AssetWithParentsAndChildren[],
   ): AssetWithParentsAndChildren => {
     if (asset.assetLocation?.parentAssets?.length) {
       return {
@@ -94,13 +88,13 @@ export const PropertyTree = ({
     asset: Asset,
     childNodes: AssetWithParentsAndChildren[],
     excludedTreeAssets: string,
-    principle: AssetWithParentsAndChildren
+    principle: AssetWithParentsAndChildren,
   ) => {
     const treeViewElements: AssetWithParentsAndChildren[] = [];
 
     if (asset.assetLocation?.parentAssets?.length) {
       const validParents = asset.assetLocation.parentAssets.filter(
-        (el) => !excludedTreeAssets.includes(el.id)
+        (el) => !excludedTreeAssets.includes(el.id),
       );
 
       for (const [i, v] of validParents.entries()) {
@@ -128,6 +122,8 @@ export const PropertyTree = ({
 
   useEffect(() => {
     addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onChangeHandler = (treeData: AssetWithParentsAndChildren[]) => {
