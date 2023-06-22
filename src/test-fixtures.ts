@@ -5,7 +5,8 @@ export const testValidDwellingFixture: Asset = {
   assetId: "00023400",
   assetType: "Dwelling",
   rootAsset: "14edf718-19ff-ff43-4679-f8ef404fa029",
-  parentAssetIds: "656feda1-896f-b136-da84-163ee4f1be6c#14edf718-19ff-ff43-4679-f8ef404fa029#a65918aa-e441-bc34-e49d-fa8671f768da",
+  parentAssetIds:
+    "656feda1-896f-b136-da84-163ee4f1be6c#14edf718-19ff-ff43-4679-f8ef404fa029#a65918aa-e441-bc34-e49d-fa8671f768da",
   assetLocation: {
     floorNo: "2",
     totalBlockFloors: 10,
@@ -57,7 +58,7 @@ export const testValidDwellingFixture: Asset = {
     totalBlockFloors: null,
     heating: null,
     propertyFactor: null,
-    architecturalType: null
+    architecturalType: null,
   },
   tenure: {
     id: "35ffe2a1-ee7f-c09d-df11-c065d97fa7d0",
@@ -67,7 +68,7 @@ export const testValidDwellingFixture: Asset = {
     endOfTenureDate: "2028-04-03T00:00:00Z",
     isActive: true,
   },
-  rentGroup: null
+  rentGroup: null,
 };
 
 export const testValidchildAssetsFixture: Asset[] = [
@@ -106,7 +107,7 @@ export const testValidchildAssetsFixture: Asset[] = [
       totalBlockFloors: null,
       heating: null,
       propertyFactor: null,
-      architecturalType: null
+      architecturalType: null,
     },
     assetManagement: {
       agent: "Hackney Homes",
@@ -122,6 +123,6 @@ export const testValidchildAssetsFixture: Asset[] = [
       totalBlockFloors: 10,
       parentAssets: [],
     },
-    rentGroup: null
+    rentGroup: null,
   },
 ];

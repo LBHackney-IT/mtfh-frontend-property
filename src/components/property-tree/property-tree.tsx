@@ -11,16 +11,16 @@ interface PropertyTreeProps {
 }
 
 interface AssetWithParentsAndChildren {
-    title: JSX.Element;
-    children: {
-      title: string;
-      children: (
-        | { title: JSX.Element; children: JSX.Element[][] }
-        | { title: string; children: never[] }
-      )[];
-      expanded: boolean;
-    }[];
+  title: JSX.Element;
+  children: {
+    title: string;
+    children: (
+      | { title: JSX.Element; children: JSX.Element[][] }
+      | { title: string; children: never[] }
+    )[];
     expanded: boolean;
+  }[];
+  expanded: boolean;
 }
 
 interface AssetWithChildren {
@@ -85,8 +85,12 @@ const generateNode = (name: string, childList: Array<JSX.Element>, id: string) =
 };
 
 function generatePrinciple(
-  asset: Asset, childNodes: (| { title: JSX.Element; children: JSX.Element[][] } | { title: string; children: never[] })[],): AssetWithParentsAndChildren | AssetWithChildren {
-  
+  asset: Asset,
+  childNodes: (
+    | { title: JSX.Element; children: JSX.Element[][] }
+    | { title: string; children: never[] }
+  )[],
+): AssetWithParentsAndChildren | AssetWithChildren {
   if (asset.assetLocation?.parentAssets?.length) {
     return {
       title: <span>Principle</span>,
@@ -99,30 +103,30 @@ function generatePrinciple(
       ],
       expanded: true,
     };
-  } else {
-    return {
-      title: <span>Hackney</span>,
-      children: [
-        {
-          title: `${asset.assetAddress.addressLine1} (this asset)`,
-          children: [...childNodes],
-          expanded: true,
-        },
-      ],
-      expanded: true,
-    };
   }
-
+  return {
+    title: <span>Hackney</span>,
+    children: [
+      {
+        title: `${asset.assetAddress.addressLine1} (this asset)`,
+        children: [...childNodes],
+        expanded: true,
+      },
+    ],
+    expanded: true,
+  };
 }
 
 function addParentsAndPrinciple(
   asset: Asset,
-  childNodes: (| { title: JSX.Element; children: JSX.Element[][] } | { title: string; children: never[] })[],
+  childNodes: (
+    | { title: JSX.Element; children: JSX.Element[][] }
+    | { title: string; children: never[] }
+  )[],
   excludedTreeAssets: string,
   principle: AssetWithParentsAndChildren | AssetWithChildren,
   treeData: any[],
 ) {
-
   if (asset.assetLocation?.parentAssets?.length) {
     const validParents = asset.assetLocation.parentAssets.filter(
       (el) => !excludedTreeAssets.includes(el.id),
