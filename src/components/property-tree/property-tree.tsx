@@ -23,77 +23,65 @@ interface AssetWithParentsAndChildren {
   expanded: boolean;
 }
 
-interface AssetWithChildren {
-  title: string;
-  children: (
-    | { title: JSX.Element; children: JSX.Element[][] }
-    | { title: string; children: never[] }
-  )[];
-  expanded: boolean;
-}
-
-export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
-  const { asset, childAssets } = props;
-
+export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Element => {
   const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c"; // Hackney Homes
 
-  const childNodes = [];
+  const treeData: JSX.Element[] = [];
 
-  // Add children
-  if (childAssets) {
-    for (const [i, v] of childAssets.entries()) {
-      if (i < 5) {
-        childNodes.push(generateNode(v.assetAddress.addressLine1, [], v.id));
-        continue;
-      }
-      if (i === 5) {
-        childNodes.push({ title: "<< MORE.... >>", children: [] });
-        continue;
-      }
-      if (i > 5) {
-        continue;
+  const addChildrenAssets = () => {
+    const childrenAssets = [];
+
+    if (childAssets) {
+      for (const [i, v] of childAssets.entries()) {
+        if (i < 5) {
+          childrenAssets.push(generateNode(v.assetAddress.addressLine1, [], v.id));
+          continue;
+        }
+        if (i === 5) {
+          childrenAssets.push({ title: "<< MORE.... >>", children: [] });
+          continue;
+        }
+        if (i > 5) {
+          continue;
+        }
       }
     }
-  }
 
-  const treeData: Array<JSX.Element> = [];
-
-  // Generate principle
-  const principle = generatePrinciple(asset, childNodes);
-
-  // Add parents and principle
-  addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle, treeData);
-
-  const onChangeHander = (e: Event) => {
-    console.log(e);
+    return childrenAssets;
   };
-  return (
-    <div>
-      <SortableTree treeData={treeData} onChange={onChangeHander} isVirtualized={false} />
-    </div>
-  );
-};
 
-const generateNode = (name: string, childList: Array<JSX.Element>, id: string) => {
-  const node = (
-    <a className="lbh-link govuk-link" href={`/property/${id}`}>
-      {name}
-    </a>
-  );
+  const generateNode = (name: string, childList: JSX.Element[], id: string) => {
+    const node = (
+      <a className="lbh-link govuk-link" href={`/property/${id}`}>
+        {name}
+      </a>
+    );
 
-  return { title: node, children: [childList] };
-};
+    return { title: node, children: [childList] };
+  };
 
-function generatePrinciple(
-  asset: Asset,
-  childNodes: (
-    | { title: JSX.Element; children: JSX.Element[][] }
-    | { title: string; children: never[] }
-  )[],
-): AssetWithParentsAndChildren | AssetWithChildren {
-  if (asset.assetLocation?.parentAssets?.length) {
+  const generatePrinciple = (
+    asset: Asset,
+    childNodes: (
+      | { title: JSX.Element; children: JSX.Element[][] }
+      | { title: string; children: never[] }
+    )[],
+  ): AssetWithParentsAndChildren => {
+    if (asset.assetLocation?.parentAssets?.length) {
+      return {
+        title: <span>Principle</span>,
+        children: [
+          {
+            title: `${asset.assetAddress.addressLine1} (this asset)`,
+            children: [...childNodes],
+            expanded: true,
+          },
+        ],
+        expanded: true,
+      };
+    }
     return {
-      title: <span>Principle</span>,
+      title: <span>Hackney</span>,
       children: [
         {
           title: `${asset.assetAddress.addressLine1} (this asset)`,
@@ -103,49 +91,58 @@ function generatePrinciple(
       ],
       expanded: true,
     };
-  }
-  return {
-    title: <span>Hackney</span>,
-    children: [
-      {
-        title: `${asset.assetAddress.addressLine1} (this asset)`,
-        children: [...childNodes],
-        expanded: true,
-      },
-    ],
-    expanded: true,
   };
-}
 
-function addParentsAndPrinciple(
-  asset: Asset,
-  childNodes: (
-    | { title: JSX.Element; children: JSX.Element[][] }
-    | { title: string; children: never[] }
-  )[],
-  excludedTreeAssets: string,
-  principle: AssetWithParentsAndChildren | AssetWithChildren,
-  treeData: any[],
-) {
-  if (asset.assetLocation?.parentAssets?.length) {
-    const validParents = asset.assetLocation.parentAssets.filter(
-      (el) => !excludedTreeAssets.includes(el.id),
-    );
+  const addParentsAndPrinciple = (
+    asset: Asset,
+    childNodes: (
+      | { title: JSX.Element; children: JSX.Element[][] }
+      | { title: string; children: never[] }
+    )[],
+    excludedTreeAssets: string,
+    principle: AssetWithParentsAndChildren,
+    treeData: any[],
+  ) => {
+    if (asset.assetLocation?.parentAssets?.length) {
+      const validParents = asset.assetLocation.parentAssets.filter(
+        (el) => !excludedTreeAssets.includes(el.id),
+      );
 
-    for (const [i, v] of validParents.entries()) {
-      // Attach principle to last parent
-      if (i === validParents.length - 1) {
-        principle.title = (
-          <a className="lbh-link govuk-link" href={`/property/${v.id}`}>
-            {v.name}
-          </a>
-        );
-        treeData.push(principle);
-      } else {
-        treeData.push(generateNode(v.name, [], v.id));
+      for (const [i, v] of validParents.entries()) {
+        // Attach principle to last parent
+        if (i === validParents.length - 1) {
+          principle.title = (
+            <a className="lbh-link govuk-link" href={`/property/${v.id}`}>
+              {v.name}
+            </a>
+          );
+          treeData.push(principle);
+        } else {
+          treeData.push(generateNode(v.name, [], v.id));
+        }
       }
+    } else {
+      treeData.push(generatePrinciple(asset, childNodes));
     }
-  } else {
-    treeData.push(generatePrinciple(asset, childNodes));
-  }
-}
+  };
+
+  const childNodes = addChildrenAssets();
+
+  const principle = generatePrinciple(asset, childNodes);
+
+  addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle, treeData);
+
+  const onChangeHandler = (e: Event) => {
+    console.log(e);
+  };
+
+  return (
+    <div>
+      <SortableTree
+        treeData={treeData}
+        onChange={onChangeHandler}
+        isVirtualized={false}
+      />
+    </div>
+  );
+};
