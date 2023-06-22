@@ -3,9 +3,8 @@ import React from "react";
 import { mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import { rest } from "msw";
-
-import { testValidDwellingFixture, testValidchildAssetsFixture } from "../test-fixtures";
 import { PropertyTree } from "./property-tree";
+import { testValidDwellingFixture, testValidchildAssetsFixture } from "test-fixtures";
 
 beforeEach(() => {
   jest.resetAllMocks();

@@ -5,8 +5,7 @@ export const testValidDwellingFixture: Asset = {
   assetId: "00023400",
   assetType: "Dwelling",
   rootAsset: "14edf718-19ff-ff43-4679-f8ef404fa029",
-  parentAssetIds:
-    "656feda1-896f-b136-da84-163ee4f1be6c#14edf718-19ff-ff43-4679-f8ef404fa029#a65918aa-e441-bc34-e49d-fa8671f768da",
+  parentAssetIds: "656feda1-896f-b136-da84-163ee4f1be6c#14edf718-19ff-ff43-4679-f8ef404fa029#a65918aa-e441-bc34-e49d-fa8671f768da",
   assetLocation: {
     floorNo: "2",
     totalBlockFloors: 10,
@@ -52,6 +51,13 @@ export const testValidDwellingFixture: Asset = {
     numberOfLivingRooms: 1,
     windowType: "DBL",
     yearConstructed: "1995",
+    numberOfSingleBeds: null,
+    numberOfDoubleBeds: null,
+    numberOfFloors: null,
+    totalBlockFloors: null,
+    heating: null,
+    propertyFactor: null,
+    architecturalType: null
   },
   tenure: {
     id: "35ffe2a1-ee7f-c09d-df11-c065d97fa7d0",
@@ -61,14 +67,14 @@ export const testValidDwellingFixture: Asset = {
     endOfTenureDate: "2028-04-03T00:00:00Z",
     isActive: true,
   },
+  rentGroup: null
 };
 
-export const testValidchildAssetsFixture = [
+export const testValidchildAssetsFixture: Asset[] = [
   {
     id: "77ec7c49-1ec5-0ef5-bd51-3fbccce7e96e",
     assetId: "00049158",
     assetType: "LettableNonDwelling",
-    isAssetCautionaryAlerted: false,
     assetAddress: {
       uprn: "00049158",
       addressLine1: "Gge 12 Pitcairn House St Thomass Square",
@@ -87,7 +93,6 @@ export const testValidchildAssetsFixture = [
       isActive: true,
     },
     rootAsset: "ROOT",
-    isActive: false,
     parentAssetIds: "2d13b5cb-baf2-91fd-c231-8c5c2ee9548c",
     assetCharacteristics: {
       numberOfBedrooms: 0,
@@ -95,6 +100,13 @@ export const testValidchildAssetsFixture = [
       numberOfLivingRooms: 1,
       windowType: "DBL",
       yearConstructed: "1995",
+      numberOfSingleBeds: null,
+      numberOfDoubleBeds: null,
+      numberOfFloors: null,
+      totalBlockFloors: null,
+      heating: null,
+      propertyFactor: null,
+      architecturalType: null
     },
     assetManagement: {
       agent: "Hackney Homes",
@@ -104,16 +116,12 @@ export const testValidchildAssetsFixture = [
       managingOrganisationId: "c01e3146-e630-c2cd-e709-18ef57bf3724",
       owner: "LBH",
       isTMOManaged: false,
-      propertyOccupiedStatus: "OC",
-      isNoRepairsMaintenance: false,
-      isTemporaryAccomodation: false,
     },
-    assetStatus: null,
     assetLocation: {
       floorNo: "0",
       totalBlockFloors: 10,
       parentAssets: [],
     },
-    assetContract: null,
+    rentGroup: null
   },
 ];
