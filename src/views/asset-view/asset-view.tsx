@@ -12,6 +12,10 @@ export const AssetView = (): JSX.Element => {
 
   const { data: asset, ...assetRequest } = useAsset(assetId);
 
+  if (asset && asset.assetCharacteristics)
+    asset.assetCharacteristics.totalBlockFloors =
+      asset.assetLocation?.totalBlockFloors ?? null;
+
   const { data: childAssetResponse } = useChildAssets(assetId);
 
   if (assetRequest.error) {
