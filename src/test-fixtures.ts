@@ -1,10 +1,11 @@
-import { Asset } from "@mtfh/common/lib/api/asset/v1/types";
+import { Asset, RentGroup } from "@mtfh/common/lib/api/asset/v1/types";
 
 export const testValidDwellingFixture: Asset = {
   id: "2d13b5cb-baf2-91fd-c231-8c5c2ee9548c",
   assetId: "00023400",
   assetType: "Dwelling",
   rootAsset: "14edf718-19ff-ff43-4679-f8ef404fa029",
+  rentGroup: RentGroup.HRA,
   parentAssetIds:
     "656feda1-896f-b136-da84-163ee4f1be6c#14edf718-19ff-ff43-4679-f8ef404fa029#a65918aa-e441-bc34-e49d-fa8671f768da",
   assetLocation: {
@@ -47,11 +48,18 @@ export const testValidDwellingFixture: Asset = {
     isTMOManaged: false,
   },
   assetCharacteristics: {
-    numberOfBedrooms: 0,
+    numberOfBedrooms: 2,
     numberOfLifts: 1,
     numberOfLivingRooms: 1,
     windowType: "DBL",
-    yearConstructed: "1995",
+    yearConstructed: "2077",
+    numberOfSingleBeds: 1,
+    numberOfDoubleBeds: 1,
+    numberOfFloors: 2,
+    totalBlockFloors: null,
+    heating: "FCB",
+    propertyFactor: "4.5",
+    architecturalType: "PRE45MR-FLT",
   },
   tenure: {
     id: "35ffe2a1-ee7f-c09d-df11-c065d97fa7d0",
@@ -63,12 +71,33 @@ export const testValidDwellingFixture: Asset = {
   },
 };
 
-export const testValidchildAssetsFixture = [
+export interface ValidChildAsset extends Asset {
+  isAssetCautionaryAlerted: boolean;
+  isActive: boolean;
+  assetStatus: null;
+  assetContract: null;
+
+  assetManagement: {
+    agent: string;
+    areaOfficeName: string;
+    isCouncilProperty: boolean;
+    managingOrganisation: string;
+    managingOrganisationId: string;
+    owner: string;
+    isTMOManaged: boolean;
+    propertyOccupiedStatus: string;
+    isNoRepairsMaintenance: boolean;
+    isTemporaryAccommodation: boolean;
+  };
+}
+
+export const testValidChildAssetFixture: ValidChildAsset[] = [
   {
     id: "77ec7c49-1ec5-0ef5-bd51-3fbccce7e96e",
     assetId: "00049158",
     assetType: "LettableNonDwelling",
     isAssetCautionaryAlerted: false,
+    rentGroup: RentGroup.HRA,
     assetAddress: {
       uprn: "00049158",
       addressLine1: "Gge 12 Pitcairn House St Thomass Square",
@@ -90,11 +119,18 @@ export const testValidchildAssetsFixture = [
     isActive: false,
     parentAssetIds: "2d13b5cb-baf2-91fd-c231-8c5c2ee9548c",
     assetCharacteristics: {
-      numberOfBedrooms: 0,
+      numberOfBedrooms: 2,
       numberOfLifts: 1,
       numberOfLivingRooms: 1,
       windowType: "DBL",
-      yearConstructed: "1995",
+      yearConstructed: "2077",
+      numberOfSingleBeds: 1,
+      numberOfDoubleBeds: 1,
+      numberOfFloors: 2,
+      totalBlockFloors: null,
+      heating: "FCB",
+      propertyFactor: "4.5",
+      architecturalType: "PRE45MR-FLT",
     },
     assetManagement: {
       agent: "Hackney Homes",
@@ -106,7 +142,7 @@ export const testValidchildAssetsFixture = [
       isTMOManaged: false,
       propertyOccupiedStatus: "OC",
       isNoRepairsMaintenance: false,
-      isTemporaryAccomodation: false,
+      isTemporaryAccommodation: false,
     },
     assetStatus: null,
     assetLocation: {

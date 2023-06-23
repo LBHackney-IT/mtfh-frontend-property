@@ -3,11 +3,13 @@ import React from "react";
 import SortableTree from "react-sortable-tree";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1/types";
+
 import "react-sortable-tree/style.css";
+import { ValidChildAsset } from "test-fixtures";
 
 interface PropertyTreeProps {
   asset: Asset;
-  childAssets: Asset[] | undefined;
+  childAssets: Asset[] | ValidChildAsset[] | undefined;
 }
 
 export const PropertyTree = (props: PropertyTreeProps): JSX.Element => {
