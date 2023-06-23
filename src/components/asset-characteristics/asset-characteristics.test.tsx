@@ -8,6 +8,8 @@ import { PropertySpecification } from "./asset-characteristics";
 
 describe("AssetCharacteristics", () => {
   beforeEach(() => {
+    mockAssetV1.assetCharacteristics.totalBlockFloors =
+      mockAssetV1.assetLocation.totalBlockFloors;
     render(
       <PropertySpecification assetCharacteristics={mockAssetV1.assetCharacteristics} />,
     );
