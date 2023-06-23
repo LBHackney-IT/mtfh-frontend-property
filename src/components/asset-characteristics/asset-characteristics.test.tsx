@@ -16,6 +16,7 @@ describe("AssetCharacteristics", () => {
   });
 
   it("should display the correct characteristic headers", () => {
+    screen.getByTestId("property-spec-toggle").click();
     for (const characteristic in mockAssetV1.assetCharacteristics) {
       const summaryRow = screen.getByTestId(characteristic);
 
@@ -30,6 +31,7 @@ describe("AssetCharacteristics", () => {
   });
 
   it("should display the correct characteristic values", () => {
+    screen.getByTestId("property-spec-toggle").click();
     for (const characteristic in mockAssetV1.assetCharacteristics) {
       const summaryRow = screen.getByTestId(characteristic);
 

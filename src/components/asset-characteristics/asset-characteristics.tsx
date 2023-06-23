@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { locale } from "../../services";
 
@@ -17,6 +17,7 @@ type PropSpecProp = {
 export const PropertySpecification = ({
   assetCharacteristics,
 }: IPropSpecProps): JSX.Element => {
+  const [isPropertySpecExpanded, setIsPropertySpecExpanded] = useState(false);
   // Create an object of keys, labels, and values to loop through
   const propSpecProps: {
     [key: string]: PropSpecProp;
@@ -74,25 +75,34 @@ export const PropertySpecification = ({
   // Loop through props as SummaryListItems
   return (
     <details className="govuk-details" data-module="govuk-details">
-      <summary className="govuk-details__summary">
+      <summary
+        className="govuk-details__summary"
+        onClick={() => setIsPropertySpecExpanded(!isPropertySpecExpanded)}
+        data-testid="property-spec-toggle"
+      >
         <span className="govuk-details__summary-text">Property Specification</span>
       </summary>
-      <div className="govuk-details__text">
-        <aside className="mtfh-asset-charateristics">
-          <SummaryList overrides={[0.5, 0.5]} variant="base">
-            {Object.keys(propSpecProps).map((item) => (
-              <SummaryListItem
-                key={propSpecProps[item]?.label}
-                title={propSpecProps[item]?.label}
-                fallback={" "}
-                data-testid={item?.toString()}
-              >
-                {propSpecProps[item as keyof AssetCharacteristics]?.value?.toString()}
-              </SummaryListItem>
-            ))}
-          </SummaryList>
-        </aside>
-      </div>
+      {isPropertySpecExpanded && (
+        <div className="govuk-details__text">
+          <aside
+            className="mtfh-asset-charateristics"
+            data-testid="asset-characteristics-info"
+          >
+            <SummaryList overrides={[0.5, 0.5]} variant="base">
+              {Object.keys(propSpecProps).map((item) => (
+                <SummaryListItem
+                  key={propSpecProps[item]?.label}
+                  title={propSpecProps[item]?.label}
+                  fallback={" "}
+                  data-testid={item?.toString()}
+                >
+                  {propSpecProps[item as keyof AssetCharacteristics]?.value?.toString()}
+                </SummaryListItem>
+              ))}
+            </SummaryList>
+          </aside>
+        </div>
+      )}
     </details>
   );
 };
