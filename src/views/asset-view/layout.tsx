@@ -5,7 +5,7 @@ import { AssetSideBar } from "../../components/asset-sidebar";
 import { PropertyBody } from "../../components/property-body";
 import { locale } from "../../services";
 
-import { Asset, AssetCharacteristics } from "@mtfh/common/lib/api/asset/v1";
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
 import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
 import { HouseholdMember } from "@mtfh/common/lib/api/tenure/v1/types";
@@ -24,21 +24,15 @@ import "./styles.scss";
 
 export interface Props {
   assetDetails: Asset;
-  assetCharacteristics: AssetCharacteristics;
   assetChildren: Asset[] | undefined;
 }
 
 export interface AssetLayoutProperties {
   assetDetails: Asset;
-  assetCharacteristics: AssetCharacteristics;
   assetChildren: Asset[] | undefined;
 }
 
-export const AssetLayout: FC<Props> = ({
-  assetDetails,
-  assetCharacteristics,
-  assetChildren,
-}) => {
+export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;
 
@@ -86,13 +80,7 @@ export const AssetLayout: FC<Props> = ({
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={
-          <AssetSideBar
-            assetDetails={assetDetails}
-            assetCharacteristics={assetCharacteristics}
-            alerts={alertsData.alerts}
-          />
-        }
+        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
       >
         <PropertyBody assetDetails={assetDetails} childAssets={assetChildren} />
       </Layout>

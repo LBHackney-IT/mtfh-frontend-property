@@ -41,7 +41,6 @@ export const AssetView = (): JSX.Element => {
       {asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling" ? (
         <AssetLayout
           assetDetails={asset}
-          assetCharacteristics={asset.assetCharacteristics}
           assetChildren={childAssetResponse?.childAssets}
         />
       ) : (
