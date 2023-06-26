@@ -727,65 +727,6 @@ export const NewAsset = ({
                   {renderManagingOrganisationOptions()}
                 </Field>
               </div>
-              <div
-                className={
-                  errors.isTMOManaged && touched.isTMOManaged
-                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                    : "govuk-form-group lbh-form-group"
-                }
-              >
-                <fieldset className="govuk-fieldset">
-                  <legend className="govuk-label lbh-label">Is TMO managed?</legend>
-                  {errors.isTMOManaged && touched.isTMOManaged && (
-                    <span
-                      id="is-tmo-managed-error"
-                      className="govuk-error-message lbh-error-message"
-                    >
-                      <span
-                        className="govuk-visually-hidden"
-                        data-testid="error-is-tmo-managed"
-                      >
-                        Error:
-                      </span>{" "}
-                      {errors.isTMOManaged}
-                    </span>
-                  )}
-                  <div className="govuk-radios lbh-radios">
-                    <div className="govuk-radios__item">
-                      <Field
-                        className="govuk-radios__input"
-                        id="is-tmo-managed-yes"
-                        name="isTMOManaged"
-                        type="radio"
-                        value="Yes"
-                        data-testid="is-tmo-managed-yes"
-                      />
-                      <label
-                        className="govuk-label govuk-radios__label"
-                        htmlFor="is-tmo-managed-yes"
-                      >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="govuk-radios__item">
-                      <Field
-                        className="govuk-radios__input"
-                        id="is-tmo-managed-no"
-                        name="isTMOManaged"
-                        type="radio"
-                        value="No"
-                        data-testid="is-tmo-managed-no"
-                      />
-                      <label
-                        className="govuk-label govuk-radios__label"
-                        htmlFor="is-tmo-managed-no"
-                      >
-                        No
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
               <div className="new-property-form-actions">
                 <button
                   className="govuk-button lbh-button"
