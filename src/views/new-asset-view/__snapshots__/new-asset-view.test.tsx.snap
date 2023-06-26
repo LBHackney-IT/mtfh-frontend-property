@@ -17,7 +17,8 @@ exports[`renders the whole 'New asset form' view 1`] = `
     class="govuk-hint lbh-hint"
     id="new-property-disclaimer"
   >
-    A new property will immediately be available for users of Manage My Home. Information is validated in most fields, but all protections are not in place, so some selections may result in mismatched information. It is recommended to thoroughly check the submission before adding the new asset.      
+    A new property will immediately be available for users of Manage My Home. Information is validated in most fields, but all protections are not in place, so some selections may result in mismatched information. It is recommended to thoroughly check the submission before adding the new asset.
+     
   </span>
   <section>
     <div
