@@ -433,7 +433,7 @@ export const NewAsset = ({
                   data-testid="postcode"
                 />
               </div>
-                            <h2 className="lbh-heading-h2">Asset details</h2>
+              <h2 className="lbh-heading-h2">Asset details</h2>
               {assetIsOfDwellingType(values.assetType) && (
                 <>
                   <div
@@ -621,6 +621,11 @@ export const NewAsset = ({
                 </option>
                 {renderAreaOfficeNamesOptions()}
               </Field>
+              <PatchesField
+                patchesState={patchesState}
+                dispatch={dispatch}
+                patchesAndAreasData={patchesAndAreasData}
+              />
               <div
                 className={
                   errors.isCouncilProperty && touched.isCouncilProperty
@@ -781,11 +786,6 @@ export const NewAsset = ({
                   </div>
                 </fieldset>
               </div>
-              <PatchesField
-                patchesState={patchesState}
-                dispatch={dispatch}
-                patchesAndAreasData={patchesAndAreasData}
-              />
               <div className="new-property-form-actions">
                 <button
                   className="govuk-button lbh-button"
