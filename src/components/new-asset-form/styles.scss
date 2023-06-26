@@ -1,12 +1,6 @@
 @import '~lbh-frontend/lbh/base';
 
-#new-property-form {
 
-    input,
-    select {
-        width: 500px;
-    }
-}
 
 .new-property-form-actions {
 
@@ -16,12 +10,26 @@
     }
 }
 
-#submit-new-property-button {
-    margin-right: 20px;
-}
-
 .patch {
     display: flex;
+}
+
+.patch-remove-link {
+    margin-left: 10px;
+    margin-top: 0px;
+    font-size: 16px !important;
+}
+
+#new-property-form {
+
+    input,
+    select {
+        width: 500px;
+    }
+}
+
+#submit-new-property-button {
+    margin-right: 20px;
 }
 
 #patch-add-link {
@@ -32,8 +40,6 @@
     margin-top: 0;
 }
 
-.patch-remove-link {
-    margin-left: 10px;
-    margin-top: 0px;
-    font-size: 16px !important;
+#new-property-disclaimer {
+    margin-top: 28.5px;
 }
