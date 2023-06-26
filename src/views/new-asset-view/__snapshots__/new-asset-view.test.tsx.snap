@@ -13,6 +13,12 @@ exports[`renders the whole 'New asset form' view 1`] = `
   >
     New property
   </h1>
+  <span
+    class="govuk-hint lbh-hint"
+    id="new-property-disclaimer"
+  >
+    A new property will immediately be available for users of Manage My Home. Information is validated in most fields, but all protections are not in place, so some selections may result in mismatched information. It is recommended to thoroughly check the submission before adding the new asset.      
+  </span>
   <section>
     <div
       id="new-property-form"
@@ -414,6 +420,42 @@ exports[`renders the whole 'New asset form' view 1`] = `
         <h2
           class="lbh-heading-h2"
         >
+          Asset details
+        </h2>
+        <label
+          class="govuk-label lbh-label"
+          for="window-type"
+        >
+          Window type
+        </label>
+        <input
+          class="govuk-input lbh-input"
+          data-testid="window-type"
+          id="window-type"
+          name="windowType"
+          value=""
+        />
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="year-constructed"
+          >
+            Year constructed
+          </label>
+          <input
+            class="govuk-input lbh-input"
+            data-testid="year-constructed"
+            id="year-constructed"
+            name="yearConstructed"
+            type="text"
+            value=""
+          />
+        </div>
+        <h2
+          class="lbh-heading-h2"
+        >
           Property management
         </h2>
         <label
@@ -558,6 +600,68 @@ exports[`renders the whole 'New asset form' view 1`] = `
             WY - Wyke TMO (HN)
           </option>
         </select>
+        <label
+          class="govuk-label lbh-label"
+          for="patches"
+        >
+          Patches
+        </label>
+        <div
+          id="property-patches-container"
+        >
+          <div>
+            <svg
+              class="mtfh-icon"
+              focusable="false"
+              height="50"
+              stroke="#00703c"
+              viewBox="0 0 42 42"
+              width="50"
+            >
+              <title>
+                Loading...
+              </title>
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  stroke-width="5"
+                  transform="translate(3 3)"
+                >
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="18"
+                    stroke-opacity=".5"
+                  />
+                  <path
+                    d="M36 18c0-9.94-8.06-18-18-18"
+                    transform="rotate(112.708 18 18)"
+                  >
+                    <animatetransform
+                      attributeName="transform"
+                      dur="1s"
+                      from="0 18 18"
+                      repeatCount="indefinite"
+                      to="360 18 18"
+                      type="rotate"
+                    />
+                  </path>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <button
+            class="lbh-link"
+            data-testid="patch-add-link"
+            id="patch-add-link"
+          >
+            Add another patch
+          </button>
+        </div>
         <div
           class="govuk-form-group lbh-form-group"
         >
@@ -673,157 +777,6 @@ exports[`renders the whole 'New asset form' view 1`] = `
               Cranston Estate TMO
             </option>
           </select>
-        </div>
-        <div
-          class="govuk-form-group lbh-form-group"
-        >
-          <fieldset
-            class="govuk-fieldset"
-          >
-            <legend
-              class="govuk-label lbh-label"
-            >
-              Is TMO managed?
-            </legend>
-            <div
-              class="govuk-radios lbh-radios"
-            >
-              <div
-                class="govuk-radios__item"
-              >
-                <input
-                  class="govuk-radios__input"
-                  data-testid="is-tmo-managed-yes"
-                  id="is-tmo-managed-yes"
-                  name="isTMOManaged"
-                  type="radio"
-                  value="Yes"
-                />
-                <label
-                  class="govuk-label govuk-radios__label"
-                  for="is-tmo-managed-yes"
-                >
-                  Yes
-                </label>
-              </div>
-              <div
-                class="govuk-radios__item"
-              >
-                <input
-                  class="govuk-radios__input"
-                  data-testid="is-tmo-managed-no"
-                  id="is-tmo-managed-no"
-                  name="isTMOManaged"
-                  type="radio"
-                  value="No"
-                />
-                <label
-                  class="govuk-label govuk-radios__label"
-                  for="is-tmo-managed-no"
-                >
-                  No
-                </label>
-              </div>
-            </div>
-          </fieldset>
-        </div>
-        <label
-          class="govuk-label lbh-label"
-          for="patches"
-        >
-          Patches
-        </label>
-        <div
-          id="property-patches-container"
-        >
-          <div>
-            <svg
-              class="mtfh-icon"
-              focusable="false"
-              height="50"
-              stroke="#00703c"
-              viewBox="0 0 42 42"
-              width="50"
-            >
-              <title>
-                Loading...
-              </title>
-              <g
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <g
-                  stroke-width="5"
-                  transform="translate(3 3)"
-                >
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="18"
-                    stroke-opacity=".5"
-                  />
-                  <path
-                    d="M36 18c0-9.94-8.06-18-18-18"
-                    transform="rotate(112.708 18 18)"
-                  >
-                    <animatetransform
-                      attributeName="transform"
-                      dur="1s"
-                      from="0 18 18"
-                      repeatCount="indefinite"
-                      to="360 18 18"
-                      type="rotate"
-                    />
-                  </path>
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div>
-          <button
-            class="lbh-link"
-            data-testid="patch-add-link"
-            id="patch-add-link"
-          >
-            Add another patch
-          </button>
-        </div>
-        <h2
-          class="lbh-heading-h2"
-        >
-          Asset details
-        </h2>
-        <label
-          class="govuk-label lbh-label"
-          for="window-type"
-        >
-          Window type
-        </label>
-        <input
-          class="govuk-input lbh-input"
-          data-testid="window-type"
-          id="window-type"
-          name="windowType"
-          value=""
-        />
-        <div
-          class="govuk-form-group lbh-form-group"
-        >
-          <label
-            class="govuk-label lbh-label"
-            for="year-constructed"
-          >
-            Year constructed
-          </label>
-          <input
-            class="govuk-input lbh-input"
-            data-testid="year-constructed"
-            id="year-constructed"
-            name="yearConstructed"
-            type="text"
-            value=""
-          />
         </div>
         <div
           class="new-property-form-actions"

@@ -147,7 +147,15 @@ export const NewAsset = ({
         validationSchema={newPropertySchema}
         onSubmit={(values) => handleSubmit(values)}
       >
-        {({ values, errors, touched, submitCount, isValid, handleChange, setFieldValue }) => (
+        {({
+          values,
+          errors,
+          touched,
+          submitCount,
+          isValid,
+          handleChange,
+          setFieldValue,
+        }) => (
           <div id="new-property-form">
             <Form>
               <div
@@ -708,12 +716,15 @@ export const NewAsset = ({
                 </Field>
               </div>
               <div className="new-property-form-actions">
-                
-                {!isValid && submitCount > 0 &&
-                <span className="govuk-error-message lbh-error-message">
-                  <span className="govuk-visually-hidden">Error: Check form for errors.</span> Unable to create new property. Please check the form fields for any errors.
-                </span>
-                }
+                {!isValid && submitCount > 0 && (
+                  <span className="govuk-error-message lbh-error-message">
+                    <span className="govuk-visually-hidden">
+                      Error: Check form for errors.
+                    </span>{" "}
+                    Unable to create new property. Please check the form fields for any
+                    errors.
+                  </span>
+                )}
                 <button
                   className="govuk-button lbh-button"
                   data-module="govuk-button"
