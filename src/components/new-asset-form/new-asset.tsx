@@ -433,6 +433,168 @@ export const NewAsset = ({
                   data-testid="postcode"
                 />
               </div>
+                            <h2 className="lbh-heading-h2">Asset details</h2>
+              {assetIsOfDwellingType(values.assetType) && (
+                <>
+                  <div
+                    className={
+                      errors.numberOfBedrooms && touched.numberOfBedrooms
+                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                        : "govuk-form-group lbh-form-group"
+                    }
+                  >
+                    <label className="govuk-label lbh-label" htmlFor="no-of-bedrooms">
+                      Number of bedrooms
+                    </label>
+                    {errors.numberOfBedrooms && touched.numberOfBedrooms && (
+                      <span
+                        id="no-of-bedrooms-input-error"
+                        className="govuk-error-message lbh-error-message"
+                      >
+                        <span
+                          className="govuk-visually-hidden"
+                          data-testid="error-no-of-bedrooms"
+                        >
+                          Error:
+                        </span>
+                        {errors.numberOfBedrooms}
+                      </span>
+                    )}
+                    <Field
+                      id="no-of-bedrooms"
+                      name="numberOfBedrooms"
+                      className={
+                        errors.numberOfBedrooms && touched.numberOfBedrooms
+                          ? "govuk-input lbh-input govuk-input--error"
+                          : "govuk-input lbh-input"
+                      }
+                      type="text"
+                      data-testid="no-of-bedrooms"
+                    />
+                  </div>
+                  <div
+                    className={
+                      errors.numberOfLivingRooms && touched.numberOfLivingRooms
+                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                        : "govuk-form-group lbh-form-group"
+                    }
+                  >
+                    <label className="govuk-label lbh-label" htmlFor="no-of-living-rooms">
+                      Number of living rooms
+                    </label>
+                    {errors.numberOfLivingRooms && touched.numberOfLivingRooms && (
+                      <span
+                        id="no-of-living-rooms-input-error"
+                        className="govuk-error-message lbh-error-message"
+                      >
+                        <span
+                          className="govuk-visually-hidden"
+                          data-testid="error-no-of-living-rooms"
+                        >
+                          Error:
+                        </span>
+                        {errors.numberOfLivingRooms}
+                      </span>
+                    )}
+                    <Field
+                      id="no-of-living-rooms"
+                      name="numberOfLivingRooms"
+                      className={
+                        errors.numberOfLivingRooms && touched.numberOfLivingRooms
+                          ? "govuk-input lbh-input govuk-input--error"
+                          : "govuk-input lbh-input"
+                      }
+                      type="text"
+                      data-testid="no-of-living-rooms"
+                    />
+                  </div>
+                </>
+              )}
+              {assetHasFloors(values.assetType) && (
+                <>
+                  <div
+                    className={
+                      errors.numberOfLifts && touched.numberOfLifts
+                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                        : "govuk-form-group lbh-form-group"
+                    }
+                  >
+                    <label className="govuk-label lbh-label" htmlFor="no-of-lifts">
+                      Number of lifts{" "}
+                    </label>
+                    {errors.numberOfLifts && touched.numberOfLifts && (
+                      <span
+                        id="no-of-lifts-input-error"
+                        className="govuk-error-message lbh-error-message"
+                      >
+                        <span
+                          className="govuk-visually-hidden"
+                          data-testid="error-no-of-lifts"
+                        >
+                          Error:
+                        </span>
+                        {errors.numberOfLifts}
+                      </span>
+                    )}
+                    <Field
+                      id="no-of-lifts"
+                      name="numberOfLifts"
+                      className={
+                        errors.numberOfLifts && touched.numberOfLifts
+                          ? "govuk-input lbh-input govuk-input--error"
+                          : "govuk-input lbh-input"
+                      }
+                      type="text"
+                      data-testid="no-of-lifts"
+                    />
+                  </div>
+                </>
+              )}
+              <label className="govuk-label lbh-label" htmlFor="window-type">
+                Window type
+              </label>
+              <Field
+                id="window-type"
+                name="windowType"
+                className="govuk-input lbh-input"
+                data-testid="window-type"
+              />
+              <div
+                className={
+                  errors.yearConstructed && touched.yearConstructed
+                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                    : "govuk-form-group lbh-form-group"
+                }
+              >
+                <label className="govuk-label lbh-label" htmlFor="year-constructed">
+                  Year constructed
+                </label>
+                {errors.yearConstructed && touched.yearConstructed && (
+                  <span
+                    id="year-constructed-input-error"
+                    className="govuk-error-message lbh-error-message"
+                  >
+                    <span
+                      className="govuk-visually-hidden"
+                      data-testid="year-constructed"
+                    >
+                      Error:
+                    </span>
+                    {errors.yearConstructed}
+                  </span>
+                )}
+                <Field
+                  id="year-constructed"
+                  name="yearConstructed"
+                  className={
+                    errors.yearConstructed && touched.yearConstructed
+                      ? "govuk-input lbh-input govuk-input--error"
+                      : "govuk-input lbh-input"
+                  }
+                  type="text"
+                  data-testid="year-constructed"
+                />
+              </div>
               <h2 className="lbh-heading-h2">Property management</h2>
               <label className="govuk-label lbh-label" htmlFor="agent">
                 Agent
@@ -624,168 +786,6 @@ export const NewAsset = ({
                 dispatch={dispatch}
                 patchesAndAreasData={patchesAndAreasData}
               />
-              <h2 className="lbh-heading-h2">Asset details</h2>
-              {assetIsOfDwellingType(values.assetType) && (
-                <>
-                  <div
-                    className={
-                      errors.numberOfBedrooms && touched.numberOfBedrooms
-                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                        : "govuk-form-group lbh-form-group"
-                    }
-                  >
-                    <label className="govuk-label lbh-label" htmlFor="no-of-bedrooms">
-                      Number of bedrooms
-                    </label>
-                    {errors.numberOfBedrooms && touched.numberOfBedrooms && (
-                      <span
-                        id="no-of-bedrooms-input-error"
-                        className="govuk-error-message lbh-error-message"
-                      >
-                        <span
-                          className="govuk-visually-hidden"
-                          data-testid="error-no-of-bedrooms"
-                        >
-                          Error:
-                        </span>
-                        {errors.numberOfBedrooms}
-                      </span>
-                    )}
-                    <Field
-                      id="no-of-bedrooms"
-                      name="numberOfBedrooms"
-                      className={
-                        errors.numberOfBedrooms && touched.numberOfBedrooms
-                          ? "govuk-input lbh-input govuk-input--error"
-                          : "govuk-input lbh-input"
-                      }
-                      type="text"
-                      data-testid="no-of-bedrooms"
-                    />
-                  </div>
-                  <div
-                    className={
-                      errors.numberOfLivingRooms && touched.numberOfLivingRooms
-                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                        : "govuk-form-group lbh-form-group"
-                    }
-                  >
-                    <label className="govuk-label lbh-label" htmlFor="no-of-living-rooms">
-                      Number of living rooms
-                    </label>
-                    {errors.numberOfLivingRooms && touched.numberOfLivingRooms && (
-                      <span
-                        id="no-of-living-rooms-input-error"
-                        className="govuk-error-message lbh-error-message"
-                      >
-                        <span
-                          className="govuk-visually-hidden"
-                          data-testid="error-no-of-living-rooms"
-                        >
-                          Error:
-                        </span>
-                        {errors.numberOfLivingRooms}
-                      </span>
-                    )}
-                    <Field
-                      id="no-of-living-rooms"
-                      name="numberOfLivingRooms"
-                      className={
-                        errors.numberOfLivingRooms && touched.numberOfLivingRooms
-                          ? "govuk-input lbh-input govuk-input--error"
-                          : "govuk-input lbh-input"
-                      }
-                      type="text"
-                      data-testid="no-of-living-rooms"
-                    />
-                  </div>
-                </>
-              )}
-              {assetHasFloors(values.assetType) && (
-                <>
-                  <div
-                    className={
-                      errors.numberOfLifts && touched.numberOfLifts
-                        ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                        : "govuk-form-group lbh-form-group"
-                    }
-                  >
-                    <label className="govuk-label lbh-label" htmlFor="no-of-lifts">
-                      Number of lifts{" "}
-                    </label>
-                    {errors.numberOfLifts && touched.numberOfLifts && (
-                      <span
-                        id="no-of-lifts-input-error"
-                        className="govuk-error-message lbh-error-message"
-                      >
-                        <span
-                          className="govuk-visually-hidden"
-                          data-testid="error-no-of-lifts"
-                        >
-                          Error:
-                        </span>
-                        {errors.numberOfLifts}
-                      </span>
-                    )}
-                    <Field
-                      id="no-of-lifts"
-                      name="numberOfLifts"
-                      className={
-                        errors.numberOfLifts && touched.numberOfLifts
-                          ? "govuk-input lbh-input govuk-input--error"
-                          : "govuk-input lbh-input"
-                      }
-                      type="text"
-                      data-testid="no-of-lifts"
-                    />
-                  </div>
-                </>
-              )}
-              <label className="govuk-label lbh-label" htmlFor="window-type">
-                Window type
-              </label>
-              <Field
-                id="window-type"
-                name="windowType"
-                className="govuk-input lbh-input"
-                data-testid="window-type"
-              />
-              <div
-                className={
-                  errors.yearConstructed && touched.yearConstructed
-                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                    : "govuk-form-group lbh-form-group"
-                }
-              >
-                <label className="govuk-label lbh-label" htmlFor="year-constructed">
-                  Year constructed
-                </label>
-                {errors.yearConstructed && touched.yearConstructed && (
-                  <span
-                    id="year-constructed-input-error"
-                    className="govuk-error-message lbh-error-message"
-                  >
-                    <span
-                      className="govuk-visually-hidden"
-                      data-testid="year-constructed"
-                    >
-                      Error:
-                    </span>
-                    {errors.yearConstructed}
-                  </span>
-                )}
-                <Field
-                  id="year-constructed"
-                  name="yearConstructed"
-                  className={
-                    errors.yearConstructed && touched.yearConstructed
-                      ? "govuk-input lbh-input govuk-input--error"
-                      : "govuk-input lbh-input"
-                  }
-                  type="text"
-                  data-testid="year-constructed"
-                />
-              </div>
               <div className="new-property-form-actions">
                 <button
                   className="govuk-button lbh-button"
@@ -795,7 +795,6 @@ export const NewAsset = ({
                 >
                   Create new property
                 </button>
-
                 <RouterLink
                   to="#"
                   className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
