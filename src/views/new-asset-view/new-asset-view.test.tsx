@@ -17,7 +17,6 @@ beforeEach(() => {
 
 test("renders the whole 'New asset form' view", async () => {
   const { container } = render(<NewAssetView />);
-
   expect(container).toMatchSnapshot();
 });
 

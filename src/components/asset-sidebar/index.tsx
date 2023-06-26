@@ -1,7 +1,7 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { AssetDetails, TenureDetails } from "..";
+import { AssetDetails, PropertySpecification, TenureDetails } from "..";
 import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
 import { CautionaryAlertsDetails } from "../cautionary-alerts-details/cautionary-alerts-details";
@@ -41,6 +41,7 @@ export const AssetSideBar = ({
             assetType={assetType}
             assetReference={assetId}
           />
+          <PropertySpecification assetCharacteristics={assetCharacteristics} />
           {isAuthorisedForGroups(assetAdminAuthGroups) && (
             <Button
               as={RouterLink}

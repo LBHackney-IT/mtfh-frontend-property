@@ -10,6 +10,7 @@ import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 
 interface Props {
   assetDetails: Asset;
+  // eslint-disable-next-line react/no-unused-prop-types
   childAssets: Asset[] | undefined;
   enableNewProcesses: boolean;
 }
