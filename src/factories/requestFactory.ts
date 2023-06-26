@@ -37,7 +37,7 @@ export const assembleCreateNewAssetRequest = (
       areaOfficeName: values?.areaOfficeName ?? "",
       isCouncilProperty: values.isCouncilProperty === "Yes",
       managingOrganisation: values.managingOrganisation,
-      isTMOManaged: values.isTMOManaged === "Yes",
+      isTMOManaged: values.managingOrganisation !== "London Borough of Hackney",
       managingOrganisationId: getManagingOrganisationId(values.managingOrganisation),
     },
     assetCharacteristics: {

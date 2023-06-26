@@ -124,7 +124,6 @@ export const NewAsset = ({
           assetType: "",
           propertyEstate: "",
           propertyBlock: "",
-          // propertySubBlock: "",
           floorNo: "",
           totalBlockFloors: undefined,
           uprn: "",
@@ -138,7 +137,6 @@ export const NewAsset = ({
           areaOfficeName: "",
           isCouncilProperty: "",
           managingOrganisation: "London Borough of Hackney",
-          isTMOManaged: "",
           patches: patchesState,
           numberOfBedrooms: undefined,
           numberOfLivingRooms: undefined,
@@ -149,7 +147,15 @@ export const NewAsset = ({
         validationSchema={newPropertySchema}
         onSubmit={(values) => handleSubmit(values)}
       >
-        {({ values, errors, touched, handleChange, setFieldValue }) => (
+        {({
+          values,
+          errors,
+          touched,
+          submitCount,
+          isValid,
+          handleChange,
+          setFieldValue,
+        }) => (
           <div id="new-property-form">
             <Form>
               <div
@@ -247,24 +253,6 @@ export const NewAsset = ({
                   value={values.propertyBlock || ""}
                 />
               )}
-              {/* {values.assetType !== "Block" && values.assetType !== "Estate" && (
-                <>
-                  <label className="govuk-label lbh-label" htmlFor="property-sub-block">
-                    Sub-block this property is in
-                  </label>
-                  <Field
-                    id="property-sub-block"
-                    name="propertySubBlock"
-                    className={
-                      errors.propertySubBlock && touched.propertySubBlock
-                        ? "govuk-input lbh-input govuk-input--error"
-                        : "govuk-input lbh-input"
-                    }
-                    type="text"
-                    data-testid="property-sub-block"
-                  />
-                </>
-              )} */}
               {assetHasFloorNo(values.assetType) && (
                 <>
                   <label className="govuk-label lbh-label" htmlFor="floor-no">
@@ -433,197 +421,6 @@ export const NewAsset = ({
                   data-testid="postcode"
                 />
               </div>
-              <h2 className="lbh-heading-h2">Property management</h2>
-              <label className="govuk-label lbh-label" htmlFor="agent">
-                Agent
-              </label>
-              <Field
-                id="agent"
-                name="agent"
-                className="govuk-input lbh-input"
-                data-testid="agent"
-              />
-              <label className="govuk-label lbh-label" htmlFor="area-office-name">
-                Area office name
-              </label>
-              <Field
-                as="select"
-                id="area-office-name"
-                name="areaOfficeName"
-                className="govuk-input lbh-input"
-                data-testid="area-office-name"
-              >
-                <option disabled value="">
-                  {" "}
-                  -- Select an option --{" "}
-                </option>
-                {renderAreaOfficeNamesOptions()}
-              </Field>
-              <div
-                className={
-                  errors.isCouncilProperty && touched.isCouncilProperty
-                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                    : "govuk-form-group lbh-form-group"
-                }
-              >
-                <fieldset className="govuk-fieldset">
-                  <legend className="govuk-label lbh-label">Is LBH property?</legend>
-                  {errors.isCouncilProperty && touched.isCouncilProperty && (
-                    <span
-                      id="is-lbh-property-error"
-                      className="govuk-error-message lbh-error-message"
-                    >
-                      <span
-                        className="govuk-visually-hidden"
-                        data-testid="error-is-council-property"
-                      >
-                        Error:
-                      </span>{" "}
-                      {errors.isCouncilProperty}
-                    </span>
-                  )}
-                  <div className="govuk-radios lbh-radios">
-                    <div className="govuk-radios__item">
-                      <Field
-                        className="govuk-radios__input"
-                        id="is-council-property-yes"
-                        name="isCouncilProperty"
-                        type="radio"
-                        value="Yes"
-                        data-testid="is-council-property-yes"
-                      />
-                      <label
-                        className="govuk-label govuk-radios__label"
-                        htmlFor="is-council-property-yes"
-                      >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="govuk-radios__item">
-                      <Field
-                        className="govuk-radios__input"
-                        id="is-council-property-no"
-                        name="isCouncilProperty"
-                        type="radio"
-                        value="No"
-                        data-testid="is-council-property-no"
-                      />
-                      <label
-                        className="govuk-label govuk-radios__label"
-                        htmlFor="is-council-property-no"
-                      >
-                        No
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-              <div
-                className={
-                  errors.managingOrganisation && touched.managingOrganisation
-                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                    : "govuk-form-group lbh-form-group"
-                }
-              >
-                <label className="govuk-label lbh-label" htmlFor="managing-organisation">
-                  Managing organisation
-                </label>
-                {errors.managingOrganisation && touched.managingOrganisation && (
-                  <span
-                    id="managing-organisation-input-error"
-                    className="govuk-error-message lbh-error-message"
-                  >
-                    <span
-                      className="govuk-visually-hidden"
-                      data-testid="error-managing-organisation"
-                    >
-                      Error:
-                    </span>{" "}
-                    {errors.managingOrganisation}
-                  </span>
-                )}
-                <Field
-                  as="select"
-                  id="managing-organisation"
-                  name="managingOrganisation"
-                  className={
-                    errors.managingOrganisation && touched.managingOrganisation
-                      ? "govuk-input lbh-input govuk-input--error"
-                      : "govuk-input lbh-input"
-                  }
-                  data-testid="managing-organisation"
-                >
-                  <option disabled value="">
-                    {" "}
-                    -- Select an option --{" "}
-                  </option>
-                  {renderManagingOrganisationOptions()}
-                </Field>
-              </div>
-              <div
-                className={
-                  errors.isTMOManaged && touched.isTMOManaged
-                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
-                    : "govuk-form-group lbh-form-group"
-                }
-              >
-                <fieldset className="govuk-fieldset">
-                  <legend className="govuk-label lbh-label">Is TMO managed?</legend>
-                  {errors.isTMOManaged && touched.isTMOManaged && (
-                    <span
-                      id="is-tmo-managed-error"
-                      className="govuk-error-message lbh-error-message"
-                    >
-                      <span
-                        className="govuk-visually-hidden"
-                        data-testid="error-is-tmo-managed"
-                      >
-                        Error:
-                      </span>{" "}
-                      {errors.isTMOManaged}
-                    </span>
-                  )}
-                  <div className="govuk-radios lbh-radios">
-                    <div className="govuk-radios__item">
-                      <Field
-                        className="govuk-radios__input"
-                        id="is-tmo-managed-yes"
-                        name="isTMOManaged"
-                        type="radio"
-                        value="Yes"
-                        data-testid="is-tmo-managed-yes"
-                      />
-                      <label
-                        className="govuk-label govuk-radios__label"
-                        htmlFor="is-tmo-managed-yes"
-                      >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="govuk-radios__item">
-                      <Field
-                        className="govuk-radios__input"
-                        id="is-tmo-managed-no"
-                        name="isTMOManaged"
-                        type="radio"
-                        value="No"
-                        data-testid="is-tmo-managed-no"
-                      />
-                      <label
-                        className="govuk-label govuk-radios__label"
-                        htmlFor="is-tmo-managed-no"
-                      >
-                        No
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-              <PatchesField
-                patchesState={patchesState}
-                dispatch={dispatch}
-                patchesAndAreasData={patchesAndAreasData}
-              />
               <h2 className="lbh-heading-h2">Asset details</h2>
               {assetIsOfDwellingType(values.assetType) && (
                 <>
@@ -786,7 +583,148 @@ export const NewAsset = ({
                   data-testid="year-constructed"
                 />
               </div>
+              <h2 className="lbh-heading-h2">Property management</h2>
+              <label className="govuk-label lbh-label" htmlFor="agent">
+                Agent
+              </label>
+              <Field
+                id="agent"
+                name="agent"
+                className="govuk-input lbh-input"
+                data-testid="agent"
+              />
+              <label className="govuk-label lbh-label" htmlFor="area-office-name">
+                Area office name
+              </label>
+              <Field
+                as="select"
+                id="area-office-name"
+                name="areaOfficeName"
+                className="govuk-input lbh-input"
+                data-testid="area-office-name"
+              >
+                <option disabled value="">
+                  {" "}
+                  -- Select an option --{" "}
+                </option>
+                {renderAreaOfficeNamesOptions()}
+              </Field>
+              <PatchesField
+                patchesState={patchesState}
+                dispatch={dispatch}
+                patchesAndAreasData={patchesAndAreasData}
+              />
+              <div
+                className={
+                  errors.isCouncilProperty && touched.isCouncilProperty
+                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                    : "govuk-form-group lbh-form-group"
+                }
+              >
+                <fieldset className="govuk-fieldset">
+                  <legend className="govuk-label lbh-label">Is LBH property?</legend>
+                  {errors.isCouncilProperty && touched.isCouncilProperty && (
+                    <span
+                      id="is-lbh-property-error"
+                      className="govuk-error-message lbh-error-message"
+                    >
+                      <span
+                        className="govuk-visually-hidden"
+                        data-testid="error-is-council-property"
+                      >
+                        Error:
+                      </span>{" "}
+                      {errors.isCouncilProperty}
+                    </span>
+                  )}
+                  <div className="govuk-radios lbh-radios">
+                    <div className="govuk-radios__item">
+                      <Field
+                        className="govuk-radios__input"
+                        id="is-council-property-yes"
+                        name="isCouncilProperty"
+                        type="radio"
+                        value="Yes"
+                        data-testid="is-council-property-yes"
+                      />
+                      <label
+                        className="govuk-label govuk-radios__label"
+                        htmlFor="is-council-property-yes"
+                      >
+                        Yes
+                      </label>
+                    </div>
+                    <div className="govuk-radios__item">
+                      <Field
+                        className="govuk-radios__input"
+                        id="is-council-property-no"
+                        name="isCouncilProperty"
+                        type="radio"
+                        value="No"
+                        data-testid="is-council-property-no"
+                      />
+                      <label
+                        className="govuk-label govuk-radios__label"
+                        htmlFor="is-council-property-no"
+                      >
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div
+                className={
+                  errors.managingOrganisation && touched.managingOrganisation
+                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                    : "govuk-form-group lbh-form-group"
+                }
+              >
+                <label className="govuk-label lbh-label" htmlFor="managing-organisation">
+                  Managing organisation
+                </label>
+                {errors.managingOrganisation && touched.managingOrganisation && (
+                  <span
+                    id="managing-organisation-input-error"
+                    className="govuk-error-message lbh-error-message"
+                  >
+                    <span
+                      className="govuk-visually-hidden"
+                      data-testid="error-managing-organisation"
+                    >
+                      Error:
+                    </span>{" "}
+                    {errors.managingOrganisation}
+                  </span>
+                )}
+                <Field
+                  as="select"
+                  id="managing-organisation"
+                  name="managingOrganisation"
+                  className={
+                    errors.managingOrganisation && touched.managingOrganisation
+                      ? "govuk-input lbh-input govuk-input--error"
+                      : "govuk-input lbh-input"
+                  }
+                  data-testid="managing-organisation"
+                >
+                  <option disabled value="">
+                    {" "}
+                    -- Select an option --{" "}
+                  </option>
+                  {renderManagingOrganisationOptions()}
+                </Field>
+              </div>
               <div className="new-property-form-actions">
+                {!isValid && submitCount > 0 && (
+                  <span className="govuk-error-message lbh-error-message">
+                    <span className="govuk-visually-hidden">
+                      Error: Check form for errors.
+                    </span>{" "}
+                    Unable to create new property. Please check the form fields for any
+                    errors.
+                  </span>
+                )}
                 <button
                   className="govuk-button lbh-button"
                   data-module="govuk-button"
@@ -795,7 +733,6 @@ export const NewAsset = ({
                 >
                   Create new property
                 </button>
-
                 <RouterLink
                   to="#"
                   className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
