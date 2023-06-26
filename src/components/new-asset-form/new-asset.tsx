@@ -124,7 +124,6 @@ export const NewAsset = ({
           assetType: "",
           propertyEstate: "",
           propertyBlock: "",
-          // propertySubBlock: "",
           floorNo: "",
           totalBlockFloors: undefined,
           uprn: "",
@@ -138,7 +137,6 @@ export const NewAsset = ({
           areaOfficeName: "",
           isCouncilProperty: "",
           managingOrganisation: "London Borough of Hackney",
-          isTMOManaged: "",
           patches: patchesState,
           numberOfBedrooms: undefined,
           numberOfLivingRooms: undefined,
@@ -149,7 +147,7 @@ export const NewAsset = ({
         validationSchema={newPropertySchema}
         onSubmit={(values) => handleSubmit(values)}
       >
-        {({ values, errors, touched, handleChange, setFieldValue }) => (
+        {({ values, errors, touched, submitCount, isValid, handleChange, setFieldValue }) => (
           <div id="new-property-form">
             <Form>
               <div
@@ -247,24 +245,6 @@ export const NewAsset = ({
                   value={values.propertyBlock || ""}
                 />
               )}
-              {/* {values.assetType !== "Block" && values.assetType !== "Estate" && (
-                <>
-                  <label className="govuk-label lbh-label" htmlFor="property-sub-block">
-                    Sub-block this property is in
-                  </label>
-                  <Field
-                    id="property-sub-block"
-                    name="propertySubBlock"
-                    className={
-                      errors.propertySubBlock && touched.propertySubBlock
-                        ? "govuk-input lbh-input govuk-input--error"
-                        : "govuk-input lbh-input"
-                    }
-                    type="text"
-                    data-testid="property-sub-block"
-                  />
-                </>
-              )} */}
               {assetHasFloorNo(values.assetType) && (
                 <>
                   <label className="govuk-label lbh-label" htmlFor="floor-no">
@@ -728,6 +708,12 @@ export const NewAsset = ({
                 </Field>
               </div>
               <div className="new-property-form-actions">
+                
+                {!isValid && submitCount > 0 &&
+                <span className="govuk-error-message lbh-error-message">
+                  <span className="govuk-visually-hidden">Error: Check form for errors.</span> Unable to create new property. Please check the form fields for any errors.
+                </span>
+                }
                 <button
                   className="govuk-button lbh-button"
                   data-module="govuk-button"

@@ -10,7 +10,6 @@ export const newPropertySchema = () =>
     assetType: Yup.string().required("Asset Type is a required field"),
     propertyEstate: Yup.string(),
     propertyBlock: Yup.string(),
-    // propertySubBlock: Yup.string(),
     floorNo: Yup.string(),
     totalBlockFloors: Yup.number()
       .nullable()
@@ -36,7 +35,6 @@ export const newPropertySchema = () =>
     managingOrganisation: Yup.string().required(
       "Managing organisation is a required field",
     ),
-    isTMOManaged: Yup.string().required("Please select an option"),
     patches: Yup.array()
       .of(
         Yup.object().shape({
