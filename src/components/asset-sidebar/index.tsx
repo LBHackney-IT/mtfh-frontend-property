@@ -26,7 +26,7 @@ export const AssetSideBar = ({
   showCautionaryAlerts,
   ...properties
 }: Props) => {
-  const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
+  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics } = assetDetails;
 
   // only show button when there is no active tenure on the asset
   const showAddTenureButton = () =>
