@@ -61,6 +61,21 @@ exports[`it hides cautionary alerts 1`] = `
             </div>
           </dl>
         </aside>
+        <details
+          class="govuk-details"
+          data-module="govuk-details"
+        >
+          <summary
+            class="govuk-details__summary"
+            data-testid="property-spec-toggle"
+          >
+            <span
+              class="govuk-details__summary-text"
+            >
+              Property Specification
+            </span>
+          </summary>
+        </details>
         <a
           class="govuk-button lbh-button"
           data-testid="edit-address-button"
@@ -135,6 +150,21 @@ exports[`it hides tenure information 1`] = `
             </div>
           </dl>
         </aside>
+        <details
+          class="govuk-details"
+          data-module="govuk-details"
+        >
+          <summary
+            class="govuk-details__summary"
+            data-testid="property-spec-toggle"
+          >
+            <span
+              class="govuk-details__summary-text"
+            >
+              Property Specification
+            </span>
+          </summary>
+        </details>
         <a
           class="govuk-button lbh-button"
           data-testid="edit-address-button"
@@ -209,6 +239,21 @@ exports[`it shows cautionary alerts 1`] = `
             </div>
           </dl>
         </aside>
+        <details
+          class="govuk-details"
+          data-module="govuk-details"
+        >
+          <summary
+            class="govuk-details__summary"
+            data-testid="property-spec-toggle"
+          >
+            <span
+              class="govuk-details__summary-text"
+            >
+              Property Specification
+            </span>
+          </summary>
+        </details>
         <a
           class="govuk-button lbh-button"
           data-testid="edit-address-button"
@@ -297,6 +342,21 @@ exports[`it shows tenure information 1`] = `
             </div>
           </dl>
         </aside>
+        <details
+          class="govuk-details"
+          data-module="govuk-details"
+        >
+          <summary
+            class="govuk-details__summary"
+            data-testid="property-spec-toggle"
+          >
+            <span
+              class="govuk-details__summary-text"
+            >
+              Property Specification
+            </span>
+          </summary>
+        </details>
         <a
           class="govuk-button lbh-button"
           data-testid="edit-address-button"
