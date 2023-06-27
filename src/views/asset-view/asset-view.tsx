@@ -14,8 +14,8 @@ export const AssetView = (): JSX.Element => {
   const { data: childAssetResponse } = useChildAssets(assetId);
 
   if (asset && asset.assetCharacteristics)
-  asset.assetCharacteristics.totalBlockFloors =
-    asset.assetLocation?.totalBlockFloors ?? null;
+    asset.assetCharacteristics.totalBlockFloors =
+      asset.assetLocation?.totalBlockFloors ?? null;
 
   const isDwellingOrLettableNonDwelling = (asset: Asset) => {
     return asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling";
