@@ -27,6 +27,11 @@ export interface Props {
   assetChildren: Asset[] | undefined;
 }
 
+export interface AssetLayoutProperties {
+  assetDetails: Asset;
+  assetChildren: Asset[] | undefined;
+}
+
 export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
   const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
   const cautionaryAlerts = alertsData?.alerts;

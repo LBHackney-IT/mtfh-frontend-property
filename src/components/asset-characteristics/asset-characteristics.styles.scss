@@ -1,0 +1,17 @@
+@import '~lbh-frontend/lbh/base';
+
+.mtfh-asset-characteristics {
+    padding-bottom: 1rem;
+
+    h2 {
+        margin-bottom: 0.5rem;
+    }
+
+    + & {
+        border-top: 1px solid lbh-colour('lbh-grey-3');
+    }
+
+    a {
+        margin-bottom: 20px;
+    }
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { AssetDetails, TenureDetails } from "..";
+import { AssetDetails, PropertySpecification, TenureDetails } from "..";
 import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
 import { CautionaryAlertsDetails } from "../cautionary-alerts-details/cautionary-alerts-details";
@@ -18,7 +18,8 @@ interface Props extends Partial<SideBarProps> {
 }
 
 export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => {
-  const { assetAddress, assetId, assetType, tenure, id } = assetDetails;
+  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics } =
+    assetDetails;
 
   // only show button when there is no active tenure on the asset
   const showAddTenureButton = () =>
@@ -33,6 +34,7 @@ export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => 
             assetType={assetType}
             assetReference={assetId}
           />
+          <PropertySpecification assetCharacteristics={assetCharacteristics} />
           {isAuthorisedForGroups(assetAdminAuthGroups) && (
             <Button
               as={RouterLink}
