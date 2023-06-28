@@ -4,11 +4,10 @@ import { Link as RouterLink } from "react-router-dom";
 import { AssetSideBar } from "../../components/asset-sidebar";
 import { PropertyBody } from "../../components/property-body";
 import { locale } from "../../services";
+import { useCautionaryAlerts } from "./utils";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { usePropertyCautionaryAlert } from "@mtfh/common/lib/api/cautionary-alerts/v1";
 import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
-import { HouseholdMember } from "@mtfh/common/lib/api/tenure/v1/types";
 import {
   Alert as AlertIcon,
   Center,
@@ -25,32 +24,41 @@ import "./styles.scss";
 export interface Props {
   assetDetails: Asset;
   assetChildren: Asset[] | undefined;
+  showTenureInformation: boolean;
+  showCautionaryAlerts: boolean;
+  enableNewProcesses: boolean;
 }
 
-export interface AssetLayoutProperties {
-  assetDetails: Asset;
-  assetChildren: Asset[] | undefined;
-}
-
-export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
-  const alertsData = usePropertyCautionaryAlert(assetDetails.assetId).data;
-  const cautionaryAlerts = alertsData?.alerts;
+export const AssetLayout: FC<Props> = ({
+  assetDetails,
+  assetChildren,
+  showTenureInformation,
+  showCautionaryAlerts,
+  enableNewProcesses,
+}) => {
+  const { alertsData, isLoading: isLoadingCautionaryAlerts } = useCautionaryAlerts(
+    assetDetails.assetId,
+    showCautionaryAlerts,
+  );
 
   const tenure = useTenure(assetDetails.tenure ? assetDetails.tenure.id : null).data;
 
-  if (assetDetails.tenure && tenure && cautionaryAlerts) {
-    const householdMembers: HouseholdMember[] = tenure.householdMembers;
+  if (assetDetails.tenure && tenure && alertsData.length > 0) {
+    const { householdMembers } = tenure;
 
-    cautionaryAlerts.forEach((alert) => {
-      householdMembers.forEach((householdMember) => {
-        if (alert.personName && alert.personName === householdMember.fullName) {
-          alert.personId = householdMember.id;
-        }
-      });
+    alertsData.forEach((alert) => {
+      const matchingMember = householdMembers.find(
+        (householdMember) =>
+          alert.personName && alert.personName === householdMember.fullName,
+      );
+
+      if (matchingMember) {
+        alert.personId = matchingMember.id;
+      }
     });
   }
 
-  if (!alertsData) {
+  if (isLoadingCautionaryAlerts) {
     return (
       <Center>
         <Spinner />
@@ -69,20 +77,33 @@ export const AssetLayout: FC<Props> = ({ assetDetails, assetChildren }) => {
         }
         top={
           <Heading variant="h1">
-            {alertsData.alerts?.length > 0 && (
-              <AlertIcon
-                viewBox="0 0 37 58"
-                width="28"
-                height="44"
-                style={{ margin: "-2px 4px 0 0" }}
-              />
+            {showCautionaryAlerts && alertsData.length > 0 && (
+              <span data-test="cautionary-alerts-icon">
+                <AlertIcon
+                  viewBox="0 0 37 58"
+                  width="28"
+                  height="44"
+                  style={{ margin: "-2px 4px 0 0" }}
+                />
+              </span>
             )}
             {locale.assets.assetDetails.address(assetDetails.assetAddress)}
           </Heading>
         }
-        side={<AssetSideBar assetDetails={assetDetails} alerts={alertsData.alerts} />}
+        side={
+          <AssetSideBar
+            assetDetails={assetDetails}
+            alerts={alertsData}
+            showTenureInformation={showTenureInformation}
+            showCautionaryAlerts={showCautionaryAlerts}
+          />
+        }
       >
-        <PropertyBody assetDetails={assetDetails} childAssets={assetChildren} />
+        <PropertyBody
+          assetDetails={assetDetails}
+          childAssets={assetChildren}
+          enableNewProcesses={enableNewProcesses}
+        />
       </Layout>
     </PageAnnouncementProvider>
   );

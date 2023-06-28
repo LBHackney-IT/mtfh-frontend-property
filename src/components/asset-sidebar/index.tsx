@@ -15,9 +15,17 @@ import { isFutureDate } from "@mtfh/common/lib/utils";
 interface Props extends Partial<SideBarProps> {
   alerts: Alert[];
   assetDetails: Asset;
+  showTenureInformation: boolean;
+  showCautionaryAlerts: boolean;
 }
 
-export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => {
+export const AssetSideBar = ({
+  assetDetails,
+  alerts,
+  showTenureInformation,
+  showCautionaryAlerts,
+  ...properties
+}: Props) => {
   const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics } =
     assetDetails;
 
@@ -45,16 +53,19 @@ export const AssetSideBar = ({ assetDetails, alerts, ...properties }: Props) => 
               {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN missing"}
             </Button>
           )}
-          <CautionaryAlertsDetails alerts={alerts} />
-          <TenureDetails tenure={tenure} />
+          {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
+          {showTenureInformation && (
+            <>
+              <TenureDetails tenure={tenure} />
+              {showAddTenureButton() && (
+                <Button as={RouterLink} to={`/tenure/${id}/add`}>
+                  {locale.assets.assetDetails.newTenure}
+                </Button>
+              )}
+            </>
+          )}
         </>
       </SideBar>
-
-      {showAddTenureButton() && (
-        <Button as={RouterLink} to={`/tenure/${id}/add`}>
-          {locale.assets.assetDetails.newTenure}
-        </Button>
-      )}
     </div>
   );
 };

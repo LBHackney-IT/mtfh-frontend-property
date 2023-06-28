@@ -4,19 +4,22 @@ import { useParams } from "react-router-dom";
 import { locale } from "../../services";
 import { AssetLayout } from "./layout";
 
-import { useAsset, useChildAssets } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, useAsset, useChildAssets } from "@mtfh/common/lib/api/asset/v1";
 import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
 
 export const AssetView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
 
   const { data: asset, ...assetRequest } = useAsset(assetId);
+  const { data: childAssetResponse } = useChildAssets(assetId);
 
   if (asset && asset.assetCharacteristics)
     asset.assetCharacteristics.totalBlockFloors =
       asset.assetLocation?.totalBlockFloors ?? null;
 
-  const { data: childAssetResponse } = useChildAssets(assetId);
+  const isDwellingOrLettableNonDwelling = (asset: Asset) => {
+    return asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling";
+  };
 
   if (assetRequest.error) {
     return (
@@ -37,15 +40,12 @@ export const AssetView = (): JSX.Element => {
   }
 
   return (
-    <>
-      {asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling" ? (
-        <AssetLayout
-          assetDetails={asset}
-          assetChildren={childAssetResponse?.childAssets}
-        />
-      ) : (
-        <h1>{locale.assetCouldNotBeLoaded}</h1>
-      )}
-    </>
+    <AssetLayout
+      assetDetails={asset}
+      assetChildren={childAssetResponse?.childAssets}
+      showTenureInformation={isDwellingOrLettableNonDwelling(asset)}
+      showCautionaryAlerts={isDwellingOrLettableNonDwelling(asset)}
+      enableNewProcesses={isDwellingOrLettableNonDwelling(asset)}
+    />
   );
 };

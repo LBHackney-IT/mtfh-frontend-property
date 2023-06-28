@@ -3,7 +3,6 @@ import React from "react";
 import {
   getAssetV1,
   mockActiveTenureV1,
-  mockAssetInvalidAssetTypeV1,
   mockAssetLettableNonDwellingV1,
   mockAssetV1,
   mockCommentsV2,
@@ -192,21 +191,6 @@ test("renders the asset view for lettable-non-dwelling", async () => {
   ).not.toBeInTheDocument();
 });
 
-test("renders the asset view for invalid asset type", async () => {
-  server.resetHandlers();
-  server.use(
-    rest.get("/api/v1/assets/:id", (req, res, ctx) =>
-      res(ctx.status(200), ctx.set("ETag", '"2"'), ctx.json(mockAssetInvalidAssetTypeV1)),
-    ),
-  );
-  render(<AssetView />, {
-    url: `/property/${mockAssetInvalidAssetTypeV1.id}`,
-    path: "/property/:assetId",
-  });
-
-  await screen.findByText(locale.assetCouldNotBeLoaded);
-});
-
 it("renders the asset view for missing person id", async () => {
   mockActiveTenureV1.householdMembers[0].id = "2d9d6ac5-d376-4ac4-9a00-85659be82d10";
   mockActiveTenureV1.householdMembers[0].fullName = "FAKE_Alice FAKE_Rowe";
@@ -248,11 +232,13 @@ it("renders the asset view for missing person id", async () => {
     path: "/property/:assetId",
   });
 
-  await screen.findByText("FAKE_Alice FAKE_Rowe");
+  await waitFor(async () => {
+    await screen.findByText("FAKE_Alice FAKE_Rowe");
 
-  expect(screen.getByText(alertsResponse.alerts[0].personName).getAttribute("href")).toBe(
-    `/person/${mockActiveTenureV1.householdMembers[0].id}`,
-  );
+    expect(
+      screen.getByText(alertsResponse.alerts[0].personName).getAttribute("href"),
+    ).toBe(`/person/${mockActiveTenureV1.householdMembers[0].id}`);
+  });
 });
 
 test("it shows the 'Edit address details' button if the property has a valid UPRN", async () => {
@@ -263,6 +249,7 @@ test("it shows the 'Edit address details' button if the property has a valid UPR
   });
 
   const editAddressDetailsBtn = await screen.findByText("Edit address details");
+
   expect(editAddressDetailsBtn).toBeVisible();
   expect(editAddressDetailsBtn).toBeEnabled();
 });
