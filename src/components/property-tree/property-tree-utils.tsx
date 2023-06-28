@@ -70,17 +70,19 @@ const addParentsAndPrinciple = (
   );
 
   if (validParents.length) {
-    for (const [i, v] of validParents.entries()) {
+    for (const [validParentIndex, validParentValue] of validParents.entries()) {
       // Attach principle to last parent
-      if (i === validParents.length - 1) {
+      if (validParentIndex === validParents.length - 1) {
         principle.title = (
-          <a className="lbh-link govuk-link" href={`/property/${v.id}`}>
-            {v.name}
+          <a className="lbh-link govuk-link" href={`/property/${validParentValue.id}`}>
+            {validParentValue.name}
           </a>
         );
         treeViewElements.push(principle);
       } else {
-        treeViewElements.push(generateNode(v.name, [], v.id));
+        treeViewElements.push(
+          generateNode(validParentValue.name, [], validParentValue.id),
+        );
       }
     }
   } else {
