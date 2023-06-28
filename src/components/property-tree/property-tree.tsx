@@ -12,19 +12,19 @@ interface PropertyTreeProps {
   childAssets: Asset[] | ValidChildAsset[] | undefined;
 }
 
-interface AssetWithParentsAndChildren {
+interface TreeAsset {
   title: React.ReactNode;
-  children: Array<AssetWithParentsAndChildren> | null | { title: string; children: null };
+  children: Array<TreeAsset> | null | { title: string; children: null };
   expanded?: boolean;
 }
 
 export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Element => {
   const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c"; // Hackney Homes
 
-  const [treeViewData, setTreeViewData] = useState<AssetWithParentsAndChildren[]>([]);
+  const [treeViewData, setTreeViewData] = useState<TreeAsset[]>([]);
 
-  const addChildrenAssets = (): AssetWithParentsAndChildren[] => {
-    const childrenAssets: AssetWithParentsAndChildren[] = [];
+  const addChildrenAssets = (): TreeAsset[] => {
+    const childrenAssets: TreeAsset[] = [];
 
     if (childAssets) {
       for (const [i, v] of childAssets.entries()) {
@@ -41,11 +41,7 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
     return childrenAssets;
   };
 
-  const generateNode = (
-    name: string,
-    childList: AssetWithParentsAndChildren[],
-    id: string,
-  ): AssetWithParentsAndChildren => {
+  const generateNode = (name: string, childList: TreeAsset[], id: string): TreeAsset => {
     const node = (
       <a className="lbh-link govuk-link" href={`/property/${id}`}>
         {name}
@@ -55,10 +51,7 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
     return { title: node, children: childList, expanded: false };
   };
 
-  const generatePrinciple = (
-    asset: Asset,
-    childNodes: AssetWithParentsAndChildren[],
-  ): AssetWithParentsAndChildren => {
+  const generatePrinciple = (asset: Asset, childNodes: TreeAsset[]): TreeAsset => {
     if (asset.assetLocation?.parentAssets?.length) {
       return {
         title: <span>Principle</span>,
@@ -88,11 +81,11 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
 
   const addParentsAndPrinciple = (
     asset: Asset,
-    childNodes: AssetWithParentsAndChildren[],
+    childNodes: TreeAsset[],
     excludedTreeAssets: string,
-    principle: AssetWithParentsAndChildren,
+    principle: TreeAsset,
   ) => {
-    const treeViewElements: AssetWithParentsAndChildren[] = [];
+    const treeViewElements: TreeAsset[] = [];
 
     if (asset.assetLocation?.parentAssets?.length) {
       const validParents = asset.assetLocation.parentAssets.filter(
@@ -128,7 +121,7 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onChangeHandler = (treeData: AssetWithParentsAndChildren[]) => {
+  const onChangeHandler = (treeData: TreeAsset[]) => {
     setTreeViewData(treeData);
   };
 
