@@ -46,7 +46,7 @@ const generateNode = (name: string, childList: TreeAsset[], id: string): TreeAss
 const generatePrinciple = (asset: Asset, childNodes: TreeAsset[]): TreeAsset => {
   return {
     title: (
-      <span>{asset.assetLocation?.parentAssets?.length ? "Principle" : "Hackney"}</span>
+      <span>Hackney</span>
     ),
     children: [
       {
@@ -67,10 +67,13 @@ const addParentsAndPrinciple = (
 ) => {
   const treeViewElements: TreeAsset[] = [];
 
-  if (asset.assetLocation?.parentAssets?.length) {
-    const validParents = asset.assetLocation.parentAssets.filter(
-      (el) => !excludedTreeAssets.includes(el.id),
-    );
+  const validParents = asset.assetLocation.parentAssets.filter(
+    (el) => !excludedTreeAssets.includes(el.id),
+  );
+
+  console.log("validParents", validParents)
+
+  if (validParents.length) {
 
     for (const [i, v] of validParents.entries()) {
       // Attach principle to last parent
@@ -89,6 +92,7 @@ const addParentsAndPrinciple = (
     treeViewElements.push(generatePrinciple(asset, childNodes));
   }
 
+  console.log("treeViewElements", treeViewElements)
   return treeViewElements;
 };
 
