@@ -49,7 +49,7 @@ const assetData: Asset = {
     totalBlockFloors: null,
     heating: null,
     propertyFactor: null,
-    architecturalType: null
+    architecturalType: null,
   },
   versionNumber: 0,
   tenure: {
@@ -58,11 +58,11 @@ const assetData: Asset = {
     type: "",
     startOfTenureDate: "",
     endOfTenureDate: "",
-    isActive: false
+    isActive: false,
   },
   rootAsset: "",
   parentAssetIds: "",
-  rentGroup: null
+  rentGroup: null,
 };
 
 const alert: Alert = {

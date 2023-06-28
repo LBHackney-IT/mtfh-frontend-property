@@ -48,19 +48,20 @@ const assetData: Asset = {
     totalBlockFloors: null,
     heating: null,
     propertyFactor: null,
-    architecturalType: null
+    architecturalType: null,
   },
   versionNumber: 0,
   tenure: {
-    id: "c01e3146-e630-c2cd-e709-18ef57bf3724", paymentReference: "",
+    id: "c01e3146-e630-c2cd-e709-18ef57bf3724",
+    paymentReference: "",
     type: "",
     startOfTenureDate: "",
     endOfTenureDate: "",
-    isActive: false
+    isActive: false,
   },
   rootAsset: "",
   parentAssetIds: "",
-  rentGroup: null
+  rentGroup: null,
 };
 
 beforeEach(() => {
