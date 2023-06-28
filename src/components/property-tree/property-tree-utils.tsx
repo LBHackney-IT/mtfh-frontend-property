@@ -41,22 +41,10 @@ const generateNode = (name: string, childList: TreeAsset[], id: string): TreeAss
 };
 
 const generatePrinciple = (asset: Asset, childNodes: TreeAsset[]): TreeAsset => {
-  if (asset.assetLocation?.parentAssets?.length) {
-    return {
-      title: <span>Principle</span>,
-      children: [
-        {
-          title: `${asset.assetAddress.addressLine1} (this asset)`,
-          children: childNodes,
-          expanded: true,
-        },
-      ],
-      expanded: true,
-    };
-  }
-
   return {
-    title: <span>Hackney</span>,
+    title: (
+      <span>{asset.assetLocation?.parentAssets?.length ? "Principle" : "Hackney"}</span>
+    ),
     children: [
       {
         title: `${asset.assetAddress.addressLine1} (this asset)`,
