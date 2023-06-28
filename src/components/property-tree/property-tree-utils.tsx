@@ -16,10 +16,13 @@ const addChildrenAssets = (
   const childrenAssets: TreeAsset[] = [];
 
   if (childAssets) {
-    for (const [i, v] of childAssets.entries()) {
-      if (i < 5) {
-        childrenAssets.push(generateNode(v.assetAddress.addressLine1, [], v.id));
-      } else if (i === 5) {
+    for (const [childAssetIndex, childAssetValue] of childAssets.entries()) {
+      if (childAssetIndex < 5) {
+        childrenAssets.push(
+          generateNode(childAssetValue.assetAddress.addressLine1, [], childAssetValue.id),
+        );
+      } else if (childAssetIndex === 5) {
+        // For the time being, if the list of children exceeds 4, we display a "More..." node (to be reviewed once all AssetTypes can be viewed in MMH)
         childrenAssets.push({ title: "<< MORE.... >>", children: null });
       } else {
         break;
