@@ -4,7 +4,10 @@ import { mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import { rest } from "msw";
 
-import { testValidChildAssetFixture, testValidDwellingFixture } from "../test-fixtures";
+import {
+  testValidChildAssetFixture,
+  testValidDwellingFixture,
+} from "../../utils/test-fixtures";
 import { PropertyTree } from "./property-tree";
 
 beforeEach(() => {
