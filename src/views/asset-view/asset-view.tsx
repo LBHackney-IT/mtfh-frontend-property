@@ -16,7 +16,7 @@ export const AssetView = (): JSX.Element => {
   if (asset && asset.assetCharacteristics)
     asset.assetCharacteristics.totalBlockFloors =
       asset.assetLocation?.totalBlockFloors ?? null;
-
+  
   const isDwellingOrLettableNonDwelling = (asset: Asset) => {
     return asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling";
   };

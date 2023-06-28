@@ -35,7 +35,11 @@ export const NewPropertyLayout = (): JSX.Element => {
         Back
       </Link>
       <h1 className="lbh-heading-h1">New property</h1>
-      <span id="new-property-disclaimer" className="govuk-hint lbh-hint">
+      <span
+        id="new-property-disclaimer"
+        className="govuk-hint lbh-hint"
+        data-testid="new-property-disclaimer"
+      >
         A new property will immediately be available for users of Manage My Home.
         Information is validated in most fields, but all protections are not in place, so
         some selections may result in mismatched information. It is recommended to

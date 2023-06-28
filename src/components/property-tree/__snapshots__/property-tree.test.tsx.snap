@@ -2,9 +2,7 @@
 
 exports[`renders the property tree correctly 1`] = `
 <div>
-  <div
-    style="height: 300px;"
-  >
+  <div>
     <div
       class="rst__tree"
     >
@@ -23,14 +21,6 @@ exports[`renders the property tree correctly 1`] = `
           <div
             style="height: 100%;"
           >
-            <div>
-              <button
-                aria-label="Expand"
-                class="rst__expandButton"
-                style="left: -22px;"
-                type="button"
-              />
-            </div>
             <div
               class="rst__rowWrapper"
             >
@@ -218,14 +208,6 @@ exports[`renders the property tree correctly 1`] = `
           <div
             style="height: 100%;"
           >
-            <div>
-              <button
-                aria-label="Expand"
-                class="rst__expandButton"
-                style="left: -22px;"
-                type="button"
-              />
-            </div>
             <div
               class="rst__rowWrapper"
             >

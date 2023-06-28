@@ -2,7 +2,7 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { locale } from "../../services";
-import { PropertyTree } from "../../utils/property-tree";
+import { PropertyTree } from "../property-tree/property-tree";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Button, CommentList, WorkOrderList } from "@mtfh/common/lib/components";
@@ -10,7 +10,6 @@ import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 
 interface Props {
   assetDetails: Asset;
-  // eslint-disable-next-line react/no-unused-prop-types
   childAssets: Asset[] | undefined;
   enableNewProcesses: boolean;
 }
