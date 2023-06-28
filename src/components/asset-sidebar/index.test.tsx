@@ -42,13 +42,26 @@ const assetData: Asset = {
     numberOfLivingRooms: 0,
     windowType: "Wood",
     yearConstructed: "1991",
+    numberOfSingleBeds: null,
+    numberOfDoubleBeds: null,
+    numberOfFloors: null,
+    totalBlockFloors: null,
+    heating: null,
+    propertyFactor: null,
+    architecturalType: null,
   },
   versionNumber: 0,
   tenure: {
     id: "c01e3146-e630-c2cd-e709-18ef57bf3724",
+    paymentReference: "",
+    type: "",
+    startOfTenureDate: "",
+    endOfTenureDate: "",
+    isActive: false,
   },
   rootAsset: "",
   parentAssetIds: "",
+  rentGroup: null,
 };
 
 beforeEach(() => {
