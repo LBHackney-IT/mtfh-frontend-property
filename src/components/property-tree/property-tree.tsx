@@ -28,11 +28,11 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
   useEffect(() => {
     setChildNodes(addChildrenAssets(childAssets));
   }, [childAssets]);
-  
+
   useEffect(() => {
     const principle = generatePrinciple(asset, childNodes);
     setTreeViewData(
-      addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle)
+      addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle),
     );
   }, [childNodes, asset]);
 
