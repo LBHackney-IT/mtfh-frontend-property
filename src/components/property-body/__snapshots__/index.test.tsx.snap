@@ -8,16 +8,121 @@ exports[`it hides the new process button 1`] = `
     <div
       id="property-tree-grid-area"
     >
-      <div
-        style="height: 300px;"
-      >
+      <div>
         <div
           class="rst__tree"
         >
-          <div>
+          <div
+            class="rst__node"
+            style="height: 62px;"
+          >
             <div
-              class="rst__placeholder"
+              class="rst__lineBlock rst__lineHalfHorizontalRight"
+              style="width: 44px;"
             />
+            <div
+              class="rst__nodeContent"
+              style="left: 44px;"
+            >
+              <div
+                style="height: 100%;"
+              >
+                <div>
+                  <button
+                    aria-label="Collapse"
+                    class="rst__collapseButton"
+                    style="left: -22px;"
+                    type="button"
+                  />
+                  <div
+                    class="rst__lineChildren"
+                    style="width: 44px;"
+                  />
+                </div>
+                <div
+                  class="rst__rowWrapper"
+                >
+                  <div
+                    class="rst__row"
+                    style="opacity: 1;"
+                  >
+                    <div
+                      class="rst__moveHandle"
+                      draggable="true"
+                    />
+                    <div
+                      class="rst__rowContents"
+                    >
+                      <div
+                        class="rst__rowLabel"
+                      >
+                        <span
+                          class="rst__rowTitle"
+                        >
+                          <span>
+                            Hackney
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="rst__node"
+            style="height: 62px;"
+          >
+            <div
+              class="rst__lineBlock"
+              style="width: 44px;"
+            />
+            <div
+              class="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+              style="width: 44px;"
+            />
+            <div
+              class="rst__nodeContent"
+              style="left: 88px;"
+            >
+              <div
+                style="height: 100%;"
+              >
+                <div
+                  class="rst__rowWrapper"
+                >
+                  <div
+                    class="rst__row"
+                    style="opacity: 1;"
+                  >
+                    <div
+                      class="rst__moveHandle"
+                      draggable="true"
+                    />
+                    <div
+                      class="rst__rowContents"
+                    >
+                      <div
+                        class="rst__rowLabel"
+                      >
+                        <span
+                          class="rst__rowTitle"
+                        >
+                          123 Test Block(CAN BE DELETED) (this asset)
+                        </span>
+                      </div>
+                      <div
+                        class="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -99,16 +204,121 @@ exports[`it shows the new process button 1`] = `
     <div
       id="property-tree-grid-area"
     >
-      <div
-        style="height: 300px;"
-      >
+      <div>
         <div
           class="rst__tree"
         >
-          <div>
+          <div
+            class="rst__node"
+            style="height: 62px;"
+          >
             <div
-              class="rst__placeholder"
+              class="rst__lineBlock rst__lineHalfHorizontalRight"
+              style="width: 44px;"
             />
+            <div
+              class="rst__nodeContent"
+              style="left: 44px;"
+            >
+              <div
+                style="height: 100%;"
+              >
+                <div>
+                  <button
+                    aria-label="Collapse"
+                    class="rst__collapseButton"
+                    style="left: -22px;"
+                    type="button"
+                  />
+                  <div
+                    class="rst__lineChildren"
+                    style="width: 44px;"
+                  />
+                </div>
+                <div
+                  class="rst__rowWrapper"
+                >
+                  <div
+                    class="rst__row"
+                    style="opacity: 1;"
+                  >
+                    <div
+                      class="rst__moveHandle"
+                      draggable="true"
+                    />
+                    <div
+                      class="rst__rowContents"
+                    >
+                      <div
+                        class="rst__rowLabel"
+                      >
+                        <span
+                          class="rst__rowTitle"
+                        >
+                          <span>
+                            Hackney
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="rst__node"
+            style="height: 62px;"
+          >
+            <div
+              class="rst__lineBlock"
+              style="width: 44px;"
+            />
+            <div
+              class="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+              style="width: 44px;"
+            />
+            <div
+              class="rst__nodeContent"
+              style="left: 88px;"
+            >
+              <div
+                style="height: 100%;"
+              >
+                <div
+                  class="rst__rowWrapper"
+                >
+                  <div
+                    class="rst__row"
+                    style="opacity: 1;"
+                  >
+                    <div
+                      class="rst__moveHandle"
+                      draggable="true"
+                    />
+                    <div
+                      class="rst__rowContents"
+                    >
+                      <div
+                        class="rst__rowLabel"
+                      >
+                        <span
+                          class="rst__rowTitle"
+                        >
+                          123 Test Block(CAN BE DELETED) (this asset)
+                        </span>
+                      </div>
+                      <div
+                        class="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
