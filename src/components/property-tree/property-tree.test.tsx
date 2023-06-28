@@ -5,8 +5,8 @@ import { screen } from "@testing-library/react";
 import { rest } from "msw";
 
 import {
+  testValidChildAssetFixture,
   testValidDwellingFixture,
-  testValidchildAssetsFixture,
 } from "../../utils/test-fixtures";
 import { PropertyTree } from "./property-tree";
 
@@ -24,7 +24,7 @@ test("renders the property tree correctly", async () => {
   const { container } = render(
     <PropertyTree
       asset={testValidDwellingFixture}
-      childAssets={testValidchildAssetsFixture}
+      childAssets={testValidChildAssetFixture}
     />,
     {},
   );
@@ -40,7 +40,7 @@ test("doesn't render the Hackney Housing ancestor", async () => {
   render(
     <PropertyTree
       asset={testValidDwellingFixture}
-      childAssets={testValidchildAssetsFixture}
+      childAssets={testValidChildAssetFixture}
     />,
     {},
   );
@@ -54,7 +54,7 @@ test("renders components with links", async () => {
   render(
     <PropertyTree
       asset={testValidDwellingFixture}
-      childAssets={testValidchildAssetsFixture}
+      childAssets={testValidChildAssetFixture}
     />,
     {},
   );

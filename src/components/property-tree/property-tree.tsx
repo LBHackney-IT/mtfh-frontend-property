@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 // @ts-ignore
 import SortableTree from "react-sortable-tree";
 
+import { ValidChildAsset } from "../../utils/test-fixtures";
+
 import { Asset } from "@mtfh/common/lib/api/asset/v1/types";
 import "react-sortable-tree/style.css";
-
-import { ValidChildAsset } from "../../utils/test-fixtures";
 
 interface PropertyTreeProps {
   asset: Asset;
