@@ -45,9 +45,7 @@ const generateNode = (name: string, childList: TreeAsset[], id: string): TreeAss
 
 const generatePrinciple = (asset: Asset, childNodes: TreeAsset[]): TreeAsset => {
   return {
-    title: (
-      <span>{asset.assetLocation?.parentAssets?.length ? "Principle" : "Hackney"}</span>
-    ),
+    title: <span>Hackney</span>,
     children: [
       {
         title: `${asset.assetAddress.addressLine1} (this asset)`,
@@ -67,22 +65,24 @@ const addParentsAndPrinciple = (
 ) => {
   const treeViewElements: TreeAsset[] = [];
 
-  if (asset.assetLocation?.parentAssets?.length) {
-    const validParents = asset.assetLocation.parentAssets.filter(
-      (el) => !excludedTreeAssets.includes(el.id),
-    );
+  const validParents = asset.assetLocation.parentAssets.filter(
+    (el) => !excludedTreeAssets.includes(el.id),
+  );
 
-    for (const [i, v] of validParents.entries()) {
+  if (validParents.length) {
+    for (const [validParentIndex, validParentValue] of validParents.entries()) {
       // Attach principle to last parent
-      if (i === validParents.length - 1) {
+      if (validParentIndex === validParents.length - 1) {
         principle.title = (
-          <a className="lbh-link govuk-link" href={`/property/${v.id}`}>
-            {v.name}
+          <a className="lbh-link govuk-link" href={`/property/${validParentValue.id}`}>
+            {validParentValue.name}
           </a>
         );
         treeViewElements.push(principle);
       } else {
-        treeViewElements.push(generateNode(v.name, [], v.id));
+        treeViewElements.push(
+          generateNode(validParentValue.name, [], validParentValue.id),
+        );
       }
     }
   } else {

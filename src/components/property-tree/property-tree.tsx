@@ -23,16 +23,18 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
   const excludedTreeAssets = "656feda1-896f-b136-da84-163ee4f1be6c"; // Hackney Homes
 
   const [treeViewData, setTreeViewData] = useState<TreeAsset[]>([]);
-  const childNodes = addChildrenAssets(childAssets);
-  const principle = generatePrinciple(asset, childNodes);
+  const [childNodes, setChildNodes] = useState<TreeAsset[]>([]);
 
   useEffect(() => {
+    setChildNodes(addChildrenAssets(childAssets));
+  }, [childAssets]);
+
+  useEffect(() => {
+    const principle = generatePrinciple(asset, childNodes);
     setTreeViewData(
       addParentsAndPrinciple(asset, childNodes, excludedTreeAssets, principle),
     );
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [childNodes, asset]);
 
   const onChangeHandler = (treeData: TreeAsset[]) => {
     setTreeViewData(treeData);
