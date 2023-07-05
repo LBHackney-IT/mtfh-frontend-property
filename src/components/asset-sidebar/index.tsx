@@ -61,9 +61,9 @@ export const AssetSideBar = ({
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
           {showBoilerHouseInformation() && (
             <BoilerHouseDetails
-              // boilerHouseId={"4552c539-2e00-8533-078d-9cc59d9115da"}
               boilerHouseId={boilerHouseId || ""}
               assetId={id}
+              asset={assetDetails}
             />
           )}
           {showTenureInformation && (
