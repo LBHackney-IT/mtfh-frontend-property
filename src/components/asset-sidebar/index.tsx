@@ -4,6 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { AssetDetails, PropertySpecification, TenureDetails } from "..";
 import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
+import { BoilerHouseDetails } from "../boiler-house-details/boiler-house-details";
 import { CautionaryAlertsDetails } from "../cautionary-alerts-details/cautionary-alerts-details";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -26,12 +27,16 @@ export const AssetSideBar = ({
   showCautionaryAlerts,
   ...properties
 }: Props) => {
-  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics } =
+  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics, boilerHouseId } =
     assetDetails;
 
   // only show button when there is no active tenure on the asset
   const showAddTenureButton = () =>
     !tenure || !tenure.isActive || !isFutureDate(tenure.endOfTenureDate) || !tenure.id;
+
+  const showBoilerHouseInformation = () => {
+    return assetType === "Dwelling" || assetType === "LettableNonDwelling";
+  };
 
   return (
     <div className="mtfh-asset-sidebar">
@@ -54,6 +59,13 @@ export const AssetSideBar = ({
             </Button>
           )}
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
+          {showBoilerHouseInformation() && (
+            <BoilerHouseDetails
+              // boilerHouseId={"4552c539-2e00-8533-078d-9cc59d9115da"}
+              boilerHouseId={boilerHouseId || ""}
+              assetId={id}
+            />
+          )}
           {showTenureInformation && (
             <>
               <TenureDetails tenure={tenure} />

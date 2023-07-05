@@ -92,6 +92,9 @@ export default {
     cautionaryAlerts: "Cautionary alerts",
     none: "None",
   },
+  boilerHouse: {
+    boilerHouse: "Boiler house",
+  },
   static: {
     newProcess: "New Process",
   },
