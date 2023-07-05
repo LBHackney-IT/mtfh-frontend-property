@@ -1,9 +1,10 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
 
+import { PatchAssetRequest, patchAsset } from "./utils";
+
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Center, Spinner } from "@mtfh/common/lib/components";
 import { useSearchResults } from "@mtfh/search";
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { PatchAssetRequest, patchAsset } from "./utils";
 
 interface Props {
   setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;

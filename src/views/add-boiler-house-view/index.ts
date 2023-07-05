@@ -1,1 +1,1 @@
-export * from "./add-boiler-house-view"
+export * from "./add-boiler-house-view";

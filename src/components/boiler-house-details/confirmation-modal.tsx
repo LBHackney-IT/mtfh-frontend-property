@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { locale } from "../../services";
+import { PatchAssetRequest, patchAsset } from "../add-boiler-house-form/utils";
 
+import { Asset, useAsset } from "@mtfh/common/lib/api/asset/v1";
 import {
   Button,
   Center,
@@ -12,8 +14,6 @@ import {
   Link,
   Spinner,
 } from "@mtfh/common/lib/components";
-import { Asset, useAsset } from "@mtfh/common/lib/api/asset/v1";
-import { PatchAssetRequest, patchAsset } from "../add-boiler-house-form/utils";
 
 interface Props {
   showModal: boolean;

@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { locale } from "../../services";
+import { PatchAssetRequest, getAsset, patchAsset } from "../add-boiler-house-form/utils";
+import { ConfirmationModal } from "./confirmation-modal";
+import { useBoilerHouseDetails } from "./hooks/useBoilerHouseDetails";
+import { useConfirmRemoveModal } from "./hooks/useConfirmRemoveModal";
 
+import { Asset, useAsset } from "@mtfh/common/lib/api/asset/v1";
 import {
   Button,
   Center,
@@ -12,9 +17,6 @@ import {
   Link,
   Spinner,
 } from "@mtfh/common/lib/components";
-import { Asset, useAsset } from "@mtfh/common/lib/api/asset/v1";
-import { PatchAssetRequest, getAsset, patchAsset } from "../add-boiler-house-form/utils";
-import { ConfirmationModal } from "./confirmation-modal";
 
 const { boilerHouse } = locale;
 
@@ -24,63 +26,21 @@ interface Props {
 }
 
 export const BoilerHouseDetails = ({ assetId, asset }: Props) => {
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [isLoadingRemoveAssetRequest, setIsLoadingRemoveAssetRequest] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
+  const { isLoading, boilerHouseAsset, assetHasBoilerHouse } =
+    useBoilerHouseDetails(asset);
 
-  const [boilerHouseAsset, setBoilerHouseAsset] = useState<Asset|null>(null)
-
-  const assetHasBoilerHouse = () => asset.boilerHouseId !== "" && asset.boilerHouseId !== undefined
-
-  useEffect(() => {
-    // no boilerHouse to fetch
-    if (!assetHasBoilerHouse()){
-      // in case of state change
-      setIsLoading(false)
-      return
-    }
-
-    setIsLoading(true)
-
-    getAsset(asset.boilerHouseId)
-      .then(res => {
-        setBoilerHouseAsset(res.data)
-        setIsLoading(false)
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }, [asset?.boilerHouseId])
-
-
-  const handleRemoveBoilerHouse = () => {
-    const request: PatchAssetRequest = {
-      boilerHouseId: "",
-    };
-
-    setIsLoadingRemoveAssetRequest(true);
-
-    patchAsset(assetId, request, asset?.versionNumber?.toString() || "")
-      .then((res) => {
-        setShowConfirmationModal(false);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        setIsLoadingRemoveAssetRequest(false);
-      });
-  };
-
-  const showModalConfirmation = () => {
-    setShowConfirmationModal(true);
-  };
+  const {
+    isLoading: isLoadingRemoveAssetRequest,
+    setShowModal,
+    showModal,
+    handleRemoveBoilerHouse,
+  } = useConfirmRemoveModal(assetId, asset);
 
   return (
     <aside className="mtfh-cautionary-alerts">
       <ConfirmationModal
-        showModal={showConfirmationModal}
-        hideModal={() => setShowConfirmationModal(false)}
+        showModal={showModal}
+        hideModal={() => setShowModal(false)}
         onSubmit={handleRemoveBoilerHouse}
         isLoading={isLoadingRemoveAssetRequest}
       />
@@ -105,7 +65,7 @@ export const BoilerHouseDetails = ({ assetId, asset }: Props) => {
                 {boilerHouseAsset?.assetAddress?.addressLine1}
               </Link>
 
-              <Button onClick={showModalConfirmation}>Remove boiler house</Button>
+              <Button onClick={() => setShowModal(true)}>Remove boiler house</Button>
             </>
           )}
         </>
