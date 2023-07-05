@@ -1,4 +1,5 @@
 import { axiosInstance } from "@mtfh/common";
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { config } from "@mtfh/common/lib/config";
 
 export interface PatchAssetRequest {
@@ -16,3 +17,12 @@ export const patchAsset = async (
     },
   });
 };
+
+export const getAsset = async (
+    id: string
+  ) => {
+    return axiosInstance.get<Asset>(`${config.assetApiUrlV1}/assets/${id}`)
+  };
+
+
+

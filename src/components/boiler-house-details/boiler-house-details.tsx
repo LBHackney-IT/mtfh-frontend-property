@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { locale } from "../../services";
@@ -13,49 +13,62 @@ import {
   Spinner,
 } from "@mtfh/common/lib/components";
 import { Asset, useAsset } from "@mtfh/common/lib/api/asset/v1";
-import { PatchAssetRequest, patchAsset } from "../add-boiler-house-form/utils";
+import { PatchAssetRequest, getAsset, patchAsset } from "../add-boiler-house-form/utils";
 import { ConfirmationModal } from "./confirmation-modal";
 
 const { boilerHouse } = locale;
 
 interface Props {
-  boilerHouseId: string;
   assetId: string;
   asset: Asset;
 }
 
-export const BoilerHouseDetails = ({ boilerHouseId, assetId, asset }: Props) => {
+export const BoilerHouseDetails = ({ assetId, asset }: Props) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingRemoveAssetRequest, setIsLoadingRemoveAssetRequest] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
-  const boilerHouseIsNull = boilerHouseId === null || boilerHouseId === "";
+  const [boilerHouseAsset, setBoilerHouseAsset] = useState<Asset|null>(null)
 
-  const { data: boilerHouseAsset } = useAsset(boilerHouseId);
+  const assetHasBoilerHouse = () => asset.boilerHouseId !== "" && asset.boilerHouseId !== undefined
 
-  const boilerHouseLoading = !boilerHouseIsNull && boilerHouseAsset === undefined;
+  useEffect(() => {
+    // no boilerHouse to fetch
+    if (!assetHasBoilerHouse()){
+      // in case of state change
+      setIsLoading(false)
+      return
+    }
+
+    setIsLoading(true)
+
+    getAsset(asset.boilerHouseId)
+      .then(res => {
+        setBoilerHouseAsset(res.data)
+        setIsLoading(false)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }, [asset?.boilerHouseId])
+
 
   const handleRemoveBoilerHouse = () => {
     const request: PatchAssetRequest = {
       boilerHouseId: "",
     };
 
-    setIsLoading(true);
+    setIsLoadingRemoveAssetRequest(true);
 
     patchAsset(assetId, request, asset?.versionNumber?.toString() || "")
       .then((res) => {
-        console.log({ res });
-
-        // success
         setShowConfirmationModal(false);
-
-        // lazy way to update asset
-        window.location.reload();
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => {
-        setIsLoading(false);
+        setIsLoadingRemoveAssetRequest(false);
       });
   };
 
@@ -69,26 +82,26 @@ export const BoilerHouseDetails = ({ boilerHouseId, assetId, asset }: Props) => 
         showModal={showConfirmationModal}
         hideModal={() => setShowConfirmationModal(false)}
         onSubmit={handleRemoveBoilerHouse}
-        isLoading={isLoading}
+        isLoading={isLoadingRemoveAssetRequest}
       />
 
       <Heading variant="h2" className="lbh-heading lbh-heading-h3">
         {boilerHouse.boilerHouse}
       </Heading>
 
-      {boilerHouseLoading ? (
+      {isLoading ? (
         <Center>
           <Spinner />
         </Center>
       ) : (
         <>
-          {boilerHouseIsNull ? (
+          {!assetHasBoilerHouse() ? (
             <Button as={RouterLink} to={`/property/${assetId}/add-boiler-house`}>
               Add boiler house
             </Button>
           ) : (
             <>
-              <Link as={RouterLink} to={`/property/${boilerHouseId}`}>
+              <Link as={RouterLink} to={`/property/${asset.boilerHouseId}`}>
                 {boilerHouseAsset?.assetAddress?.addressLine1}
               </Link>
 

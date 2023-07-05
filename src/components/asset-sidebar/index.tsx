@@ -27,7 +27,7 @@ export const AssetSideBar = ({
   showCautionaryAlerts,
   ...properties
 }: Props) => {
-  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics, boilerHouseId } =
+  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics } =
     assetDetails;
 
   // only show button when there is no active tenure on the asset
@@ -61,7 +61,6 @@ export const AssetSideBar = ({
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
           {showBoilerHouseInformation() && (
             <BoilerHouseDetails
-              boilerHouseId={boilerHouseId || ""}
               assetId={id}
               asset={assetDetails}
             />
