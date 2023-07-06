@@ -30,6 +30,7 @@ export const useBoilerHouseDetails = (asset: Asset) => {
       .catch((err) => {
         console.error(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asset?.boilerHouseId]);
 
   return {

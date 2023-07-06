@@ -1,22 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { locale } from "../../services";
-import { PatchAssetRequest, getAsset, patchAsset } from "../add-boiler-house-form/utils";
 import { ConfirmationModal } from "./confirmation-modal";
 import { useBoilerHouseDetails } from "./hooks/useBoilerHouseDetails";
 import { useConfirmRemoveModal } from "./hooks/useConfirmRemoveModal";
 
-import { Asset, useAsset } from "@mtfh/common/lib/api/asset/v1";
-import {
-  Button,
-  Center,
-  Dialog,
-  DialogActions,
-  Heading,
-  Link,
-  Spinner,
-} from "@mtfh/common/lib/components";
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Button, Center, Heading, Link, Spinner } from "@mtfh/common/lib/components";
 
 const { boilerHouse } = locale;
 

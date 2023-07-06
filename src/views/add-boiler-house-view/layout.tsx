@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 import { AddBoilerHouseForm } from "../../components/add-boiler-house-form";
 
-import { Asset, useAsset } from "@mtfh/common/lib/api/asset/v1";
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
 interface Props {

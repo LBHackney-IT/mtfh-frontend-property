@@ -35,6 +35,7 @@ export const AddBoilerHouseForm = ({
 
   useEffect(() => {
     setRequestError(error);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 
   const handleSearch = (e: SyntheticEvent) => {
@@ -71,7 +72,7 @@ export const AddBoilerHouseForm = ({
     };
 
     patchAsset(assetId, request, asset?.versionNumber?.toString() || "")
-      .then((res) => {
+      .then(() => {
         setShowSuccess(true);
       })
       .catch((err) => {

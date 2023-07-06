@@ -1,19 +1,6 @@
-import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React from "react";
 
-import { locale } from "../../services";
-import { PatchAssetRequest, patchAsset } from "../add-boiler-house-form/utils";
-
-import { Asset, useAsset } from "@mtfh/common/lib/api/asset/v1";
-import {
-  Button,
-  Center,
-  Dialog,
-  DialogActions,
-  Heading,
-  Link,
-  Spinner,
-} from "@mtfh/common/lib/components";
+import { Button, Dialog, DialogActions, Link } from "@mtfh/common/lib/components";
 
 interface Props {
   showModal: boolean;
