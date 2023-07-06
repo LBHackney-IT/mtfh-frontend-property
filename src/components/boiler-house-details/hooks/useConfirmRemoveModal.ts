@@ -4,7 +4,7 @@ import { PatchAssetRequest, patchAsset } from "../../add-boiler-house-form/utils
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 
-export const useConfirmRemoveModal = (assetId: string, asset: Asset) => {
+export const useConfirmRemoveModal = (asset: Asset) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,7 +17,7 @@ export const useConfirmRemoveModal = (assetId: string, asset: Asset) => {
 
     setIsLoading(true);
 
-    patchAsset(assetId, request, asset?.versionNumber?.toString() || "")
+    patchAsset(asset.id, request, asset?.versionNumber?.toString() || "")
       .then(() => {
         setShowModal(false);
         // useAsset doesn't always update

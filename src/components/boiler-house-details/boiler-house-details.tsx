@@ -12,11 +12,10 @@ import { Button, Center, Heading, Link, Spinner } from "@mtfh/common/lib/compone
 const { boilerHouse } = locale;
 
 interface Props {
-  assetId: string;
   asset: Asset;
 }
 
-export const BoilerHouseDetails = ({ assetId, asset }: Props) => {
+export const BoilerHouseDetails = ({ asset }: Props) => {
   const { isLoading, boilerHouseAsset, assetHasBoilerHouse } =
     useBoilerHouseDetails(asset);
 
@@ -25,7 +24,7 @@ export const BoilerHouseDetails = ({ assetId, asset }: Props) => {
     setShowModal,
     showModal,
     handleRemoveBoilerHouse,
-  } = useConfirmRemoveModal(assetId, asset);
+  } = useConfirmRemoveModal(asset);
 
   return (
     <aside className="mtfh-cautionary-alerts">
@@ -47,7 +46,7 @@ export const BoilerHouseDetails = ({ assetId, asset }: Props) => {
       ) : (
         <>
           {!assetHasBoilerHouse() ? (
-            <Button as={RouterLink} to={`/property/${assetId}/add-boiler-house`}>
+            <Button as={RouterLink} to={`/property/${asset.id}/add-boiler-house`}>
               Add boiler house
             </Button>
           ) : (
