@@ -1,7 +1,7 @@
 import React from "react";
 
 import { render, server } from "@hackney/mtfh-test-utils";
-import { screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 
 // import { AssetSideBar } from ".";
@@ -131,13 +131,17 @@ beforeEach(() => {
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
   server.use(
-    rest.get(
-      `/api/v1/cautionary-alerts/properties-new/${assetData.assetId}`,
-      (req, res, ctx) => res(ctx.status(200), ctx.json({ alerts: [] })),
-    ),
+    // rest.get(
+    //   `/api/v1/cautionary-alerts/properties-new/${assetData.assetId}`,
+    //   (req, res, ctx) => res(ctx.status(200), ctx.json({ alerts: [] })),
+    // ),
 
     rest.get(`/api/v1/assets/${boilerHouseId}`, (req, res, ctx) =>
       res(ctx.status(200), ctx.json(boilerHouseData)),
+    ),
+
+    rest.patch(`/api/v1/assets/${boilerHouseId}`, (req, res, ctx) =>
+      res(ctx.status(201), ctx.json(boilerHouseData)),
     ),
   );
 });
@@ -184,13 +188,115 @@ test("it shows add boiler house button", async () => {
   // Assert
 
   await screen.getByText("Add boiler house");
-  // await screen.getByRole('link', { name: 'Click Me' }))
 
   expect(screen.getByRole("link")).toHaveTextContent("Add boiler house");
   expect(screen.getByRole("link")).toHaveAttribute(
     "href",
     `/property/${assetData.id}/add-boiler-house`,
   );
+});
+
+test("it opens the confirmation modal when remove boiler house button clicked", async () => {
+  // Arrange
+  const asset = JSON.parse(JSON.stringify(assetData));
+  asset.boilerHouseId = boilerHouseId;
+
+  const { container } = render(<BoilerHouseDetails asset={asset} />, {
+    url: `/property/${assetData.id}`,
+    path: "/property/:assetId",
+  });
+
+  // Act
+});
+
+test("it hides the confirmation modal when the cancel button is clicked", async () => {
+  const asset = JSON.parse(JSON.stringify(assetData));
+  asset.boilerHouseId = boilerHouseId;
+
+  const { container } = render(<BoilerHouseDetails asset={asset} />, {
+    url: `/property/${assetData.id}`,
+    path: "/property/:assetId",
+  });
+
+  await waitFor(async () => {
+    // open modal
+    fireEvent.click(screen.getByText(/Remove boiler house/i));
+
+    // confirm modal is open
+    await screen.findByText("Remove boiler house from property");
+
+    // close modal
+    fireEvent.click(screen.getByText(/Cancel/i));
+
+    // confirm modal is closed
+    const modalHeading = screen.queryByText("Remove boiler house from property");
+    expect(modalHeading).toBeNull();
+  });
+});
+
+test("it removes the boiler house when confirmation button clicked", async () => {
+  const asset = JSON.parse(JSON.stringify(assetData));
+  asset.boilerHouseId = boilerHouseId;
+
+  const { container } = render(<BoilerHouseDetails asset={asset} />, {
+    url: `/property/${assetData.id}`,
+    path: "/property/:assetId",
+  });
+
+  // 1. Open modal
+  // 2. Click confirmation button
+  // 3. Assert request made
+
+  // open modal
+  // const removeButton = container.querySelector('[data-test="remove-boiler-house-button"]')
+  // fireEvent.click(
+  //   removeButton
+  // )
+
+  // fireEvent.click(screen.getByText(/Remove boiler house/i));
+
+  await waitFor(async () => {
+    const addressLine1 = "1234 boiler house";
+    expect(screen.getByRole("link")).toHaveTextContent(addressLine1);
+
+    fireEvent.click(screen.getByTestId(/remove-boiler-house-button/i));
+
+    // confirm modal is open
+    await screen.findByText("Remove boiler house from property");
+  });
+
+  // click confirmation button
+  fireEvent.click(screen.getByTestId(/confirm-remove-modal-button/i));
+
+  // manually remove boilerHouseId from request object
+  asset.boilerHouseId = ""
+
+  setTimeout(async () => {
+    // confirm modal is closed
+    const modalHeading = screen.queryByText("Remove boiler house from property");
+    expect(modalHeading).toBeNull();
+
+    await waitFor(async () => {
+
+      
+  
+      // confirm boiler house removed
+      const boilerHouseLink = screen.queryByText("1234 boiler house");
+      expect(boilerHouseLink).toBeNull();
+  
+      expect(screen.getByRole("link")).toHaveTextContent("Add boiler house");
+    });
+  }, 2000)
+
+  
+
+  
+  // // close modal
+  // fireEvent.click(screen.getByText(/Cancel/i));
+
+  // // confirm modal is closed
+  // const modalHeading = screen.queryByText("Remove boiler house from property")
+  // expect(modalHeading).toBeNull()
 });
 
 // test("it shows cautionary alerts", () => {

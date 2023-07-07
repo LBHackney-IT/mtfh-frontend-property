@@ -55,7 +55,7 @@ export const BoilerHouseDetails = ({ asset }: Props) => {
                 {boilerHouseAsset?.assetAddress?.addressLine1}
               </Link>
 
-              <Button onClick={() => setShowModal(true)}>Remove boiler house</Button>
+              <Button data-testid="remove-boiler-house-button" onClick={() => setShowModal(true)}>Remove boiler house</Button>
             </>
           )}
         </>
