@@ -4,8 +4,6 @@ import { render, server } from "@hackney/mtfh-test-utils";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 
-// import { AssetSideBar } from ".";
-
 import { BoilerHouseDetails } from "./boiler-house-details";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -131,11 +129,6 @@ beforeEach(() => {
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
   server.use(
-    // rest.get(
-    //   `/api/v1/cautionary-alerts/properties-new/${assetData.assetId}`,
-    //   (req, res, ctx) => res(ctx.status(200), ctx.json({ alerts: [] })),
-    // ),
-
     rest.get(`/api/v1/assets/${boilerHouseId}`, (req, res, ctx) =>
       res(ctx.status(200), ctx.json(boilerHouseData)),
     ),
@@ -156,18 +149,14 @@ test("it renders the component", async () => {
 });
 
 test("it shows boiler house details", async () => {
-  // Arrange
   const asset = JSON.parse(JSON.stringify(assetData));
   asset.boilerHouseId = boilerHouseId;
 
-  const { container } = render(<BoilerHouseDetails asset={asset} />, {
+  render(<BoilerHouseDetails asset={asset} />, {
     url: `/property/${assetData.id}`,
     path: "/property/:assetId",
   });
 
-  // Act
-
-  // Assert
   await waitFor(async () => {
     expect(screen.getByRole("button")).toHaveTextContent("Remove boiler house");
 
@@ -176,18 +165,13 @@ test("it shows boiler house details", async () => {
   });
 });
 
-test("it shows add boiler house button", async () => {
-  // Arrange
-  const { container } = render(<BoilerHouseDetails asset={assetData} />, {
+test("it shows add boiler house button", () => {
+  render(<BoilerHouseDetails asset={assetData} />, {
     url: `/property/${assetData.id}`,
     path: "/property/:assetId",
   });
 
-  // Act
-
-  // Assert
-
-  await screen.getByText("Add boiler house");
+  screen.getByText("Add boiler house");
 
   expect(screen.getByRole("link")).toHaveTextContent("Add boiler house");
   expect(screen.getByRole("link")).toHaveAttribute(
@@ -197,23 +181,20 @@ test("it shows add boiler house button", async () => {
 });
 
 test("it opens the confirmation modal when remove boiler house button clicked", async () => {
-  // Arrange
   const asset = JSON.parse(JSON.stringify(assetData));
   asset.boilerHouseId = boilerHouseId;
 
-  const { container } = render(<BoilerHouseDetails asset={asset} />, {
+  render(<BoilerHouseDetails asset={asset} />, {
     url: `/property/${assetData.id}`,
     path: "/property/:assetId",
   });
-
-  // Act
 });
 
 test("it hides the confirmation modal when the cancel button is clicked", async () => {
   const asset = JSON.parse(JSON.stringify(assetData));
   asset.boilerHouseId = boilerHouseId;
 
-  const { container } = render(<BoilerHouseDetails asset={asset} />, {
+  render(<BoilerHouseDetails asset={asset} />, {
     url: `/property/${assetData.id}`,
     path: "/property/:assetId",
   });
@@ -238,22 +219,10 @@ test("it removes the boiler house when confirmation button clicked", async () =>
   const asset = JSON.parse(JSON.stringify(assetData));
   asset.boilerHouseId = boilerHouseId;
 
-  const { container } = render(<BoilerHouseDetails asset={asset} />, {
+  render(<BoilerHouseDetails asset={asset} />, {
     url: `/property/${assetData.id}`,
     path: "/property/:assetId",
   });
-
-  // 1. Open modal
-  // 2. Click confirmation button
-  // 3. Assert request made
-
-  // open modal
-  // const removeButton = container.querySelector('[data-test="remove-boiler-house-button"]')
-  // fireEvent.click(
-  //   removeButton
-  // )
-
-  // fireEvent.click(screen.getByText(/Remove boiler house/i));
 
   await waitFor(async () => {
     const addressLine1 = "1234 boiler house";
@@ -269,7 +238,7 @@ test("it removes the boiler house when confirmation button clicked", async () =>
   fireEvent.click(screen.getByTestId(/confirm-remove-modal-button/i));
 
   // manually remove boilerHouseId from request object
-  asset.boilerHouseId = ""
+  asset.boilerHouseId = "";
 
   setTimeout(async () => {
     // confirm modal is closed
@@ -277,116 +246,11 @@ test("it removes the boiler house when confirmation button clicked", async () =>
     expect(modalHeading).toBeNull();
 
     await waitFor(async () => {
-
-      
-  
       // confirm boiler house removed
       const boilerHouseLink = screen.queryByText("1234 boiler house");
       expect(boilerHouseLink).toBeNull();
-  
+
       expect(screen.getByRole("link")).toHaveTextContent("Add boiler house");
     });
-  }, 2000)
-
-  
-
-  
-  // // close modal
-  // fireEvent.click(screen.getByText(/Cancel/i));
-
-  // // confirm modal is closed
-  // const modalHeading = screen.queryByText("Remove boiler house from property")
-  // expect(modalHeading).toBeNull()
+  }, 2000);
 });
-
-// test("it shows cautionary alerts", () => {
-//   // Arrange
-//   const { container } = render(
-//     <AssetSideBar
-//       alerts={[]}
-//       assetDetails={assetData}
-//       showCautionaryAlerts
-//       showTenureInformation={false}
-//     />,
-//     {
-//       url: `/property/${assetData.id}`,
-//       path: "/property/:assetId",
-//     },
-//   );
-
-//   // Assert
-//   const cautionaryAlertsHeading = screen.getByText("Cautionary alerts");
-
-//   expect(cautionaryAlertsHeading).toBeVisible();
-
-//   expect(container).toMatchSnapshot();
-// });
-
-// test("it hides cautionary alerts", () => {
-//   // Arrange
-//   const { container } = render(
-//     <AssetSideBar
-//       alerts={[]}
-//       assetDetails={assetData}
-//       showCautionaryAlerts={false}
-//       showTenureInformation={false}
-//     />,
-//     {
-//       url: `/property/${assetData.id}`,
-//       path: "/property/:assetId",
-//     },
-//   );
-
-//   // Assert
-//   const cautionaryAlertsHeading = screen.queryByText("Cautionary alerts");
-
-//   expect(cautionaryAlertsHeading).not.toBeInTheDocument();
-
-//   expect(container).toMatchSnapshot();
-// });
-
-// test("it shows tenure information", () => {
-//   // Arrange
-//   const { container } = render(
-//     <AssetSideBar
-//       alerts={[]}
-//       assetDetails={assetData}
-//       showCautionaryAlerts={false}
-//       showTenureInformation
-//     />,
-//     {
-//       url: `/property/${assetData.id}`,
-//       path: "/property/:assetId",
-//     },
-//   );
-
-//   // Assert
-//   const tenureInformationHeading = screen.getByText("Tenure");
-
-//   expect(tenureInformationHeading).toBeVisible();
-
-//   expect(container).toMatchSnapshot();
-// });
-
-// test("it hides tenure information", () => {
-//   // Arrange
-//   const { container } = render(
-//     <AssetSideBar
-//       alerts={[]}
-//       assetDetails={assetData}
-//       showCautionaryAlerts={false}
-//       showTenureInformation={false}
-//     />,
-//     {
-//       url: `/property/${assetData.id}`,
-//       path: "/property/:assetId",
-//     },
-//   );
-
-//   // Assert
-//   const tenureInformationHeading = screen.queryByText("Tenure");
-
-//   expect(tenureInformationHeading).not.toBeInTheDocument();
-
-//   expect(container).toMatchSnapshot();
-// });

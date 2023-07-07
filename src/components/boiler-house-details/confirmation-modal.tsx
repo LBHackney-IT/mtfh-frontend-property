@@ -22,7 +22,11 @@ export const ConfirmationModal = ({
       title="Remove boiler house from property"
     >
       <DialogActions>
-        <Button onClick={onSubmit} isLoading={isLoading}  data-testid="confirm-remove-modal-button">
+        <Button
+          onClick={onSubmit}
+          isLoading={isLoading}
+          data-testid="confirm-remove-modal-button"
+        >
           Remove
         </Button>
         <Link as="button" type="button" onClick={hideModal}>
