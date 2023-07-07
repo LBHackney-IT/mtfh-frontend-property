@@ -14,7 +14,7 @@ export const useSearchForBoilerHouse = (resetSelectBoilerHouseForm: () => void) 
   const handleSearch = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (loading) return
+    if (loading) return;
 
     resetSelectBoilerHouseForm();
 

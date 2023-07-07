@@ -10,7 +10,7 @@ interface Props {
   asset: Asset;
 }
 
-export const AddBoilerHouseLayout = ({  asset }: Props) => {
+export const AddBoilerHouseLayout = ({ asset }: Props) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [requestError, setRequestError] = useState<string | null>(null);
 

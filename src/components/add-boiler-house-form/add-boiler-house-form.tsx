@@ -1,12 +1,10 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-import { PatchAssetRequest, patchAsset } from "./utils";
+import { useBoilerHouseOptions } from "./hooks/useBoilerHouseOptions";
+import { useSearchForBoilerHouse } from "./hooks/useSearchForBoilerHouse";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Center, Spinner } from "@mtfh/common/lib/components";
-import { useSearchResults } from "@mtfh/search";
-import { useSearchForBoilerHouse } from "./hooks/useSearchForBoilerHouse";
-import { useBoilerHouseOptions } from "./hooks/useBoilerHouseOptions";
 
 interface Props {
   setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;

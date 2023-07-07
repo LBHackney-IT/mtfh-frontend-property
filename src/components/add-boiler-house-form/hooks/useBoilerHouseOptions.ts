@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 
 import { PatchAssetRequest, patchAsset } from "../utils";
 
