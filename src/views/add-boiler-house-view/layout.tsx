@@ -7,17 +7,16 @@ import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
 interface Props {
-  assetId: string;
   asset: Asset;
 }
 
-export const AddBoilerHouseLayout = ({ assetId, asset }: Props) => {
+export const AddBoilerHouseLayout = ({  asset }: Props) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [requestError, setRequestError] = useState<string | null>(null);
 
   return (
     <>
-      <Link as={RouterLink} to={`/property/${assetId}`} variant="back-link">
+      <Link as={RouterLink} to={`/property/${asset.id}`} variant="back-link">
         Back to asset
       </Link>
 
@@ -27,7 +26,7 @@ export const AddBoilerHouseLayout = ({ assetId, asset }: Props) => {
           title={
             <span>
               The boiler house has been added successfully.{" "}
-              <Link as={RouterLink} to={`/property/${assetId}`}>
+              <Link as={RouterLink} to={`/property/${asset.id}`}>
                 Return to property
               </Link>
             </span>
@@ -50,7 +49,6 @@ export const AddBoilerHouseLayout = ({ assetId, asset }: Props) => {
         setShowSuccess={setShowSuccess}
         setRequestError={setRequestError}
         asset={asset}
-        assetId={assetId}
       />
     </>
   );

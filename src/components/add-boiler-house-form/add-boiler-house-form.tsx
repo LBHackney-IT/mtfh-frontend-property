@@ -5,81 +5,40 @@ import { PatchAssetRequest, patchAsset } from "./utils";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Center, Spinner } from "@mtfh/common/lib/components";
 import { useSearchResults } from "@mtfh/search";
+import { useSearchForBoilerHouse } from "./hooks/useSearchForBoilerHouse";
+import { useBoilerHouseOptions } from "./hooks/useBoilerHouseOptions";
 
 interface Props {
   setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
   setRequestError: React.Dispatch<React.SetStateAction<string | null>>;
-  assetId: string;
   asset: Asset;
 }
 
-export const AddBoilerHouseForm = ({
-  setShowSuccess,
-  setRequestError,
-  assetId,
-  asset,
-}: Props) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchQueryError, setSearchQueryError] = useState<string | null>(null);
+export const AddBoilerHouseForm = ({ setShowSuccess, setRequestError, asset }: Props) => {
+  const {
+    boilerHouseOption,
+    setBoilerHouseOption,
+    boilerHouseOptionError,
+    handleSubmit,
+    resetForm: resetSelectBoilerHouseForm,
+  } = useBoilerHouseOptions(asset, setShowSuccess, setRequestError);
 
-  const [boilerHouseOption, setBoilerHouseOption] = useState<string>("");
-  const [boilerHouseOptionError, setBoilerHouseOptionError] = useState<string | null>(
-    null,
-  );
-
-  const [touched, setTouched] = useState(false);
-
-  const { fetchResults, total, searchResultsData, loading, error } = useSearchResults([
-    "BoilerHouse",
-  ]);
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchQueryError,
+    handleSearch,
+    touched,
+    error,
+    loading,
+    total,
+    searchResultsData,
+  } = useSearchForBoilerHouse(resetSelectBoilerHouseForm);
 
   useEffect(() => {
     setRequestError(error);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
-
-  const handleSearch = (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    // reset boilerHouse related fields/errors
-    setBoilerHouseOptionError(null);
-    setBoilerHouseOption("");
-
-    if (searchQuery === "" || searchQuery.length < 2) {
-      setSearchQueryError("Search text must be at least 2 characters");
-      return;
-    }
-
-    setSearchQueryError(null);
-    setTouched(true);
-
-    fetchResults(searchQuery);
-  };
-
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    if (boilerHouseOption === "") {
-      setBoilerHouseOptionError("You must select a boiler house");
-      return;
-    }
-
-    setBoilerHouseOptionError(null);
-    setRequestError(null);
-
-    const request: PatchAssetRequest = {
-      boilerHouseId: boilerHouseOption,
-    };
-
-    patchAsset(assetId, request, asset?.versionNumber?.toString() || "")
-      .then(() => {
-        setShowSuccess(true);
-      })
-      .catch((err) => {
-        console.error({ err });
-        setRequestError(err.message);
-      });
-  };
 
   return (
     <div>

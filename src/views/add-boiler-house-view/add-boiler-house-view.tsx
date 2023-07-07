@@ -19,5 +19,5 @@ export const AddBoilerHouseView = (): JSX.Element => {
     );
   }
 
-  return <AddBoilerHouseLayout assetId={assetId} asset={asset} />;
+  return <AddBoilerHouseLayout asset={asset} />;
 };
