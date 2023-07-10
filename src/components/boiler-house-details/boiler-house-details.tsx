@@ -9,8 +9,6 @@ import { useConfirmRemoveModal } from "./hooks/useConfirmRemoveModal";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Button, Center, Heading, Link, Spinner } from "@mtfh/common/lib/components";
 
-const { boilerHouse } = locale;
-
 interface Props {
   asset: Asset;
 }
@@ -36,7 +34,7 @@ export const BoilerHouseDetails = ({ asset }: Props) => {
       />
 
       <Heading variant="h2" className="lbh-heading lbh-heading-h3">
-        {boilerHouse.boilerHouse}
+        {locale.boilerHouseDetails.heading}
       </Heading>
 
       {isLoading ? (
@@ -47,7 +45,7 @@ export const BoilerHouseDetails = ({ asset }: Props) => {
         <>
           {!assetHasBoilerHouse() ? (
             <Button as={RouterLink} to={`/property/${asset.id}/add-boiler-house`}>
-              Add boiler house
+              {locale.boilerHouseDetails.addBoilerHouseButton}
             </Button>
           ) : (
             <>
@@ -59,7 +57,7 @@ export const BoilerHouseDetails = ({ asset }: Props) => {
                 data-testid="remove-boiler-house-button"
                 onClick={() => setShowModal(true)}
               >
-                Remove boiler house
+                {locale.boilerHouseDetails.removeBoilerHouseButton}
               </Button>
             </>
           )}

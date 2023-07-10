@@ -1,5 +1,7 @@
 import React from "react";
 
+import { locale } from "../../services";
+
 import { Button, Dialog, DialogActions, Link } from "@mtfh/common/lib/components";
 
 interface Props {
@@ -19,7 +21,7 @@ export const ConfirmationModal = ({
     <Dialog
       isOpen={showModal}
       onDismiss={hideModal}
-      title="Remove boiler house from property"
+      title={locale.boilerHouseDetails.modal.heading}
     >
       <DialogActions>
         <Button

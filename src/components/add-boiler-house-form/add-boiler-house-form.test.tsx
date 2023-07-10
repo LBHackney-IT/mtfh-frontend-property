@@ -5,8 +5,6 @@ import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
-// import { BoilerHouseDetails } from "./boiler-house-details";
-
 import { AddBoilerHouseForm } from "./add-boiler-house-form";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -127,8 +125,6 @@ const boilerHouseId = "c01e3146-e630-c2cd-e709-18ef57bf3724";
 
 beforeEach(() => {
   jest.resetAllMocks();
-
-  //   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
   server.use(
     rest.get(
@@ -284,7 +280,6 @@ test("it adds a boiler house to a property", async () => {
   fireEvent.click(screen.getByTestId(/boiler-house-submit-button/i));
 
   // assert success message displayed
-
   await waitFor(() => {
     expect(setShowSuccessMock).toBeCalledWith(true);
   });

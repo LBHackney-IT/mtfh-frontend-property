@@ -92,8 +92,13 @@ export default {
     cautionaryAlerts: "Cautionary alerts",
     none: "None",
   },
-  boilerHouse: {
-    boilerHouse: "Boiler house",
+  boilerHouseDetails: {
+    heading: "Boiler house",
+    addBoilerHouseButton: "Add boiler house ",
+    removeBoilerHouseButton: "Remove boiler house",
+    modal: {
+      heading: "Remove boiler house from property",
+    },
   },
   static: {
     newProcess: "New Process",
