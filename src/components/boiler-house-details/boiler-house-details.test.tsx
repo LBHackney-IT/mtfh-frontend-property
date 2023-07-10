@@ -134,7 +134,7 @@ beforeEach(() => {
     ),
 
     rest.patch(`/api/v1/assets/${boilerHouseId}`, (req, res, ctx) =>
-      res(ctx.status(201), ctx.json(boilerHouseData)),
+      res(ctx.status(201)),
     ),
   );
 });

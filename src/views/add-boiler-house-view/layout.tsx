@@ -35,7 +35,6 @@ export const AddBoilerHouseLayout = ({ asset }: Props) => {
       )}
 
       <h1 className="lbh-heading-h1">Add boiler house to property</h1>
-      <span className="govuk-caption-m lbh-caption">Some subtitle text</span>
 
       {requestError && (
         <ErrorSummary

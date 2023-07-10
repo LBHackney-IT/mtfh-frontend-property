@@ -22,7 +22,7 @@ export const useBoilerHouseOptions = (
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (!validate) return;
+    if (!validate()) return;
 
     resetForm();
 
