@@ -1,4 +1,4 @@
-import { PatchAssetFormValues } from "./types";
+import { PatchAssetAddressFormValues } from "./types";
 
 import {
   Asset,
@@ -16,7 +16,7 @@ export const getAssetVersionNumber = (assetDetails: Asset) =>
   assetDetails?.versionNumber?.toString() ? assetDetails.versionNumber.toString() : null;
 
 export const buildEditAssetAddressRequest = (
-  formValues: PatchAssetFormValues,
+  formValues: PatchAssetAddressFormValues,
   assetDetails: Asset,
 ): EditAssetAddressRequest => ({
   assetAddress: {
@@ -31,7 +31,7 @@ export const buildEditAssetAddressRequest = (
 });
 
 export const buildUpdateAddressDetailsRequest = (
-  formValues: PatchAssetFormValues,
+  formValues: PatchAssetAddressFormValues,
 ): UpdateAddressDetailsRequest => ({
   postPreamble: formValues.postPreamble || "",
   addressLine1: formValues.addressLine1,
@@ -42,7 +42,7 @@ export const buildUpdateAddressDetailsRequest = (
 });
 
 export const buildEditTenureRequest = (
-  formValues: PatchAssetFormValues,
+  formValues: PatchAssetAddressFormValues,
   assetDetails: Asset,
   tenureApiObject: Tenure | undefined,
 ): EditTenureParams => {
