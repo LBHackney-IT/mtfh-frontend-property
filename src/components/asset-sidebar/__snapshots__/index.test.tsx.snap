@@ -1,5 +1,108 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`it hides boiler house details 1`] = `
+<div>
+  <div
+    class="mtfh-asset-sidebar"
+  >
+    <div
+      class="mtfh-sidebar"
+    >
+      <div
+        id="property-view-sidebar"
+      >
+        <aside
+          class="mtfh-asset-details"
+        >
+          <dl
+            class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list"
+          >
+            <div
+              class="govuk-summary-list__row"
+            >
+              <dt
+                class="govuk-summary-list__key govuk-!-width-two-thirds"
+              >
+                Type
+              </dt>
+              <dd
+                class="govuk-summary-list__value"
+              >
+                Block
+              </dd>
+            </div>
+            <div
+              class="govuk-summary-list__row"
+            >
+              <dt
+                class="govuk-summary-list__key"
+              >
+                UPRN
+              </dt>
+              <dd
+                class="govuk-summary-list__value"
+              >
+                10008355547
+              </dd>
+            </div>
+            <div
+              class="govuk-summary-list__row"
+            >
+              <dt
+                class="govuk-summary-list__key"
+              >
+                Reference
+              </dt>
+              <dd
+                class="govuk-summary-list__value"
+              >
+                0019062023
+              </dd>
+            </div>
+          </dl>
+        </aside>
+        <details
+          class="govuk-details"
+          data-module="govuk-details"
+        >
+          <summary
+            class="govuk-details__summary"
+            data-testid="property-spec-toggle"
+          >
+            <span
+              class="govuk-details__summary-text"
+            >
+              Property Specification
+            </span>
+          </summary>
+        </details>
+        <a
+          class="govuk-button lbh-button"
+          data-testid="edit-address-button"
+          href="/property/edit/769894bd-b0bc-47eb-a780-322372c2448f"
+        >
+          Edit address details
+        </a>
+        <aside
+          class="mtfh-cautionary-alerts"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+          >
+            Cautionary alerts
+          </h2>
+          <p
+            class="lbh-body-s"
+          >
+            None
+          </p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`it hides cautionary alerts 1`] = `
 <div>
   <div
@@ -172,6 +275,124 @@ exports[`it hides tenure information 1`] = `
         >
           Edit address details
         </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`it shows boiler house details 1`] = `
+<div>
+  <div
+    class="mtfh-asset-sidebar"
+  >
+    <div
+      class="mtfh-sidebar"
+    >
+      <div
+        id="property-view-sidebar"
+      >
+        <aside
+          class="mtfh-asset-details"
+        >
+          <dl
+            class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list"
+          >
+            <div
+              class="govuk-summary-list__row"
+            >
+              <dt
+                class="govuk-summary-list__key govuk-!-width-two-thirds"
+              >
+                Type
+              </dt>
+              <dd
+                class="govuk-summary-list__value"
+              >
+                Dwelling
+              </dd>
+            </div>
+            <div
+              class="govuk-summary-list__row"
+            >
+              <dt
+                class="govuk-summary-list__key"
+              >
+                UPRN
+              </dt>
+              <dd
+                class="govuk-summary-list__value"
+              >
+                10008355547
+              </dd>
+            </div>
+            <div
+              class="govuk-summary-list__row"
+            >
+              <dt
+                class="govuk-summary-list__key"
+              >
+                Reference
+              </dt>
+              <dd
+                class="govuk-summary-list__value"
+              >
+                0019062023
+              </dd>
+            </div>
+          </dl>
+        </aside>
+        <details
+          class="govuk-details"
+          data-module="govuk-details"
+        >
+          <summary
+            class="govuk-details__summary"
+            data-testid="property-spec-toggle"
+          >
+            <span
+              class="govuk-details__summary-text"
+            >
+              Property Specification
+            </span>
+          </summary>
+        </details>
+        <a
+          class="govuk-button lbh-button"
+          data-testid="edit-address-button"
+          href="/property/edit/769894bd-b0bc-47eb-a780-322372c2448f"
+        >
+          Edit address details
+        </a>
+        <aside
+          class="mtfh-cautionary-alerts"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+          >
+            Cautionary alerts
+          </h2>
+          <p
+            class="lbh-body-s"
+          >
+            None
+          </p>
+        </aside>
+        <aside
+          class="mtfh-cautionary-alerts"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+          >
+            Boiler house
+          </h2>
+          <a
+            class="govuk-button lbh-button"
+            href="/property/769894bd-b0bc-47eb-a780-322372c2448f/add-boiler-house"
+          >
+            Add boiler house 
+          </a>
+        </aside>
       </div>
     </div>
   </div>

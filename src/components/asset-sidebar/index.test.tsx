@@ -8,6 +8,7 @@ import { AssetSideBar } from ".";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import * as auth from "@mtfh/common/lib/auth/auth";
+import { locale } from "../../services";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
@@ -100,6 +101,8 @@ test("it shows cautionary alerts", () => {
   expect(container).toMatchSnapshot();
 });
 
+
+
 test("it hides cautionary alerts", () => {
   // Arrange
   const { container } = render(
@@ -122,6 +125,61 @@ test("it hides cautionary alerts", () => {
 
   expect(container).toMatchSnapshot();
 });
+
+
+test("it shows boiler house details", () => {
+  // Arrange
+  const asset = JSON.parse(JSON.stringify(assetData))
+  asset.assetType = "Dwelling"
+
+  const { container } = render(
+    <AssetSideBar
+      alerts={[]}
+      assetDetails={asset}
+      showCautionaryAlerts
+      showTenureInformation={false}
+    />,
+    {
+      url: `/property/${assetData.id}`,
+      path: "/property/:assetId",
+    },
+  );
+
+  // Assert
+  const boilerHouseDetailsHeading = screen.getByText(locale.boilerHouseDetails.heading);
+
+  expect(boilerHouseDetailsHeading).toBeVisible();
+
+  expect(container).toMatchSnapshot();
+});
+
+
+
+test("it hides boiler house details", async () => {
+  // Arrange
+  const asset = JSON.parse(JSON.stringify(assetData))
+  asset.assetType = "Block"
+
+  const { container } = render(
+    <AssetSideBar
+      alerts={[]}
+      assetDetails={asset}
+      showCautionaryAlerts
+      showTenureInformation={false}
+    />,
+    {
+      url: `/property/${assetData.id}`,
+      path: "/property/:assetId",
+    },
+  );
+
+  // Assert
+  expect(
+    screen.queryByText(locale.boilerHouseDetails.heading),
+  )
+  expect(container).toMatchSnapshot();
+});
+
 
 test("it shows tenure information", () => {
   // Arrange

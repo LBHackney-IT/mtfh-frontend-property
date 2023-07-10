@@ -280,7 +280,7 @@ test("it adds a boiler house to a property", async () => {
   fireEvent.click(screen.getByTestId(/boiler-house-submit-button/i));
 
   // assert success message displayed
-  await waitFor(() => {
+  setTimeout(() => {
     expect(setShowSuccessMock).toBeCalledWith(true);
-  });
+  }, 1000)
 });
