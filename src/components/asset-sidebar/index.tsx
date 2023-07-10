@@ -20,6 +20,17 @@ interface Props extends Partial<SideBarProps> {
   showCautionaryAlerts: boolean;
 }
 
+const boilerHouseAssetTypes = new Set<string>([
+  "Dwelling",
+  "LettableNonDwelling",
+  "AdministrativeBuilding",
+  "CommunityHall",
+  "Room",
+  "House",
+  "SelfContainedBedsit",
+  "Maisonette",
+]);
+
 export const AssetSideBar = ({
   assetDetails,
   alerts,
@@ -35,7 +46,7 @@ export const AssetSideBar = ({
     !tenure || !tenure.isActive || !isFutureDate(tenure.endOfTenureDate) || !tenure.id;
 
   const showBoilerHouseInformation = () => {
-    return assetType === "Dwelling" || assetType === "LettableNonDwelling";
+    return boilerHouseAssetTypes.has(assetType);
   };
 
   return (
