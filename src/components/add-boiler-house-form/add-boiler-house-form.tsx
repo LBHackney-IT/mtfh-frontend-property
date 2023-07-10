@@ -45,8 +45,11 @@ export const AddBoilerHouseForm = ({ setShowSuccess, setRequestError, asset }: P
           <label className="govuk-label lbh-label" htmlFor="searchQuery">
             Search for a boiler house
           </label>
-          <span className="govuk-error-message lbh-error-message" data-testid="boiler-house-search-error">
-            <span className="govuk-visually-hidden" >Error: </span>
+          <span
+            className="govuk-error-message lbh-error-message"
+            data-testid="boiler-house-search-error"
+          >
+            <span className="govuk-visually-hidden">Error: </span>
             {searchQueryError}
           </span>
           <input
@@ -59,7 +62,11 @@ export const AddBoilerHouseForm = ({ setShowSuccess, setRequestError, asset }: P
               setSearchQuery(e.target.value)
             }
           />
-          <button className="govuk-button lbh-button" data-testid="boiler-house-search-submit" type="submit">
+          <button
+            className="govuk-button lbh-button"
+            data-testid="boiler-house-search-submit"
+            type="submit"
+          >
             Search
           </button>
         </div>
@@ -77,7 +84,10 @@ export const AddBoilerHouseForm = ({ setShowSuccess, setRequestError, asset }: P
                 <label className="govuk-label lbh-label" htmlFor="boilerHouseOption">
                   Select a boiler house
                 </label>
-                <span className="govuk-error-message lbh-error-message" data-testid="boiler-house-submit-error">
+                <span
+                  className="govuk-error-message lbh-error-message"
+                  data-testid="boiler-house-submit-error"
+                >
                   <span className="govuk-visually-hidden">Error: </span>
                   {boilerHouseOptionError}
                 </span>
@@ -94,13 +104,17 @@ export const AddBoilerHouseForm = ({ setShowSuccess, setRequestError, asset }: P
                     {total || 0} result{total !== 1 && "s"} found
                   </option>
                   {searchResultsData?.map(({ id, assetAddress }, i) => (
-                    <option key={i} value={id}  data-testid="select-option">
+                    <option key={i} value={id} data-testid="select-option">
                       {assetAddress.addressLine1}
                     </option>
                   ))}
                 </select>
               </div>
-              <button className="govuk-button lbh-button" type="submit" data-testid="boiler-house-submit-button">
+              <button
+                className="govuk-button lbh-button"
+                type="submit"
+                data-testid="boiler-house-submit-button"
+              >
                 Add boiler house
               </button>
             </form>

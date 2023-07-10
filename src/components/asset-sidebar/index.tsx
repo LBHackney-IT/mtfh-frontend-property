@@ -59,9 +59,7 @@ export const AssetSideBar = ({
             </Button>
           )}
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
-          {showBoilerHouseInformation() && (
-            <BoilerHouseDetails asset={assetDetails} />
-          )}
+          {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (
             <>
               <TenureDetails tenure={tenure} />

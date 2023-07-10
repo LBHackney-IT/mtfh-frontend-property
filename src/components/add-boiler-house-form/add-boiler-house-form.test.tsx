@@ -2,15 +2,14 @@ import React from "react";
 
 import { render, server } from "@hackney/mtfh-test-utils";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
 // import { BoilerHouseDetails } from "./boiler-house-details";
 
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import * as auth from "@mtfh/common/lib/auth/auth";
 import { AddBoilerHouseForm } from "./add-boiler-house-form";
-import userEvent from "@testing-library/user-event";
-import { config } from "@mtfh/search/src/services";
+
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
@@ -286,7 +285,7 @@ test("it adds a boiler house to a property", async () => {
 
   // assert success message displayed
 
-  waitFor(() => {
+  await waitFor(() => {
     expect(setShowSuccessMock).toBeCalledWith(true);
   });
 });
