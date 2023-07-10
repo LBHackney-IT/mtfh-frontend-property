@@ -63,7 +63,7 @@ const assetData: Asset = {
   rootAsset: "",
   parentAssetIds: "",
   rentGroup: null,
-  boilerHouseId: ""
+  boilerHouseId: "",
 };
 
 const alert: Alert = {

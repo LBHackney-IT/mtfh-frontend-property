@@ -6,7 +6,8 @@ export const testValidDwellingFixture: Asset = {
   assetType: "Dwelling",
   rootAsset: "14edf718-19ff-ff43-4679-f8ef404fa029",
   rentGroup: RentGroup.HRA,
-  parentAssetIds: "656feda1-896f-b136-da84-163ee4f1be6c#14edf718-19ff-ff43-4679-f8ef404fa029#a65918aa-e441-bc34-e49d-fa8671f768da",
+  parentAssetIds:
+    "656feda1-896f-b136-da84-163ee4f1be6c#14edf718-19ff-ff43-4679-f8ef404fa029#a65918aa-e441-bc34-e49d-fa8671f768da",
   assetLocation: {
     floorNo: "2",
     totalBlockFloors: 10,
@@ -68,7 +69,7 @@ export const testValidDwellingFixture: Asset = {
     endOfTenureDate: "2028-04-03T00:00:00Z",
     isActive: true,
   },
-  boilerHouseId: ""
+  boilerHouseId: "",
 };
 
 export interface ValidChildAsset extends Asset {
