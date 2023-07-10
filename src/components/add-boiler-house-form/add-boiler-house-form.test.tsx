@@ -282,5 +282,5 @@ test("it adds a boiler house to a property", async () => {
   // assert success message displayed
   setTimeout(() => {
     expect(setShowSuccessMock).toBeCalledWith(true);
-  }, 1000)
+  }, 1000);
 });

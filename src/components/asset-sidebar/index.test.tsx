@@ -4,11 +4,12 @@ import { render, server } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import { rest } from "msw";
 
+import { locale } from "../../services";
+
 import { AssetSideBar } from ".";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import * as auth from "@mtfh/common/lib/auth/auth";
-import { locale } from "../../services";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
@@ -101,8 +102,6 @@ test("it shows cautionary alerts", () => {
   expect(container).toMatchSnapshot();
 });
 
-
-
 test("it hides cautionary alerts", () => {
   // Arrange
   const { container } = render(
@@ -126,11 +125,10 @@ test("it hides cautionary alerts", () => {
   expect(container).toMatchSnapshot();
 });
 
-
 test("it shows boiler house details", () => {
   // Arrange
-  const asset = JSON.parse(JSON.stringify(assetData))
-  asset.assetType = "Dwelling"
+  const asset = JSON.parse(JSON.stringify(assetData));
+  asset.assetType = "Dwelling";
 
   const { container } = render(
     <AssetSideBar
@@ -153,12 +151,10 @@ test("it shows boiler house details", () => {
   expect(container).toMatchSnapshot();
 });
 
-
-
 test("it hides boiler house details", async () => {
   // Arrange
-  const asset = JSON.parse(JSON.stringify(assetData))
-  asset.assetType = "Block"
+  const asset = JSON.parse(JSON.stringify(assetData));
+  asset.assetType = "Block";
 
   const { container } = render(
     <AssetSideBar
@@ -174,12 +170,9 @@ test("it hides boiler house details", async () => {
   );
 
   // Assert
-  expect(
-    screen.queryByText(locale.boilerHouseDetails.heading),
-  )
+  expect(screen.queryByText(locale.boilerHouseDetails.heading));
   expect(container).toMatchSnapshot();
 });
-
 
 test("it shows tenure information", () => {
   // Arrange
