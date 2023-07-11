@@ -2,9 +2,10 @@ import React, { useState } from "react";
 
 import { InlineSearchForm } from "../inline-search-form";
 
-import { Field, Spinner } from "@mtfh/common";
+import {  Spinner } from "@mtfh/common";
 import { AssetType } from "@mtfh/common/lib/api/asset/v1";
 import { useSearchResults } from "@mtfh/search";
+import { Field } from "formik";
 
 interface Props {
   assetTypes: AssetType[];
@@ -76,7 +77,7 @@ export const InlineAssetSearch = ({
 
           <div className="govuk-form-group lbh-form-group">
             <Field
-              // @ts-ignore: it works fine
+        
               as="select"
               disabled={!touched || !total}
               id={name}
