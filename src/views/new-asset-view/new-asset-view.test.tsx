@@ -9,6 +9,8 @@ import { NewAssetView } from ".";
 
 import * as auth from "@mtfh/common/lib/auth/auth";
 
+// test
+
 beforeEach(() => {
   jest.resetAllMocks();
 
