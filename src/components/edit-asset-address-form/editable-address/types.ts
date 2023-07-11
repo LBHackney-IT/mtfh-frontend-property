@@ -1,4 +1,4 @@
-export interface PatchAssetFormValues {
+export interface PatchAssetAddressFormValues {
   addressLine1: string;
   addressLine2?: string;
   addressLine3?: string;

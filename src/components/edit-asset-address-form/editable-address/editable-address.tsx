@@ -5,7 +5,7 @@ import { Field, Form, Formik } from "formik";
 
 import { locale } from "../../../services";
 import { EditableAddressFormData, editableAddressSchema } from "./schema";
-import { PatchAssetFormValues } from "./types";
+import { PatchAssetAddressFormValues } from "./types";
 import {
   buildAssetAddress,
   buildEditAssetAddressRequest,
@@ -15,7 +15,7 @@ import {
 } from "./utils";
 
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
-import { patchAsset } from "@mtfh/common/lib/api/asset/v1";
+import { patchAssetAddress } from "@mtfh/common/lib/api/asset/v1";
 import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1/types";
 import { updateAddressDetails } from "@mtfh/common/lib/api/housing-finance-interim-api";
 import { Tenure, editTenure } from "@mtfh/common/lib/api/tenure/v1";
@@ -86,7 +86,7 @@ export const EditableAddress = ({
     );
   };
 
-  const handleSubmit = async (formValues: PatchAssetFormValues) => {
+  const handleSubmit = async (formValues: PatchAssetAddressFormValues) => {
     setShowSuccess(false);
     setShowError(false);
     setErrorHeading(null);
@@ -101,7 +101,7 @@ export const EditableAddress = ({
     const updateAddressDetailsRequest = buildUpdateAddressDetailsRequest(formValues);
 
     const taskList = [
-      patchAsset(assetDetails.id, editAssetAddressRequest, assetVersionNumber),
+      patchAssetAddress(assetDetails.id, editAssetAddressRequest, assetVersionNumber),
       updateAddressDetails(assetDetails.assetId, updateAddressDetailsRequest),
     ];
 
