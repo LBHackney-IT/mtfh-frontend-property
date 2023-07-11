@@ -69,6 +69,7 @@ export const testValidDwellingFixture: Asset = {
     endOfTenureDate: "2028-04-03T00:00:00Z",
     isActive: true,
   },
+  boilerHouseId: "",
 };
 
 export interface ValidChildAsset extends Asset {
@@ -151,5 +152,6 @@ export const testValidChildAssetFixture: ValidChildAsset[] = [
       parentAssets: [],
     },
     assetContract: null,
+    boilerHouseId: "",
   },
 ];
