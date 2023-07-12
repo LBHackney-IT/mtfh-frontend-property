@@ -23,6 +23,7 @@ export const AddBoilerHouseLayout = ({ asset }: Props) => {
       {showSuccess && (
         <StatusBox
           variant="success"
+          // @ts-ignore No overload matches this call
           title={
             <span>
               The boiler house has been added successfully.{" "}
