@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import { locale } from "../../services";
 
-import { Button, Dialog, DialogActions, Link } from "@mtfh/common/lib/components";
 import { Asset, PatchAssetRequest, patchAsset } from "@mtfh/common/lib/api/asset/v1";
+import { Button, Dialog, DialogActions, Link } from "@mtfh/common/lib/components";
 
 interface Props {
   asset: Asset;

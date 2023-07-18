@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { locale } from "../../services";
 import { ConfirmationModal } from "./confirmation-modal";
-import { useBoilerHouseDetails } from "./hooks/useBoilerHouseDetails";
 
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, getAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Button, Center, Heading, Link, Spinner } from "@mtfh/common/lib/components";
 
 interface Props {
@@ -13,10 +12,34 @@ interface Props {
 }
 
 export const BoilerHouseDetails = ({ asset }: Props) => {
-  const { isLoading, boilerHouseAsset, assetHasBoilerHouse } =
-    useBoilerHouseDetails(asset);
-
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [boilerHouseAsset, setBoilerHouseAsset] = useState<Asset | null>(null);
+
+  const assetHasBoilerHouse = () =>
+    asset.boilerHouseId !== "" && asset.boilerHouseId !== undefined;
+
+  useEffect(() => {
+    // no boilerHouse to fetch
+    if (!assetHasBoilerHouse()) {
+      // in case of state change
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+
+    getAsset(asset.boilerHouseId)
+      .then((res) => {
+        setBoilerHouseAsset(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [asset?.boilerHouseId]);
 
   return (
     <aside className="mtfh-cautionary-alerts">
