@@ -4,6 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { AssetDetails, PropertySpecification, TenureDetails } from "..";
 import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
+import { BoilerHouseDetails } from "../boiler-house-details/boiler-house-details";
 import { CautionaryAlertsDetails } from "../cautionary-alerts-details/cautionary-alerts-details";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -19,6 +20,17 @@ interface Props extends Partial<SideBarProps> {
   showCautionaryAlerts: boolean;
 }
 
+const boilerHouseAssetTypes = new Set<string>([
+  "Dwelling",
+  "LettableNonDwelling",
+  "AdministrativeBuilding",
+  "CommunityHall",
+  "Room",
+  "House",
+  "SelfContainedBedsit",
+  "Maisonette",
+]);
+
 export const AssetSideBar = ({
   assetDetails,
   alerts,
@@ -32,6 +44,10 @@ export const AssetSideBar = ({
   // only show button when there is no active tenure on the asset
   const showAddTenureButton = () =>
     !tenure || !tenure.isActive || !isFutureDate(tenure.endOfTenureDate) || !tenure.id;
+
+  const showBoilerHouseInformation = () => {
+    return boilerHouseAssetTypes.has(assetType);
+  };
 
   return (
     <div className="mtfh-asset-sidebar">
@@ -54,6 +70,7 @@ export const AssetSideBar = ({
             </Button>
           )}
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
+          {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (
             <>
               <TenureDetails tenure={tenure} />

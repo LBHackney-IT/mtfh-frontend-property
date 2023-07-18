@@ -241,18 +241,13 @@ exports[`renders the whole 'New asset form' view 1`] = `
             class="govuk-form-group lbh-form-group"
           >
             <select
-              class="govuk-form-group lbh-form-group govuk-input lbh-input"
+              class="govuk-input lbh-input"
               data-testid="propertyEstate"
               disabled=""
               id="propertyEstate"
+              name="propertyEstate"
               style="max-width: 100%;"
             >
-              <label
-                class="govuk-label lbh-label"
-                for="propertyEstate-field"
-              >
-                
-              </label>
               <option
                 value=""
               >
@@ -293,18 +288,13 @@ exports[`renders the whole 'New asset form' view 1`] = `
             class="govuk-form-group lbh-form-group"
           >
             <select
-              class="govuk-form-group lbh-form-group govuk-input lbh-input"
+              class="govuk-input lbh-input"
               data-testid="propertyBlock"
               disabled=""
               id="propertyBlock"
+              name="propertyBlock"
               style="max-width: 100%;"
             >
-              <label
-                class="govuk-label lbh-label"
-                for="propertyBlock-field"
-              >
-                
-              </label>
               <option
                 value=""
               >

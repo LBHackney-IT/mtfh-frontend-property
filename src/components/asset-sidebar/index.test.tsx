@@ -4,6 +4,8 @@ import { render, server } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import { rest } from "msw";
 
+import { locale } from "../../services";
+
 import { AssetSideBar } from ".";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -121,6 +123,55 @@ test("it hides cautionary alerts", () => {
 
   expect(cautionaryAlertsHeading).not.toBeInTheDocument();
 
+  expect(container).toMatchSnapshot();
+});
+
+test("it shows boiler house details", () => {
+  // Arrange
+  const asset = JSON.parse(JSON.stringify(assetData));
+  asset.assetType = "Dwelling";
+
+  const { container } = render(
+    <AssetSideBar
+      alerts={[]}
+      assetDetails={asset}
+      showCautionaryAlerts
+      showTenureInformation={false}
+    />,
+    {
+      url: `/property/${assetData.id}`,
+      path: "/property/:assetId",
+    },
+  );
+
+  // Assert
+  const boilerHouseDetailsHeading = screen.getByText(locale.boilerHouseDetails.heading);
+
+  expect(boilerHouseDetailsHeading).toBeVisible();
+
+  expect(container).toMatchSnapshot();
+});
+
+test("it hides boiler house details", async () => {
+  // Arrange
+  const asset = JSON.parse(JSON.stringify(assetData));
+  asset.assetType = "Block";
+
+  const { container } = render(
+    <AssetSideBar
+      alerts={[]}
+      assetDetails={asset}
+      showCautionaryAlerts
+      showTenureInformation={false}
+    />,
+    {
+      url: `/property/${assetData.id}`,
+      path: "/property/:assetId",
+    },
+  );
+
+  // Assert
+  expect(screen.queryByText(locale.boilerHouseDetails.heading));
   expect(container).toMatchSnapshot();
 });
 
