@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-import { PatchAssetRequest, patchAsset } from "../../add-boiler-house-form/utils";
-
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, PatchAssetRequest, patchAsset } from "@mtfh/common/lib/api/asset/v1";
 
 export const useConfirmRemoveModal = (asset: Asset) => {
   const [showModal, setShowModal] = useState(false);

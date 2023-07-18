@@ -1,8 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
 
-import { PatchAssetRequest, patchAsset } from "../utils";
-
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, PatchAssetRequest, patchAsset } from "@mtfh/common/lib/api/asset/v1";
 
 export const useBoilerHouseOptions = (
   asset: Asset,

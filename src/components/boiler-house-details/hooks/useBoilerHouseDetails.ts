@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getAsset } from "../../add-boiler-house-form/utils";
-
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, getAsset } from "@mtfh/common/lib/api/asset/v1";
 
 export const useBoilerHouseDetails = (asset: Asset) => {
   const [isLoading, setIsLoading] = useState(false);
