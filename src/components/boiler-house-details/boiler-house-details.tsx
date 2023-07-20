@@ -4,8 +4,18 @@ import { Link as RouterLink } from "react-router-dom";
 import { locale } from "../../services";
 import { ConfirmationModal } from "./confirmation-modal";
 
+import { isAuthorisedForGroups } from "@mtfh/common";
 import { Asset, getAsset } from "@mtfh/common/lib/api/asset/v1";
-import { Button, Center, Heading, Link, Spinner } from "@mtfh/common/lib/components";
+import {
+  Button,
+  Center,
+  Heading,
+  Link,
+  Spinner,
+  Text,
+} from "@mtfh/common/lib/components";
+
+import { assetAdminAuthGroups } from "services/config/config";
 
 interface Props {
   asset: Asset;
@@ -60,21 +70,29 @@ export const BoilerHouseDetails = ({ asset }: Props) => {
       ) : (
         <>
           {!assetHasBoilerHouse() ? (
-            <Button as={RouterLink} to={`/property/${asset.id}/add-boiler-house`}>
-              {locale.boilerHouseDetails.addBoilerHouseButton}
-            </Button>
+            <>
+              {isAuthorisedForGroups(assetAdminAuthGroups) ? (
+                <Button as={RouterLink} to={`/property/${asset.id}/add-boiler-house`}>
+                  {locale.boilerHouseDetails.addBoilerHouseButton}
+                </Button>
+              ) : (
+                <Text size="sm">None</Text>
+              )}
+            </>
           ) : (
             <>
               <Link as={RouterLink} to={`/property/${asset.boilerHouseId}`}>
                 {boilerHouseAsset?.assetAddress?.addressLine1}
               </Link>
 
-              <Button
-                data-testid="remove-boiler-house-button"
-                onClick={() => setShowModal(true)}
-              >
-                {locale.boilerHouseDetails.removeBoilerHouseButton}
-              </Button>
+              {isAuthorisedForGroups(assetAdminAuthGroups) && (
+                <Button
+                  data-testid="remove-boiler-house-button"
+                  onClick={() => setShowModal(true)}
+                >
+                  {locale.boilerHouseDetails.removeBoilerHouseButton}
+                </Button>
+              )}
             </>
           )}
         </>
