@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { locale } from "../../services";
+import { assetAdminAuthGroups } from "../../services/config/config";
 import { ConfirmationModal } from "./confirmation-modal";
 
 import { isAuthorisedForGroups } from "@mtfh/common";
@@ -14,8 +15,6 @@ import {
   Spinner,
   Text,
 } from "@mtfh/common/lib/components";
-
-import { assetAdminAuthGroups } from "services/config/config";
 
 interface Props {
   asset: Asset;
