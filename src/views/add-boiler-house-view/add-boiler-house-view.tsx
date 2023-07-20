@@ -7,6 +7,7 @@ import { AddBoilerHouseLayout } from "./layout";
 import { useAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
 import { assetAdminAuthGroups } from "services/config/config";
+import { isAuthorisedForGroups } from "@mtfh/common";
 
 export const AddBoilerHouseView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
