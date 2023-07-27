@@ -12,6 +12,7 @@ interface TreeAsset {
 
 const addChildrenAssets = (
   childAssets: Asset[] | ValidChildAsset[] | undefined,
+  assetGuid: string
 ): TreeAsset[] => {
   const childrenAssets: TreeAsset[] = [];
 
@@ -23,7 +24,7 @@ const addChildrenAssets = (
         );
       } else if (childAssetIndex === 3) {
         childrenAssets.push(
-          generateRelatedAssetLinkNode()
+          generateRelatedAssetLinkNode(assetGuid)
         );
       } else {
         break;
@@ -34,9 +35,9 @@ const addChildrenAssets = (
   return childrenAssets;
 };
 
-const generateRelatedAssetLinkNode = (): TreeAsset => {
+const generateRelatedAssetLinkNode = (assetGuid: string): TreeAsset => {
   const relatedAssetLinkNode: JSX.Element = (
-    <a className="lbh-link govuk-link" href={`/`}>
+    <a className="lbh-link govuk-link" href={`/property/related/${assetGuid}`}>
       Search for all related properties…
     </a>
   );
