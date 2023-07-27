@@ -17,13 +17,14 @@ const addChildrenAssets = (
 
   if (childAssets) {
     for (const [childAssetIndex, childAssetValue] of childAssets.entries()) {
-      if (childAssetIndex < 5) {
+      if (childAssetIndex < 3) {
         childrenAssets.push(
           generateNode(childAssetValue.assetAddress.addressLine1, [], childAssetValue.id),
         );
-      } else if (childAssetIndex === 5) {
-        // For the time being, if the list of children exceeds 4, we display a "More..." node (to be reviewed once all AssetTypes can be viewed in MMH)
-        childrenAssets.push({ title: "<< MORE.... >>", children: null });
+      } else if (childAssetIndex === 3) {
+        childrenAssets.push(
+          generateRelatedAssetLinkNode()
+        );
       } else {
         break;
       }
@@ -32,6 +33,16 @@ const addChildrenAssets = (
 
   return childrenAssets;
 };
+
+const generateRelatedAssetLinkNode = (): TreeAsset => {
+  const relatedAssetLinkNode: JSX.Element = (
+    <a className="lbh-link govuk-link" href={`/`}>
+      Search for all related properties…
+    </a>
+  );
+
+  return { title: relatedAssetLinkNode, children: null, expanded: false };
+}
 
 const generateNode = (name: string, childList: TreeAsset[], id: string): TreeAsset => {
   const node = (
