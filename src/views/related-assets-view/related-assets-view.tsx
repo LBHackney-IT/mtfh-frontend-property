@@ -32,9 +32,9 @@ export const RelatedAssetsView = (): JSX.Element => {
   return (
     <>
       <RelatedAssetsLayout
-        assetAddress={asset.assetAddress}
+        asset={asset}
         parentAssets={asset.assetLocation.parentAssets}
-        childrenAssets={childAssetResponse} />
+        childrenAssets={childAssetResponse?.childAssets} />
     </>
   );
 };
