@@ -3,6 +3,7 @@ import { Link, LinkBox, LinkOverlay } from "@mtfh/common/lib/components";
 import { Link as RouterLink } from "react-router-dom";
 import { SearchCard } from "@mtfh/search";
 import { RelatedAsset } from "views/related-assets-view/utils";
+import "./styles.scss";
 
 export interface RelatedAssetsProps {
     assetType: string;
@@ -23,8 +24,7 @@ export const RelatedAssets = ({
         return relatedAssets.map(((relatedAsset, index) => {
             return (
                 <div key={index}>
-                    {/* {JSON.stringify(relatedAsset)} */}
-                    <LinkBox className="mtfh-search-box">
+                    <LinkBox>
                         <SearchCard>
                             <LinkOverlay>
                                 <Link
@@ -44,9 +44,11 @@ export const RelatedAssets = ({
     }
 
     return (
-        <>
+        <section id="related-assets-by-type" data-testid="related-assets-by-type">
             <p className="lbh-body-m">{getAssetTypeHeading()}</p>
-            {renderRelatedAssets()}
-        </>
+            <div className="mtfh-card-list" data-testid="related-asset-items">
+                {renderRelatedAssets()}
+            </div>
+        </section>
     )
 }
