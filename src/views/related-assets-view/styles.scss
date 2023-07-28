@@ -1,0 +1,17 @@
+@import '~lbh-frontend/lbh/base';
+
+.mtfh-search-box {
+    &__active {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+  
+      > * {
+        margin-top: 0;
+      }
+  
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
+  }

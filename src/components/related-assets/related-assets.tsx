@@ -14,21 +14,39 @@ export const RelatedAssets = ({
     relatedAssets
 }: RelatedAssetsProps) => {
 
+    const getAssetTypeHeading = () => {
+        return assetType.charAt(assetType.length - 1).toLowerCase() == "s" ?
+            assetType : `${assetType}s`
+    }
+
     const renderRelatedAssets = () => {
-        relatedAssets.map((relatedAsset => {
+        return relatedAssets.map(((relatedAsset, index) => {
             return (
-                <>
-                    {JSON.stringify(relatedAsset)}
-                </>
+                <div key={index}>
+                    {/* {JSON.stringify(relatedAsset)} */}
+                    <LinkBox className="mtfh-search-box">
+                        <SearchCard>
+                            <LinkOverlay>
+                                <Link
+                                    className="mtfh-search-tenure__title"
+                                    as={RouterLink}
+                                    to={`/property/${relatedAsset.id}`}
+                                    variant="text-colour"
+                                >
+                                    {relatedAsset.name}
+                                </Link>
+                            </LinkOverlay>
+                        </SearchCard>
+                    </LinkBox>
+                </div>
             )
         }))
     }
 
     return (
         <>
-            <p className="lbh-body-m">Assets of type {assetType}</p>
-            {/* {renderRelatedAssets()} */}
-            {JSON.stringify(relatedAssets)}
+            <p className="lbh-body-m">{getAssetTypeHeading()}</p>
+            {renderRelatedAssets()}
         </>
     )
 }
