@@ -33,6 +33,12 @@ export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
     let uniqueAssetTypes = new Set<string>([]);
     relatedAssets.forEach(relatedAsset => uniqueAssetTypes.add(relatedAsset.type))
 
+    // If present, move "Dwelling" to last (so dwellings appear below other asset types)
+    if (uniqueAssetTypes.has("Dwelling")) {
+        uniqueAssetTypes.delete("Dwelling")
+        uniqueAssetTypes.add("Dwelling")
+    }
+
     // For each AssetType, create a array of RelatedAsset[]
     uniqueAssetTypes.forEach(uniqueAssetType => {
         let sameTypeAssets: RelatedAsset[] = [];
