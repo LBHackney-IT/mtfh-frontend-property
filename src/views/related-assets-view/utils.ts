@@ -23,8 +23,7 @@ export const getAllRelatedAssets = (parentAssets: ParentAsset[], childrenAssets:
             })
         )
     }
-    // MAYBE JUST RETURN EMPTY
-    return allRelatedAssets.length ? allRelatedAssets : null;
+    return allRelatedAssets;
 }
 
 export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {

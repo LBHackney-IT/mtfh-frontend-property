@@ -16,22 +16,20 @@ export const RelatedAssetsLayout = ({
     parentAssets,
     childrenAssets
 }: RelatedAssetsLayoutProps): JSX.Element => {
-    const [relatedAssets, setRelatedAssets] = useState<RelatedAsset[] | undefined | null>(undefined);
+    const [relatedAssets, setRelatedAssets] = useState<RelatedAsset[]>([]);
     const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
     const [showError, setShowError] = useState<boolean>(false);
     const [errorHeading, setErrorHeading] = useState<string | null>(null);
     const [errorDescription, setErrorDescription] = useState<string | null>(null);
 
     useEffect(() => {
-        console.log("parentAssets", parentAssets)
-        console.log("childrenAssets", childrenAssets)
         if (parentAssets && parentAssets.length && childrenAssets) {
             setRelatedAssets(getAllRelatedAssets(parentAssets, childrenAssets));
         }
     }, [parentAssets, childrenAssets]);
 
     useEffect(() => {
-        if (relatedAssets) {
+        if (relatedAssets.length) {
             let assetsByType = organiseRelatedAssetsByType(relatedAssets)
             setRelatedAssetsByType(assetsByType)
             console.log({ assetsByType });
