@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Link } from "@mtfh/common/lib/components";
 import { Asset, GetAssetRelationshipsResponse, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
 import { RelatedAssets } from "../../components/related-assets/related-assets";
-import { RelatedAsset, getAllRelatedAssets } from "./utils";
+import { RelatedAsset, getAllRelatedAssets, organiseRelatedAssetsByType } from "./utils";
 
 interface RelatedAssetsLayoutProps {
     asset: Asset;
@@ -16,14 +16,27 @@ export const RelatedAssetsLayout = ({
     parentAssets,
     childrenAssets
 }: RelatedAssetsLayoutProps): JSX.Element => {
-    const [relatedAssets, setRelatedAssets] = useState<RelatedAsset[]>([]);
+    const [relatedAssets, setRelatedAssets] = useState<RelatedAsset[] | undefined | null>(undefined);
+    const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
     const [showError, setShowError] = useState<boolean>(false);
     const [errorHeading, setErrorHeading] = useState<string | null>(null);
     const [errorDescription, setErrorDescription] = useState<string | null>(null);
 
     useEffect(() => {
-        setRelatedAssets(getAllRelatedAssets(parentAssets, childrenAssets));
+        console.log("parentAssets", parentAssets)
+        console.log("childrenAssets", childrenAssets)
+        if (parentAssets && parentAssets.length && childrenAssets) {
+            setRelatedAssets(getAllRelatedAssets(parentAssets, childrenAssets));
+        }
     }, [parentAssets, childrenAssets]);
+
+    useEffect(() => {
+        if (relatedAssets) {
+            let assetsByType = organiseRelatedAssetsByType(relatedAssets)
+            setRelatedAssetsByType(assetsByType)
+            console.log({ assetsByType });
+        }
+    }, [relatedAssets]);
 
     return (
         <>
@@ -31,8 +44,7 @@ export const RelatedAssetsLayout = ({
                 Back
             </Link>
             <h1 className="lbh-heading-h1">Related assets</h1>
-            <p className="govuk-caption-l lbh-caption">{asset.assetAddress.addressLine1} - {asset.assetAddress.postCode}</p>
-
+            <h2 className="lbh-heading-h2">Property: {asset.assetAddress.addressLine1} - {asset.assetAddress.postCode}</h2>
 
             {/* SHOW ERROR IF:
             NO CHILDREN ASSETS RETRIEVED (REQ FAILS)

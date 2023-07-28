@@ -17,11 +17,35 @@ export const getAllRelatedAssets = (parentAssets: ParentAsset[], childrenAssets:
     if (childrenAssets && childrenAssets.length) {
         childrenAssets.forEach(childrenAsset =>
             allRelatedAssets.push({
+                type: childrenAsset.assetType,
                 id: childrenAsset.id,
-                name: childrenAsset.assetAddress.addressLine1,
-                type: childrenAsset.assetType
+                name: childrenAsset.assetAddress.addressLine1
             })
         )
     }
-    return allRelatedAssets;
+    // MAYBE JUST RETURN EMPTY
+    return allRelatedAssets.length ? allRelatedAssets : null;
+}
+
+export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
+    let assetsByType: { [key: string]: RelatedAsset[] } = {};
+
+    // Define how many asset types we're dealing with
+    let uniqueAssetTypes = new Set<string>([]);
+    relatedAssets.forEach(relatedAsset => uniqueAssetTypes.add(relatedAsset.type))
+
+    // For each AssetType, create a array of RelatedAsset[]
+    uniqueAssetTypes.forEach(uniqueAssetType => {
+        let sameTypeAssets: RelatedAsset[] = [];
+
+        relatedAssets.forEach(relatedAsset => {
+            if (uniqueAssetType == relatedAsset.type) sameTypeAssets.push(relatedAsset)
+        })
+
+        // Create new key in object for given AssetType, value will be an array related assets of that type
+        assetsByType[uniqueAssetType] = sameTypeAssets;
+    })
+
+    // Return an array that contains multiple arrays of RelatedAsset[]
+    return assetsByType;
 }
