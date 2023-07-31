@@ -31,6 +31,7 @@ export const RelatedAssetsLayout = ({
     if (relatedAssets.length) {
       const assetsByType = organiseRelatedAssetsByType(relatedAssets);
       setRelatedAssetsByType(assetsByType);
+      console.log({ assetsByType });
     }
   }, [relatedAssets]);
 
@@ -47,7 +48,6 @@ export const RelatedAssetsLayout = ({
             <RelatedAssets
               assetType={assetType}
               relatedAssets={relatedAssetsByType[assetType]}
-              key={assetType}
             />
             <hr style={{ borderTop: "1px solid #e7eaec" }} />
           </React.Fragment>
