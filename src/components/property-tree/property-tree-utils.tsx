@@ -12,7 +12,7 @@ interface TreeAsset {
 
 const addChildrenAssets = (
   childAssets: Asset[] | ValidChildAsset[] | undefined,
-  assetGuid: string
+  assetGuid: string,
 ): TreeAsset[] => {
   const childrenAssets: TreeAsset[] = [];
 
@@ -23,9 +23,7 @@ const addChildrenAssets = (
           generateNode(childAssetValue.assetAddress.addressLine1, [], childAssetValue.id),
         );
       } else if (childAssetIndex === 3) {
-        childrenAssets.push(
-          generateRelatedAssetLinkNode(assetGuid)
-        );
+        childrenAssets.push(generateRelatedAssetLinkNode(assetGuid));
       } else {
         break;
       }
@@ -43,7 +41,7 @@ const generateRelatedAssetLinkNode = (assetGuid: string): TreeAsset => {
   );
 
   return { title: relatedAssetLinkNode, children: null, expanded: false };
-}
+};
 
 const generateNode = (name: string, childList: TreeAsset[], id: string): TreeAsset => {
   const node = (

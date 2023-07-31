@@ -1,9 +1,11 @@
+import React from "react";
+import { useParams } from "react-router-dom";
+
+import { locale } from "../../services";
+import { RelatedAssetsLayout } from "./layout";
+
 import { useAsset, useChildAssets } from "@mtfh/common/lib/api/asset/v1";
 import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
-import React from "react";
-import { locale } from "../../services";
-import { useParams } from "react-router-dom";
-import { RelatedAssetsLayout } from "./layout";
 
 export const RelatedAssetsView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
@@ -44,7 +46,8 @@ export const RelatedAssetsView = (): JSX.Element => {
       <RelatedAssetsLayout
         asset={asset}
         parentAssets={asset.assetLocation.parentAssets}
-        childrenAssets={childAssetResponse?.childAssets} />
+        childrenAssets={childAssetResponse?.childAssets}
+      />
     </>
   );
 };
