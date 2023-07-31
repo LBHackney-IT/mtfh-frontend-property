@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders the component 1`] = `
+<div>
+  <a
+    class="govuk-back-link lbh-back-link lbh-link--no-visited-state"
+    href="/property/a65918aa-e441-bc34-e49d-fa8671f768da"
+  >
+    Back to asset view
+  </a>
+  <h1
+    class="lbh-heading-h1"
+  >
+    Related assets
+  </h1>
+  <h2
+    class="lbh-heading-h2"
+  >
+    Property: 
+    1-93 Pitcairn House St Thomass Square
+     - 
+    E9 6PT
+  </h2>
+  <hr
+    style="border-top: 1px solid #e7eaec;"
+  />
+  <section
+    data-testid="related-assets-by-type"
+    id="related-assets-by-type"
+  >
+    <p
+      class="lbh-body-m"
+    >
+      Estates
+    </p>
+    <div
+      class="mtfh-card-list"
+      data-testid="related-asset-items"
+    >
+      <div
+        class="mtfh-link-box"
+      >
+        <div
+          class="mtfh-search-card"
+        >
+          <div
+            class="mtfh-link-overlay"
+          >
+            <a
+              class="govuk-link lbh-link lbh-link--text-colour lbh-link--no-visited-state mtfh-search-tenure__title"
+              href="/property/14edf718-19ff-ff43-4679-f8ef404fa029"
+            >
+              Frampton Park Estate Frampton Park Road
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr
+    style="border-top: 1px solid #e7eaec;"
+  />
+  <section
+    data-testid="related-assets-by-type"
+    id="related-assets-by-type"
+  >
+    <p
+      class="lbh-body-m"
+    >
+      Dwellings
+    </p>
+    <div
+      class="mtfh-card-list"
+      data-testid="related-asset-items"
+    >
+      <div
+        class="mtfh-link-box"
+      >
+        <div
+          class="mtfh-search-card"
+        >
+          <div
+            class="mtfh-link-overlay"
+          >
+            <a
+              class="govuk-link lbh-link lbh-link--text-colour lbh-link--no-visited-state mtfh-search-tenure__title"
+              href="/property/13e7cf17-60a0-729d-c297-a4e76a16b6fa"
+            >
+              61 PITCAIRN HOUSE
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr
+    style="border-top: 1px solid #e7eaec;"
+  />
+</div>
+`;

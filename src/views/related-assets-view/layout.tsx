@@ -31,7 +31,6 @@ export const RelatedAssetsLayout = ({
     if (relatedAssets.length) {
       const assetsByType = organiseRelatedAssetsByType(relatedAssets);
       setRelatedAssetsByType(assetsByType);
-      console.log({ assetsByType });
     }
   }, [relatedAssets]);
 
