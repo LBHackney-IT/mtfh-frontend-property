@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import { Link } from "@mtfh/common/lib/components";
 import { Asset, GetAssetRelationshipsResponse, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
 import { RelatedAssets } from "../../components/related-assets/related-assets";
@@ -18,9 +18,6 @@ export const RelatedAssetsLayout = ({
 }: RelatedAssetsLayoutProps): JSX.Element => {
     const [relatedAssets, setRelatedAssets] = useState<RelatedAsset[]>([]);
     const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
-    const [showError, setShowError] = useState<boolean>(false);
-    const [errorHeading, setErrorHeading] = useState<string | null>(null);
-    const [errorDescription, setErrorDescription] = useState<string | null>(null);
 
     useEffect(() => {
         if (parentAssets && parentAssets.length && childrenAssets) {
@@ -36,45 +33,43 @@ export const RelatedAssetsLayout = ({
         }
     }, [relatedAssets]);
 
-    const renderRelatedAssetsByType = () => {
-        return Object.keys(relatedAssetsByType).map((assetType, index) => {
-            return (
-                <RelatedAssets
-                    assetType={assetType}
-                    relatedAssets={relatedAssetsByType[assetType]}
-                    key={index}
-                />
-            )
-        })
+    const assetHasRelatedAssets = (): boolean => {
+        return relatedAssets.length ? true : false
     }
 
-    // {/* SHOW ERROR IF:
-    //         NO CHILDREN ASSETS RETRIEVED (REQ FAILS)
-    //         NO CHILDREN ASSETS FOR THIS ASSET (EMPTY ARRAY RETURNED)
-    //         NO PARENT ASSET FOR THIS ASSET (parentAssets IS AN EMPTY ARRAY)
-    //         {showError && (
-    //             <ErrorSummary
-    //                 id="patch-asset-error"
-    //                 title={errorHeading || ""}
-    //                 description={errorDescription || undefined}
-    //             />
-    //         )} */}
+    const renderRelatedAssets = () => {
+        // If we have related assets and the relatedAssetsByType object we render RelatedAssets components for each Asset type
+        if (assetHasRelatedAssets() && relatedAssetsByType) {
+            return Object.keys(relatedAssetsByType).map((assetType, index) => {
+                return (
+                    <>
+                        <RelatedAssets
+                            assetType={assetType}
+                            relatedAssets={relatedAssetsByType[assetType]}
+                            key={index}
+                        />
+                        <hr style={{ borderTop: "1px solid #e7eaec" }}></hr>
+                    </>
+                )
+            })
+        } else {
+            return <p className="lbh-body-m">There are no related assets for this property.</p>
+        }
+    }
 
     return (
         <>
-            <Link as={RouterLink} to="#" variant="back-link">
-                Back
+            <Link
+                as={RouterLink}
+                to={`/property/${asset.id}`}
+                variant="back-link">
+                Back to asset view
             </Link>
             <h1 className="lbh-heading-h1">Related assets</h1>
             <h2 className="lbh-heading-h2">Property: {asset.assetAddress.addressLine1} - {asset.assetAddress.postCode}</h2>
+            <hr style={{ borderTop: "1px solid #e7eaec" }}></hr>
 
-
-            {relatedAssetsByType &&
-                <>
-                    {renderRelatedAssetsByType()}
-                </>
-            }
-
+            {renderRelatedAssets()}
         </>
     );
 };

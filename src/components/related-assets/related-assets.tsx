@@ -3,7 +3,6 @@ import { Link, LinkBox, LinkOverlay } from "@mtfh/common/lib/components";
 import { Link as RouterLink } from "react-router-dom";
 import { SearchCard } from "@mtfh/search";
 import { RelatedAsset } from "views/related-assets-view/utils";
-import "./styles.scss";
 
 export interface RelatedAssetsProps {
     assetType: string;

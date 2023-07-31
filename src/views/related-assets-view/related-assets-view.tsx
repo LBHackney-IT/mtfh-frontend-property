@@ -9,13 +9,23 @@ export const RelatedAssetsView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
 
   const { data: asset, ...assetRequest } = useAsset(assetId);
-  const { data: childAssetResponse } = useChildAssets(assetId);
+  const { data: childAssetResponse, ...childAssetRequest } = useChildAssets(assetId);
 
   if (assetRequest.error) {
     return (
       <ErrorSummary
         id="property-error"
         title={locale.errors.unableToFetchRecord}
+        description={locale.errors.tryAgainOrContactSupport}
+      />
+    );
+  }
+
+  if (childAssetRequest.error) {
+    return (
+      <ErrorSummary
+        id="cannot-fetch-children-error"
+        title={locale.errors.unableToFetchAssetChildren}
         description={locale.errors.tryAgainOrContactSupport}
       />
     );
