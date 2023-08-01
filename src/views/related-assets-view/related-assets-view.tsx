@@ -47,6 +47,7 @@ export const RelatedAssetsView = (): JSX.Element => {
         asset={asset}
         parentAssets={asset.assetLocation.parentAssets}
         childrenAssets={childAssetResponse?.childAssets}
+        loading={childAssetResponse ? false : true}
       />
     </>
   );

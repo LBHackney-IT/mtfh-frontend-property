@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-
 import { RelatedAssets } from "../../components/related-assets/related-assets";
 import { RelatedAsset, getAllRelatedAssets, organiseRelatedAssetsByType } from "./utils";
-
 import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Link } from "@mtfh/common/lib/components";
+import { Center, Spinner } from "@mtfh/common/lib/components";
+
 
 interface RelatedAssetsLayoutProps {
   asset: Asset;
   parentAssets: ParentAsset[];
   childrenAssets: Asset[] | undefined;
+  loading: boolean
 }
 
 export const RelatedAssetsLayout = ({
   asset,
   parentAssets,
   childrenAssets,
+  loading
 }: RelatedAssetsLayoutProps): JSX.Element => {
   const [relatedAssets, setRelatedAssets] = useState<RelatedAsset[]>([]);
   const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
@@ -39,6 +41,14 @@ export const RelatedAssetsLayout = ({
   };
 
   const renderRelatedAssets = () => {
+    if (loading) {
+      return (
+        <Center>
+          <Spinner />
+        </Center>
+      );
+    }
+
     // If we have related assets and the relatedAssetsByType object we render RelatedAssets components for each Asset type
     if (assetHasRelatedAssets() && relatedAssetsByType) {
       return Object.keys(relatedAssetsByType).map((assetType) => {
@@ -53,7 +63,6 @@ export const RelatedAssetsLayout = ({
         );
       });
     }
-    return <p className="lbh-body-m">There are no related assets for this property.</p>;
   };
 
   return (
