@@ -11,7 +11,7 @@ export const AssetView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
 
   const { data: asset, ...assetRequest } = useAsset(assetId);
-  const { data: childAssetResponse, ...childAssetRequest } = useChildAssets(assetId);
+  const { data: childAssetResponse } = useChildAssets(assetId);
 
   if (asset && asset.assetCharacteristics)
     asset.assetCharacteristics.totalBlockFloors =
@@ -26,17 +26,6 @@ export const AssetView = (): JSX.Element => {
       <ErrorSummary
         id="property-error"
         title={locale.errors.unableToFetchRecord}
-        description={locale.errors.tryAgainOrContactSupport}
-      />
-    );
-  }
-
-  if (childAssetRequest.error) {
-    return (
-      <ErrorSummary
-        id="cannot-fetch-children-error"
-        data-testid="cannot-fetch-children-error"
-        title={locale.errors.unableToFetchAssetChildren}
         description={locale.errors.tryAgainOrContactSupport}
       />
     );
