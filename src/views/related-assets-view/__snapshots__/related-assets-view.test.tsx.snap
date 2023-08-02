@@ -14,11 +14,16 @@ exports[`it renders the component 1`] = `
   >
     Related assets
   </h1>
-  <h2
-    class="lbh-heading-h2"
-    data-testid="related-assets-property"
+  <p
+    class="lbh-body-m"
+    data-testid="property-asset-type"
   >
-    Property: 
+    HighRiseBlock
+  </p>
+  <h2
+    class="lbh-heading-h2 margin-top-10"
+    data-testid="property-address"
+  >
     1-93 Pitcairn House St Thomass Square
      - 
     E9 6PT
