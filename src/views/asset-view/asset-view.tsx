@@ -35,6 +35,7 @@ export const AssetView = (): JSX.Element => {
     return (
       <ErrorSummary
         id="cannot-fetch-children-error"
+        data-testid="cannot-fetch-children-error"
         title={locale.errors.unableToFetchAssetChildren}
         description={locale.errors.tryAgainOrContactSupport}
       />
