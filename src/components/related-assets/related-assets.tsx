@@ -20,9 +20,7 @@ export const RelatedAssets = ({ assetType, relatedAssets }: RelatedAssetsProps) 
 
   const renderRelatedAssets = () => {
     return relatedAssets.map((relatedAsset) => {
-      return (
-        <RelatedAsset relatedAsset={relatedAsset} />
-      );
+      return <RelatedAsset relatedAsset={relatedAsset} key={relatedAsset.id} />;
     });
   };
 
@@ -42,7 +40,7 @@ export interface RelatedAssetProps {
 
 export const RelatedAsset = ({ relatedAsset }: RelatedAssetProps) => {
   return (
-    <LinkBox key={relatedAsset.id} data-testid="related-asset">
+    <LinkBox data-testid="related-asset">
       <SearchCard>
         <LinkOverlay>
           <Link
@@ -57,4 +55,4 @@ export const RelatedAsset = ({ relatedAsset }: RelatedAssetProps) => {
       </SearchCard>
     </LinkBox>
   );
-}
+};
