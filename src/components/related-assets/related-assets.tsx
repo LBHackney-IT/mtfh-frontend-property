@@ -4,11 +4,11 @@ import { Link as RouterLink } from "react-router-dom";
 import { Link, LinkBox, LinkOverlay } from "@mtfh/common/lib/components";
 import { SearchCard } from "@mtfh/search";
 
-import { RelatedAsset } from "views/related-assets-view/utils";
+import { RelatedAsset as IRelatedAsset } from "views/related-assets-view/utils";
 
 export interface RelatedAssetsProps {
   assetType: string;
-  relatedAssets: RelatedAsset[];
+  relatedAssets: IRelatedAsset[];
 }
 
 export const RelatedAssets = ({ assetType, relatedAssets }: RelatedAssetsProps) => {
@@ -21,20 +21,7 @@ export const RelatedAssets = ({ assetType, relatedAssets }: RelatedAssetsProps) 
   const renderRelatedAssets = () => {
     return relatedAssets.map((relatedAsset) => {
       return (
-        <LinkBox key={relatedAsset.id} data-testid="related-asset">
-          <SearchCard>
-            <LinkOverlay>
-              <Link
-                className="mtfh-search-tenure__title"
-                as={RouterLink}
-                to={`/property/${relatedAsset.id}`}
-                variant="text-colour"
-              >
-                {relatedAsset.name}
-              </Link>
-            </LinkOverlay>
-          </SearchCard>
-        </LinkBox>
+        <RelatedAsset relatedAsset={relatedAsset} />
       );
     });
   };
@@ -48,3 +35,26 @@ export const RelatedAssets = ({ assetType, relatedAssets }: RelatedAssetsProps) 
     </section>
   );
 };
+
+export interface RelatedAssetProps {
+  relatedAsset: IRelatedAsset;
+}
+
+export const RelatedAsset = ({ relatedAsset }: RelatedAssetProps) => {
+  return (
+    <LinkBox key={relatedAsset.id} data-testid="related-asset">
+      <SearchCard>
+        <LinkOverlay>
+          <Link
+            className="mtfh-search-tenure__title"
+            as={RouterLink}
+            to={`/property/${relatedAsset.id}`}
+            variant="text-colour"
+          >
+            {relatedAsset.name}
+          </Link>
+        </LinkOverlay>
+      </SearchCard>
+    </LinkBox>
+  );
+}
