@@ -10,6 +10,8 @@ interface TreeAsset {
   expanded?: boolean;
 }
 
+const maximumVisibleAssets = 3;
+
 const addChildrenAssets = (
   childAssets: Asset[] | ValidChildAsset[] | undefined,
   assetGuid: string,
@@ -18,11 +20,11 @@ const addChildrenAssets = (
 
   if (childAssets) {
     for (const [childAssetIndex, childAssetValue] of childAssets.entries()) {
-      if (childAssetIndex < 3) {
+      if (childAssetIndex < maximumVisibleAssets) {
         childrenAssets.push(
           generateNode(childAssetValue.assetAddress.addressLine1, [], childAssetValue.id),
         );
-      } else if (childAssetIndex === 3) {
+      } else if (childAssetIndex === maximumVisibleAssets) {
         childrenAssets.push(generateRelatedAssetLinkNode(assetGuid));
       } else {
         break;

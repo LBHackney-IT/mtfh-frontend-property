@@ -79,7 +79,7 @@ export const RelatedAssetsLayout = ({
         Related assets
       </h1>
       <h2 className="lbh-heading-h2" data-testid="related-assets-property">
-        Property: {asset.assetAddress.addressLine1} - {asset.assetAddress.postCode}
+        {asset.assetAddress.addressLine1} - {asset.assetAddress.postCode}
       </h2>
       <hr style={{ borderTop: "1px solid #e7eaec" }} />
 
