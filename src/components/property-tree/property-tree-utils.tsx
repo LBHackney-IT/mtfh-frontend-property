@@ -35,7 +35,11 @@ const addChildrenAssets = (
 
 const generateRelatedAssetLinkNode = (assetGuid: string): TreeAsset => {
   const relatedAssetLinkNode: JSX.Element = (
-    <a className="lbh-link govuk-link" href={`/property/related/${assetGuid}`}>
+    <a
+      className="lbh-link govuk-link"
+      href={`/property/related/${assetGuid}`}
+      data-testid="related-assets-link"
+    >
       Search for all related properties…
     </a>
   );

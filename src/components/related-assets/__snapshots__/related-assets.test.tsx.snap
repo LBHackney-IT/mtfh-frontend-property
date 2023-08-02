@@ -2,10 +2,7 @@
 
 exports[`it renders the component 1`] = `
 <div>
-  <section
-    data-testid="related-assets-by-type"
-    id="related-assets-by-type"
-  >
+  <section>
     <p
       class="lbh-body-m"
     >
@@ -13,10 +10,11 @@ exports[`it renders the component 1`] = `
     </p>
     <div
       class="mtfh-card-list"
-      data-testid="related-asset-items"
+      data-testid="related-asset-items-group"
     >
       <div
         class="mtfh-link-box"
+        data-testid="related-asset"
       >
         <div
           class="mtfh-search-card"
@@ -35,6 +33,7 @@ exports[`it renders the component 1`] = `
       </div>
       <div
         class="mtfh-link-box"
+        data-testid="related-asset"
       >
         <div
           class="mtfh-search-card"

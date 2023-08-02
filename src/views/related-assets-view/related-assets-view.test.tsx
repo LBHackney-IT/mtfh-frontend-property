@@ -141,6 +141,7 @@ test("it renders the component", async () => {
       asset={asset}
       parentAssets={asset.assetLocation.parentAssets}
       childrenAssets={childrenAssets}
+      loading={false}
     />,
   );
   expect(container).toMatchSnapshot();
@@ -152,6 +153,7 @@ test("it displays the heading of the page, a back button, and the property whose
       asset={asset}
       parentAssets={asset.assetLocation.parentAssets}
       childrenAssets={childrenAssets}
+      loading={false}
     />,
   );
   expect(container).toHaveTextContent("Related assets");

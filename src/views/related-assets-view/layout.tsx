@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+
 import { RelatedAssets } from "../../components/related-assets/related-assets";
 import { RelatedAsset, getAllRelatedAssets, organiseRelatedAssetsByType } from "./utils";
-import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
-import { Link } from "@mtfh/common/lib/components";
-import { Center, Spinner } from "@mtfh/common/lib/components";
 
+import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
+import { Center, Link, Spinner } from "@mtfh/common/lib/components";
 
 interface RelatedAssetsLayoutProps {
   asset: Asset;
   parentAssets: ParentAsset[];
   childrenAssets: Asset[] | undefined;
-  loading: boolean
+  loading: boolean;
 }
 
 export const RelatedAssetsLayout = ({
   asset,
   parentAssets,
   childrenAssets,
-  loading
+  loading,
 }: RelatedAssetsLayoutProps): JSX.Element => {
   const [relatedAssets, setRelatedAssets] = useState<RelatedAsset[]>([]);
   const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
@@ -63,6 +63,11 @@ export const RelatedAssetsLayout = ({
         );
       });
     }
+    return (
+      <p className="lbh-body-m" data-testid="no-related-assets-message">
+        There are no related assets for this property.
+      </p>
+    );
   };
 
   return (
@@ -70,8 +75,10 @@ export const RelatedAssetsLayout = ({
       <Link as={RouterLink} to={`/property/${asset.id}`} variant="back-link">
         Back to asset view
       </Link>
-      <h1 className="lbh-heading-h1">Related assets</h1>
-      <h2 className="lbh-heading-h2">
+      <h1 className="lbh-heading-h1" data-testid="related-assets-heading">
+        Related assets
+      </h1>
+      <h2 className="lbh-heading-h2" data-testid="related-assets-property">
         Property: {asset.assetAddress.addressLine1} - {asset.assetAddress.postCode}
       </h2>
       <hr style={{ borderTop: "1px solid #e7eaec" }} />

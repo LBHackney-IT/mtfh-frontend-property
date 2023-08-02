@@ -21,7 +21,7 @@ export const RelatedAssets = ({ assetType, relatedAssets }: RelatedAssetsProps) 
   const renderRelatedAssets = () => {
     return relatedAssets.map((relatedAsset) => {
       return (
-        <LinkBox key={relatedAsset.id}>
+        <LinkBox key={relatedAsset.id} data-testid="related-asset">
           <SearchCard>
             <LinkOverlay>
               <Link
@@ -40,9 +40,9 @@ export const RelatedAssets = ({ assetType, relatedAssets }: RelatedAssetsProps) 
   };
 
   return (
-    <section id="related-assets-by-type" data-testid="related-assets-by-type">
+    <section>
       <p className="lbh-body-m">{getAssetTypeHeading()}</p>
-      <div className="mtfh-card-list" data-testid="related-asset-items">
+      <div className="mtfh-card-list" data-testid="related-asset-items-group">
         {renderRelatedAssets()}
       </div>
     </section>

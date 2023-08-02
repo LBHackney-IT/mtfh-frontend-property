@@ -10,11 +10,13 @@ exports[`it renders the component 1`] = `
   </a>
   <h1
     class="lbh-heading-h1"
+    data-testid="related-assets-heading"
   >
     Related assets
   </h1>
   <h2
     class="lbh-heading-h2"
+    data-testid="related-assets-property"
   >
     Property: 
     1-93 Pitcairn House St Thomass Square
@@ -24,10 +26,7 @@ exports[`it renders the component 1`] = `
   <hr
     style="border-top: 1px solid #e7eaec;"
   />
-  <section
-    data-testid="related-assets-by-type"
-    id="related-assets-by-type"
-  >
+  <section>
     <p
       class="lbh-body-m"
     >
@@ -35,10 +34,11 @@ exports[`it renders the component 1`] = `
     </p>
     <div
       class="mtfh-card-list"
-      data-testid="related-asset-items"
+      data-testid="related-asset-items-group"
     >
       <div
         class="mtfh-link-box"
+        data-testid="related-asset"
       >
         <div
           class="mtfh-search-card"
@@ -60,10 +60,7 @@ exports[`it renders the component 1`] = `
   <hr
     style="border-top: 1px solid #e7eaec;"
   />
-  <section
-    data-testid="related-assets-by-type"
-    id="related-assets-by-type"
-  >
+  <section>
     <p
       class="lbh-body-m"
     >
@@ -71,10 +68,11 @@ exports[`it renders the component 1`] = `
     </p>
     <div
       class="mtfh-card-list"
-      data-testid="related-asset-items"
+      data-testid="related-asset-items-group"
     >
       <div
         class="mtfh-link-box"
+        data-testid="related-asset"
       >
         <div
           class="mtfh-search-card"
