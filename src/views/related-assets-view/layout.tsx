@@ -7,6 +7,8 @@ import { RelatedAsset, getAllRelatedAssets, organiseRelatedAssetsByType } from "
 import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Center, Link, Spinner } from "@mtfh/common/lib/components";
 
+import "./styles.scss";
+
 interface RelatedAssetsLayoutProps {
   asset: Asset;
   parentAssets: ParentAsset[];
@@ -78,7 +80,8 @@ export const RelatedAssetsLayout = ({
       <h1 className="lbh-heading-h1" data-testid="related-assets-heading">
         Related assets
       </h1>
-      <h2 className="lbh-heading-h2" data-testid="related-assets-property">
+      <p className="lbh-body-m">{asset.assetType}</p>
+      <h2 className="lbh-heading-h2 margin-top-10" data-testid="related-assets-property">
         {asset.assetAddress.addressLine1} - {asset.assetAddress.postCode}
       </h2>
       <hr style={{ borderTop: "1px solid #e7eaec" }} />
