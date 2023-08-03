@@ -12,6 +12,8 @@ import {
   buildEditTenureRequest,
   buildUpdateAddressDetailsRequest,
   getAssetVersionNumber,
+  getLlpgAddressFormValues,
+  getNonUprnAddressFormValues,
 } from "./utils";
 
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
@@ -25,6 +27,8 @@ import "../styles.scss";
 
 export interface EditableAddressProperties {
   llpgAddress: Address | null;
+  currentAddress: AssetAddress;
+  assetHasUprn: boolean;
   loading: boolean;
   assetDetails: Asset;
   setShowSuccess: (value: boolean) => void;
@@ -37,6 +41,8 @@ export interface EditableAddressProperties {
 
 export const EditableAddress = ({
   llpgAddress,
+  currentAddress,
+  assetHasUprn,
   loading,
   assetDetails,
   setShowSuccess,
@@ -134,6 +140,14 @@ export const EditableAddress = ({
       });
   };
 
+  const getFormInitialValues = () => {
+    if (llpgAddress && assetHasUprn) {
+      return getLlpgAddressFormValues(llpgAddress)
+    } else {
+      return getNonUprnAddressFormValues(currentAddress)
+    }
+  }
+
   if (!llpgAddress && loading) {
     return (
       <Center>
@@ -145,14 +159,7 @@ export const EditableAddress = ({
   return (
     <>
       <Formik<EditableAddressFormData>
-        initialValues={{
-          postPreamble: "",
-          addressLine1: llpgAddress?.line1 ? llpgAddress.line1 : "",
-          addressLine2: llpgAddress?.line2 ? llpgAddress.line2 : "",
-          addressLine3: llpgAddress?.line3 ? llpgAddress.line3 : "",
-          addressLine4: llpgAddress?.town ? llpgAddress.town : "",
-          postcode: llpgAddress?.postcode ? llpgAddress.postcode : "",
-        }}
+        initialValues={getFormInitialValues()}
         validationSchema={editableAddressSchema}
         onSubmit={(values) => handleSubmit(values)}
       >
