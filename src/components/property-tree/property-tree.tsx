@@ -26,8 +26,8 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
   const [childNodes, setChildNodes] = useState<TreeAsset[]>([]);
 
   useEffect(() => {
-    setChildNodes(addChildrenAssets(childAssets));
-  }, [childAssets]);
+    setChildNodes(addChildrenAssets(childAssets, asset.id));
+  }, [childAssets, asset]);
 
   useEffect(() => {
     const principle = generatePrinciple(asset, childNodes);

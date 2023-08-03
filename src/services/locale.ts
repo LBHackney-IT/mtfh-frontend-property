@@ -120,6 +120,8 @@ export default {
   assetCouldNotBeLoaded: "This property could not be loaded.",
   errors: {
     unableToFetchRecord: "There was a problem retrieving the record",
+    unableToFetchAssetChildren:
+      "There was a problem retrieving related children assets for the property",
     assetDoesNotExist: "The property information you've requested does not exist",
     alertTitle: "Error",
     noAddressEditPermissions: "You are not authorized to edit address data",

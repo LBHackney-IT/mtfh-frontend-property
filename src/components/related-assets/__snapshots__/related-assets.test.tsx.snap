@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders the component 1`] = `
+<div>
+  <section>
+    <p
+      class="lbh-body-m"
+    >
+      Dwellings
+    </p>
+    <div
+      class="mtfh-card-list"
+      data-testid="related-asset-items-group"
+    >
+      <div
+        class="mtfh-link-box"
+        data-testid="related-asset"
+      >
+        <div
+          class="mtfh-search-card"
+        >
+          <div
+            class="mtfh-link-overlay"
+          >
+            <a
+              class="govuk-link lbh-link lbh-link--text-colour lbh-link--no-visited-state mtfh-search-tenure__title"
+              href="/property/13e7cf17-60a0-729d-c297-a4e76a16b6fa"
+            >
+              123 Test Street
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mtfh-link-box"
+        data-testid="related-asset"
+      >
+        <div
+          class="mtfh-search-card"
+        >
+          <div
+            class="mtfh-link-overlay"
+          >
+            <a
+              class="govuk-link lbh-link lbh-link--text-colour lbh-link--no-visited-state mtfh-search-tenure__title"
+              href="/property/ea0b9c3e-3d72-276c-be2d-04620e2bf0e3"
+            >
+              456 Test Road
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+`;

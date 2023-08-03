@@ -10,20 +10,22 @@ interface TreeAsset {
   expanded?: boolean;
 }
 
+const maximumVisibleAssets = 3;
+
 const addChildrenAssets = (
   childAssets: Asset[] | ValidChildAsset[] | undefined,
+  assetGuid: string,
 ): TreeAsset[] => {
   const childrenAssets: TreeAsset[] = [];
 
   if (childAssets) {
     for (const [childAssetIndex, childAssetValue] of childAssets.entries()) {
-      if (childAssetIndex < 5) {
+      if (childAssetIndex < maximumVisibleAssets) {
         childrenAssets.push(
           generateNode(childAssetValue.assetAddress.addressLine1, [], childAssetValue.id),
         );
-      } else if (childAssetIndex === 5) {
-        // For the time being, if the list of children exceeds 4, we display a "More..." node (to be reviewed once all AssetTypes can be viewed in MMH)
-        childrenAssets.push({ title: "<< MORE.... >>", children: null });
+      } else if (childAssetIndex === maximumVisibleAssets) {
+        childrenAssets.push(generateRelatedAssetLinkNode(assetGuid));
       } else {
         break;
       }
@@ -31,6 +33,20 @@ const addChildrenAssets = (
   }
 
   return childrenAssets;
+};
+
+const generateRelatedAssetLinkNode = (assetGuid: string): TreeAsset => {
+  const relatedAssetLinkNode: JSX.Element = (
+    <a
+      className="lbh-link govuk-link"
+      href={`/property/related/${assetGuid}`}
+      data-testid="related-assets-link"
+    >
+      Search for all related properties…
+    </a>
+  );
+
+  return { title: relatedAssetLinkNode, children: null, expanded: false };
 };
 
 const generateNode = (name: string, childList: TreeAsset[], id: string): TreeAsset => {

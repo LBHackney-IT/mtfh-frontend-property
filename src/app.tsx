@@ -5,6 +5,7 @@ import { AddBoilerHouseView } from "./views/add-boiler-house-view";
 import { AssetEditView } from "./views/asset-edit-view";
 import { AssetView } from "./views/asset-view";
 import { NewAssetView } from "./views/new-asset-view/new-asset-view";
+import { RelatedAssetsView } from "./views/related-assets-view";
 
 export default function App(): JSX.Element {
   return (
@@ -12,6 +13,11 @@ export default function App(): JSX.Element {
       <Route path="/property/new" exact>
         <div data-testid="new-property">
           <NewAssetView />
+        </div>
+      </Route>
+      <Route path="/property/related/:assetId" exact>
+        <div data-testid="related-properties">
+          <RelatedAssetsView />
         </div>
       </Route>
       <Route path="/property/:assetId" exact>
