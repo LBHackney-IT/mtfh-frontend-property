@@ -148,7 +148,7 @@ export const EditableAddress = ({
     }
   }
 
-  if (!llpgAddress && loading) {
+  if (assetHasUprn && loading && !llpgAddress) {
     return (
       <Center>
         <Spinner />
@@ -167,7 +167,7 @@ export const EditableAddress = ({
           <div id="edit-address-form">
             <Form>
               <h3 className="lbh-heading-h3">
-                {llpgAddress
+                {llpgAddress && assetHasUprn
                   ? "Suggestion from the Local Gazetteer"
                   : "New address details"}
               </h3>

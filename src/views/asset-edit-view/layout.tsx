@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { ReferenceAddress } from "../../components/edit-asset-address-form/reference-address";
 import { EditableAddress } from "../../components/edit-asset-address-form/editable-address";
+import { ReferenceAddress } from "../../components/edit-asset-address-form/reference-address";
 import { locale } from "../../services";
 
 import { Address, getAddressViaUprn } from "@mtfh/common/lib/api/address/v1";
@@ -25,7 +25,7 @@ export const AssetEditLayout = ({
     assetDetails.assetAddress,
   );
   const [llpgAddress, setLlpgAddress] = useState<Address | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
   const [errorHeading, setErrorHeading] = useState<string | null>(null);
@@ -50,7 +50,7 @@ export const AssetEditLayout = ({
         .finally(() => setLoading(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [assetDetails]);
 
   const renderLlpgSubHeading = () => {
     if (assetDetails.assetAddress.uprn) {
@@ -97,7 +97,7 @@ export const AssetEditLayout = ({
       <div className="mtfh-address-details">
         <section>
           <EditableAddress
-            llpgAddress={llpgAddress}
+            llpgAddress={llpgAddress ? llpgAddress : null}
             currentAddress={currentAssetAddress}
             assetHasUprn={!!assetDetails.assetAddress.uprn}
             loading={loading}
