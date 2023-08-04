@@ -379,3 +379,37 @@ test("unauthorized message is shown for unauthorized users", async () => {
     expect(unauthorizedErrorMessage).toBeVisible();
   });
 });
+
+test("when editing an address without a UPRN, the editable fields are filled with current address details", async () => {
+  const assetWithoutUprn = assetData;
+
+  // Remove UPRN property from our test asset (which has one)
+  assetWithoutUprn.assetAddress.uprn = ""
+  
+  render(<AssetEditView />, {
+    url: `/property/edit/${assetWithoutUprn.id}`,
+    path: "/property/edit/:assetId",
+  });
+
+  // This allows the test to wait for the page to be populated, after receiving data from the mock Address and Asset APIs
+  // Unlike previous tests, now we expect to find only 2 headings, as the "Current address" section is not visible
+  await waitFor(() => expect(screen.getAllByRole("heading")).toHaveLength(2));
+
+  const currentAddressLine1 = screen.getByTestId("address-line-1");
+  expect(currentAddressLine1).toHaveValue("51 GREENWOOD ROAD - FLAT B");
+
+  const currentAddressLine2 = screen.getByTestId("address-line-2");
+  expect(currentAddressLine2).toHaveValue("");
+
+  const currentAddressLine3 = screen.getByTestId("address-line-3");
+  expect(currentAddressLine3).toHaveValue("");
+
+  const currentAddressLine4 = screen.getByTestId("address-line-4");
+  expect(currentAddressLine4).toHaveValue("");
+
+  const currentAddressPostcode = screen.getByTestId("postcode");
+  expect(currentAddressPostcode).toHaveValue("E8 1QT");
+
+  const llpgPostPreamble = screen.getByTestId("post-preamble");
+  expect(llpgPostPreamble).toHaveValue("X");
+});
