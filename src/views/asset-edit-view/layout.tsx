@@ -33,6 +33,7 @@ export const AssetEditLayout = ({
 
   useEffect(() => {
     if (assetDetails.assetAddress.uprn) {
+      console.log("assetDetails.assetAddress.uprn", assetDetails.assetAddress.uprn)
       setLoading(true);
       getAddressViaUprn(assetDetails.assetAddress.uprn)
         .then((searchAddressResponse) => {
@@ -98,7 +99,7 @@ export const AssetEditLayout = ({
             tenureApiObject={tenureApiObject}
           />
         </section>
-        {assetDetails.assetAddress.uprn && (
+        {assetDetails.assetAddress.uprn && llpgAddress && (
           <section>
             <CurrentAddress assetAddressDetails={currentAssetAddress} />
           </section>
