@@ -12,8 +12,8 @@ import {
   buildEditTenureRequest,
   buildUpdateAddressDetailsRequest,
   getAssetVersionNumber,
-  getLlpgAddressFormValues,
   getCurrentAddressFormValues,
+  getLlpgAddressFormValues,
 } from "./utils";
 
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
