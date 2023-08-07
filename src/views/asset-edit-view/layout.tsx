@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { EditableAddress } from "../../components/edit-asset-address-form/editable-address";
-import { ReferenceAddress } from "../../components/edit-asset-address-form/reference-address";
+import { CurrentAddress } from "../../components/edit-asset-address-form/reference-address";
 import { locale } from "../../services";
 
 import { Address, getAddressViaUprn } from "@mtfh/common/lib/api/address/v1";
@@ -54,31 +54,18 @@ export const AssetEditLayout = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assetDetails]);
 
-  const renderLlpgSubHeading = () => {
-    if (assetDetails.assetAddress.uprn) {
-      <span className="govuk-caption-m lbh-caption">
-        Addresses are suggested from the Local Gazetteer to bring some standardisation.
-      </span>;
-    }
-  };
-
-  const renderReferenceAddress = () => {
-    if (assetDetails.assetAddress.uprn) {
-      return (
-        <section>
-          <ReferenceAddress assetAddressDetails={currentAssetAddress} />
-        </section>
-      );
-    }
-  };
-
   return (
     <>
       <Link as={RouterLink} to={`/property/${assetDetails.id}`} variant="back-link">
         Back to asset
       </Link>
       <h1 className="lbh-heading-h1">Edit property address</h1>
-      {renderLlpgSubHeading()}
+
+      {assetDetails.assetAddress.uprn && (
+        <span className="govuk-caption-m lbh-caption">
+          Addresses are suggested from the Local Gazetteer to bring some standardisation.
+        </span>
+      )}
 
       {showSuccess && (
         <StatusBox
@@ -111,7 +98,11 @@ export const AssetEditLayout = ({
             tenureApiObject={tenureApiObject}
           />
         </section>
-        {renderReferenceAddress()}
+        {assetDetails.assetAddress.uprn && (
+          <section>
+            <CurrentAddress assetAddressDetails={currentAssetAddress} />
+          </section>
+        )}
       </div>
     </>
   );

@@ -13,6 +13,11 @@ exports[`renders the whole 'Edit property address' view 1`] = `
   >
     Edit property address
   </h1>
+  <span
+    class="govuk-caption-m lbh-caption"
+  >
+    Addresses are suggested from the Local Gazetteer to bring some standardisation.
+  </span>
   <div
     class="mtfh-address-details"
   >

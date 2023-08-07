@@ -25,7 +25,7 @@ import { Center, Spinner } from "@mtfh/common/lib/components";
 
 import "../styles.scss";
 
-export interface EditableAddressProperties {
+export interface EditableAddressProps {
   llpgAddress: Address | null;
   currentAddress: AssetAddress;
   assetHasUprn: boolean;
@@ -51,7 +51,7 @@ export const EditableAddress = ({
   setErrorDescription,
   setCurrentAssetAddress,
   tenureApiObject,
-}: EditableAddressProperties): JSX.Element => {
+}: EditableAddressProps): JSX.Element => {
   const [addressEditSuccessful, setAddressEditSuccessful] = useState<boolean>(false);
 
   const handleSubmit = async (formValues: PatchAssetAddressFormValues) => {
