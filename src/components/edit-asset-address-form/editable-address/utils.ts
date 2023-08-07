@@ -1,6 +1,6 @@
-import { Address } from "@mtfh/common/lib/api/address/v1";
 import { PatchAssetAddressFormValues } from "./types";
 
+import { Address } from "@mtfh/common/lib/api/address/v1";
 import {
   Asset,
   AssetAddress,
@@ -83,8 +83,8 @@ export const getLlpgAddressFormValues = (editableAddress: Address) => {
     addressLine3: editableAddress?.line3 ? editableAddress.line3 : "",
     addressLine4: editableAddress?.town ? editableAddress.town : "",
     postcode: editableAddress?.postcode ? editableAddress.postcode : "",
-  }
-}
+  };
+};
 
 export const getNonUprnAddressFormValues = (editableAddress: AssetAddress) => {
   return {
@@ -94,5 +94,5 @@ export const getNonUprnAddressFormValues = (editableAddress: AssetAddress) => {
     addressLine3: editableAddress?.addressLine3 ? editableAddress.addressLine3 : "",
     addressLine4: editableAddress?.addressLine4 ? editableAddress.addressLine4 : "",
     postcode: editableAddress?.postCode ? editableAddress.postCode : "",
-  }
-}
+  };
+};

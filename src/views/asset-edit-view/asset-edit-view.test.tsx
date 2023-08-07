@@ -384,8 +384,8 @@ test("when editing an address without a UPRN, the editable fields are filled wit
   const assetWithoutUprn = assetData;
 
   // Remove UPRN property from our test asset (which has one)
-  assetWithoutUprn.assetAddress.uprn = ""
-  
+  assetWithoutUprn.assetAddress.uprn = "";
+
   render(<AssetEditView />, {
     url: `/property/edit/${assetWithoutUprn.id}`,
     path: "/property/edit/:assetId",

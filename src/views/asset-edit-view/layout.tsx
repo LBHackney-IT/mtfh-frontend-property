@@ -33,7 +33,7 @@ export const AssetEditLayout = ({
 
   useEffect(() => {
     if (assetDetails.assetAddress.uprn) {
-      setLoading(true)
+      setLoading(true);
       getAddressViaUprn(assetDetails.assetAddress.uprn)
         .then((searchAddressResponse) => {
           if (searchAddressResponse.addresses) {
@@ -41,7 +41,9 @@ export const AssetEditLayout = ({
           }
         })
         .catch(() => {
-          setErrorHeading("Unable to retrieve address suggestion from the Local Gazetteer");
+          setErrorHeading(
+            "Unable to retrieve address suggestion from the Local Gazetteer",
+          );
           setErrorDescription(
             "Please refresh the page and try again, otherwise you are still able to edit the blank fields manually.",
           );
@@ -55,11 +57,10 @@ export const AssetEditLayout = ({
   const renderLlpgSubHeading = () => {
     if (assetDetails.assetAddress.uprn) {
       <span className="govuk-caption-m lbh-caption">
-        Addresses are suggested from the Local Gazetteer to bring some
-        standardisation.
-      </span>
+        Addresses are suggested from the Local Gazetteer to bring some standardisation.
+      </span>;
     }
-  }
+  };
 
   const renderReferenceAddress = () => {
     if (assetDetails.assetAddress.uprn) {
@@ -67,9 +68,9 @@ export const AssetEditLayout = ({
         <section>
           <ReferenceAddress assetAddressDetails={currentAssetAddress} />
         </section>
-      )
+      );
     }
-  }
+  };
 
   return (
     <>
@@ -97,7 +98,7 @@ export const AssetEditLayout = ({
       <div className="mtfh-address-details">
         <section>
           <EditableAddress
-            llpgAddress={llpgAddress ? llpgAddress : null}
+            llpgAddress={llpgAddress || null}
             currentAddress={currentAssetAddress}
             assetHasUprn={!!assetDetails.assetAddress.uprn}
             loading={loading}

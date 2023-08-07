@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
 
 import { Field, Form, Formik } from "formik";
 
 import { locale } from "../../../services";
+import { FormActionButtons } from "./form-action-buttons";
 import { EditableAddressFormData, editableAddressSchema } from "./schema";
 import { PatchAssetAddressFormValues } from "./types";
 import {
@@ -53,44 +53,6 @@ export const EditableAddress = ({
   tenureApiObject,
 }: EditableAddressProperties): JSX.Element => {
   const [addressEditSuccessful, setAddressEditSuccessful] = useState<boolean>(false);
-
-  const renderFormActionButtons = () => {
-    if (!addressEditSuccessful) {
-      return (
-        <>
-          <div className="edit-asset-form-actions">
-            <button
-              className="govuk-button lbh-button"
-              data-module="govuk-button"
-              type="submit"
-              id="submit-address-button"
-            >
-              Update to this address
-            </button>
-
-            <RouterLink
-              to={`/property/${assetDetails.id}`}
-              className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-            >
-              Cancel
-            </RouterLink>
-          </div>
-        </>
-      );
-    }
-    return (
-      <>
-        <div className="form-actions">
-          <RouterLink
-            to={`/property/${assetDetails.id}`}
-            className="govuk-button lbh-button"
-          >
-            Back to asset view
-          </RouterLink>
-        </div>
-      </>
-    );
-  };
 
   const handleSubmit = async (formValues: PatchAssetAddressFormValues) => {
     setShowSuccess(false);
@@ -142,11 +104,10 @@ export const EditableAddress = ({
 
   const getFormInitialValues = () => {
     if (llpgAddress && assetHasUprn) {
-      return getLlpgAddressFormValues(llpgAddress)
-    } else {
-      return getNonUprnAddressFormValues(currentAddress)
+      return getLlpgAddressFormValues(llpgAddress);
     }
-  }
+    return getNonUprnAddressFormValues(currentAddress);
+  };
 
   if (assetHasUprn && loading && !llpgAddress) {
     return (
@@ -322,8 +283,10 @@ export const EditableAddress = ({
                   disabled={!!addressEditSuccessful}
                 />
               </div>
-
-              {renderFormActionButtons()}
+              <FormActionButtons
+                assetGuid={assetDetails.id}
+                addressEditSuccessful={addressEditSuccessful}
+              />
             </Form>
           </div>
         )}
