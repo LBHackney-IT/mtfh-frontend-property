@@ -86,7 +86,7 @@ export const getLlpgAddressFormValues = (editableAddress: Address) => {
   };
 };
 
-export const getNonUprnAddressFormValues = (editableAddress: AssetAddress) => {
+export const getCurrentAddressFormValues = (editableAddress: AssetAddress) => {
   return {
     postPreamble: editableAddress?.postPreamble ? editableAddress?.postPreamble : "",
     addressLine1: editableAddress?.addressLine1 ? editableAddress.addressLine1 : "",

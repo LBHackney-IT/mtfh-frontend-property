@@ -13,7 +13,7 @@ import {
   buildUpdateAddressDetailsRequest,
   getAssetVersionNumber,
   getLlpgAddressFormValues,
-  getNonUprnAddressFormValues,
+  getCurrentAddressFormValues,
 } from "./utils";
 
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
@@ -106,7 +106,7 @@ export const EditableAddress = ({
     if (llpgAddress && assetHasUprn) {
       return getLlpgAddressFormValues(llpgAddress);
     }
-    return getNonUprnAddressFormValues(currentAddress);
+    return getCurrentAddressFormValues(currentAddress);
   };
 
   if (assetHasUprn && loading && !llpgAddress) {
