@@ -76,17 +76,6 @@ export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
       return a.name.localeCompare(b.name);
     });
 
-    // removeHackneyHomes(sameTypeAssets)
-
-    // If uniqueAssetTypes include asset type "NA", if "Hackney Homes" is the only asset of this type, ignore this completely
-    console.log("sameTypeAssets", sameTypeAssets);
-
-    // Check if NA is included in the asset types
-
-    // if ("NA" in sameTypeAssets) {}
-
-    // If yes, check if it contains "Hackney Homes" and no other assets. If yes remove this asset type.
-
     // Create new key in object for given AssetType, value will be an array related assets of that type
     assetsByType[uniqueAssetType] = sameTypeAssets;
   });
