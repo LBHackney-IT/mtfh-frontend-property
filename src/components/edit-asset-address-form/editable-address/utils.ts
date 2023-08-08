@@ -1,5 +1,6 @@
 import { PatchAssetAddressFormValues } from "./types";
 
+import { Address } from "@mtfh/common/lib/api/address/v1";
 import {
   Asset,
   AssetAddress,
@@ -73,3 +74,25 @@ export const buildAssetAddress = (
   postPreamble: editAssetAddressRequest.assetAddress.postPreamble,
   uprn: assetDetails.assetAddress.uprn,
 });
+
+export const getLlpgAddressFormValues = (llpgAddress: Address) => {
+  return {
+    postPreamble: "",
+    addressLine1: llpgAddress?.line1 || "",
+    addressLine2: llpgAddress?.line2 || "",
+    addressLine3: llpgAddress?.line3 || "",
+    addressLine4: llpgAddress?.town || "",
+    postcode: llpgAddress?.postcode || "",
+  };
+};
+
+export const getCurrentAddressFormValues = (currentAddress: AssetAddress) => {
+  return {
+    postPreamble: currentAddress?.postPreamble || "",
+    addressLine1: currentAddress?.addressLine1 || "",
+    addressLine2: currentAddress?.addressLine2 || "",
+    addressLine3: currentAddress?.addressLine3 || "",
+    addressLine4: currentAddress?.addressLine4 || "",
+    postcode: currentAddress?.postCode || "",
+  };
+};

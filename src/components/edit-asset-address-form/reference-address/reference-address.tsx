@@ -4,13 +4,13 @@ import { AssetAddress } from "@mtfh/common/lib/api/asset/v1";
 
 import "../styles.scss";
 
-export interface ReferenceAddressProperties {
+export interface CurrentAddressProps {
   assetAddressDetails: AssetAddress;
 }
 
-export const ReferenceAddress = ({
+export const CurrentAddress = ({
   assetAddressDetails,
-}: ReferenceAddressProperties): JSX.Element => {
+}: CurrentAddressProps): JSX.Element => {
   return (
     <>
       <h3 className="lbh-heading-h3">Current address</h3>

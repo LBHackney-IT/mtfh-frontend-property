@@ -62,11 +62,10 @@ export const AssetSideBar = ({
           {isAuthorisedForGroups(assetAdminAuthGroups) && (
             <Button
               as={RouterLink}
-              to={assetAddress.uprn ? `/property/edit/${id}` : "#"}
-              isDisabled={!assetAddress.uprn}
+              to={`/property/edit/${id}`}
               data-testid="edit-address-button"
             >
-              {assetAddress.uprn ? "Edit address details" : "Cannot edit: UPRN missing"}
+              Edit address details
             </Button>
           )}
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
