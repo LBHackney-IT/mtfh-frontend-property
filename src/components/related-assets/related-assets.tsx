@@ -13,9 +13,13 @@ export interface RelatedAssetsProps {
 
 export const RelatedAssets = ({ assetType, relatedAssets }: RelatedAssetsProps) => {
   const getAssetTypeHeading = () => {
-    return assetType.charAt(assetType.length - 1).toLowerCase() === "s"
-      ? assetType
-      : `${assetType}s`;
+    if (assetType.charAt(assetType.length - 1).toLowerCase() === "s") {
+      return assetType
+    } else if (assetType == "NA") {
+      return "N/A"
+    } else {
+      return `${assetType}s`
+    }
   };
 
   const renderRelatedAssets = () => {
