@@ -75,24 +75,24 @@ export const buildAssetAddress = (
   uprn: assetDetails.assetAddress.uprn,
 });
 
-export const getLlpgAddressFormValues = (editableAddress: Address) => {
+export const getLlpgAddressFormValues = (llpgAddress: Address) => {
   return {
     postPreamble: "",
-    addressLine1: editableAddress?.line1 ? editableAddress.line1 : "",
-    addressLine2: editableAddress?.line2 ? editableAddress.line2 : "",
-    addressLine3: editableAddress?.line3 ? editableAddress.line3 : "",
-    addressLine4: editableAddress?.town ? editableAddress.town : "",
-    postcode: editableAddress?.postcode ? editableAddress.postcode : "",
+    addressLine1: llpgAddress?.line1 || "",
+    addressLine2: llpgAddress?.line2 || "",
+    addressLine3: llpgAddress?.line3 || "",
+    addressLine4: llpgAddress?.town || "",
+    postcode: llpgAddress?.postcode || "",
   };
 };
 
-export const getCurrentAddressFormValues = (editableAddress: AssetAddress) => {
+export const getCurrentAddressFormValues = (currentAddress: AssetAddress) => {
   return {
-    postPreamble: editableAddress?.postPreamble ? editableAddress?.postPreamble : "",
-    addressLine1: editableAddress?.addressLine1 ? editableAddress.addressLine1 : "",
-    addressLine2: editableAddress?.addressLine2 ? editableAddress.addressLine2 : "",
-    addressLine3: editableAddress?.addressLine3 ? editableAddress.addressLine3 : "",
-    addressLine4: editableAddress?.addressLine4 ? editableAddress.addressLine4 : "",
-    postcode: editableAddress?.postCode ? editableAddress.postCode : "",
+    postPreamble: currentAddress?.postPreamble || "",
+    addressLine1: currentAddress?.addressLine1 || "",
+    addressLine2: currentAddress?.addressLine2 || "",
+    addressLine3: currentAddress?.addressLine3 || "",
+    addressLine4: currentAddress?.addressLine4 || "",
+    postcode: currentAddress?.postCode || "",
   };
 };
