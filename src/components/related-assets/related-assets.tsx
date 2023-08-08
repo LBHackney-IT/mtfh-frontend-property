@@ -16,7 +16,7 @@ export const RelatedAssets = ({ assetType, relatedAssets }: RelatedAssetsProps) 
     if (assetType.charAt(assetType.length - 1).toLowerCase() === "s") {
       return assetType;
     }
-    if (assetType == "NA") {
+    if (assetType === "NA") {
       return "N/A";
     }
     return `${assetType}s`;

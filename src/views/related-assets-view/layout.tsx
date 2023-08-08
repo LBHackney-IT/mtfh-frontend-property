@@ -81,7 +81,7 @@ export const RelatedAssetsLayout = ({
         Related assets
       </h1>
       <p className="lbh-body-m" data-testid="property-asset-type">
-        {asset.assetType == "NA" ? "N/A" : asset.assetType}
+        {asset.assetType === "NA" ? "N/A" : asset.assetType}
       </p>
       <h2 className="lbh-heading-h2 margin-top-10" data-testid="property-address">
         {asset.assetAddress.addressLine1} - {asset.assetAddress.postCode}
