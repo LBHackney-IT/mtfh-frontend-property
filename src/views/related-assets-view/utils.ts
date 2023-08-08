@@ -35,8 +35,15 @@ const extractAddressNumber = (addressLine1: string) => {
   return match ? parseInt(match[0], 10) : NaN;
 };
 
+const removeHackneyHomesRelatedAsset = (relatedAssets: RelatedAsset[]) => {
+  const hackneyHomesGuid = "656feda1-896f-b136-da84-163ee4f1be6c";
+  return relatedAssets.filter((relatedAsset) =>  relatedAsset.id !=  hackneyHomesGuid)
+}
+
 export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
   const assetsByType: { [key: string]: RelatedAsset[] } = {};
+
+  relatedAssets = removeHackneyHomesRelatedAsset(relatedAssets);
 
   // Define how many asset types we're dealing with
   const uniqueAssetTypes = new Set<string>([]);
@@ -68,6 +75,18 @@ export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
       // At least one name doesn't have a number in its addressLine1 (name), sort alphabetically
       return a.name.localeCompare(b.name);
     });
+
+    // removeHackneyHomes(sameTypeAssets)
+
+    // If uniqueAssetTypes include asset type "NA", if "Hackney Homes" is the only asset of this type, ignore this completely
+    console.log("sameTypeAssets", sameTypeAssets)
+    
+    // Check if NA is included in the asset types
+
+    // if ("NA" in sameTypeAssets) {}
+
+    // If yes, check if it contains "Hackney Homes" and no other assets. If yes remove this asset type.
+
 
     // Create new key in object for given AssetType, value will be an array related assets of that type
     assetsByType[uniqueAssetType] = sameTypeAssets;
