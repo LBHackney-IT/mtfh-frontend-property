@@ -73,10 +73,6 @@ export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
     assetsByType[uniqueAssetType] = sameTypeAssets;
   });
 
-  // Sort items by addressLine1
-
-  console.log("assetsByType", assetsByType);
-
   // Return an object that contains multiple arrays of RelatedAsset[]
   return assetsByType;
 };
