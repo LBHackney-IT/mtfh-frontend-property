@@ -26,7 +26,7 @@ export const PropertyTree = ({ asset, childAssets }: PropertyTreeProps): JSX.Ele
   const [childNodes, setChildNodes] = useState<TreeAsset[]>([]);
 
   useEffect(() => {
-    const childrenAssets = addChildrenAssets(childAssets, asset.id)
+    const childrenAssets = addChildrenAssets(childAssets, asset.id);
     setChildNodes(childrenAssets);
   }, [childAssets, asset]);
 

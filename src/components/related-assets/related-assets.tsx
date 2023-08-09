@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import { Center, Spinner } from "@mtfh/common/lib/components";
-import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
-import { getAllRelatedAssets, organiseRelatedAssetsByType } from "./utils";
 import { RelatedAssetGroup } from "./related-asset-group";
 import { RelatedAsset } from "./types";
+import { getAllRelatedAssets, organiseRelatedAssetsByType } from "./utils";
+
+import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
+import { Center, Spinner } from "@mtfh/common/lib/components";
 
 interface RelatedAssetsProps {
   parentAssets: ParentAsset[];
@@ -18,14 +19,6 @@ export const RelatedAssets = (props: RelatedAssetsProps) => {
   const [relatedAssets, setRelatedAssets] = useState<RelatedAsset[]>([]);
   const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
 
-  const updateRelatedAssets = React.useCallback(() => {
-    if (relatedAssets.length) {
-      const assetsByType = organiseRelatedAssetsByType(relatedAssets);
-
-      setRelatedAssetsByType(assetsByType);
-    }
-  }, [relatedAssets]);
-
   useEffect(() => {
     if (parentAssets && parentAssets.length && childrenAssets) {
       setRelatedAssets(getAllRelatedAssets(parentAssets, childrenAssets));
@@ -33,7 +26,11 @@ export const RelatedAssets = (props: RelatedAssetsProps) => {
   }, [parentAssets, childrenAssets]);
 
   useEffect(() => {
-    updateRelatedAssets();
+    if (relatedAssets.length) {
+      const assetsByType = organiseRelatedAssetsByType(relatedAssets);
+
+      setRelatedAssetsByType(assetsByType);
+    }
   }, [relatedAssets]);
 
   const assetHasRelatedAssets = !!relatedAssets.length;

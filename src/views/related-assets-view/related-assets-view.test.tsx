@@ -2,10 +2,10 @@ import React from "react";
 
 import { render } from "@hackney/mtfh-test-utils";
 
+import { RelatedAssets } from "../../components/related-assets/related-assets";
 import { RelatedAssetsLayout } from "./layout";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { RelatedAssets } from "../../components/related-assets/related-assets";
 
 const asset: Asset = {
   id: "a65918aa-e441-bc34-e49d-fa8671f768da",

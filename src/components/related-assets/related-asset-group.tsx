@@ -1,7 +1,7 @@
 import React from "react";
 
-import { RelatedAsset as IRelatedAsset } from "./types";
 import { RelatedAsset } from "./related-asset";
+import { RelatedAsset as IRelatedAsset } from "./types";
 
 interface RelatedAssetGroupProps {
   assetType: string;

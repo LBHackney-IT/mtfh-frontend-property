@@ -1,6 +1,7 @@
-import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
-import { RelatedAsset } from "./types";
 import { sortAddressGeneric } from "../../utils/sortRelatedAssets";
+import { RelatedAsset } from "./types";
+
+import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
 
 // This methods outputs a unique list of related assets, all in the same format (RelatedAsset interface)
 export const getAllRelatedAssets = (
@@ -38,7 +39,9 @@ export const organiseRelatedAssetsByType = (
 
   // For each AssetType, create a array of RelatedAsset[]
   uniqueAssetTypes.forEach((uniqueAssetType) => {
-    const sameTypeAssets: RelatedAsset[] = relatedAssets.filter(x => x.type === uniqueAssetType)
+    const sameTypeAssets: RelatedAsset[] = relatedAssets.filter(
+      (x) => x.type === uniqueAssetType,
+    );
 
     sortAddressGeneric(sameTypeAssets, "name");
 

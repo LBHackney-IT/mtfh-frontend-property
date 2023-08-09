@@ -1,9 +1,9 @@
 import React from "react";
 
+import { sortAddressGeneric } from "../../utils/sortRelatedAssets";
 import { ValidChildAsset } from "../../utils/test-fixtures";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1/types";
-import { sortAddressGeneric } from "../../utils/sortRelatedAssets";
 
 interface TreeAsset {
   title: React.ReactNode;
