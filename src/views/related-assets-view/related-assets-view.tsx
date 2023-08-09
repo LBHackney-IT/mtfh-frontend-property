@@ -6,6 +6,7 @@ import { RelatedAssetsLayout } from "./layout";
 
 import { useAsset, useChildAssets } from "@mtfh/common/lib/api/asset/v1";
 import { Center, ErrorSummary, Spinner } from "@mtfh/common/lib/components";
+import { RelatedAssets } from "../../components/related-assets/related-assets";
 
 export const RelatedAssetsView = (): JSX.Element => {
   const { assetId } = useParams<{ assetId: string }>();
@@ -43,13 +44,12 @@ export const RelatedAssetsView = (): JSX.Element => {
   }
 
   return (
-    <>
-      <RelatedAssetsLayout
-        asset={asset}
+    <RelatedAssetsLayout asset={asset}>
+      <RelatedAssets
         parentAssets={asset.assetLocation.parentAssets}
         childrenAssets={childAssetResponse?.childAssets}
         loading={!childAssetResponse}
       />
-    </>
+    </RelatedAssetsLayout>
   );
 };

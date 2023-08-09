@@ -3,6 +3,7 @@ import React from "react";
 import { ValidChildAsset } from "../../utils/test-fixtures";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1/types";
+import { sortAddressGeneric } from "../../utils/sortRelatedAssets";
 
 interface TreeAsset {
   title: React.ReactNode;
@@ -10,29 +11,26 @@ interface TreeAsset {
   expanded?: boolean;
 }
 
-const maximumVisibleAssets = 3;
+const MAXIMUM_VISIBLE_ASSETS = 3;
 
 const addChildrenAssets = (
   childAssets: Asset[] | ValidChildAsset[] | undefined,
   assetGuid: string,
 ): TreeAsset[] => {
-  const childrenAssets: TreeAsset[] = [];
+  if (!childAssets) return [];
 
-  if (childAssets) {
-    for (const [childAssetIndex, childAssetValue] of childAssets.entries()) {
-      if (childAssetIndex < maximumVisibleAssets) {
-        childrenAssets.push(
-          generateNode(childAssetValue.assetAddress.addressLine1, [], childAssetValue.id),
-        );
-      } else if (childAssetIndex === maximumVisibleAssets) {
-        childrenAssets.push(generateRelatedAssetLinkNode(assetGuid));
-      } else {
-        break;
-      }
-    }
-  }
+  const sortableChildAssets = childAssets.map((x) => ({
+    name: x.assetAddress.addressLine1,
+    id: x.id,
+  }));
 
-  return childrenAssets;
+  sortAddressGeneric(sortableChildAssets, "name");
+
+  const childrenAssets = sortableChildAssets
+    .slice(0, MAXIMUM_VISIBLE_ASSETS)
+    .map((x) => generateNode(x.name, [], x.id));
+
+  return [...childrenAssets, generateRelatedAssetLinkNode(assetGuid)];
 };
 
 const generateRelatedAssetLinkNode = (assetGuid: string): TreeAsset => {
