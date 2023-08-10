@@ -10,18 +10,17 @@ export const assembleCreateNewAssetRequest = (
   values: NewPropertyFormData,
   patches: Patch[],
 ) => {
-  const parentAssetIds: string[] = getParentAssetsIds(values);
 
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
     assetId: values.assetId,
     assetType: values.assetType,
-    parentAssetIds: parentAssetIds.join("#"),
+    parentAssetIds: values?.parentAsset ? JSON.parse(values?.parentAsset).value : "",
     isActive: true,
     assetLocation: {
       floorNo: values?.floorNo ?? "",
       totalBlockFloors: values?.totalBlockFloors ?? null,
-      parentAssets: [],
+      parentAssets: values?.parentAsset ? [JSON.parse(values?.parentAsset)] : [],
     },
     assetAddress: {
       uprn: values?.uprn ?? "",
@@ -58,14 +57,4 @@ const getManagingOrganisationId = (managingOrganisation: string) => {
     (org) => org.managingOrganisation === managingOrganisation,
   );
   return match ? match.managingOrganisationId : "";
-};
-
-const getParentAssetsIds = (formValues: NewPropertyFormData) => {
-  const parentAssetIds = [];
-  if (formValues?.propertyEstate && formValues.propertyEstate !== "")
-    parentAssetIds.push(formValues.propertyEstate);
-  if (formValues?.propertyBlock && formValues.propertyBlock !== "")
-    parentAssetIds.push(formValues.propertyBlock);
-
-  return parentAssetIds;
 };

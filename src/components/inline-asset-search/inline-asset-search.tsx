@@ -38,6 +38,7 @@ export const InlineAssetSearch = ({
     ...(searchResultsData?.map((x) => ({
       value: x.id,
       label: x.assetAddress.addressLine1,
+      assetType: x.assetType
     })) || []),
   ];
 
@@ -90,7 +91,7 @@ export const InlineAssetSearch = ({
             >
               <>
                 {options.map((x, i) => (
-                  <option key={i} value={x.value}>
+                  <option key={i} value={JSON.stringify(x)}>
                     {x.label}
                   </option>
                 ))}
