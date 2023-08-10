@@ -16,16 +16,12 @@ export const NewPropertyLayout = (): JSX.Element => {
 
   const renderNewPropertyLink = () => {
     return (
-      // Only include link if visible on MMH
-      (newProperty?.assetType === "Dwelling" ||
-        newProperty?.assetType === "LettableNonDwelling") && (
-        <div>
-          {" "}
-          <Link as={RouterLink} to={`/property/${newProperty?.id}`}>
-            View property
-          </Link>{" "}
-        </div>
-      )
+      <div>
+        {" "}
+        <Link as={RouterLink} to={`/property/${newProperty?.id}`}>
+          View property
+        </Link>{" "}
+      </div>
     );
   };
 
