@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { NewPropertyFormData } from "../components/new-asset-form/schema";
 import { managingOrganisations } from "../components/new-asset-form/utils/managing-organisations";
 
-import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
+import { CreateNewAssetRequest, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 export const assembleCreateNewAssetRequest = (
@@ -15,12 +15,12 @@ export const assembleCreateNewAssetRequest = (
     id: uuidv4(),
     assetId: values.assetId,
     assetType: values.assetType,
-    parentAssetIds: values?.parentAsset ? JSON.parse(values?.parentAsset).value : "",
+    parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
     isActive: true,
     assetLocation: {
       floorNo: values?.floorNo ?? "",
       totalBlockFloors: values?.totalBlockFloors ?? null,
-      parentAssets: values?.parentAsset ? [JSON.parse(values?.parentAsset)] : [],
+      parentAssets: values?.parentAsset ? [getParentAsset(values?.parentAsset)] : [],
     },
     assetAddress: {
       uprn: values?.uprn ?? "",
@@ -58,3 +58,15 @@ const getManagingOrganisationId = (managingOrganisation: string) => {
   );
   return match ? match.managingOrganisationId : "";
 };
+
+const getParentAsset = (parentAsset: string): ParentAsset => {
+  // Convert the value from the Parent Asset field from JSON back into an object
+  const parentAssetObject = JSON.parse(parentAsset);
+
+  // Use its values to output a new object of the type (ParentAsset) with the correct properties
+  return {
+    id: parentAssetObject.value,
+    name: parentAssetObject.label,
+    type: parentAssetObject.assetType
+  }
+}
