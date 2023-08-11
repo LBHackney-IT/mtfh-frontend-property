@@ -46,11 +46,7 @@ export const AssetEditView = (): JSX.Element => {
 
   return (
     <>
-      {asset.assetType === "Dwelling" || asset.assetType === "LettableNonDwelling" ? (
-        <AssetEditLayout assetDetails={asset} tenureApiObject={tenure} />
-      ) : (
-        <h1>{locale.assetCouldNotBeLoaded}</h1>
-      )}
+      <AssetEditLayout assetDetails={asset} tenureApiObject={tenure} />
     </>
   );
 };
