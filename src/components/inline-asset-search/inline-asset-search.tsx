@@ -38,7 +38,7 @@ export const InlineAssetSearch = ({
     ...(searchResultsData?.map((x) => ({
       value: x.id,
       label: x.assetAddress.addressLine1,
-      assetType: x.assetType
+      assetType: x.assetType,
     })) || []),
   ];
 

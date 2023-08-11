@@ -10,7 +10,6 @@ export const assembleCreateNewAssetRequest = (
   values: NewPropertyFormData,
   patches: Patch[],
 ) => {
-
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
     assetId: values.assetId,
@@ -67,6 +66,6 @@ const getParentAsset = (parentAsset: string): ParentAsset => {
   return {
     id: parentAssetObject.value,
     name: parentAssetObject.label,
-    type: parentAssetObject.assetType
-  }
-}
+    type: parentAssetObject.assetType,
+  };
+};
