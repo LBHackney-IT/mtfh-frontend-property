@@ -40,15 +40,14 @@ export const PatchesField = ({
     if (patchesAndAreasData.length) {
       const patches = patchesState.patches.map((patch: PropertyPatch) => {
         return (
-          <>
-            <div className="patch" key={patch.id}>
+          <React.Fragment key={patch.id}>
+            <div className="patch">
               <Field
                 as="select"
                 id={`patch-dropdown-${patch.id}`}
                 className="govuk-input lbh-input"
                 data-testid={`patch-dropdown-${patch.id}`}
                 value={patch.value}
-                key={`patch-dropdown-${patch.id}`}
                 onChange={(e: any) => handlePatchEdit(e, patch.id)}
               >
                 <option disabled value="">
@@ -62,12 +61,11 @@ export const PatchesField = ({
                 onClick={(e) => handleRemovePatch(e, patch.id)}
                 data-testid={`patch-remove-link-${patch.id}`}
                 id={`patch-remove-link-${patch.id}`}
-                key={`patch-remove-link-${patch.id}`}
               >
                 Remove patch
               </button>
             </div>
-          </>
+          </React.Fragment>
         );
       });
       return patches;
