@@ -35,7 +35,6 @@ const extractAddressNumber = (addressLine1: string) => {
   return match ? parseInt(match[0], 10) : NaN;
 };
 
-
 const removeHackneyHomesRelatedAsset = (relatedAssets: RelatedAsset[]) => {
   const hackneyHomesGuid = "656feda1-896f-b136-da84-163ee4f1be6c";
   return relatedAssets.filter((relatedAsset) => relatedAsset.id !== hackneyHomesGuid);
