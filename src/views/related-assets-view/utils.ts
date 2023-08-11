@@ -35,7 +35,7 @@ const extractAddressNumber = (addressLine1: string) => {
   return match ? parseInt(match[0], 10) : NaN;
 };
 
-export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
+export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]): Object => {
   const assetsByType: { [key: string]: RelatedAsset[] } = {};
 
   // Define how many asset types we're dealing with

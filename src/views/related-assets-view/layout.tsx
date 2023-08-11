@@ -26,7 +26,7 @@ export const RelatedAssetsLayout = ({
   const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
 
   useEffect(() => {
-    if (parentAssets && parentAssets.length && childrenAssets) {
+    if (parentAssets && parentAssets.length || childrenAssets) {
       setRelatedAssets(getAllRelatedAssets(parentAssets, childrenAssets));
     }
   }, [parentAssets, childrenAssets]);
