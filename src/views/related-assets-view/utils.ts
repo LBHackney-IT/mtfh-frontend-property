@@ -17,7 +17,7 @@ export const getAllRelatedAssets = (
     parentAssets.forEach((parentAsset) => allRelatedAssets.push(parentAsset));
   }
 
-  if (childrenAssets && childrenAssets.length) {
+  if (childrenAssets?.length) {
     childrenAssets.forEach((childrenAsset) =>
       allRelatedAssets.push({
         type: childrenAsset.assetType,

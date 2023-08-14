@@ -87,7 +87,7 @@ test("it shows add comment button and comments list", async () => {
 
   await waitFor(() => {
     screen.getByText(locale.comments.addComment);
-    screen.getByText(mockCommentsV2[0].title || "");
+    screen.getByText(mockCommentsV2[0].title ?? "");
     screen.getByText(mockCommentsV2[0].description);
     screen.getByText(mockCommentsV2[0].author.fullName);
     screen.getByText(formatDate(mockCommentsV2[0].createdAt));

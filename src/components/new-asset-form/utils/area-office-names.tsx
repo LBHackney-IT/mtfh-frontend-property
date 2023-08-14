@@ -92,8 +92,8 @@ const areaOfficeNames = [
 ];
 
 const renderAreaOfficeNamesOptions = (): JSX.Element[] => {
-  return areaOfficeNames.map((office, index) => (
-    <option key={index} value={office.officeName}>
+  return areaOfficeNames.map((office) => (
+    <option key={office.areaOffice} value={office.officeName}>
       {`${office.areaOffice} - ${office.officeName}`}
     </option>
   ));

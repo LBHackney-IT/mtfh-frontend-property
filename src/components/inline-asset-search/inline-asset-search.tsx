@@ -39,7 +39,7 @@ export const InlineAssetSearch = ({
       value: x.id,
       label: x.assetAddress.addressLine1,
       assetType: x.assetType,
-    })) || []),
+    })) ?? []),
   ];
 
   const handleSubmit = (searchText: string) => {
@@ -75,7 +75,7 @@ export const InlineAssetSearch = ({
         </div>
       ) : (
         <>
-          {touched && <p>{total || "0"} results found</p>}
+          {touched && <p>{total ?? "0"} results found</p>}
 
           <div className="govuk-form-group lbh-form-group">
             <Field
@@ -91,7 +91,7 @@ export const InlineAssetSearch = ({
             >
               <>
                 {options.map((x, i) => (
-                  <option key={i} value={JSON.stringify(x)}>
+                  <option key={i} value={x.value}>
                     {x.label}
                   </option>
                 ))}

@@ -249,7 +249,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
               style="max-width: 100%;"
             >
               <option
-                value="{\\"value\\":\\"\\",\\"label\\":\\"-- Select an option --\\"}"
+                value=""
               >
                 -- Select an option --
               </option>

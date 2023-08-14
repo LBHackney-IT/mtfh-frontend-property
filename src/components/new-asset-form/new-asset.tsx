@@ -65,14 +65,6 @@ export const NewAsset = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const renderAssetTypeOptions = (): JSX.Element[] => {
-    return Object.keys(AssetType).map((key, index) => (
-      <option key={index} value={key}>
-        {key}
-      </option>
-    ));
-  };
-
   const getFullPatchData = (patchesState: any) => {
     // Get patches GUIDs from patchesState
     const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
@@ -229,7 +221,11 @@ export const NewAsset = ({
                     {" "}
                     -- Select an option --{" "}
                   </option>
-                  {renderAssetTypeOptions()}
+                  {Object.keys(AssetType).map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))}
                 </Field>
               </div>
               <InlineAssetSearch
@@ -238,7 +234,7 @@ export const NewAsset = ({
                 label="Parent asset"
                 onChange={handleChange}
                 setFieldValue={setFieldValue}
-                value={values.parentAsset || ""}
+                value={values.parentAsset ?? ""}
               />
               {assetHasFloorNo(values.assetType) && (
                 <>
