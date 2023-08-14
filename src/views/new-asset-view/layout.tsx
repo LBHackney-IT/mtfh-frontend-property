@@ -14,17 +14,6 @@ export const NewPropertyLayout = (): JSX.Element => {
   const [errorHeading, setErrorHeading] = useState<string | null>(null);
   const [errorDescription, setErrorDescription] = useState<string | null>(null);
 
-  const renderNewPropertyLink = () => {
-    return (
-      <div>
-        {" "}
-        <Link as={RouterLink} to={`/property/${newProperty?.id}`}>
-          View property
-        </Link>{" "}
-      </div>
-    );
-  };
-
   return (
     <>
       <Link as={RouterLink} to="#" variant="back-link">
@@ -43,7 +32,12 @@ export const NewPropertyLayout = (): JSX.Element => {
       </span>
       {showSuccess && (
         <StatusBox variant="success" title={locale.assets.newPropertyAddedSuccessMessage}>
-          {renderNewPropertyLink()}
+          <div>
+            {" "}
+            <Link as={RouterLink} to={`/property/${newProperty?.id}`}>
+              View property
+            </Link>{" "}
+          </div>
         </StatusBox>
       )}
 
