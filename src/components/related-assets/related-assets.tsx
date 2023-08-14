@@ -20,7 +20,7 @@ export const RelatedAssets = (props: RelatedAssetsProps) => {
   const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
 
   useEffect(() => {
-    if (parentAssets && parentAssets.length && childrenAssets) {
+    if (parentAssets?.length && childrenAssets) {
       setRelatedAssets(getAllRelatedAssets(parentAssets, childrenAssets));
     }
   }, [parentAssets, childrenAssets]);

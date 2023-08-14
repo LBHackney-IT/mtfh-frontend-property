@@ -10,7 +10,7 @@ export const getAllRelatedAssets = (
 ) => {
   const allRelatedAssets: RelatedAsset[] = parentAssets;
 
-  if (childrenAssets && childrenAssets.length) {
+  if (childrenAssets?.length) {
     const formattedChildrenAssets = childrenAssets.map((childrenAsset) => ({
       type: childrenAsset.assetType,
       id: childrenAsset.id,
