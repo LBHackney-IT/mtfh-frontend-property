@@ -55,13 +55,13 @@ export const RelatedAssetsLayout = ({
     if (assetHasRelatedAssets() && relatedAssetsByType) {
       return Object.keys(relatedAssetsByType).map((assetType) => {
         return (
-          <React.Fragment key={assetType}>
+          <section key={assetType}>
             <RelatedAssets
               assetType={assetType}
               relatedAssets={relatedAssetsByType[assetType]}
             />
             <hr style={{ borderTop: "1px solid #e7eaec" }} />
-          </React.Fragment>
+          </section>
         );
       });
     }

@@ -40,32 +40,30 @@ export const PatchesField = ({
     if (patchesAndAreasData.length) {
       const patches = patchesState.patches.map((patch: PropertyPatch) => {
         return (
-          <React.Fragment key={patch.id}>
-            <div className="patch">
-              <Field
-                as="select"
-                id={`patch-dropdown-${patch.id}`}
-                className="govuk-input lbh-input"
-                data-testid={`patch-dropdown-${patch.id}`}
-                value={patch.value}
-                onChange={(e: any) => handlePatchEdit(e, patch.id)}
-              >
-                <option disabled value="">
-                  {" "}
-                  -- Select an option --{" "}
-                </option>
-                {renderPatchOptions()}
-              </Field>
-              <button
-                className="lbh-link patch-remove-link"
-                onClick={(e) => handleRemovePatch(e, patch.id)}
-                data-testid={`patch-remove-link-${patch.id}`}
-                id={`patch-remove-link-${patch.id}`}
-              >
-                Remove patch
-              </button>
-            </div>
-          </React.Fragment>
+          <div className="patch" key={patch.id}>
+            <Field
+              as="select"
+              id={`patch-dropdown-${patch.id}`}
+              className="govuk-input lbh-input"
+              data-testid={`patch-dropdown-${patch.id}`}
+              value={patch.value}
+              onChange={(e: any) => handlePatchEdit(e, patch.id)}
+            >
+              <option disabled value="">
+                {" "}
+                -- Select an option --{" "}
+              </option>
+              {renderPatchOptions()}
+            </Field>
+            <button
+              className="lbh-link patch-remove-link"
+              onClick={(e) => handleRemovePatch(e, patch.id)}
+              data-testid={`patch-remove-link-${patch.id}`}
+              id={`patch-remove-link-${patch.id}`}
+            >
+              Remove patch
+            </button>
+          </div>
         );
       });
       return patches;
