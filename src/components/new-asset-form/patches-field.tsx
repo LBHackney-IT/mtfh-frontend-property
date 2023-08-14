@@ -40,34 +40,30 @@ export const PatchesField = ({
     if (patchesAndAreasData.length) {
       const patches = patchesState.patches.map((patch: PropertyPatch) => {
         return (
-          <>
-            <div className="patch" key={patch.id}>
-              <Field
-                as="select"
-                id={`patch-dropdown-${patch.id}`}
-                className="govuk-input lbh-input"
-                data-testid={`patch-dropdown-${patch.id}`}
-                value={patch.value}
-                key={`patch-dropdown-${patch.id}`}
-                onChange={(e: any) => handlePatchEdit(e, patch.id)}
-              >
-                <option disabled value="">
-                  {" "}
-                  -- Select an option --{" "}
-                </option>
-                {renderPatchOptions()}
-              </Field>
-              <button
-                className="lbh-link patch-remove-link"
-                onClick={(e) => handleRemovePatch(e, patch.id)}
-                data-testid={`patch-remove-link-${patch.id}`}
-                id={`patch-remove-link-${patch.id}`}
-                key={`patch-remove-link-${patch.id}`}
-              >
-                Remove patch
-              </button>
-            </div>
-          </>
+          <div className="patch" key={patch.id}>
+            <Field
+              as="select"
+              id={`patch-dropdown-${patch.id}`}
+              className="govuk-input lbh-input"
+              data-testid={`patch-dropdown-${patch.id}`}
+              value={patch.value}
+              onChange={(e: any) => handlePatchEdit(e, patch.id)}
+            >
+              <option disabled value="">
+                {" "}
+                -- Select an option --{" "}
+              </option>
+              {renderPatchOptions()}
+            </Field>
+            <button
+              className="lbh-link patch-remove-link"
+              onClick={(e) => handleRemovePatch(e, patch.id)}
+              data-testid={`patch-remove-link-${patch.id}`}
+              id={`patch-remove-link-${patch.id}`}
+            >
+              Remove patch
+            </button>
+          </div>
         );
       });
       return patches;

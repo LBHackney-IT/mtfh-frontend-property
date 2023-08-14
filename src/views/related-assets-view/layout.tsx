@@ -26,7 +26,7 @@ export const RelatedAssetsLayout = ({
   const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
 
   useEffect(() => {
-    if (parentAssets && parentAssets.length && childrenAssets) {
+    if ((parentAssets && parentAssets.length) || childrenAssets) {
       setRelatedAssets(getAllRelatedAssets(parentAssets, childrenAssets));
     }
   }, [parentAssets, childrenAssets]);
@@ -55,13 +55,13 @@ export const RelatedAssetsLayout = ({
     if (assetHasRelatedAssets() && relatedAssetsByType) {
       return Object.keys(relatedAssetsByType).map((assetType) => {
         return (
-          <React.Fragment key={assetType}>
+          <section key={assetType}>
             <RelatedAssets
               assetType={assetType}
               relatedAssets={relatedAssetsByType[assetType]}
             />
             <hr style={{ borderTop: "1px solid #e7eaec" }} />
-          </React.Fragment>
+          </section>
         );
       });
     }
