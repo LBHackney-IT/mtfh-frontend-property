@@ -77,8 +77,8 @@ export const AssetEditLayout = ({
       {showError && (
         <ErrorSummary
           id="patch-asset-error"
-          title={errorHeading || ""}
-          description={errorDescription || undefined}
+          title={errorHeading ?? ""}
+          description={errorDescription ?? undefined}
         />
       )}
 

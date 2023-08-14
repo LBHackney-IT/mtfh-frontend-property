@@ -101,10 +101,10 @@ export const AddBoilerHouseForm = ({ setShowSuccess, setRequestError, asset }: P
                   data-testid="select"
                 >
                   <option value="" data-testid="boiler-house-search-results-total">
-                    {total || 0} result{total !== 1 && "s"} found
+                    {total ?? 0} result{total !== 1 && "s"} found
                   </option>
-                  {searchResultsData?.map(({ id, assetAddress }, i) => (
-                    <option key={i} value={id} data-testid="select-option">
+                  {searchResultsData?.map(({ id, assetAddress }) => (
+                    <option key={id} value={id} data-testid="select-option">
                       {assetAddress.addressLine1}
                     </option>
                   ))}

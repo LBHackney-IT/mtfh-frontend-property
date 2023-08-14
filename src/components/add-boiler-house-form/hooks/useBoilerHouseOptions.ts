@@ -28,7 +28,7 @@ export const useBoilerHouseOptions = (
       boilerHouseId: boilerHouseOption,
     };
 
-    patchAsset(asset.id, request, asset?.versionNumber?.toString() || "")
+    patchAsset(asset.id, request, asset?.versionNumber?.toString() ?? "")
       .then(() => {
         setShowSuccess(true);
       })

@@ -66,8 +66,8 @@ export const NewAsset = ({
   }, []);
 
   const renderAssetTypeOptions = (): JSX.Element[] => {
-    return Object.keys(AssetType).map((key, index) => (
-      <option key={index} value={key}>
+    return Object.keys(AssetType).map((key) => (
+      <option key={key} value={key}>
         {key}
       </option>
     ));
@@ -240,7 +240,7 @@ export const NewAsset = ({
                   label="Estate this property is in"
                   onChange={handleChange}
                   setFieldValue={setFieldValue}
-                  value={values.propertyEstate || ""}
+                  value={values.propertyEstate ?? ""}
                 />
               )}
               {values.assetType !== "Block" && values.assetType !== "Estate" && (
@@ -250,7 +250,7 @@ export const NewAsset = ({
                   label="Block this property is in"
                   onChange={handleChange}
                   setFieldValue={setFieldValue}
-                  value={values.propertyBlock || ""}
+                  value={values.propertyBlock ?? ""}
                 />
               )}
               {assetHasFloorNo(values.assetType) && (
