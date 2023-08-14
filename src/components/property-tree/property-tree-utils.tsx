@@ -1,6 +1,6 @@
 import React from "react";
 
-import { sortAddressGeneric } from "../../utils/sortRelatedAssets";
+import { sortAddressGeneric } from "../../utils/sortAddressGeneric";
 import { ValidChildAsset } from "../../utils/test-fixtures";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1/types";

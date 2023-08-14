@@ -1,4 +1,4 @@
-import { sortAddressGeneric } from "../../utils/sortRelatedAssets";
+import { sortAddressGeneric } from "../../utils/sortAddressGeneric";
 import { RelatedAsset } from "./types";
 
 import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
