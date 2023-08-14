@@ -42,7 +42,7 @@ export const newPropertySchema = () =>
         }),
       )
       .nullable(),
-    
+
     addDefaultSorContracts: Yup.string().required("Please select an option"),
 
     // Asset details

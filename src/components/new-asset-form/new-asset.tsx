@@ -707,7 +707,9 @@ export const NewAsset = ({
                 }
               >
                 <fieldset className="govuk-fieldset">
-                  <legend className="govuk-label lbh-label">Are Repairs being raised to this Asset?*</legend>
+                  <legend className="govuk-label lbh-label">
+                    Are Repairs being raised to this Asset?*
+                  </legend>
                   {errors.addDefaultSorContracts && touched.addDefaultSorContracts && (
                     <span
                       id="is-lbh-sor-contract-error"

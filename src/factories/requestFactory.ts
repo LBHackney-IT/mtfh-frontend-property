@@ -46,7 +46,7 @@ export const assembleCreateNewAssetRequest = (
       numberOfLifts: values?.numberOfLifts ?? null,
     },
     patches: patches.length ? patches : undefined,
-    addDefaultSorContracts: values?.addDefaultSorContracts === "Yes"
+    addDefaultSorContracts: values?.addDefaultSorContracts === "Yes",
   };
 
   return asset;
