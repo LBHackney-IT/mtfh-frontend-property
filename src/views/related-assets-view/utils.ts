@@ -35,8 +35,15 @@ const extractAddressNumber = (addressLine1: string) => {
   return match ? parseInt(match[0], 10) : NaN;
 };
 
-export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
+const removeHackneyHomesRelatedAsset = (relatedAssets: RelatedAsset[]) => {
+  const hackneyHomesGuid = "656feda1-896f-b136-da84-163ee4f1be6c";
+  return relatedAssets.filter((relatedAsset) => relatedAsset.id !== hackneyHomesGuid);
+};
+
+export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]): Object => {
   const assetsByType: { [key: string]: RelatedAsset[] } = {};
+
+  relatedAssets = removeHackneyHomesRelatedAsset(relatedAssets);
 
   // Define how many asset types we're dealing with
   const uniqueAssetTypes = new Set<string>([]);
@@ -72,10 +79,6 @@ export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
     // Create new key in object for given AssetType, value will be an array related assets of that type
     assetsByType[uniqueAssetType] = sameTypeAssets;
   });
-
-  // Sort items by addressLine1
-
-  console.log("assetsByType", assetsByType);
 
   // Return an object that contains multiple arrays of RelatedAsset[]
   return assetsByType;
