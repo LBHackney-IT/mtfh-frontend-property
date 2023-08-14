@@ -65,14 +65,6 @@ export const NewAsset = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const renderAssetTypeOptions = (): JSX.Element[] => {
-    return Object.keys(AssetType).map((key, index) => (
-      <option key={index} value={key}>
-        {key}
-      </option>
-    ));
-  };
-
   const getFullPatchData = (patchesState: any) => {
     // Get patches GUIDs from patchesState
     const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
@@ -122,8 +114,7 @@ export const NewAsset = ({
         initialValues={{
           assetId: "",
           assetType: "",
-          propertyEstate: "",
-          propertyBlock: "",
+          parentAsset: "",
           floorNo: "",
           totalBlockFloors: undefined,
           uprn: "",
@@ -166,7 +157,7 @@ export const NewAsset = ({
                 }
               >
                 <label className="govuk-label lbh-label" htmlFor="assetId">
-                  Asset ID
+                  Asset ID*
                 </label>
                 {errors.assetId && touched.assetId && (
                   <span
@@ -199,7 +190,7 @@ export const NewAsset = ({
                 }
               >
                 <label className="govuk-label lbh-label" htmlFor="assetType">
-                  Asset Type
+                  Asset type*
                 </label>
                 {errors.assetType && touched.assetType && (
                   <span
@@ -230,29 +221,21 @@ export const NewAsset = ({
                     {" "}
                     -- Select an option --{" "}
                   </option>
-                  {renderAssetTypeOptions()}
+                  {Object.keys(AssetType).map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))}
                 </Field>
               </div>
-              {values.assetType !== "Estate" && (
-                <InlineAssetSearch
-                  assetTypes={["Estate"]}
-                  name="propertyEstate"
-                  label="Estate this property is in"
-                  onChange={handleChange}
-                  setFieldValue={setFieldValue}
-                  value={values.propertyEstate || ""}
-                />
-              )}
-              {values.assetType !== "Block" && values.assetType !== "Estate" && (
-                <InlineAssetSearch
-                  assetTypes={["Block"]}
-                  name="propertyBlock"
-                  label="Block this property is in"
-                  onChange={handleChange}
-                  setFieldValue={setFieldValue}
-                  value={values.propertyBlock || ""}
-                />
-              )}
+              <InlineAssetSearch
+                assetTypes={[]}
+                name="parentAsset"
+                label="Parent asset"
+                onChange={handleChange}
+                setFieldValue={setFieldValue}
+                value={values.parentAsset ?? ""}
+              />
               {assetHasFloorNo(values.assetType) && (
                 <>
                   <label className="govuk-label lbh-label" htmlFor="floor-no">
@@ -333,7 +316,7 @@ export const NewAsset = ({
                 }
               >
                 <label className="govuk-label lbh-label" htmlFor="address-line-1">
-                  Address line 1
+                  Address line 1*
                 </label>
                 {errors.addressLine1 && touched.addressLine1 && (
                   <span
@@ -396,7 +379,7 @@ export const NewAsset = ({
                 }
               >
                 <label className="govuk-label lbh-label" htmlFor="postcode">
-                  Postcode
+                  Postcode*
                 </label>
                 {errors.postcode && touched.postcode && (
                   <span
@@ -622,7 +605,7 @@ export const NewAsset = ({
                 }
               >
                 <fieldset className="govuk-fieldset">
-                  <legend className="govuk-label lbh-label">Is LBH property?</legend>
+                  <legend className="govuk-label lbh-label">Is LBH property?*</legend>
                   {errors.isCouncilProperty && touched.isCouncilProperty && (
                     <span
                       id="is-lbh-property-error"
@@ -681,7 +664,7 @@ export const NewAsset = ({
                 }
               >
                 <label className="govuk-label lbh-label" htmlFor="managing-organisation">
-                  Managing organisation
+                  Managing organisation*
                 </label>
                 {errors.managingOrganisation && touched.managingOrganisation && (
                   <span

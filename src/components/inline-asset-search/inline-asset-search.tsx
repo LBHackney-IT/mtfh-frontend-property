@@ -38,7 +38,8 @@ export const InlineAssetSearch = ({
     ...(searchResultsData?.map((x) => ({
       value: x.id,
       label: x.assetAddress.addressLine1,
-    })) || []),
+      assetType: x.assetType,
+    })) ?? []),
   ];
 
   const handleSubmit = (searchText: string) => {
@@ -74,7 +75,7 @@ export const InlineAssetSearch = ({
         </div>
       ) : (
         <>
-          {touched && <p>{total || "0"} results found</p>}
+          {touched && <p>{total ?? "0"} results found</p>}
 
           <div className="govuk-form-group lbh-form-group">
             <Field

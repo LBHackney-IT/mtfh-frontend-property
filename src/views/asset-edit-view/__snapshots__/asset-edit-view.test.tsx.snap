@@ -16,7 +16,7 @@ exports[`renders the whole 'Edit property address' view 1`] = `
   <span
     class="govuk-caption-m lbh-caption"
   >
-    New Addresses are suggested from the Local Gazetteer to bring some standardisation.
+    Addresses are suggested from the Local Gazetteer to bring some standardisation.
   </span>
   <div
     class="mtfh-address-details"

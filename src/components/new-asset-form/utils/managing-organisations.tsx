@@ -36,17 +36,17 @@ const managingOrganisations = [
 ];
 
 const renderManagingOrganisationOptions = (): JSX.Element[] => {
-  return managingOrganisations.map((org, index) => (
+  return managingOrganisations.map(({ managingOrganisation, managingOrganisationId }) => (
     <option
-      key={index}
-      value={org.managingOrganisation}
+      key={managingOrganisationId}
+      value={managingOrganisation}
       defaultValue={
-        org.managingOrganisation === "London Borough of Hackney"
+        managingOrganisation === "London Borough of Hackney"
           ? "London Borough of Hackney"
           : undefined
       }
     >
-      {org.managingOrganisation}
+      {managingOrganisation}
     </option>
   ));
 };

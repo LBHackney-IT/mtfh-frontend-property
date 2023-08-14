@@ -3,25 +3,23 @@ import { v4 as uuidv4 } from "uuid";
 import { NewPropertyFormData } from "../components/new-asset-form/schema";
 import { managingOrganisations } from "../components/new-asset-form/utils/managing-organisations";
 
-import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1";
+import { CreateNewAssetRequest, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 export const assembleCreateNewAssetRequest = (
   values: NewPropertyFormData,
   patches: Patch[],
 ) => {
-  const parentAssetIds: string[] = getParentAssetsIds(values);
-
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
     assetId: values.assetId,
     assetType: values.assetType,
-    parentAssetIds: parentAssetIds.join("#"),
+    parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
     isActive: true,
     assetLocation: {
       floorNo: values?.floorNo ?? "",
       totalBlockFloors: values?.totalBlockFloors ?? null,
-      parentAssets: [],
+      parentAssets: values?.parentAsset ? [getParentAsset(values?.parentAsset)] : [],
     },
     assetAddress: {
       uprn: values?.uprn ?? "",
@@ -60,12 +58,14 @@ const getManagingOrganisationId = (managingOrganisation: string) => {
   return match ? match.managingOrganisationId : "";
 };
 
-const getParentAssetsIds = (formValues: NewPropertyFormData) => {
-  const parentAssetIds = [];
-  if (formValues?.propertyEstate && formValues.propertyEstate !== "")
-    parentAssetIds.push(formValues.propertyEstate);
-  if (formValues?.propertyBlock && formValues.propertyBlock !== "")
-    parentAssetIds.push(formValues.propertyBlock);
+const getParentAsset = (parentAsset: string): ParentAsset => {
+  // Convert the value from the Parent Asset field from JSON back into an object
+  const parentAssetObject = JSON.parse(parentAsset);
 
-  return parentAssetIds;
+  // Use its values to output a new object of the type (ParentAsset) with the correct properties
+  return {
+    id: parentAssetObject.value,
+    name: parentAssetObject.label,
+    type: parentAssetObject.assetType,
+  };
 };

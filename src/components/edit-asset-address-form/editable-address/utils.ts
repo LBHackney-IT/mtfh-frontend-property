@@ -1,5 +1,6 @@
 import { PatchAssetAddressFormValues } from "./types";
 
+import { Address } from "@mtfh/common/lib/api/address/v1";
 import {
   Asset,
   AssetAddress,
@@ -33,11 +34,11 @@ export const buildEditAssetAddressRequest = (
 export const buildUpdateAddressDetailsRequest = (
   formValues: PatchAssetAddressFormValues,
 ): UpdateAddressDetailsRequest => ({
-  postPreamble: formValues.postPreamble || "",
+  postPreamble: formValues.postPreamble ?? "",
   addressLine1: formValues.addressLine1,
-  addressLine2: formValues.addressLine2 || "",
-  addressLine3: formValues.addressLine3 || "",
-  addressLine4: formValues.addressLine4 || "",
+  addressLine2: formValues.addressLine2 ?? "",
+  addressLine3: formValues.addressLine3 ?? "",
+  addressLine4: formValues.addressLine4 ?? "",
   postCode: formValues.postcode,
 });
 
@@ -73,3 +74,25 @@ export const buildAssetAddress = (
   postPreamble: editAssetAddressRequest.assetAddress.postPreamble,
   uprn: assetDetails.assetAddress.uprn,
 });
+
+export const getLlpgAddressFormValues = (llpgAddress: Address) => {
+  return {
+    postPreamble: "",
+    addressLine1: llpgAddress?.line1 || "",
+    addressLine2: llpgAddress?.line2 || "",
+    addressLine3: llpgAddress?.line3 || "",
+    addressLine4: llpgAddress?.town || "",
+    postcode: llpgAddress?.postcode || "",
+  };
+};
+
+export const getCurrentAddressFormValues = (currentAddress: AssetAddress) => {
+  return {
+    postPreamble: currentAddress?.postPreamble || "",
+    addressLine1: currentAddress?.addressLine1 || "",
+    addressLine2: currentAddress?.addressLine2 || "",
+    addressLine3: currentAddress?.addressLine3 || "",
+    addressLine4: currentAddress?.addressLine4 || "",
+    postcode: currentAddress?.postCode || "",
+  };
+};

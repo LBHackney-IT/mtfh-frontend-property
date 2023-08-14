@@ -8,8 +8,7 @@ export const newPropertySchema = () =>
   Yup.object({
     assetId: Yup.string().required("Asset ID is a required field"),
     assetType: Yup.string().required("Asset Type is a required field"),
-    propertyEstate: Yup.string(),
-    propertyBlock: Yup.string(),
+    parentAsset: Yup.string(),
     floorNo: Yup.string(),
     totalBlockFloors: Yup.number()
       .nullable()

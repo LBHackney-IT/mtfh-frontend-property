@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
 
 import { Field, Form, Formik } from "formik";
 
 import { locale } from "../../../services";
+import { FormActionButtons } from "./form-action-buttons";
 import { EditableAddressFormData, editableAddressSchema } from "./schema";
 import { PatchAssetAddressFormValues } from "./types";
 import {
@@ -12,6 +12,8 @@ import {
   buildEditTenureRequest,
   buildUpdateAddressDetailsRequest,
   getAssetVersionNumber,
+  getCurrentAddressFormValues,
+  getLlpgAddressFormValues,
 } from "./utils";
 
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
@@ -23,8 +25,10 @@ import { Center, Spinner } from "@mtfh/common/lib/components";
 
 import "../styles.scss";
 
-export interface EditableAddressProperties {
+export interface EditableAddressProps {
   llpgAddress: Address | null;
+  currentAddress: AssetAddress;
+  assetHasUprn: boolean;
   loading: boolean;
   assetDetails: Asset;
   setShowSuccess: (value: boolean) => void;
@@ -37,6 +41,8 @@ export interface EditableAddressProperties {
 
 export const EditableAddress = ({
   llpgAddress,
+  currentAddress,
+  assetHasUprn,
   loading,
   assetDetails,
   setShowSuccess,
@@ -45,46 +51,8 @@ export const EditableAddress = ({
   setErrorDescription,
   setCurrentAssetAddress,
   tenureApiObject,
-}: EditableAddressProperties): JSX.Element => {
+}: EditableAddressProps): JSX.Element => {
   const [addressEditSuccessful, setAddressEditSuccessful] = useState<boolean>(false);
-
-  const renderFormActionButtons = () => {
-    if (!addressEditSuccessful) {
-      return (
-        <>
-          <div className="edit-asset-form-actions">
-            <button
-              className="govuk-button lbh-button"
-              data-module="govuk-button"
-              type="submit"
-              id="submit-address-button"
-            >
-              Update to this address
-            </button>
-
-            <RouterLink
-              to={`/property/${assetDetails.id}`}
-              className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-            >
-              Cancel
-            </RouterLink>
-          </div>
-        </>
-      );
-    }
-    return (
-      <>
-        <div className="form-actions">
-          <RouterLink
-            to={`/property/${assetDetails.id}`}
-            className="govuk-button lbh-button"
-          >
-            Back to asset view
-          </RouterLink>
-        </div>
-      </>
-    );
-  };
 
   const handleSubmit = async (formValues: PatchAssetAddressFormValues) => {
     setShowSuccess(false);
@@ -134,7 +102,14 @@ export const EditableAddress = ({
       });
   };
 
-  if (!llpgAddress && loading) {
+  const getFormInitialValues = () => {
+    if (llpgAddress && assetHasUprn) {
+      return getLlpgAddressFormValues(llpgAddress);
+    }
+    return getCurrentAddressFormValues(currentAddress);
+  };
+
+  if (assetHasUprn && loading && !llpgAddress) {
     return (
       <Center>
         <Spinner />
@@ -145,14 +120,7 @@ export const EditableAddress = ({
   return (
     <>
       <Formik<EditableAddressFormData>
-        initialValues={{
-          postPreamble: "",
-          addressLine1: llpgAddress?.line1 ? llpgAddress.line1 : "",
-          addressLine2: llpgAddress?.line2 ? llpgAddress.line2 : "",
-          addressLine3: llpgAddress?.line3 ? llpgAddress.line3 : "",
-          addressLine4: llpgAddress?.town ? llpgAddress.town : "",
-          postcode: llpgAddress?.postcode ? llpgAddress.postcode : "",
-        }}
+        initialValues={getFormInitialValues()}
         validationSchema={editableAddressSchema}
         onSubmit={(values) => handleSubmit(values)}
       >
@@ -160,7 +128,7 @@ export const EditableAddress = ({
           <div id="edit-address-form">
             <Form>
               <h3 className="lbh-heading-h3">
-                {llpgAddress
+                {llpgAddress && assetHasUprn
                   ? "Suggestion from the Local Gazetteer"
                   : "New address details"}
               </h3>
@@ -315,8 +283,10 @@ export const EditableAddress = ({
                   disabled={!!addressEditSuccessful}
                 />
               </div>
-
-              {renderFormActionButtons()}
+              <FormActionButtons
+                assetGuid={assetDetails.id}
+                addressEditSuccessful={addressEditSuccessful}
+              />
             </Form>
           </div>
         )}

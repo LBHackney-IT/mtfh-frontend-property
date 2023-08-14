@@ -35,7 +35,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             class="govuk-label lbh-label"
             for="assetId"
           >
-            Asset ID
+            Asset ID*
           </label>
           <input
             class="govuk-input lbh-input"
@@ -53,7 +53,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             class="govuk-label lbh-label"
             for="assetType"
           >
-            Asset Type
+            Asset type*
           </label>
           <select
             class="govuk-input lbh-input"
@@ -214,9 +214,9 @@ exports[`renders the whole 'New asset form' view 1`] = `
         >
           <label
             class="govuk-label lbh-label"
-            for="propertyEstate"
+            for="parentAsset"
           >
-            Estate this property is in
+            Parent asset
           </label>
           <div
             class=""
@@ -242,57 +242,10 @@ exports[`renders the whole 'New asset form' view 1`] = `
           >
             <select
               class="govuk-input lbh-input"
-              data-testid="propertyEstate"
+              data-testid="parentAsset"
               disabled=""
-              id="propertyEstate"
-              name="propertyEstate"
-              style="max-width: 100%;"
-            >
-              <option
-                value=""
-              >
-                -- Select an option --
-              </option>
-            </select>
-          </div>
-        </div>
-        <div
-          style="border-left: 5px solid #0b0c0c; padding-left: 30px; width: 500px; box-sizing: border-box;"
-        >
-          <label
-            class="govuk-label lbh-label"
-            for="propertyBlock"
-          >
-            Block this property is in
-          </label>
-          <div
-            class=""
-          >
-            <div
-              class="govuk-form-group  lbh-form-group visually-hidden-label"
-            >
-              <input
-                class="govuk-input lbh-input"
-                style="max-width: 100%;"
-                value=""
-              />
-            </div>
-            <button
-              class="govuk-button lbh-button"
-              type="button"
-            >
-              Search
-            </button>
-          </div>
-          <div
-            class="govuk-form-group lbh-form-group"
-          >
-            <select
-              class="govuk-input lbh-input"
-              data-testid="propertyBlock"
-              disabled=""
-              id="propertyBlock"
-              name="propertyBlock"
+              id="parentAsset"
+              name="parentAsset"
               style="max-width: 100%;"
             >
               <option
@@ -341,7 +294,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             class="govuk-label lbh-label"
             for="address-line-1"
           >
-            Address line 1
+            Address line 1*
           </label>
           <input
             class="govuk-input lbh-input"
@@ -398,7 +351,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             class="govuk-label lbh-label"
             for="postcode"
           >
-            Postcode
+            Postcode*
           </label>
           <input
             class="govuk-input lbh-input"
@@ -663,7 +616,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             <legend
               class="govuk-label lbh-label"
             >
-              Is LBH property?
+              Is LBH property?*
             </legend>
             <div
               class="govuk-radios lbh-radios"
@@ -714,7 +667,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             class="govuk-label lbh-label"
             for="managing-organisation"
           >
-            Managing organisation
+            Managing organisation*
           </label>
           <select
             class="govuk-input lbh-input"

@@ -35,7 +35,7 @@ export const InlineSearchForm = ({ onSubmit, className, loading }: Props) => {
   };
 
   return (
-    <div className={className || ""}>
+    <div className={className ?? ""}>
       <div
         className={cn("govuk-form-group  lbh-form-group visually-hidden-label", {
           "govuk-form-group--error": error,

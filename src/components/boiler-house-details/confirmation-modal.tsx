@@ -23,7 +23,7 @@ export const ConfirmationModal = ({ showModal, setShowModal, asset }: Props) => 
 
     setIsLoading(true);
 
-    patchAsset(asset.id, request, asset?.versionNumber?.toString() || "")
+    patchAsset(asset.id, request, asset?.versionNumber?.toString() ?? "")
       .then(() => {
         setShowModal(false);
         // useAsset doesn't always update

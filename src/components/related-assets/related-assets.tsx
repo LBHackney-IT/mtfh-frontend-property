@@ -33,7 +33,6 @@ export const RelatedAssets = (props: RelatedAssetsProps) => {
     }
   }, [relatedAssets]);
 
-  const assetHasRelatedAssets = !!relatedAssets.length;
 
   if (loading) {
     return (
@@ -43,7 +42,7 @@ export const RelatedAssets = (props: RelatedAssetsProps) => {
     );
   }
 
-  if (!assetHasRelatedAssets || !relatedAssetsByType) {
+  if (relatedAssets.length || !relatedAssetsByType) {
     return (
       <p className="lbh-body-m" data-testid="no-related-assets-message">
         There are no related assets for this property.

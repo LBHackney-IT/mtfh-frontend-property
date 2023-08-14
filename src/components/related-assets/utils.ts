@@ -23,9 +23,16 @@ export const getAllRelatedAssets = (
   return allRelatedAssets;
 };
 
+const removeHackneyHomesRelatedAsset = (relatedAssets: RelatedAsset[]) => {
+  const hackneyHomesGuid = "656feda1-896f-b136-da84-163ee4f1be6c";
+  return relatedAssets.filter((relatedAsset) => relatedAsset.id !== hackneyHomesGuid);
+};
+
 export const organiseRelatedAssetsByType = (
   relatedAssets: RelatedAsset[],
 ): { [key: string]: RelatedAsset[] } => {
+  relatedAssets = removeHackneyHomesRelatedAsset(relatedAssets);
+  
   const assetsByType: { [key: string]: RelatedAsset[] } = {};
 
   // Define how many asset types we're dealing with
