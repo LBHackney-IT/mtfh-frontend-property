@@ -32,7 +32,7 @@ export const organiseRelatedAssetsByType = (
   relatedAssets: RelatedAsset[],
 ): { [key: string]: RelatedAsset[] } => {
   relatedAssets = removeHackneyHomesRelatedAsset(relatedAssets);
-  
+
   const assetsByType: { [key: string]: RelatedAsset[] } = {};
 
   // Define how many asset types we're dealing with

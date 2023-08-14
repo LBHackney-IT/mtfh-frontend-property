@@ -33,7 +33,6 @@ export const RelatedAssets = (props: RelatedAssetsProps) => {
     }
   }, [relatedAssets]);
 
-
   if (loading) {
     return (
       <Center>
