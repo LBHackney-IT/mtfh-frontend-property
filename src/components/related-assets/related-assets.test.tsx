@@ -2,7 +2,7 @@ import React from "react";
 
 import { render } from "@hackney/mtfh-test-utils";
 
-import { RelatedAssetGroup } from "./related-assets";
+import { RelatedAssetGroup } from "./related-asset-group";
 
 const address1 = "123 Test Street";
 const address2 = "456 Test Road";

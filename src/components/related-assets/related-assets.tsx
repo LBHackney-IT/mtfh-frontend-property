@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
 
-import {
-  RelatedAsset as IRelatedAsset,
-  getAllRelatedAssets,
-  organiseRelatedAssetsByType,
-} from "./utils";
+import { RelatedAssetGroup } from "./related-asset-group";
+import { RelatedAsset, getAllRelatedAssets, organiseRelatedAssetsByType } from "./utils";
 
 import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
-import { Center, Link, LinkBox, LinkOverlay, Spinner } from "@mtfh/common/lib/components";
-import { SearchCard } from "@mtfh/search";
+import { Center, Spinner } from "@mtfh/common/lib/components";
 
 interface RelatedAssetsProps {
   parentAssets: ParentAsset[];
@@ -20,7 +15,7 @@ interface RelatedAssetsProps {
 export const RelatedAssets = (props: RelatedAssetsProps) => {
   const { parentAssets, childrenAssets, loading } = props;
 
-  const [relatedAssets, setRelatedAssets] = useState<IRelatedAsset[]>([]);
+  const [relatedAssets, setRelatedAssets] = useState<RelatedAsset[]>([]);
   const [relatedAssetsByType, setRelatedAssetsByType] = useState<any>(undefined);
 
   useEffect(() => {
@@ -69,55 +64,5 @@ export const RelatedAssets = (props: RelatedAssetsProps) => {
     <p className="lbh-body-m" data-testid="no-related-assets-message">
       There are no related assets for this property.
     </p>
-  );
-};
-
-export interface RelatedAssetGroupProps {
-  assetType: string;
-  relatedAssets: IRelatedAsset[];
-}
-
-export const RelatedAssetGroup = ({
-  assetType,
-  relatedAssets,
-}: RelatedAssetGroupProps) => {
-  const getAssetTypeHeading = () => {
-    return assetType.charAt(assetType.length - 1).toLowerCase() === "s"
-      ? assetType
-      : `${assetType}s`;
-  };
-
-  return (
-    <section>
-      <p className="lbh-body-m">{getAssetTypeHeading()}</p>
-      <div className="mtfh-card-list" data-testid="related-asset-items-group">
-        {relatedAssets.map((relatedAsset) => (
-          <RelatedAsset relatedAsset={relatedAsset} key={relatedAsset.id} />
-        ))}
-      </div>
-    </section>
-  );
-};
-
-export interface RelatedAssetProps {
-  relatedAsset: IRelatedAsset;
-}
-
-export const RelatedAsset = ({ relatedAsset }: RelatedAssetProps) => {
-  return (
-    <LinkBox data-testid="related-asset">
-      <SearchCard>
-        <LinkOverlay>
-          <Link
-            className="mtfh-search-tenure__title"
-            as={RouterLink}
-            to={`/property/${relatedAsset.id}`}
-            variant="text-colour"
-          >
-            {relatedAsset.name}
-          </Link>
-        </LinkOverlay>
-      </SearchCard>
-    </LinkBox>
   );
 };
