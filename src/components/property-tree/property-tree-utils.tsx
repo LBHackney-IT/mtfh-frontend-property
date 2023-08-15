@@ -31,12 +31,12 @@ const addChildrenAssets = (
     .slice(0, MAXIMUM_VISIBLE_ASSETS)
     .map((x) => generateNode(x.name, [], x.id));
 
-    if (childrenAssets.length > MAXIMUM_VISIBLE_ASSETS) {
-      // show 'view all assets' link
-      return [...childrenAssets, generateRelatedAssetLinkNode(assetGuid)];
-    }
+  if (childrenAssets.length > MAXIMUM_VISIBLE_ASSETS) {
+    // show 'view all assets' link
+    return [...childrenAssets, generateRelatedAssetLinkNode(assetGuid)];
+  }
 
-    return childrenAssets
+  return childrenAssets;
 };
 
 const generateRelatedAssetLinkNode = (assetGuid: string): TreeAsset => {
