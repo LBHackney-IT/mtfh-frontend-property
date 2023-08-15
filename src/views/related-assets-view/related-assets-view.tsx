@@ -43,11 +43,13 @@ export const RelatedAssetsView = (): JSX.Element => {
   }
 
   return (
+    <>
     <RelatedAssetsLayout
       asset={asset}
       parentAssets={asset.assetLocation.parentAssets}
       childrenAssets={childAssetResponse?.childAssets}
       loading={!childAssetResponse}
     />
+    </>
   );
 };

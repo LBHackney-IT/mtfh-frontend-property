@@ -31,12 +31,6 @@ export const getAllRelatedAssets = (
   return allRelatedAssets;
 };
 
-const extractAddressNumber = (addressLine1: string) => {
-  // Regex to look for consecutive numbers in a string
-  const match = addressLine1.match(/\d+/);
-  return match ? parseInt(match[0], 10) : NaN;
-};
-
 const removeHackneyHomesRelatedAsset = (relatedAssets: RelatedAsset[]) => {
   const hackneyHomesGuid = "656feda1-896f-b136-da84-163ee4f1be6c";
   return relatedAssets.filter((relatedAsset) => relatedAsset.id !== hackneyHomesGuid);
@@ -66,18 +60,6 @@ export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]): Obje
     });
 
     // Sort assets by addressLine1 (name)
-    sameTypeAssets.sort((a, b) => {
-      const addressA = extractAddressNumber(a.name);
-      const addressB = extractAddressNumber(b.name);
-
-      if (!Number.isNaN(addressA) && !Number.isNaN(addressB)) {
-        // Both names have numbers, sort numerically
-        return addressA - addressB;
-      }
-      // At least one name doesn't have a number in its addressLine1 (name), sort alphabetically
-      return a.name.localeCompare(b.name);
-    });
-
     sortAddressGeneric(sameTypeAssets, "name");
 
     // Create new key in object for given AssetType, value will be an array related assets of that type

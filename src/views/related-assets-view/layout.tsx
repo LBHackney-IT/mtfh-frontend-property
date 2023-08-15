@@ -7,12 +7,6 @@ import { RelatedAsset, getAllRelatedAssets, organiseRelatedAssetsByType } from "
 import { Asset, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
 import { Center, Link, Spinner } from "@mtfh/common/lib/components";
 
-// import React, { ReactNode } from "react";
-// import { Link as RouterLink } from "react-router-dom";
-
-// import { Asset } from "@mtfh/common/lib/api/asset/v1";
-// import { Link } from "@mtfh/common/lib/components";
-
 import "./styles.scss";
 
 interface RelatedAssetsLayoutProps {
