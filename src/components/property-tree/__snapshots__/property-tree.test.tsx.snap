@@ -198,7 +198,7 @@ exports[`renders the property tree correctly 1`] = `
           style="width: 44px;"
         />
         <div
-          class="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+          class="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
           style="width: 44px;"
         />
         <div
@@ -233,67 +233,6 @@ exports[`renders the property tree correctly 1`] = `
                         href="/property/77ec7c49-1ec5-0ef5-bd51-3fbccce7e96e"
                       >
                         Gge 12 Pitcairn House St Thomass Square
-                      </a>
-                    </span>
-                  </div>
-                  <div
-                    class="rst__rowToolbar"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="rst__node"
-        style="height: 62px;"
-      >
-        <div
-          class="rst__lineBlock"
-          style="width: 44px;"
-        />
-        <div
-          class="rst__lineBlock"
-          style="width: 44px;"
-        />
-        <div
-          class="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
-          style="width: 44px;"
-        />
-        <div
-          class="rst__nodeContent"
-          style="left: 132px;"
-        >
-          <div
-            style="height: 100%;"
-          >
-            <div
-              class="rst__rowWrapper"
-            >
-              <div
-                class="rst__row"
-                style="opacity: 1;"
-              >
-                <div
-                  class="rst__moveHandle"
-                  draggable="true"
-                />
-                <div
-                  class="rst__rowContents"
-                >
-                  <div
-                    class="rst__rowLabel"
-                  >
-                    <span
-                      class="rst__rowTitle"
-                    >
-                      <a
-                        class="lbh-link govuk-link"
-                        data-testid="related-assets-link"
-                        href="/property/related/2d13b5cb-baf2-91fd-c231-8c5c2ee9548c"
-                      >
-                        Search for all related properties…
                       </a>
                     </span>
                   </div>

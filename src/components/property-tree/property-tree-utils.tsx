@@ -17,20 +17,26 @@ const addChildrenAssets = (
   childAssets: Asset[] | ValidChildAsset[] | undefined,
   assetGuid: string,
 ): TreeAsset[] => {
-  if (!childAssets) return [];
+  if (!childAssets?.length) return [];
 
   const sortableChildAssets = childAssets.map((x) => ({
     name: x.assetAddress.addressLine1,
     id: x.id,
   }));
 
+  // all addresses must be sorted before trimming
   sortAddressGeneric(sortableChildAssets, "name");
 
   const childrenAssets = sortableChildAssets
     .slice(0, MAXIMUM_VISIBLE_ASSETS)
     .map((x) => generateNode(x.name, [], x.id));
 
-  return [...childrenAssets, generateRelatedAssetLinkNode(assetGuid)];
+    if (childrenAssets.length > MAXIMUM_VISIBLE_ASSETS) {
+      // show 'view all assets' link
+      return [...childrenAssets, generateRelatedAssetLinkNode(assetGuid)];
+    }
+
+    return childrenAssets
 };
 
 const generateRelatedAssetLinkNode = (assetGuid: string): TreeAsset => {
