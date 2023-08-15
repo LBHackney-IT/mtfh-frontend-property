@@ -2,7 +2,7 @@ import React from "react";
 
 import { render } from "@hackney/mtfh-test-utils";
 
-import { RelatedAssets } from "./related-assets";
+import { RelatedAssetGroup } from "./related-assets";
 
 const address1 = "123 Test Street";
 const address2 = "456 Test Road";
@@ -33,7 +33,7 @@ const assetsByType = {
 test("it renders the component", async () => {
   const assetType = "Dwelling";
   const { container } = render(
-    <RelatedAssets assetType={assetType} relatedAssets={assetsByType[assetType]} />,
+    <RelatedAssetGroup assetType={assetType} relatedAssets={assetsByType[assetType]} />,
   );
   expect(container).toMatchSnapshot();
 });
@@ -42,7 +42,7 @@ test("the asset type is displayed in plural form", async () => {
   const assetType = "Dwelling";
 
   const { container } = render(
-    <RelatedAssets assetType={assetType} relatedAssets={assetsByType[assetType]} />,
+    <RelatedAssetGroup assetType={assetType} relatedAssets={assetsByType[assetType]} />,
   );
   expect(container).toHaveTextContent(`${assetType}s`);
 });
@@ -51,7 +51,7 @@ test("related assets' addresses are displayed", async () => {
   const assetType = "Dwelling";
 
   const { container } = render(
-    <RelatedAssets assetType={assetType} relatedAssets={assetsByType[assetType]} />,
+    <RelatedAssetGroup assetType={assetType} relatedAssets={assetsByType[assetType]} />,
   );
 
   expect(container).toHaveTextContent(address1);
