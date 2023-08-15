@@ -724,6 +724,59 @@ exports[`renders the whole 'New asset form' view 1`] = `
           </select>
         </div>
         <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <fieldset
+            class="govuk-fieldset"
+          >
+            <legend
+              class="govuk-label lbh-label"
+            >
+              Are Repairs being raised to this Asset?*
+            </legend>
+            <div
+              class="govuk-radios lbh-radios"
+            >
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="add-default-sor-contracts-yes"
+                  id="add-default-sor-contracts-yes"
+                  name="addDefaultSorContracts"
+                  type="radio"
+                  value="Yes"
+                />
+                <label
+                  class="govuk-label govuk-radios__label"
+                  for="add-default-sor-contracts-yes"
+                >
+                  Yes, add DLO contracts to the Asset
+                </label>
+              </div>
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="add-default-sor-contracts-no"
+                  id="add-default-sor-contracts-no"
+                  name="addDefaultSorContracts"
+                  type="radio"
+                  value="No"
+                />
+                <label
+                  class="govuk-label govuk-radios__label"
+                  for="add-default-sor-contracts-no"
+                >
+                  No
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div
           class="new-property-form-actions"
         >
           <button

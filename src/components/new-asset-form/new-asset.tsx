@@ -134,6 +134,7 @@ export const NewAsset = ({
           numberOfLifts: undefined,
           windowType: "",
           yearConstructed: undefined,
+          addDefaultSorContracts: "",
         }}
         validationSchema={newPropertySchema}
         onSubmit={(values) => handleSubmit(values)}
@@ -697,6 +698,67 @@ export const NewAsset = ({
                   </option>
                   {renderManagingOrganisationOptions()}
                 </Field>
+              </div>
+              <div
+                className={
+                  errors.addDefaultSorContracts && touched.addDefaultSorContracts
+                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                    : "govuk-form-group lbh-form-group"
+                }
+              >
+                <fieldset className="govuk-fieldset">
+                  <legend className="govuk-label lbh-label">
+                    Are Repairs being raised to this Asset?*
+                  </legend>
+                  {errors.addDefaultSorContracts && touched.addDefaultSorContracts && (
+                    <span
+                      id="is-lbh-sor-contract-error"
+                      className="govuk-error-message lbh-error-message"
+                    >
+                      <span
+                        className="govuk-visually-hidden"
+                        data-testid="error-add-default-sor-contracts"
+                      >
+                        Error:
+                      </span>{" "}
+                      {errors.addDefaultSorContracts}
+                    </span>
+                  )}
+                  <div className="govuk-radios lbh-radios">
+                    <div className="govuk-radios__item">
+                      <Field
+                        className="govuk-radios__input"
+                        id="add-default-sor-contracts-yes"
+                        name="addDefaultSorContracts"
+                        type="radio"
+                        value="Yes"
+                        data-testid="add-default-sor-contracts-yes"
+                      />
+                      <label
+                        className="govuk-label govuk-radios__label"
+                        htmlFor="add-default-sor-contracts-yes"
+                      >
+                        Yes, add DLO contracts to the Asset
+                      </label>
+                    </div>
+                    <div className="govuk-radios__item">
+                      <Field
+                        className="govuk-radios__input"
+                        id="add-default-sor-contracts-no"
+                        name="addDefaultSorContracts"
+                        type="radio"
+                        value="No"
+                        data-testid="add-default-sor-contracts-no"
+                      />
+                      <label
+                        className="govuk-label govuk-radios__label"
+                        htmlFor="add-default-sor-contracts-no"
+                      >
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
               </div>
               <div className="new-property-form-actions">
                 {!isValid && submitCount > 0 && (
