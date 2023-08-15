@@ -31,11 +31,77 @@ exports[`it renders the component 1`] = `
   <hr
     style="border-top: 1px solid #e7eaec;"
   />
-  <p
-    class="lbh-body-m"
-    data-testid="no-related-assets-message"
-  >
-    There are no related assets for this property.
-  </p>
+  <section>
+    <section>
+      <p
+        class="lbh-body-m"
+      >
+        Estates
+      </p>
+      <div
+        class="mtfh-card-list"
+        data-testid="related-asset-items-group"
+      >
+        <div
+          class="mtfh-link-box"
+          data-testid="related-asset"
+        >
+          <div
+            class="mtfh-search-card"
+          >
+            <div
+              class="mtfh-link-overlay"
+            >
+              <a
+                class="govuk-link lbh-link lbh-link--text-colour lbh-link--no-visited-state mtfh-search-tenure__title"
+                href="/property/14edf718-19ff-ff43-4679-f8ef404fa029"
+              >
+                Frampton Park Estate Frampton Park Road
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr
+      style="border-top: 1px solid #e7eaec;"
+    />
+  </section>
+  <section>
+    <section>
+      <p
+        class="lbh-body-m"
+      >
+        Dwellings
+      </p>
+      <div
+        class="mtfh-card-list"
+        data-testid="related-asset-items-group"
+      >
+        <div
+          class="mtfh-link-box"
+          data-testid="related-asset"
+        >
+          <div
+            class="mtfh-search-card"
+          >
+            <div
+              class="mtfh-link-overlay"
+            >
+              <a
+                class="govuk-link lbh-link lbh-link--text-colour lbh-link--no-visited-state mtfh-search-tenure__title"
+                href="/property/13e7cf17-60a0-729d-c297-a4e76a16b6fa"
+              >
+                61 PITCAIRN HOUSE
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr
+      style="border-top: 1px solid #e7eaec;"
+    />
+  </section>
 </div>
 `;
