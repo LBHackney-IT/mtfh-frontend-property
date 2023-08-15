@@ -2,7 +2,6 @@ import React from "react";
 
 import { render } from "@hackney/mtfh-test-utils";
 
-import { RelatedAssets } from "../../components/related-assets/related-assets";
 import { RelatedAssetsLayout } from "./layout";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -138,26 +137,24 @@ const childrenAssets: Asset[] = [
 
 test("it renders the component", async () => {
   const { container } = render(
-    <RelatedAssetsLayout asset={asset}>
-      <RelatedAssets
-        parentAssets={asset.assetLocation.parentAssets}
-        childrenAssets={childrenAssets}
-        loading={false}
-      />
-    </RelatedAssetsLayout>,
+    <RelatedAssetsLayout
+      asset={asset}
+      parentAssets={asset.assetLocation.parentAssets}
+      childrenAssets={childrenAssets}
+      loading={false}
+    />,
   );
   expect(container).toMatchSnapshot();
 });
 
 test("it displays the heading of the page, a back button, and the property whose related assets are being displayed", async () => {
   const { container } = render(
-    <RelatedAssetsLayout asset={asset}>
-      <RelatedAssets
-        parentAssets={asset.assetLocation.parentAssets}
-        childrenAssets={childrenAssets}
-        loading={false}
-      />
-    </RelatedAssetsLayout>,
+    <RelatedAssetsLayout
+      asset={asset}
+      parentAssets={asset.assetLocation.parentAssets}
+      childrenAssets={childrenAssets}
+      loading={false}
+    />,
   );
   expect(container).toHaveTextContent("Related assets");
   expect(container).toHaveTextContent(asset.assetAddress.addressLine1);

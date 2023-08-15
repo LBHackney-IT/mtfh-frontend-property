@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { RelatedAssets } from "../../components/related-assets/related-assets";
 import { locale } from "../../services";
 import { RelatedAssetsLayout } from "./layout";
 
@@ -44,12 +43,11 @@ export const RelatedAssetsView = (): JSX.Element => {
   }
 
   return (
-    <RelatedAssetsLayout asset={asset}>
-      <RelatedAssets
-        parentAssets={asset.assetLocation.parentAssets}
-        childrenAssets={childAssetResponse?.childAssets}
-        loading={!childAssetResponse}
-      />
-    </RelatedAssetsLayout>
+    <RelatedAssetsLayout
+      asset={asset}
+      parentAssets={asset.assetLocation.parentAssets}
+      childrenAssets={childAssetResponse?.childAssets}
+      loading={!childAssetResponse}
+    />
   );
 };
