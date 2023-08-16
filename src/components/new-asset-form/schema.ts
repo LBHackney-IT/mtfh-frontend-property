@@ -25,6 +25,7 @@ export const newPropertySchema = () =>
       .trim()
       .transform(removeWhitespace)
       .required("Postcode is a required field")
+      .uppercase()
       .matches(regexUkPostcode, "Please enter a valid postcode"),
 
     // Property management

@@ -28,7 +28,7 @@ export const assembleCreateNewAssetRequest = (
       addressLine2: values?.addressLine2 ?? "",
       addressLine3: values?.addressLine3 ?? "",
       addressLine4: values?.addressLine4 ?? "",
-      postCode: values.postcode,
+      postCode: values.postcode.toUpperCase(),
     },
     assetManagement: {
       agent: values?.agent ?? "",
