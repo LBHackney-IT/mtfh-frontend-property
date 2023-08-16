@@ -36,34 +36,36 @@ const removeHackneyHomesRelatedAsset = (relatedAssets: RelatedAsset[]) => {
   return relatedAssets.filter((relatedAsset) => relatedAsset.id !== hackneyHomesGuid);
 };
 
-export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]): Object => {
+const assetTypeSorter = (a: string, b: string) => {
+  // Dwellings should be last
+  if (a === "Dwelling" && b !== "Dwelling") return 1;
+  if (a !== "Dwelling" && b === "Dwelling") return -1;
+
+  // Default alphabetical sorting
+  return a.localeCompare(b);
+};
+
+export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
   const assetsByType: { [key: string]: RelatedAsset[] } = {};
 
   relatedAssets = removeHackneyHomesRelatedAsset(relatedAssets);
 
   // Define how many asset types we're dealing with
-  const uniqueAssetTypes = new Set<string>([]);
-  relatedAssets.forEach((relatedAsset) => uniqueAssetTypes.add(relatedAsset.type));
-
-  // If present, move "Dwelling" to last (so dwellings appear below other asset types)
-  if (uniqueAssetTypes.has("Dwelling")) {
-    uniqueAssetTypes.delete("Dwelling");
-    uniqueAssetTypes.add("Dwelling");
-  }
+  const uniqueAssetTypes = [...new Set(relatedAssets.map((x) => x.type))].sort(
+    assetTypeSorter,
+  );
 
   // For each AssetType, create a array of RelatedAsset[]
-  uniqueAssetTypes.forEach((uniqueAssetType) => {
-    const sameTypeAssets: RelatedAsset[] = [];
-
-    relatedAssets.forEach((relatedAsset) => {
-      if (uniqueAssetType === relatedAsset.type) sameTypeAssets.push(relatedAsset);
-    });
+  uniqueAssetTypes.forEach((assetType) => {
+    const sameTypeAssets = relatedAssets.filter((x) => x.type === assetType);
 
     // Sort assets by addressLine1 (name)
-    sortAddressGeneric(sameTypeAssets, "name");
+    if (sameTypeAssets.length > 1) {
+      sortAddressGeneric(sameTypeAssets, "name");
+    }
 
     // Create new key in object for given AssetType, value will be an array related assets of that type
-    assetsByType[uniqueAssetType] = sameTypeAssets;
+    assetsByType[assetType] = sameTypeAssets;
   });
 
   // Return an object that contains multiple arrays of RelatedAsset[]
