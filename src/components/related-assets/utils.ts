@@ -37,13 +37,12 @@ const removeHackneyHomesRelatedAsset = (relatedAssets: RelatedAsset[]) => {
 };
 
 const assetTypeSorter = (a: string, b: string) => {
-  if (a === "Dwelling" && b !== "Dwelling") {
-    return 1; // "Dwelling" should be considered greater, so it comes last
-  }
-  if (a !== "Dwelling" && b === "Dwelling") {
-    return -1; // "Dwelling" should be considered greater, so it comes last
-  }
-  return a.localeCompare(b); // Default alphabetical sorting
+  // Dwellings should be last
+  if (a === "Dwelling" && b !== "Dwelling") return 1;
+  if (a !== "Dwelling" && b === "Dwelling") return -1;
+
+  // Default alphabetical sorting
+  return a.localeCompare(b);
 };
 
 export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
