@@ -44,7 +44,7 @@ const assetTypeSorter = (a: string, b: string) => {
     return -1; // "Dwelling" should be considered greater, so it comes last
   }
   return a.localeCompare(b); // Default alphabetical sorting
-}
+};
 
 export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
   const assetsByType: { [key: string]: RelatedAsset[] } = {};
@@ -52,11 +52,13 @@ export const organiseRelatedAssetsByType = (relatedAssets: RelatedAsset[]) => {
   relatedAssets = removeHackneyHomesRelatedAsset(relatedAssets);
 
   // Define how many asset types we're dealing with
-  const uniqueAssetTypes = [...new Set(relatedAssets.map(x => x.type))].sort(assetTypeSorter);
+  const uniqueAssetTypes = [...new Set(relatedAssets.map((x) => x.type))].sort(
+    assetTypeSorter,
+  );
 
   // For each AssetType, create a array of RelatedAsset[]
   uniqueAssetTypes.forEach((assetType) => {
-    const sameTypeAssets = relatedAssets.filter(x => x.type === assetType)
+    const sameTypeAssets = relatedAssets.filter((x) => x.type === assetType);
 
     // Sort assets by addressLine1 (name)
     if (sameTypeAssets.length > 1) {
