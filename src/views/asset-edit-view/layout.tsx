@@ -45,7 +45,7 @@ export const AssetEditLayout = ({
             "Unable to retrieve address suggestion from the Local Gazetteer",
           );
           setErrorDescription(
-            "Please refresh the page and try again, otherwise you are still able to edit the blank fields manually.",
+            "Please refresh the page and try again, otherwise you are still able to edit the blank fields manuallyX.",
           );
           setShowError(true);
         })
