@@ -8,10 +8,11 @@ interface Props {
   onSubmit: (searchText: string) => void;
   className?: string;
   loading: boolean;
+  fieldName: string;
 }
 
 // Cant use form tags inside existing form
-export const InlineSearchForm = ({ onSubmit, className, loading }: Props) => {
+export const InlineSearchForm = ({ onSubmit, className, loading, fieldName }: Props) => {
   const [input, setInput] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
@@ -53,6 +54,7 @@ export const InlineSearchForm = ({ onSubmit, className, loading }: Props) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           error={!!error}
+          data-testid={`${fieldName}-search-input`}
         />
       </div>
 

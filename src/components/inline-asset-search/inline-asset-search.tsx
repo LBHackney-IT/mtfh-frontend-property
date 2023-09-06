@@ -67,6 +67,7 @@ export const InlineAssetSearch = ({
       <InlineSearchForm
         loading={loading}
         onSubmit={(searchText) => handleSubmit(searchText)}
+        fieldName={name}
       />
 
       {loading ? (
