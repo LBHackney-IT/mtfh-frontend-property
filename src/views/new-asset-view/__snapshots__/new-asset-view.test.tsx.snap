@@ -226,6 +226,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             >
               <input
                 class="govuk-input lbh-input"
+                data-testid="parentAsset-search-input"
                 style="max-width: 100%;"
                 value=""
               />
@@ -249,7 +250,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
               style="max-width: 100%;"
             >
               <option
-                value=""
+                value="{\\"value\\":\\"\\",\\"label\\":\\"-- Select an option --\\"}"
               >
                 -- Select an option --
               </option>
