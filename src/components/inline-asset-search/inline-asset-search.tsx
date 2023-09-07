@@ -67,6 +67,7 @@ export const InlineAssetSearch = ({
       <InlineSearchForm
         loading={loading}
         onSubmit={(searchText) => handleSubmit(searchText)}
+        fieldName={name}
       />
 
       {loading ? (
@@ -91,7 +92,7 @@ export const InlineAssetSearch = ({
             >
               <>
                 {options.map((x, i) => (
-                  <option key={i} value={x.value}>
+                  <option key={i} value={JSON.stringify(x)}>
                     {x.label}
                   </option>
                 ))}
