@@ -51,7 +51,7 @@ export const BoilerHouseDetails = ({ asset }: Props) => {
   }, [asset?.boilerHouseId]);
 
   return (
-    <aside className="mtfh-cautionary-alerts">
+    <aside className="mtfh-boiler-house">
       <ConfirmationModal
         asset={asset}
         showModal={showModal}
@@ -96,6 +96,7 @@ export const BoilerHouseDetails = ({ asset }: Props) => {
           )}
         </>
       )}
+      <hr className="lbh-horizontal-bar" />
     </aside>
   );
 };

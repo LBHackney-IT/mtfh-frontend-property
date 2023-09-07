@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders the component 1`] = `
+<div>
+  <aside
+    class="mtfh-lbh-ownership-info"
+  >
+    <h2
+      class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+    >
+      Asset ownership
+    </h2>
+    <p
+      class="lbh-body-s"
+    >
+      This asset is owned by Hackney Council
+    </p>
+    <a
+      class="govuk-button lbh-button"
+      href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
+    >
+      Change ownership
+    </a>
+    <hr
+      class="lbh-horizontal-bar"
+    />
+  </aside>
+</div>
+`;

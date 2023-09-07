@@ -53,7 +53,7 @@ export const RelatedAssets = (props: RelatedAssetsProps) => {
               assetType={assetType}
               relatedAssets={relatedAssetsByType[assetType]}
             />
-            <hr style={{ borderTop: "1px solid #e7eaec" }} />
+            <hr className="lbh-horizontal-bar" />
           </section>
         ))}
       </>

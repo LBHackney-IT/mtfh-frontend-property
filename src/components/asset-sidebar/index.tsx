@@ -6,6 +6,7 @@ import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
 import { BoilerHouseDetails } from "../boiler-house-details/boiler-house-details";
 import { CautionaryAlertsDetails } from "../cautionary-alerts-details/cautionary-alerts-details";
+import { LbhOwnershipInformation } from "../lbh-ownership-information/lbh-ownership-information";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
@@ -38,7 +39,7 @@ export const AssetSideBar = ({
   showCautionaryAlerts,
   ...properties
 }: Props) => {
-  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics } =
+  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics, assetManagement } =
     assetDetails;
 
   // only show button when there is no active tenure on the asset
@@ -68,7 +69,10 @@ export const AssetSideBar = ({
               Edit address details
             </Button>
           )}
+          <hr className="lbh-horizontal-bar" />
+
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
+          {assetManagement.isCouncilProperty !== null && <LbhOwnershipInformation asset={assetDetails} />}
           {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (
             <>

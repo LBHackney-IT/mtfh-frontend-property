@@ -35,7 +35,7 @@ export const RelatedAssetsLayout = ({
       <h2 className="lbh-heading-h2 margin-top-10" data-testid="property-address">
         {asset.assetAddress.addressLine1} - {asset.assetAddress.postCode}
       </h2>
-      <hr style={{ borderTop: "1px solid #e7eaec" }} />
+      <hr className="lbh-horizontal-bar" />
 
       <RelatedAssets
         parentAssets={parentAssets}

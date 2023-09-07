@@ -100,6 +100,13 @@ export default {
       heading: "Remove boiler house from property",
     },
   },
+  lbhOwnershipInformation: {
+    heading: "Asset ownership",
+    ownedByLbh: "This asset is owned by Hackney Council",
+    notOwnedByLbh: "Hackney council is not responsible for this asset",
+    editOwnershipButton: "Edit ownership",
+    editLbhOwnershipSuccessMessage: "The ownership of the asset has been edited successfully"
+  },
   static: {
     newProcess: "New Process",
   },
