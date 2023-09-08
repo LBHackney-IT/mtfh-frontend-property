@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
+import locale from "../../services/locale";
+
 import { Center, Spinner } from "@mtfh/common";
 import {
   Asset,
@@ -94,7 +96,7 @@ export const EditAssetOwnershipForm = ({
                   htmlFor="is-council-property-yes"
                 >
                   <span className="govuk-heading-s govuk-!-margin-bottom-1">Yes</span>
-                  For properties bla bla bla (to be edited)
+                  {locale.lbhOwnershipInformation.editOwnershipFormYesDescription}
                 </label>
               </div>
               <div className="govuk-radios__item">
@@ -113,7 +115,7 @@ export const EditAssetOwnershipForm = ({
                   htmlFor="is-council-property-no"
                 >
                   <span className="govuk-heading-s govuk-!-margin-bottom-1">No</span>
-                  For properties bla bla bla (to be edited)
+                  {locale.lbhOwnershipInformation.editOwnershipFormNoDescription}
                 </label>
               </div>
             </div>
