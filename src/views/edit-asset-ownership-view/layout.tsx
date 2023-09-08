@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
+import { EditAssetOwnershipForm } from "../../components/edit-asset-ownership-form";
+import { locale } from "../../services";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
-import { locale } from "../../services";
-import { EditAssetOwnershipForm } from "../../components/edit-asset-ownership-form";
 
 interface Props {
   asset: Asset;
@@ -27,9 +27,9 @@ export const EditAssetOwnershipLayout = ({ asset }: Props) => {
           // @ts-ignore No overload matches this call
           title={
             <span>
-              {locale.lbhOwnershipInformation.editLbhOwnershipSuccessMessage}{" "}
+              {locale.lbhOwnershipInformation.editLbhOwnershipSuccessMessage}.{" "}
               <Link as={RouterLink} to={`/property/${asset.id}`}>
-                Return to property
+                View property
               </Link>
             </span>
           }

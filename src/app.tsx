@@ -4,9 +4,9 @@ import { Route, Switch } from "react-router-dom";
 import { AddBoilerHouseView } from "./views/add-boiler-house-view";
 import { AssetEditView } from "./views/asset-edit-view";
 import { AssetView } from "./views/asset-view";
+import { EditAssetOwnershipView } from "./views/edit-asset-ownership-view";
 import { NewAssetView } from "./views/new-asset-view/new-asset-view";
 import { RelatedAssetsView } from "./views/related-assets-view";
-import { EditAssetOwnershipView } from "./views/edit-asset-ownership-view";
 
 export default function App(): JSX.Element {
   return (

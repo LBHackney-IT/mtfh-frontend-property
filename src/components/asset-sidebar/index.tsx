@@ -39,8 +39,15 @@ export const AssetSideBar = ({
   showCautionaryAlerts,
   ...properties
 }: Props) => {
-  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics, assetManagement } =
-    assetDetails;
+  const {
+    assetAddress,
+    assetId,
+    assetType,
+    tenure,
+    id,
+    assetCharacteristics,
+    assetManagement,
+  } = assetDetails;
 
   // only show button when there is no active tenure on the asset
   const showAddTenureButton = () =>
@@ -72,7 +79,9 @@ export const AssetSideBar = ({
           <hr className="lbh-horizontal-bar" />
 
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
-          {assetManagement.isCouncilProperty !== null && <LbhOwnershipInformation asset={assetDetails} />}
+          {assetManagement?.isCouncilProperty !== null && (
+            <LbhOwnershipInformation asset={assetDetails} />
+          )}
           {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (
             <>

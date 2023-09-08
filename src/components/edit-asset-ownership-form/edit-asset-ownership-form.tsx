@@ -1,6 +1,12 @@
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+
+import { Center, Spinner } from "@mtfh/common";
+import {
+  Asset,
+  PatchAssetLbhOwnershipRequest,
+  patchAsset,
+} from "@mtfh/common/lib/api/asset/v1";
 import "./styles.scss";
 
 interface Props {
@@ -9,26 +15,68 @@ interface Props {
   asset: Asset;
 }
 
-export const EditAssetOwnershipForm = ({ setShowSuccess, setRequestError, asset }: Props) => {
-
-  const [isCouncilProperty, setIsCouncilProperty] = useState<boolean>(asset.assetManagement.isCouncilProperty)
-
+export const EditAssetOwnershipForm = ({
+  setShowSuccess,
+  setRequestError,
+  asset,
+}: Props) => {
+  const [isCouncilProperty, setIsCouncilProperty] = useState<boolean>(
+    asset.assetManagement.isCouncilProperty,
+  );
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleRadioButton = (value: boolean) => {
-    setIsCouncilProperty(value)
-  }
+    setIsCouncilProperty(value);
+  };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    window.alert('Send request')
-  }
+    e.preventDefault();
+    setLoading(true);
+
+    const { assetManagement } = asset;
+
+    const requestPayload: PatchAssetLbhOwnershipRequest = {
+      assetManagement: {
+        agent: assetManagement?.agent,
+        areaOfficeName: assetManagement?.areaOfficeName,
+        isCouncilProperty,
+        managingOrganisation: assetManagement?.managingOrganisation,
+        managingOrganisationId: assetManagement?.managingOrganisationId,
+        owner: assetManagement?.owner,
+        isTMOManaged: assetManagement?.isTMOManaged,
+        propertyOccupiedStatus: assetManagement?.propertyOccupiedStatus,
+        propertyOccupiedStatusReason: assetManagement?.propertyOccupiedStatusReason,
+        isNoRepairsMaintenance: assetManagement?.isNoRepairsMaintenance,
+        councilTaxType: assetManagement?.councilTaxType,
+        councilTaxLiability: assetManagement?.councilTaxLiability,
+        isTemporaryAccomodation: assetManagement?.isTemporaryAccomodation,
+        readyToLetDate: assetManagement?.readyToLetDate,
+      },
+    };
+
+    patchAsset(asset.id, requestPayload, asset?.versionNumber?.toString() ?? "")
+      .then(() => {
+        setShowSuccess(true);
+        setFormSubmitted(true);
+      })
+      .catch((err) => {
+        console.error({ err });
+        setRequestError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <div>
       <form onSubmit={(e) => handleFormSubmit(e)}>
         <div className="govuk-form-group lbh-form-group">
           <fieldset className="govuk-fieldset" aria-describedby="edit-ownership-hint">
-            <legend className="govuk-label lbh-label">Is this asset property of Hackney Council?</legend>
+            <legend className="govuk-label lbh-label">
+              Is this asset property of Hackney Council?
+            </legend>
             <div className="govuk-radios lbh-radios">
               <div className="govuk-radios__item">
                 <input
@@ -39,11 +87,13 @@ export const EditAssetOwnershipForm = ({ setShowSuccess, setRequestError, asset 
                   value="Yes"
                   checked={isCouncilProperty === true}
                   onChange={() => handleRadioButton(true)}
+                  disabled={formSubmitted}
                 />
-                <label className="govuk-label govuk-radios__label" htmlFor="is-council-property-yes">
-                  <span className="govuk-heading-s govuk-!-margin-bottom-1">
-                    Yes
-                  </span>
+                <label
+                  className="govuk-label govuk-radios__label"
+                  htmlFor="is-council-property-yes"
+                >
+                  <span className="govuk-heading-s govuk-!-margin-bottom-1">Yes</span>
                   For properties bla bla bla (to be edited)
                 </label>
               </div>
@@ -56,24 +106,34 @@ export const EditAssetOwnershipForm = ({ setShowSuccess, setRequestError, asset 
                   value="No"
                   checked={isCouncilProperty === false}
                   onChange={() => handleRadioButton(false)}
+                  disabled={formSubmitted}
                 />
-                <label className="govuk-label govuk-radios__label" htmlFor="is-council-property-no">
-                  <span className="govuk-heading-s govuk-!-margin-bottom-1">
-                    No
-                  </span>
+                <label
+                  className="govuk-label govuk-radios__label"
+                  htmlFor="is-council-property-no"
+                >
+                  <span className="govuk-heading-s govuk-!-margin-bottom-1">No</span>
                   For properties bla bla bla (to be edited)
                 </label>
               </div>
             </div>
           </fieldset>
         </div>
+        {loading && (
+          <Center>
+            <Spinner />
+          </Center>
+        )}
         <div className="edit-ownership-form-actions">
           <button
             className="govuk-button lbh-button"
             data-module="govuk-button"
             type="submit"
             id="submit-edit-ownership-button"
-            disabled={isCouncilProperty === asset.assetManagement.isCouncilProperty}
+            disabled={
+              formSubmitted ||
+              isCouncilProperty === asset.assetManagement.isCouncilProperty
+            }
           >
             Confirm change
           </button>
@@ -82,7 +142,7 @@ export const EditAssetOwnershipForm = ({ setShowSuccess, setRequestError, asset 
             className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
             id="cancel-edit-ownership-button"
           >
-            Cancel
+            Back to asset
           </RouterLink>
         </div>
       </form>

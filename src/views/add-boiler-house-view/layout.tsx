@@ -28,7 +28,7 @@ export const AddBoilerHouseLayout = ({ asset }: Props) => {
             <span>
               The boiler house has been added successfully.{" "}
               <Link as={RouterLink} to={`/property/${asset.id}`}>
-                Return to property
+                View property
               </Link>
             </span>
           }

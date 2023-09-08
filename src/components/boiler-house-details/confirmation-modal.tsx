@@ -2,7 +2,11 @@ import React, { useState } from "react";
 
 import { locale } from "../../services";
 
-import { Asset, PatchAssetRequest, patchAsset } from "@mtfh/common/lib/api/asset/v1";
+import {
+  Asset,
+  PatchAssetBoilerHouseRequest,
+  patchAsset,
+} from "@mtfh/common/lib/api/asset/v1";
 import { Button, Dialog, DialogActions, Link } from "@mtfh/common/lib/components";
 
 interface Props {
@@ -17,7 +21,7 @@ export const ConfirmationModal = ({ showModal, setShowModal, asset }: Props) => 
   const handleSubmit = () => {
     if (isLoading) return;
 
-    const request: PatchAssetRequest = {
+    const request: PatchAssetBoilerHouseRequest = {
       boilerHouseId: "",
     };
 
