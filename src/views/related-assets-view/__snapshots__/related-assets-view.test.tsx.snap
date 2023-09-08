@@ -29,7 +29,7 @@ exports[`it renders the component 1`] = `
     E9 6PT
   </h2>
   <hr
-    style="border-top: 1px solid #e7eaec;"
+    class="lbh-horizontal-bar"
   />
   <section>
     <section>
@@ -64,7 +64,7 @@ exports[`it renders the component 1`] = `
       </div>
     </section>
     <hr
-      style="border-top: 1px solid #e7eaec;"
+      class="lbh-horizontal-bar"
     />
   </section>
   <section>
@@ -100,7 +100,7 @@ exports[`it renders the component 1`] = `
       </div>
     </section>
     <hr
-      style="border-top: 1px solid #e7eaec;"
+      class="lbh-horizontal-bar"
     />
   </section>
 </div>

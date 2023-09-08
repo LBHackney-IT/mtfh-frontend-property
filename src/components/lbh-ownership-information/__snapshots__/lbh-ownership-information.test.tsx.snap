@@ -19,7 +19,7 @@ exports[`it renders the component 1`] = `
       class="govuk-button lbh-button"
       href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
     >
-      Change ownership
+      Edit ownership
     </a>
     <hr
       class="lbh-horizontal-bar"
