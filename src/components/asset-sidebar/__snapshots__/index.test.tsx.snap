@@ -108,16 +108,19 @@ exports[`it hides boiler house details 1`] = `
         >
           <h2
             class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
           >
             Asset ownership
           </h2>
           <p
             class="lbh-body-s"
+            data-testid="ownership-info"
           >
             This asset is owned by Hackney Council
           </p>
           <a
             class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
             href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
           >
             Edit ownership
@@ -223,16 +226,19 @@ exports[`it hides cautionary alerts 1`] = `
         >
           <h2
             class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
           >
             Asset ownership
           </h2>
           <p
             class="lbh-body-s"
+            data-testid="ownership-info"
           >
             This asset is owned by Hackney Council
           </p>
           <a
             class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
             href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
           >
             Edit ownership
@@ -338,16 +344,19 @@ exports[`it hides tenure information 1`] = `
         >
           <h2
             class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
           >
             Asset ownership
           </h2>
           <p
             class="lbh-body-s"
+            data-testid="ownership-info"
           >
             This asset is owned by Hackney Council
           </p>
           <a
             class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
             href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
           >
             Edit ownership
@@ -470,16 +479,19 @@ exports[`it shows boiler house details 1`] = `
         >
           <h2
             class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
           >
             Asset ownership
           </h2>
           <p
             class="lbh-body-s"
+            data-testid="ownership-info"
           >
             This asset is owned by Hackney Council
           </p>
           <a
             class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
             href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
           >
             Edit ownership
@@ -620,16 +632,19 @@ exports[`it shows cautionary alerts 1`] = `
         >
           <h2
             class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
           >
             Asset ownership
           </h2>
           <p
             class="lbh-body-s"
+            data-testid="ownership-info"
           >
             This asset is owned by Hackney Council
           </p>
           <a
             class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
             href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
           >
             Edit ownership
@@ -735,16 +750,19 @@ exports[`it shows tenure information 1`] = `
         >
           <h2
             class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
           >
             Asset ownership
           </h2>
           <p
             class="lbh-body-s"
+            data-testid="ownership-info"
           >
             This asset is owned by Hackney Council
           </p>
           <a
             class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
             href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
           >
             Edit ownership

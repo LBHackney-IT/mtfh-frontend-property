@@ -109,6 +109,8 @@ export default {
       "The ownership of the asset has been edited successfully",
     editOwnershipFormYesDescription: "For properties YES bla bla bla (to be edited)",
     editOwnershipFormNoDescription: "For properties NOPE bla bla bla (to be edited)",
+    editOwnershipPatchError:
+      "An issue occurred while trying to change the ownership of this asset",
   },
   static: {
     newProcess: "New Process",

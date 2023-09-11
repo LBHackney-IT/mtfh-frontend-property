@@ -24,6 +24,7 @@ export const EditAssetOwnershipLayout = ({ asset }: Props) => {
       {showSuccess && (
         <StatusBox
           variant="success"
+          data-testid="ownership-edit-success"
           // @ts-ignore No overload matches this call
           title={
             <span>
@@ -41,8 +42,9 @@ export const EditAssetOwnershipLayout = ({ asset }: Props) => {
       {requestError && (
         <ErrorSummary
           id="patch-asset-error"
-          title="Unexpected error"
-          description={requestError || undefined}
+          data-testid="ownership-edit-failure"
+          title={locale.lbhOwnershipInformation.editOwnershipPatchError}
+          description={locale.errors.tryAgainOrContactSupport}
         />
       )}
 

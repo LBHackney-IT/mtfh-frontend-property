@@ -11,7 +11,7 @@ import {
 } from "@mtfh/common/lib/api/asset/v1";
 import "./styles.scss";
 
-interface Props {
+interface EditAssetOwnershipFormProps {
   setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
   setRequestError: React.Dispatch<React.SetStateAction<string | null>>;
   asset: Asset;
@@ -21,7 +21,7 @@ export const EditAssetOwnershipForm = ({
   setShowSuccess,
   setRequestError,
   asset,
-}: Props) => {
+}: EditAssetOwnershipFormProps) => {
   const [isCouncilProperty, setIsCouncilProperty] = useState<boolean>(
     asset.assetManagement.isCouncilProperty,
   );
@@ -84,6 +84,7 @@ export const EditAssetOwnershipForm = ({
                 <input
                   className="govuk-radios__input"
                   id="is-council-property-yes"
+                  data-testid="is-council-property-yes"
                   name="is-council-property"
                   type="radio"
                   value="Yes"
@@ -103,6 +104,7 @@ export const EditAssetOwnershipForm = ({
                 <input
                   className="govuk-radios__input"
                   id="is-council-property-no"
+                  data-testid="is-council-property-no"
                   name="is-council-property"
                   type="radio"
                   value="No"
@@ -132,6 +134,7 @@ export const EditAssetOwnershipForm = ({
             data-module="govuk-button"
             type="submit"
             id="submit-edit-ownership-button"
+            data-testid="submit-edit-ownership-button"
             disabled={
               formSubmitted ||
               isCouncilProperty === asset.assetManagement.isCouncilProperty
@@ -143,6 +146,7 @@ export const EditAssetOwnershipForm = ({
             to={`/property/${asset.id}`}
             className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
             id="cancel-edit-ownership-button"
+            data-testid="cancel-edit-ownership-button"
           >
             Back to asset
           </RouterLink>
