@@ -39,7 +39,7 @@ exports[`it renders the component 1`] = `
                 >
                   Yes
                 </span>
-                For properties bla bla bla (to be edited)
+                For properties YES bla bla bla (to be edited)
               </label>
             </div>
             <div
@@ -61,7 +61,7 @@ exports[`it renders the component 1`] = `
                 >
                   No
                 </span>
-                For properties bla bla bla (to be edited)
+                For properties NOPE bla bla bla (to be edited)
               </label>
             </div>
           </div>
