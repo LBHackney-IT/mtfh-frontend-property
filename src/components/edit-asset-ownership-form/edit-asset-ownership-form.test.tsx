@@ -2,12 +2,12 @@ import React from "react";
 
 import { render, server } from "@hackney/mtfh-test-utils";
 import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
 import { EditAssetOwnershipForm } from "./edit-asset-ownership-form";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import userEvent from "@testing-library/user-event";
 
 const testAsset: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
@@ -131,7 +131,7 @@ test("the submit button of the form starts out as disabled, and if the ownership
   // Button is disabled to start with
   expect(submitButton).toBeDisabled();
 
-  // Change ownership 
+  // Change ownership
   userEvent.click(radioOptionNo);
 
   // Button is now enabled
@@ -147,12 +147,12 @@ test("once the form has been submitted, both radio options and the submit button
     />,
   );
 
-  // Change ownership 
+  // Change ownership
   userEvent.click(radioOptionNo);
 
   await waitFor(async () => {
     // Submit form
-    userEvent.click(submitButton)
+    userEvent.click(submitButton);
 
     // Delay to allow re-render
     await new Promise((resolve) => setTimeout(resolve, 100));
