@@ -107,8 +107,8 @@ export default {
     editOwnershipButton: "Edit ownership",
     editLbhOwnershipSuccessMessage:
       "The ownership of the asset has been edited successfully",
-    editOwnershipFormYesDescription: "For properties YES bla bla bla (to be edited)",
-    editOwnershipFormNoDescription: "For properties NOPE bla bla bla (to be edited)",
+    editOwnershipFormYesDescription: "Including TMO properties and freehold/leasehold with service charges",
+    editOwnershipFormNoDescription: "Not owned by Hackney Council",
     editOwnershipPatchError:
       "An issue occurred while trying to change the ownership of this asset",
   },
