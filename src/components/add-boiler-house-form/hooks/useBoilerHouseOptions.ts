@@ -1,6 +1,10 @@
 import React, { SyntheticEvent, useState } from "react";
 
-import { Asset, PatchAssetRequest, patchAsset } from "@mtfh/common/lib/api/asset/v1";
+import {
+  Asset,
+  PatchAssetBoilerHouseRequest,
+  patchAsset,
+} from "@mtfh/common/lib/api/asset/v1";
 
 export const useBoilerHouseOptions = (
   asset: Asset,
@@ -24,7 +28,7 @@ export const useBoilerHouseOptions = (
 
     resetForm();
 
-    const request: PatchAssetRequest = {
+    const request: PatchAssetBoilerHouseRequest = {
       boilerHouseId: boilerHouseOption,
     };
 

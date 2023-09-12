@@ -6,6 +6,7 @@ import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
 import { BoilerHouseDetails } from "../boiler-house-details/boiler-house-details";
 import { CautionaryAlertsDetails } from "../cautionary-alerts-details/cautionary-alerts-details";
+import { LbhOwnershipInformation } from "../lbh-ownership-information/lbh-ownership-information";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
@@ -68,7 +69,10 @@ export const AssetSideBar = ({
               Edit address details
             </Button>
           )}
+          <hr className="lbh-horizontal-bar" />
+
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
+          <LbhOwnershipInformation asset={assetDetails} />
           {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (
             <>

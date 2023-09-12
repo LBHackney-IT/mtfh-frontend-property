@@ -100,6 +100,19 @@ export default {
       heading: "Remove boiler house from property",
     },
   },
+  lbhOwnershipInformation: {
+    sideBarHeading: "Asset ownership",
+    ownedByLbh: "This asset is owned by Hackney Council",
+    notOwnedByLbh: "This asset is not owned by Hackney Council",
+    editOwnershipButton: "Edit ownership",
+    editLbhOwnershipSuccessMessage:
+      "The ownership of the asset has been edited successfully",
+    editOwnershipFormYesDescription:
+      "Including TMO properties and freehold/leasehold with service charges",
+    editOwnershipFormNoDescription: "Not owned by Hackney Council",
+    editOwnershipPatchError:
+      "An issue occurred while trying to change the ownership of this asset",
+  },
   static: {
     newProcess: "New Process",
   },

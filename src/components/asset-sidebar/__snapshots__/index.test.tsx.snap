@@ -83,6 +83,9 @@ exports[`it hides boiler house details 1`] = `
         >
           Edit address details
         </a>
+        <hr
+          class="lbh-horizontal-bar"
+        />
         <aside
           class="mtfh-cautionary-alerts"
         >
@@ -96,6 +99,35 @@ exports[`it hides boiler house details 1`] = `
           >
             None
           </p>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
+        <aside
+          class="mtfh-lbh-ownership-info"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
+          >
+            Asset ownership
+          </h2>
+          <p
+            class="lbh-body-s"
+            data-testid="ownership-info"
+          >
+            This asset is owned by Hackney Council
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
+            href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
+          >
+            Edit ownership
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
         </aside>
       </div>
     </div>
@@ -186,6 +218,35 @@ exports[`it hides cautionary alerts 1`] = `
         >
           Edit address details
         </a>
+        <hr
+          class="lbh-horizontal-bar"
+        />
+        <aside
+          class="mtfh-lbh-ownership-info"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
+          >
+            Asset ownership
+          </h2>
+          <p
+            class="lbh-body-s"
+            data-testid="ownership-info"
+          >
+            This asset is owned by Hackney Council
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
+            href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
+          >
+            Edit ownership
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
       </div>
     </div>
   </div>
@@ -275,6 +336,35 @@ exports[`it hides tenure information 1`] = `
         >
           Edit address details
         </a>
+        <hr
+          class="lbh-horizontal-bar"
+        />
+        <aside
+          class="mtfh-lbh-ownership-info"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
+          >
+            Asset ownership
+          </h2>
+          <p
+            class="lbh-body-s"
+            data-testid="ownership-info"
+          >
+            This asset is owned by Hackney Council
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
+            href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
+          >
+            Edit ownership
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
       </div>
     </div>
   </div>
@@ -364,6 +454,9 @@ exports[`it shows boiler house details 1`] = `
         >
           Edit address details
         </a>
+        <hr
+          class="lbh-horizontal-bar"
+        />
         <aside
           class="mtfh-cautionary-alerts"
         >
@@ -377,9 +470,38 @@ exports[`it shows boiler house details 1`] = `
           >
             None
           </p>
+          <hr
+            class="lbh-horizontal-bar"
+          />
         </aside>
         <aside
-          class="mtfh-cautionary-alerts"
+          class="mtfh-lbh-ownership-info"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
+          >
+            Asset ownership
+          </h2>
+          <p
+            class="lbh-body-s"
+            data-testid="ownership-info"
+          >
+            This asset is owned by Hackney Council
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
+            href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
+          >
+            Edit ownership
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
+        <aside
+          class="mtfh-boiler-house"
         >
           <h2
             class="lbh-heading-h2 lbh-heading lbh-heading-h3"
@@ -392,6 +514,9 @@ exports[`it shows boiler house details 1`] = `
           >
             Add boiler house 
           </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
         </aside>
       </div>
     </div>
@@ -482,6 +607,9 @@ exports[`it shows cautionary alerts 1`] = `
         >
           Edit address details
         </a>
+        <hr
+          class="lbh-horizontal-bar"
+        />
         <aside
           class="mtfh-cautionary-alerts"
         >
@@ -495,6 +623,35 @@ exports[`it shows cautionary alerts 1`] = `
           >
             None
           </p>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
+        <aside
+          class="mtfh-lbh-ownership-info"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
+          >
+            Asset ownership
+          </h2>
+          <p
+            class="lbh-body-s"
+            data-testid="ownership-info"
+          >
+            This asset is owned by Hackney Council
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
+            href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
+          >
+            Edit ownership
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
         </aside>
       </div>
     </div>
@@ -585,6 +742,35 @@ exports[`it shows tenure information 1`] = `
         >
           Edit address details
         </a>
+        <hr
+          class="lbh-horizontal-bar"
+        />
+        <aside
+          class="mtfh-lbh-ownership-info"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+            data-testid="ownership-info-heading"
+          >
+            Asset ownership
+          </h2>
+          <p
+            class="lbh-body-s"
+            data-testid="ownership-info"
+          >
+            This asset is owned by Hackney Council
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="edit-ownership-info-button"
+            href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
+          >
+            Edit ownership
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
         <aside
           class="mtfh-tenure-details"
           id="tenure-details"

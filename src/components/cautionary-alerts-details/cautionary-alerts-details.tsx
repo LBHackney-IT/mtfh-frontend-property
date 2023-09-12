@@ -68,6 +68,7 @@ export const CautionaryAlertsDetails = ({ alerts }: { alerts: Alert[] }): JSX.El
       ) : (
         <Text size="sm">{cautionaryAlerts.none}</Text>
       )}
+      <hr className="lbh-horizontal-bar" />
     </aside>
   );
 };

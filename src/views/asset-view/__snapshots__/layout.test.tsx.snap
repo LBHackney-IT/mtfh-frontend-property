@@ -106,6 +106,35 @@ exports[`it hides the cautionary alerts icon 1`] = `
               >
                 Edit address details
               </a>
+              <hr
+                class="lbh-horizontal-bar"
+              />
+              <aside
+                class="mtfh-lbh-ownership-info"
+              >
+                <h2
+                  class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+                  data-testid="ownership-info-heading"
+                >
+                  Asset ownership
+                </h2>
+                <p
+                  class="lbh-body-s"
+                  data-testid="ownership-info"
+                >
+                  This asset is owned by Hackney Council
+                </p>
+                <a
+                  class="govuk-button lbh-button"
+                  data-testid="edit-ownership-info-button"
+                  href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
+                >
+                  Edit ownership
+                </a>
+                <hr
+                  class="lbh-horizontal-bar"
+                />
+              </aside>
             </div>
           </div>
         </div>
@@ -441,6 +470,9 @@ exports[`it shows the new cautionary alerts icon 1`] = `
               >
                 Edit address details
               </a>
+              <hr
+                class="lbh-horizontal-bar"
+              />
               <aside
                 class="mtfh-cautionary-alerts"
               >
@@ -485,6 +517,35 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                    
                   <br />
                 </p>
+                <hr
+                  class="lbh-horizontal-bar"
+                />
+              </aside>
+              <aside
+                class="mtfh-lbh-ownership-info"
+              >
+                <h2
+                  class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+                  data-testid="ownership-info-heading"
+                >
+                  Asset ownership
+                </h2>
+                <p
+                  class="lbh-body-s"
+                  data-testid="ownership-info"
+                >
+                  This asset is owned by Hackney Council
+                </p>
+                <a
+                  class="govuk-button lbh-button"
+                  data-testid="edit-ownership-info-button"
+                  href="/property/769894bd-b0bc-47eb-a780-322372c2448f/edit-asset-ownership"
+                >
+                  Edit ownership
+                </a>
+                <hr
+                  class="lbh-horizontal-bar"
+                />
               </aside>
             </div>
           </div>
