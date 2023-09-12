@@ -8,11 +8,11 @@ import { isAuthorisedForGroups } from "@mtfh/common";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Button, Heading, Text } from "@mtfh/common/lib/components";
 
-interface Props {
+interface LbhOwnershipInformationProps {
   asset: Asset;
 }
 
-export const LbhOwnershipInformation = ({ asset }: Props) => {
+export const LbhOwnershipInformation = ({ asset }: LbhOwnershipInformationProps) => {
   return (
     <aside className="mtfh-lbh-ownership-info">
       <Heading

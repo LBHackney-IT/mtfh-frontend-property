@@ -40,7 +40,7 @@ exports[`it renders the component 1`] = `
                 >
                   Yes
                 </span>
-                For properties YES bla bla bla (to be edited)
+                Including TMO properties and freehold/leasehold with service charges
               </label>
             </div>
             <div
@@ -63,7 +63,7 @@ exports[`it renders the component 1`] = `
                 >
                   No
                 </span>
-                For properties NOPE bla bla bla (to be edited)
+                Not owned by Hackney Council
               </label>
             </div>
           </div>

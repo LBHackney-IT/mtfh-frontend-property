@@ -7,11 +7,11 @@ import { locale } from "../../services";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
-interface Props {
+interface EditAssetOwnershipLayoutProps {
   asset: Asset;
 }
 
-export const EditAssetOwnershipLayout = ({ asset }: Props) => {
+export const EditAssetOwnershipLayout = ({ asset }: EditAssetOwnershipLayoutProps) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [requestError, setRequestError] = useState<string | null>(null);
 
