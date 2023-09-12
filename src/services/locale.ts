@@ -101,13 +101,14 @@ export default {
     },
   },
   lbhOwnershipInformation: {
-    heading: "Asset ownership",
+    sideBarHeading: "Asset ownership",
     ownedByLbh: "This asset is owned by Hackney Council",
-    notOwnedByLbh: "Hackney council is not responsible for this asset",
+    notOwnedByLbh: "This asset is not owned by Hackney Council",
     editOwnershipButton: "Edit ownership",
     editLbhOwnershipSuccessMessage:
       "The ownership of the asset has been edited successfully",
-    editOwnershipFormYesDescription: "Including TMO properties and freehold/leasehold with service charges",
+    editOwnershipFormYesDescription:
+      "Including TMO properties and freehold/leasehold with service charges",
     editOwnershipFormNoDescription: "Not owned by Hackney Council",
     editOwnershipPatchError:
       "An issue occurred while trying to change the ownership of this asset",

@@ -20,7 +20,7 @@ export const LbhOwnershipInformation = ({ asset }: Props) => {
         className="lbh-heading lbh-heading-h3"
         data-testid="ownership-info-heading"
       >
-        {locale.lbhOwnershipInformation.heading}
+        {locale.lbhOwnershipInformation.sideBarHeading}
       </Heading>
 
       {asset.assetManagement.isCouncilProperty ? (

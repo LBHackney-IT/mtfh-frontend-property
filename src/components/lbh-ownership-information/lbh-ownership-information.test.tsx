@@ -73,7 +73,7 @@ beforeEach(() => {
 test("it renders the component", async () => {
   const { container } = render(<LbhOwnershipInformation asset={assetData} />);
 
-  await screen.findByText(locale.lbhOwnershipInformation.heading);
+  await screen.findByText(locale.lbhOwnershipInformation.sideBarHeading);
 
   expect(container).toMatchSnapshot();
 });
