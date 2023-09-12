@@ -40,20 +40,8 @@ export const EditAssetOwnershipForm = ({
 
     const requestPayload: PatchAssetLbhOwnershipRequest = {
       assetManagement: {
-        agent: assetManagement?.agent,
-        areaOfficeName: assetManagement?.areaOfficeName,
+        ...assetManagement,
         isCouncilProperty,
-        managingOrganisation: assetManagement?.managingOrganisation,
-        managingOrganisationId: assetManagement?.managingOrganisationId,
-        owner: assetManagement?.owner,
-        isTMOManaged: assetManagement?.isTMOManaged,
-        propertyOccupiedStatus: assetManagement?.propertyOccupiedStatus,
-        propertyOccupiedStatusReason: assetManagement?.propertyOccupiedStatusReason,
-        isNoRepairsMaintenance: assetManagement?.isNoRepairsMaintenance,
-        councilTaxType: assetManagement?.councilTaxType,
-        councilTaxLiability: assetManagement?.councilTaxLiability,
-        isTemporaryAccomodation: assetManagement?.isTemporaryAccomodation,
-        readyToLetDate: assetManagement?.readyToLetDate,
       },
     };
 
