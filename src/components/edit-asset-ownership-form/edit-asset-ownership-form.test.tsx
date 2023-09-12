@@ -73,12 +73,6 @@ beforeEach(() => {
   );
 });
 
-// Form HTML elements
-const submitButton = screen.getByRole("button", { name: /confirm change/i });
-const radioOptionYes = screen.getByRole("radio", { name: /yes/i });
-const radioOptionNo = screen.getByRole("radio", { name: /no/i });
-const radioOptions = screen.getAllByRole("radio");
-
 test("it renders the component", async () => {
   const { container } = render(
     <EditAssetOwnershipForm
@@ -100,6 +94,10 @@ test("it displays two radio buttons to set isCouncilProperty true or false", asy
     />,
   );
 
+  const radioOptionYes = screen.getByRole("radio", { name: /yes/i });
+  const radioOptionNo = screen.getByRole("radio", { name: /no/i });
+  const radioOptions = screen.getAllByRole("radio");
+
   expect(radioOptions).toHaveLength(2);
   expect(radioOptionYes).toBeVisible();
   expect(radioOptionNo).toBeVisible();
@@ -115,6 +113,7 @@ test("the radio option is already checked on page load if isCouncilProperty has 
       setRequestError={jest.fn()}
     />,
   );
+  const radioOptionYes = screen.getByRole("radio", { name: /yes/i });
 
   expect(radioOptionYes).toBeChecked();
 });
@@ -127,8 +126,10 @@ test("the submit button of the form starts out as disabled, and if the ownership
       setRequestError={jest.fn()}
     />,
   );
+  const submitButton = screen.getByRole("button", { name: /confirm change/i });
+  const radioOptionNo = screen.getByRole("radio", { name: /no/i });
 
-  // Button is disabled to start with
+  // Submit button is disabled to start with
   expect(submitButton).toBeDisabled();
 
   // Change ownership
@@ -146,6 +147,10 @@ test("once the form has been submitted, both radio options and the submit button
       setRequestError={jest.fn()}
     />,
   );
+
+  const submitButton = screen.getByRole("button", { name: /confirm change/i });
+  const radioOptionYes = screen.getByRole("radio", { name: /yes/i });
+  const radioOptionNo = screen.getByRole("radio", { name: /no/i });
 
   // Change ownership
   userEvent.click(radioOptionNo);

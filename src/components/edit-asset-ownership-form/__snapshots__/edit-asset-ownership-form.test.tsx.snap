@@ -25,6 +25,7 @@ exports[`it renders the component 1`] = `
               <input
                 checked=""
                 class="govuk-radios__input"
+                data-testid="is-council-property-yes"
                 id="is-council-property-yes"
                 name="is-council-property"
                 type="radio"
@@ -47,6 +48,7 @@ exports[`it renders the component 1`] = `
             >
               <input
                 class="govuk-radios__input"
+                data-testid="is-council-property-no"
                 id="is-council-property-no"
                 name="is-council-property"
                 type="radio"
@@ -73,6 +75,7 @@ exports[`it renders the component 1`] = `
         <button
           class="govuk-button lbh-button"
           data-module="govuk-button"
+          data-testid="submit-edit-ownership-button"
           disabled=""
           id="submit-edit-ownership-button"
           type="submit"
@@ -81,6 +84,7 @@ exports[`it renders the component 1`] = `
         </button>
         <a
           class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+          data-testid="cancel-edit-ownership-button"
           href="/property/769894bd-b0bc-47eb-a780-322372c2448f"
           id="cancel-edit-ownership-button"
         >
