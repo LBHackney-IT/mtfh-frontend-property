@@ -7,6 +7,7 @@ import { assetAdminAuthGroups } from "../../services/config/config";
 import { BoilerHouseDetails } from "../boiler-house-details/boiler-house-details";
 import { CautionaryAlertsDetails } from "../cautionary-alerts-details/cautionary-alerts-details";
 import { LbhOwnershipInformation } from "../lbh-ownership-information/lbh-ownership-information";
+import { PatchDetails } from "../patch-details/patch-details";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
@@ -72,6 +73,7 @@ export const AssetSideBar = ({
           <hr className="lbh-horizontal-bar" />
 
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
+          <PatchDetails asset={assetDetails} />
           <LbhOwnershipInformation asset={assetDetails} />
           {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (
