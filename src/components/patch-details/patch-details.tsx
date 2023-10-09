@@ -63,7 +63,7 @@ export const PatchDetails = ({ asset }: PatchDetailsProps) => {
       {isAuthorisedForGroups(assetAdminAuthGroups) && (
         <Button
           as={RouterLink}
-          to="/manage-patches-and-areas"
+          to="/property/manage-patches"
           data-testid="manage-patches-button"
           onClick={() => {
             // Set cookie to allow redirecting back to this asset
