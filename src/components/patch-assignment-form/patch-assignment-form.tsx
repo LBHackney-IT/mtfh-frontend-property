@@ -1,106 +1,99 @@
 import React, { useEffect, useState } from "react";
 
-import { useBoilerHouseOptions } from "./hooks/useBoilerHouseOptions";
-import { useSearchForBoilerHouse } from "./hooks/useSearchForBoilerHouse";
-
-import { 
-  Center, 
-  Spinner,
-  Table, 
-  Tbody,
-  Th,
-  Thead,
-  Tr,
- } from "@mtfh/common/lib/components";
 import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
+import { Table, Tbody, Td, Th, Thead, Tr } from "@mtfh/common/lib/components";
 
-interface Props {
-  setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
-  setRequestError: React.Dispatch<React.SetStateAction<string | null>>;
-}
-
-export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) => {
+export const PatchAssignmentForm = () => {
   const [patchesAndAreas, setPatchesAndAreas] = useState<Patch[]>([]);
+  const [patchOption, setPatchOption] = useState<string>("");
 
-  const {
-    boilerHouseOption,
-    setBoilerHouseOption,
-    boilerHouseOptionError,
-    handleSubmit,
-    resetForm: resetSelectBoilerHouseForm,
-  } = useBoilerHouseOptions(setShowSuccess, setRequestError);
-
-  const { handleSearch, touched, error, loading, total, searchResultsData } =
-    useSearchForBoilerHouse(resetSelectBoilerHouseForm);
-
-  useEffect(() => {
-    setRequestError(error);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]);
-
-
-  // TODO: Fetch data from APIs
   useEffect(() => {
     getAllPatchesAndAreas().then((data) => {
       setPatchesAndAreas(data);
-    })  
+    });
   }, []);
-  
-  // const patchGuid = uuidv4();
-
-  // const areaGuid = uuidv4();
-
-  // const housingOfficer = {
-  //   id: uuidv4(),
-  //   name: "FAKE_Marsha Madonna",
-  //   responsibleType: "HousingOfficer",
-  // };
-
-  // const areaManager = {
-  //   id: uuidv4(),
-  //   name: "FAKE_Jane Madonna",
-  //   responsibleType: "HousingOfficer",
-  // };
-  
-  // const patchesAndAreas = [
-  //   {
-  //     id: patchGuid,
-  //     domain: "MMH",
-  //     name: "E2E",
-  //     parentId: areaGuid,
-  //     patchType: "patch",
-  //     responsibleEntities: [
-  //       housingOfficer,
-  //     ],
-  //     versionNumber: 2,
-  //   },
-  //   {
-  //     id: areaGuid,
-  //     domain: "MMH",
-  //     name: "A1",
-  //     parentId: null,
-  //     patchType: "area",
-  //     responsibleEntities: [
-  //       areaManager,
-  //     ],
-  //     versionNumber: 2,
-  //   },
-  // ];
 
   const areas = patchesAndAreas.filter((patchOrArea) => patchOrArea.patchType === "area");
+
+  const PatchTableHeader = (): JSX.Element => {
+    return (
+      <Thead>
+        <Tr>
+          <Th>Patch</Th>
+          <Th>Area</Th>
+          <Th>Assigned Officer</Th>
+        </Tr>
+      </Thead>
+    );
+  };
+
+  const PatchTableBody = ({
+    patchesAndAreas,
+  }: {
+    patchesAndAreas: Patch[];
+  }): JSX.Element => {
+    let patches = patchesAndAreas.filter(
+      (patchOrArea) => patchOrArea.patchType === "patch" && patchOrArea.name !== "E2E",
+    );
+    const areas = patchesAndAreas.filter(
+      (patchOrArea) => patchOrArea.patchType === "area" && patchOrArea.name !== "E2E",
+    );
+
+    if (areas.length === 0) {
+      return (
+        <Tbody>
+          <Tr>
+            <Td>No patches found</Td>
+          </Tr>
+        </Tbody>
+      );
+    }
+
+    if (!patchOption) {
+      setPatchOption(areas[0].id);
+    }
+
+    let selectedArea = areas.find((area) => area.id === patchOption);
+    if (!selectedArea) {
+      selectedArea = areas[0];
+    }
+
+    patches = patches.filter((patchOrArea) => patchOrArea.parentId === selectedArea?.id);
+    console.log(`Patches 93: ${patches}`);
+
+    const patchesAndArea = [...patches, selectedArea];
+
+    return (
+      <Tbody>
+        {patchesAndArea.map((patch) => {
+          // var patchArea = areas.find((area) => area.id === selectedArea?.id);
+          // console.log(`patchArea: ${patchArea?.id}, selectedArea: ${selectedArea?.id}`)
+          return (
+            <>
+              <Tr>
+                <Td>{patch.name}</Td>
+                <Td>{selectedArea?.name}</Td>
+                <Td>{patch.responsibleEntities[0]?.name}</Td>
+              </Tr>
+            </>
+          );
+        })}
+      </Tbody>
+    );
+  };
 
   console.log(areas);
   return (
     <div>
-      <form onSubmit={handleSearch}>
+      <form onSubmit={() => {}}>
         <div className="govuk-form-group">
           <label className="govuk-label lbh-label" htmlFor="searchQuery">
             Area
           </label>
           <select
             className="govuk-select"
-            value={boilerHouseOption}
-            onChange={(e) => setBoilerHouseOption(e.target.value)}
+            value={patchOption}
+            onChange={(e) => setPatchOption(e.target.value)}
             name="boilerHouseOption"
             id=""
             style={{ marginTop: 0 }}
@@ -116,80 +109,29 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
             ))}
           </select>
           <Table>
-          <Thead>
-            <Tr>
-              <Th>
-                Patch
-              </Th>
-              <Th>
-                Area
-              </Th>
-              <Th>
-                Assigned Officer
-              </Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {/* {results.length === 0 ? (
-              <tr className="govuk-table__row process-record">
-                <td colSpan={6} className="process-record__no-item">
-                  {locale.views.worktray.noWorktrayResults}
-                </td>
-              </tr>
-            ) : (
-              results.map((process) => {
-                const processConfig =
-                  processes[
-                    Number.isInteger(process.processName)
-                      ? ProcessName[process.processName]
-                      : process.processName
-                  ];
-                const Result = processRecordComponents[process.targetType];
-                return (
-                  <Result
-                    key={process.id}
-                    process={process}
-                    processConfig={processConfig}
-                  />
-                );
-              })
-            )} */}
-          </Tbody>
-        </Table>
-        <div>
-          <button
-            className="govuk-button lbh-button"
-            type="button"
-            data-testid="new-officer-button"
-          >
-            Add New Officer
-          </button>
-        </div>
-        <div>
-          <button
-            className="govuk-button lbh-button"
-            type="submit"
-            data-testid="submit-button"
-          >
-            Save Changes
-          </button>
-        </div>
+            <PatchTableHeader />
+            <PatchTableBody patchesAndAreas={patchesAndAreas} />
+          </Table>
+          <div>
+            <button
+              className="govuk-button lbh-button"
+              type="button"
+              data-testid="new-officer-button"
+            >
+              Add New Officer
+            </button>
+          </div>
+          <div>
+            <button
+              className="govuk-button lbh-button"
+              type="submit"
+              data-testid="submit-button"
+            >
+              Save Changes
+            </button>
+          </div>
         </div>
       </form>
-
-      {loading ? (
-        <Center>
-          <Spinner />
-        </Center>
-      ) : (
-        <>
-          {touched && (
-            <form onSubmit={handleSubmit}>
-             
-            </form>
-          )}
-        </>
-      )} 
     </div>
   );
 };

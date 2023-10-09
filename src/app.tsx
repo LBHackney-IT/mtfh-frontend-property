@@ -5,8 +5,8 @@ import { AddBoilerHouseView } from "./views/add-boiler-house-view";
 import { AssetEditView } from "./views/asset-edit-view";
 import { AssetView } from "./views/asset-view";
 import { EditAssetOwnershipView } from "./views/edit-asset-ownership-view";
+import { ManagePatchesView } from "./views/manage-patches-view/manage-patches-view";
 import { NewAssetView } from "./views/new-asset-view";
-import { ManagePatchesView } from "./views/patch-assignment-view/manage-patches-view";
 import { RelatedAssetsView } from "./views/related-assets-view";
 
 export default function App(): JSX.Element {

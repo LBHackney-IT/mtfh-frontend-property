@@ -3,14 +3,8 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { PatchAssignmentForm } from "../../components/patch-assignment-form";
 
-import { Asset, useAsset } from "@mtfh/common/lib/api/asset/v1";
-import {
-  Center,
-  ErrorSummary,
-  Link,
-  Spinner,
-  StatusBox,
-} from "@mtfh/common/lib/components";
+import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
 export const ManagePatchesLayout = ({ asset }: { asset: Asset | undefined }) => {
   const [showSuccess, setShowSuccess] = useState(false);
