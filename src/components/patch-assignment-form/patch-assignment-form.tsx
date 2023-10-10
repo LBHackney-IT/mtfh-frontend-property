@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
+import { Patch, getAllPatchesAndAreas, ResponsibleEntity } from "@mtfh/common/lib/api/patch/v1";
 import { Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@mtfh/common/lib/components";
 
 
@@ -12,7 +12,8 @@ interface Props {
 
 export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) => {
   const [patchesAndAreas, setPatchesAndAreas] = useState<Patch[]>([]);
-  const [patchOption, setPatchOption] = useState<string>("");
+
+  const [patchOption, setPatchOption] = useState<string>("all");
 
   useEffect(() => {
     getAllPatchesAndAreas().then((data) => {
@@ -29,6 +30,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
           <Th>Patch</Th>
           <Th>Area</Th>
           <Th>Assigned Officer</Th>
+          <Th></Th>
         </Tr>
       </Thead>
     );
@@ -38,6 +40,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     patchesAndAreas,
   }: {
     patchesAndAreas: Patch[];
+
   }): JSX.Element => {
     let patches = patchesAndAreas.filter(
       (patchOrArea) => patchOrArea.patchType === "patch" && patchOrArea.name !== "E2E",
@@ -46,37 +49,80 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       (patchOrArea) => patchOrArea.patchType === "area" && patchOrArea.name !== "E2E",
     );
 
+    const housingOfficers: ResponsibleEntity[] = patchesAndAreas
+    .filter((patch) => patch.patchType === "patch")
+    .map(patch => patch.responsibleEntities.filter(officer => officer.responsibleType == "HousingOfficer")[0])
+
+    const officerNames: string[] = housingOfficers.map((officer) => officer.name)
+    
+
     if (areas.length === 0) {
       return (
         <Spinner/>
       );
     }
 
-    if (!patchOption) {
-      setPatchOption(areas[0].id);
+    interface PatchTableItem extends Patch {
+      parentAreaName: string | undefined
     }
 
-    let selectedArea = areas.find((area) => area.id === patchOption);
-    if (!selectedArea) {
-      selectedArea = areas[0];
+    var patchTableItems: PatchTableItem[] = []; 
+    if(patchOption == "all")
+    {
+      console.log(`patchesandAreas: ${patchesAndAreas}`)
+      patchTableItems = (patchesAndAreas as PatchTableItem[])
     }
-
-    patches = patches.filter((patchOrArea) => patchOrArea.parentId === selectedArea?.id);
-    console.log(`Patches 93: ${patches}`);
-
+    else 
+    {
+      var selectedArea = areas.find((area) => area.id === patchOption);
+  
+      patches = patches.filter(
+        (patch) => patch.parentId === selectedArea?.id);
+      console.log(`Patches 93: ${patches}`);
+      console.log(`selectedArea: ${selectedArea}`)
+      patchTableItems.push((selectedArea as PatchTableItem))
+      patches.forEach((patch) => {
+        patchTableItems.push((patch as PatchTableItem))
+      })
+    }
+    
     patches = patches.sort((a, b) => a.name > b.name ? 1 : -1)
-    const areaAndPatches = [selectedArea, ...patches];
+   
+    patches.forEach((patch) => {
+      let patchListItem = (patch as PatchTableItem);
+      let parentArea = areas.filter(area => area.id == patch.parentId)[0];
+      patchListItem.parentAreaName = parentArea.name;
+      console.log(`patchListItem: ${patchListItem}`)
+    });
+    patchTableItems
+    // .sort((a, b) => {return a.name > b.name ? 1:-1})
+    .sort((a,b) => {return a.patchType !== "area" && b.patchType === "area" ? 1: -1});
+    
+    console.log(patchTableItems)
+    // 
 
     return (
       <Tbody>
-        {areaAndPatches
-          .map((aop) => {
+        {patchTableItems
+          .map((areaOrPatch) => {
           return (
             <>
               <Tr>
-                <Td>{aop.name}</Td>
-                <Td>{selectedArea?.name}</Td>
-                <Td>{aop.responsibleEntities[0]?.name}</Td>
+                <Td>{areaOrPatch.name}</Td>
+                <Td>{areaOrPatch.parentAreaName}</Td>
+                <Td>{
+                  areaOrPatch.responsibleEntities[0]?.name}
+                </Td>
+                <Td>
+                <button
+                  className="govuk-button lbh-button"
+                  type="submit"
+                  data-testid="submit-button"
+                >
+                  Reassign
+                </button>
+                </Td>
+
               </Tr>
             </>
           );
@@ -84,8 +130,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       </Tbody>
     );
   };
-
-  console.log(areas);
   return (
     <div>
       <form onSubmit={() => {}}>
@@ -102,6 +146,9 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
             style={{ marginTop: 0 }}
             data-testid="select"
           >
+            <option key={"all"} value={"all"} data-testid="select-option">
+              All
+            </option>
             {areas?.sort((a, b) => a.name > b.name ? 1 : -1)
             .map((area) => (
               <option key={area.id} value={area.id} data-testid="select-option">
@@ -121,7 +168,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
               type="button"
               data-testid="new-officer-button"
             >
-              Add New Officer
+              Replace Officer
             </button>
           </div>
           <div>
