@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 
 import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
-import { Table, Tbody, Td, Th, Thead, Tr } from "@mtfh/common/lib/components";
+import { Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@mtfh/common/lib/components";
 
-export const PatchAssignmentForm = () => {
+
+interface Props {
+  setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+  setRequestError: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+
+export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) => {
   const [patchesAndAreas, setPatchesAndAreas] = useState<Patch[]>([]);
   const [patchOption, setPatchOption] = useState<string>("");
 
@@ -41,11 +48,7 @@ export const PatchAssignmentForm = () => {
 
     if (areas.length === 0) {
       return (
-        <Tbody>
-          <Tr>
-            <Td>No patches found</Td>
-          </Tr>
-        </Tbody>
+        <Spinner/>
       );
     }
 
@@ -61,19 +64,19 @@ export const PatchAssignmentForm = () => {
     patches = patches.filter((patchOrArea) => patchOrArea.parentId === selectedArea?.id);
     console.log(`Patches 93: ${patches}`);
 
-    const patchesAndArea = [...patches, selectedArea];
+    patches = patches.sort((a, b) => a.name > b.name ? 1 : -1)
+    const areaAndPatches = [selectedArea, ...patches];
 
     return (
       <Tbody>
-        {patchesAndArea.map((patch) => {
-          // var patchArea = areas.find((area) => area.id === selectedArea?.id);
-          // console.log(`patchArea: ${patchArea?.id}, selectedArea: ${selectedArea?.id}`)
+        {areaAndPatches
+          .map((aop) => {
           return (
             <>
               <Tr>
-                <Td>{patch.name}</Td>
+                <Td>{aop.name}</Td>
                 <Td>{selectedArea?.name}</Td>
-                <Td>{patch.responsibleEntities[0]?.name}</Td>
+                <Td>{aop.responsibleEntities[0]?.name}</Td>
               </Tr>
             </>
           );
@@ -99,19 +102,19 @@ export const PatchAssignmentForm = () => {
             style={{ marginTop: 0 }}
             data-testid="select"
           >
-            <option value="" data-testid="all-patches">
-              All
-            </option>
-            {areas?.map((area) => (
+            {areas?.sort((a, b) => a.name > b.name ? 1 : -1)
+            .map((area) => (
               <option key={area.id} value={area.id} data-testid="select-option">
                 {area.name}
               </option>
             ))}
           </select>
+
           <Table>
             <PatchTableHeader />
             <PatchTableBody patchesAndAreas={patchesAndAreas} />
           </Table>
+
           <div>
             <button
               className="govuk-button lbh-button"
