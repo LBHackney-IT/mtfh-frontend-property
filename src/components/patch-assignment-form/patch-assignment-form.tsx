@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  Patch,
-  getAllPatchesAndAreas,
-} from "@mtfh/common/lib/api/patch/v1";
+import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
 import {
   Button,
   Dialog,
@@ -25,6 +22,10 @@ enum ResponsibleType {
   HousingAreaManager = "HousingAreaManager",
 }
 
+interface PatchWithVN extends Patch {
+  versionNumber: number;
+}
+
 interface UpdatePatchesAndAreasRequest {
   id: string;
   name: string;
@@ -38,19 +39,15 @@ const updatePatchesAndAreasResponsibilities = async (
   patchId: string,
   responsibleEntityId: string,
   request: UpdatePatchesAndAreasRequest,
-): Promise<Array<Patch>> => {
-  return new Promise<Array<Patch>>((resolve, reject) => {
+  patchVersion: string | null,
+): Promise<null> => {
+  return new Promise((resolve, reject) => {
+    const apiUrl = `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`;
+    console.log(`PATCH VERSION: ${patchVersion}`);
+    const headers = { "If-Match": `"${patchVersion}"` };
     axiosInstance
-      .patch<Array<Patch>>(
-        `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`,
-        {
-          headers: {
-            "skip-x-correlation-id": true,
-          },
-          data: request,
-        },
-      )
-      .then((res) => resolve(res.data))
+      .patch(apiUrl, request, { headers })
+      .then((res) => console.log(res))
       .catch((error) => reject(error));
   });
 };
@@ -64,8 +61,10 @@ interface Props {
 export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) => {
   const [patchesAndAreas, setPatchesAndAreas] = useState<Patch[]>([]);
   const [patchOption, setPatchOption] = useState<string>("all");
-  const [reassigningPatch, setReassigningPatch] = useState<Patch | null>(null);
   const [dialogActive, setDialogActive] = useState(false);
+
+  const [reassigningPatch, setReassigningPatch] = useState<Patch | null>(null);
+  const [switchingWithPatch, setSwitchingWithPatch] = useState<Patch | null>(null);
 
   useEffect(() => {
     getAllPatchesAndAreas().then((data) => {
@@ -105,15 +104,11 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     );
   };
 
-  const PatchTableBody = ({
-    patchesAndAreas,
-  }: {
-    patchesAndAreas: Patch[];
-  }): JSX.Element => {
-    let patches = patchesAndAreas.filter(
+  const PatchTableBody = ({ tableItems }: { tableItems: Patch[] }): JSX.Element => {
+    let patches = tableItems.filter(
       (patchOrArea) => patchOrArea.patchType === "patch" && patchOrArea.name !== "E2E",
     );
-    const areas = patchesAndAreas.filter(
+    const areas = tableItems.filter(
       (patchOrArea) => patchOrArea.patchType === "area" && patchOrArea.name !== "E2E",
     );
 
@@ -127,7 +122,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
 
     let patchTableItems: PatchTableItem[] = [];
     if (patchOption === "all") {
-      patchTableItems = patchesAndAreas as PatchTableItem[];
+      patchTableItems = tableItems as PatchTableItem[];
     } else {
       const selectedArea = areas.find((area) => area.id === patchOption);
 
@@ -183,8 +178,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
           style={{ marginTop: 0, width: "10em" }}
           onClick={(e) => {
             e.preventDefault();
-            setPatchOption("all");
-            setReassigningPatch(areaOrPatch);
+            setSwitchingWithPatch(areaOrPatch as Patch);
             setDialogActive(true);
           }}
         >
@@ -193,17 +187,15 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       );
     };
 
-    const DisplayedButton = ({patchBeingReassigned: patchBeingReassigned}: {patchBeingReassigned: Patch | null}, {patch: patch}: {patch: Patch}) => {
-      //TODO: Fix
+    const DisplayedButton = ({ patch }: { patch: Patch }) => {
       if (!reassigningPatch) {
-        return <ReassignButton areaOrPatch={reassigningPatch} />;
+        return <ReassignButton areaOrPatch={patch} />;
       }
-      const reassigningThisEntity =
-        patch.responsibleEntities[0]?.name === patchBeingReassigned.name;
+      const reassigningThisEntity = patch.id === reassigningPatch.id;
       if (reassigningThisEntity) {
-        return <AssignButton areaOrPatch={patchBeingReassigned} />;
+        return <CancelReassignmentButton />;
       }
-      return <ReassignButton areaOrPatch={patchBeingReassigned} />;
+      return <AssignButton areaOrPatch={patch} />;
     };
 
     return (
@@ -216,7 +208,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
                 <Td>{areaOrPatch.parentAreaName}</Td>
                 <Td>{areaOrPatch.responsibleEntities[0]?.name}</Td>
                 <Td>
-                  <DisplayedButton patchBeingReassigned={reassigningPatch} patch={areaOrPatch} />
+                  <DisplayedButton patch={areaOrPatch} />
                 </Td>
               </Tr>
             </>
@@ -235,13 +227,70 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
         }}
         title="Switch assignment"
       >
-        <p>Reassigning officer A to patch B'</p>
-        <p>Reassigning officer B to patch A'</p>
+        <p>
+          Reassigning <strong>{reassigningPatch?.responsibleEntities[0].name}</strong> to{" "}
+          <strong>{switchingWithPatch?.name}</strong>
+        </p>
+        <p>
+          Reassigning <strong>{switchingWithPatch?.responsibleEntities[0].name}</strong>{" "}
+          to <strong>{reassigningPatch?.name}</strong>
+        </p>
 
         <DialogActions>
           <Button
             onClick={() => {
-              console.log("hello");
+              if (!reassigningPatch || !switchingWithPatch) return;
+
+              // patch request A
+              const reassigningPatchResEnt = reassigningPatch?.responsibleEntities[0];
+              const switchingWithPatchResEnt = switchingWithPatch?.responsibleEntities[0];
+
+              console.log(
+                `BEFORE reassigningPatchResEnts: ${JSON.stringify(
+                  reassigningPatchResEnt,
+                )}`,
+              );
+              console.log(
+                `BEFORE switchingWithPatchResEnts: ${JSON.stringify(
+                  switchingWithPatchResEnt,
+                )}`,
+              );
+
+              reassigningPatch.responsibleEntities = [switchingWithPatchResEnt];
+              switchingWithPatch.responsibleEntities = [reassigningPatchResEnt];
+
+              console.log(`AFTER reassigningPatch: ${JSON.stringify(reassigningPatch)}`);
+              console.log(
+                `AFTER switchingWithPatch: ${JSON.stringify(switchingWithPatch)}`,
+              );
+
+              const patches = [reassigningPatch, switchingWithPatch];
+              patches.forEach((patch: Patch) => {
+                if (!patch) return;
+                const resEntId = patch.responsibleEntities[0].id;
+
+                //TODO: Do these after verifying that the request was successful
+                setShowSuccess(true);
+                setReassigningPatch(null);
+                setSwitchingWithPatch(null);
+                setDialogActive(false);
+                const officerName = patch.responsibleEntities[0].name;
+
+                //TODO: Not working
+                updatePatchesAndAreasResponsibilities(
+                  patch.id,
+                  resEntId,
+                  {
+                    id: patch?.id as string,
+                    name: officerName,
+                    responsibleType: ResponsibleType.HousingOfficer,
+                  },
+                  (patch as PatchWithVN).versionNumber?.toString() ?? "0",
+                ).catch((error) => {
+                  console.log(error);
+                  setRequestError(error);
+                });
+              });
             }}
           >
             Confirm
@@ -274,6 +323,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       </>
     );
   };
+
   return (
     <div>
       <ConfirmReassignmentDialog />
@@ -307,7 +357,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
 
           <Table>
             <PatchTableHeader />
-            <PatchTableBody patchesAndAreas={patchesAndAreas} />
+            <PatchTableBody tableItems={patchesAndAreas} />
           </Table>
 
           <div>

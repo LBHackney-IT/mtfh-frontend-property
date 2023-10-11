@@ -11,12 +11,16 @@ export const ManagePatchesLayout = ({ asset }: { asset: Asset | undefined }) => 
   const [requestError, setRequestError] = useState<string | null>(null);
 
   // Get assetId from cookie "fromAssetId"
+  const assetId = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("fromAssetId"))
+    ?.split("=")[1];
 
   return (
     <>
       {asset ? (
         <Link as={RouterLink} to={`/property/${asset.id}`} variant="back-link">
-          Back to asset
+          Back to property
         </Link>
       ) : (
         <Link as={RouterLink} to="/search" variant="back-link">
@@ -30,9 +34,9 @@ export const ManagePatchesLayout = ({ asset }: { asset: Asset | undefined }) => 
           // @ts-ignore No overload matches this call
           title={
             <span>
-              The boiler house has been added successfully.{" "}
-              <Link as={RouterLink} to={`/property/${asset.id}`}>
-                View property
+              The patches have been updated successfully.{" "}
+              <Link as={RouterLink} to={`/property/${assetId}`} variant="back-link">
+                Back to property
               </Link>
             </span>
           }
