@@ -75,7 +75,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
         })
         .catch((err) => {
           setRequestError(
-            `Error switching patch assignments for ${patchA.name} and ${patchB.name}: Status ${err.response.status}, Message ${err.message}`,
+            `Error switching patch assignments for ${patchA.name} and ${patchB.name} - (Status ${err.response.status}) ${err.message}`,
           );
           return false;
         });
