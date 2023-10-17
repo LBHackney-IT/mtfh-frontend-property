@@ -68,9 +68,10 @@
     "webpack-merge": "5.7.3"
   },
   "dependencies": {
-    "@mtfh/common": "https://github.com/LBHackney-IT/mtfh-frontend-common#ff4bbb75668dde2953ab393abe06be5fc99cb1fb",
+    "@mtfh/common": "https://github.com/LBHackney-IT/mtfh-frontend-common#8d37099bf6212bec05c8608aba4e4be354a21bf5",
     "@mtfh/search": "https://github.com/LBHackney-IT/mtfh-frontend-search",
     "@types/jest": "^26.0.23",
+    "@types/js-cookie": "^3.0.4",
     "@types/react": "17.0.20",
     "@types/react-dom": "17.0.9",
     "@types/systemjs": "^6.1.0",

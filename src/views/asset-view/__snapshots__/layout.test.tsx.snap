@@ -125,7 +125,7 @@ exports[`it hides the cautionary alerts icon 1`] = `
                 <a
                   class="govuk-button lbh-button"
                   data-testid="manage-patches-button"
-                  href="/manage-patches-and-areas"
+                  href="/property/manage-patches"
                 >
                   Manage patches
                 </a>
@@ -561,7 +561,7 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                 <a
                   class="govuk-button lbh-button"
                   data-testid="manage-patches-button"
-                  href="/manage-patches-and-areas"
+                  href="/property/manage-patches"
                 >
                   Manage patches
                 </a>

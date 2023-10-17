@@ -5,6 +5,7 @@ import { render } from "@hackney/mtfh-test-utils";
 import { RelatedAssetsLayout } from "./layout";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { ResponsibleType } from "@mtfh/common/lib/api/patch/v1";
 
 const asset: Asset = {
   id: "a65918aa-e441-bc34-e49d-fa8671f768da",
@@ -66,7 +67,7 @@ const asset: Asset = {
         {
           id: "7fb98e5e-6543-4e3e-b654-ac06e0a3f2f9",
           name: "Fake_Lyla Fake_Kling",
-          responsibleType: "HousingOfficer",
+          responsibleType: ResponsibleType.HousingOfficer,
         },
       ],
     },

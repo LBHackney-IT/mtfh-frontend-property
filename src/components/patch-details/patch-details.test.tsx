@@ -9,26 +9,29 @@ import { locale } from "../../services";
 import { PatchDetails } from "./patch-details";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
+import { Patch, ResponsibleType } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
+
+
+var mockAreaId = crypto.randomBytes(20).toString("hex");
 
 const mockAssetPatch: Patch = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "AR1",
   patchType: "patch",
-  parentId: crypto.randomBytes(20).toString("hex"),
+  parentId: mockAreaId,
   domain: "Hackney",
   responsibleEntities: [
     {
       id: crypto.randomBytes(20).toString("hex"),
       name: "Housing Officer 1",
-      responsibleType: "Housing Officer",
+      responsibleType: ResponsibleType.HousingOfficer,
     },
   ],
 };
 
 const mockAssetArea: Patch = {
-  id: crypto.randomBytes(20).toString("hex"),
+  id: mockAreaId,
   name: "AR",
   patchType: "area",
   parentId: crypto.randomBytes(20).toString("hex"),
@@ -37,7 +40,7 @@ const mockAssetArea: Patch = {
     {
       id: crypto.randomBytes(20).toString("hex"),
       name: "Area Manager 1",
-      responsibleType: "Area Manager",
+      responsibleType: ResponsibleType.HousingAreaManager,
     },
   ],
 };
@@ -75,7 +78,7 @@ test("the edit patches button links to the correct page", async () => {
   await waitFor(async () => {
     expect(screen.getByTestId("manage-patches-button")).toHaveAttribute(
       "href",
-      "/manage-patches-and-areas",
+      "/property/manage-patches",
     );
   });
 });

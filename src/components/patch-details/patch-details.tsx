@@ -1,6 +1,8 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
+import Cookies from "js-cookie";
+
 import { locale } from "../../services";
 import { assetAdminAuthGroups } from "../../services/config/config";
 
@@ -67,7 +69,7 @@ export const PatchDetails = ({ asset }: PatchDetailsProps) => {
           data-testid="manage-patches-button"
           onClick={() => {
             // Set cookie to allow redirecting back to this asset
-            document.cookie = `fromAssetId=${asset.id}`;
+            Cookies.set("fromAssetId", asset.id);
           }}
         >
           {locale.patchDetails.managePatches}

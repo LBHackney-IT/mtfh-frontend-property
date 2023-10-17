@@ -1508,9 +1508,9 @@
     outvariant "^1.2.0"
     strict-event-emitter "^0.2.0"
 
-"@mtfh/common@https://github.com/LBHackney-IT/mtfh-frontend-common#ff4bbb75668dde2953ab393abe06be5fc99cb1fb":
+"@mtfh/common@https://github.com/LBHackney-IT/mtfh-frontend-common#8d37099bf6212bec05c8608aba4e4be354a21bf5":
   version "0.0.1"
-  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common#ff4bbb75668dde2953ab393abe06be5fc99cb1fb"
+  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common#8d37099bf6212bec05c8608aba4e4be354a21bf5"
   dependencies:
     "@babel/preset-react" "^7.13.13"
     "@radix-ui/react-polymorphic" "^0.0.12"
@@ -1900,6 +1900,11 @@
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-2.2.7.tgz#226a9e31680835a6188e887f3988e60c04d3f6a3"
   integrity sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==
+
+"@types/js-cookie@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-3.0.4.tgz#23475b6d3b03acc84192e7c24da88eb38c1039ef"
+  integrity sha512-vMMnFF+H5KYqdd/myCzq6wLDlPpteJK+jGFgBus3Da7lw+YsDmx2C8feGTzY2M3Fo823yON+HC2CL240j4OV+w==
 
 "@types/js-levenshtein@^1.1.0":
   version "1.1.0"
