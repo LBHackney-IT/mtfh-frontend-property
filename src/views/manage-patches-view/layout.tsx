@@ -9,33 +9,24 @@ export const ManagePatchesLayout = ({ assetId }: { assetId: string | undefined }
   const [showSuccess, setShowSuccess] = useState(false);
   const [requestError, setRequestError] = useState<string | null>(null);
 
+  const backLink = assetId ? `/property/${assetId}` : "/search";
+  const backLinkText = assetId ? "Back to property" : "Back to search";
+
   return (
     <>
       <BrowserRouter>
-        {assetId ? (
-          <Link as={RouterLink} to={`/property/${assetId}`} variant="back-link">
-            Back to property
-          </Link>
-        ) : (
-          <Link as={RouterLink} to="/search" variant="back-link">
-            Back to search
-          </Link>
-        )}
+        <Link as={RouterLink} to={backLink} variant="back-link">
+          {backLinkText}
+        </Link>
       </BrowserRouter>
-
-      {showSuccess && assetId && (
-        <StatusBox
-          variant="success"
-          // @ts-ignore No overload matches this call
-          title={
-            <span>
-              The patches have been updated successfully.{" "}
-              <Link as={RouterLink} to={`/property/${assetId}`} variant="back-link">
-                Back to property
-              </Link>
-            </span>
-          }
-        />
+      {showSuccess && (
+        <StatusBox variant="success" title="The patches have been updated successfully">
+          <BrowserRouter>
+            <Link as={RouterLink} to={backLink} variant="back-link">
+              {backLinkText}
+            </Link>
+          </BrowserRouter>
+        </StatusBox>
       )}
 
       <h1 className="lbh-heading-h1">Patch reassignment</h1>
