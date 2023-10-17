@@ -1,34 +1,29 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { BrowserRouter, Link as RouterLink } from "react-router-dom";
 
 import { PatchAssignmentForm } from "../../components/patch-assignment-form";
 
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { ErrorSummary, Link, StatusBox } from "@mtfh/common/lib/components";
 
-export const ManagePatchesLayout = ({ asset }: { asset: Asset | undefined }) => {
+export const ManagePatchesLayout = ({ assetId }: { assetId: string | undefined }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [requestError, setRequestError] = useState<string | null>(null);
 
-  // Get assetId from cookie "fromAssetId"
-  const assetId = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("fromAssetId"))
-    ?.split("=")[1];
-
   return (
     <>
-      {asset ? (
-        <Link as={RouterLink} to={`/property/${asset.id}`} variant="back-link">
-          Back to property
-        </Link>
-      ) : (
-        <Link as={RouterLink} to="/search" variant="back-link">
-          Back to search
-        </Link>
-      )}
+      <BrowserRouter>
+        {assetId ? (
+          <Link as={RouterLink} to={`/property/${assetId}`} variant="back-link">
+            Back to property
+          </Link>
+        ) : (
+          <Link as={RouterLink} to="/search" variant="back-link">
+            Back to search
+          </Link>
+        )}
+      </BrowserRouter>
 
-      {showSuccess && asset && (
+      {showSuccess && assetId && (
         <StatusBox
           variant="success"
           // @ts-ignore No overload matches this call

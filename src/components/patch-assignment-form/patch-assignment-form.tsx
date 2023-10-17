@@ -25,25 +25,27 @@ interface Props {
   setRequestError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-//eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) => {
   const [patchesAndAreas, setPatchesAndAreas] = useState<Patch[]>([]);
   const [patchOption, setPatchOption] = useState<string>("all");
   const [dialogActive, setDialogActive] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const [reassigningPatch, setReassigningPatch] = useState<Patch | null>(null);
   const [switchingWithPatch, setSwitchingWithPatch] = useState<Patch | null>(null);
 
   useEffect(() => {
+    setShowSpinner(true);
     getAllPatchesAndAreas().then((data) => {
       setPatchesAndAreas(data);
+      setShowSpinner(false);
     });
   }, []);
 
   /**
-   * Switches the first assigned responsible entity (housing officer or area manager) of two patches / areas
-   * @param patchA - A patch or area to switch first assigned officer with patchB
-   * @param patchB - A patch or area to switch first assigned officer with patchA
+   * Switches the assigned responsible entities (housing officers or area managers) of two patches / areas
+   * @param patchA - A patch or area to switch assigned officer(s) with patchB
+   * @param patchB - A patch or area to switch assigned officer(s) with patchA
    * @returns bool for whether the update was successful
    */
   function switchPatchAssignments(patchA: Patch, patchB: Patch): boolean {
@@ -93,6 +95,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
   const CancelReassignmentButton = (): JSX.Element => {
     return (
       <button
+        data-testid="cancel-reassignment-button"
         className="govuk-button lbh-button"
         style={{ marginTop: 0 }}
         onClick={(e) => {
@@ -126,10 +129,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       (patchOrArea) => patchOrArea.patchType === "area" && patchOrArea.name !== "E2E",
     );
 
-    if (areas.length === 0) {
-      return <Spinner />;
-    }
-
     interface PatchTableItem extends Patch {
       parentAreaName: string | undefined;
     }
@@ -150,7 +149,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     patches.forEach((patch) => {
       const patchListItem = patch as PatchTableItem;
       const parentArea = areas.filter((area) => area.id === patch.parentId)[0];
-      patchListItem.parentAreaName = parentArea.name;
+      patchListItem.parentAreaName = parentArea?.name;
     });
 
     patchTableItems = patchTableItems.sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -166,6 +165,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     }): JSX.Element => {
       return (
         <button
+          data-testid="reassign-button"
           className="govuk-button lbh-button"
           style={{ marginTop: 0, width: "10em" }}
           onClick={(e) => {
@@ -188,6 +188,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       const officerFirstName = reassigningOfficer?.name.split(" ")[0];
       return (
         <button
+          data-testid="assign-button"
           className="govuk-button lbh-button"
           style={{ marginTop: 0, maxHeight: "2.5em" }}
           onClick={(e) => {
@@ -216,16 +217,14 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       <Tbody>
         {patchTableItems.map((areaOrPatch) => {
           return (
-            <>
-              <Tr key={areaOrPatch.id}>
-                <Td>{areaOrPatch.name}</Td>
-                <Td>{areaOrPatch.parentAreaName}</Td>
-                <Td>{areaOrPatch.responsibleEntities[0]?.name}</Td>
-                <Td>
-                  <DisplayedButton patch={areaOrPatch} />
-                </Td>
-              </Tr>
-            </>
+            <Tr key={areaOrPatch.id} data-testid={areaOrPatch.id}>
+              <Td>{areaOrPatch.name}</Td>
+              <Td>{areaOrPatch.parentAreaName}</Td>
+              <Td>{areaOrPatch.responsibleEntities[0]?.name}</Td>
+              <Td>
+                <DisplayedButton patch={areaOrPatch} />
+              </Td>
+            </Tr>
           );
         })}
       </Tbody>
@@ -253,6 +252,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
 
         <DialogActions>
           <Button
+            data-testid="confirm-reassignment-button"
             onClick={() => {
               if (!reassigningPatch || !switchingWithPatch) return;
               switchPatchAssignments(reassigningPatch, switchingWithPatch);
@@ -319,6 +319,10 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
                 </option>
               ))}
           </select>
+
+          <br />
+
+          {showSpinner && <Spinner />}
 
           <Table>
             <PatchTableHeader />
