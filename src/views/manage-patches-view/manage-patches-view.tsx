@@ -1,19 +1,11 @@
 import React from "react";
 
+import Cookies from "js-cookie";
+
 import { ManagePatchesLayout } from "./layout";
 
-import { useAsset } from "@mtfh/common/lib/api/asset/v1";
-
 export const ManagePatchesView = (): JSX.Element => {
-  const assetId = document.cookie
-    .split(";")
-    .reduce((cookies, cookie) => {
-      const [name, value] = cookie.split("=");
-      return name.trim() === "fromAssetId" ? decodeURIComponent(value) : cookies;
-    })
-    .split("=")[1];
+  const assetId = Cookies.get("fromAssetId");
 
-  const { data: asset } = useAsset(assetId);
-
-  return <ManagePatchesLayout asset={asset} />;
+  return <ManagePatchesLayout assetId={assetId} />;
 };
