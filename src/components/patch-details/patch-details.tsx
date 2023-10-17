@@ -8,6 +8,7 @@ import { assetAdminAuthGroups } from "../../services/config/config";
 
 import { isAuthorisedForGroups } from "@mtfh/common";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import {
   Button,
   Heading,
