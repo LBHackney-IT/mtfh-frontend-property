@@ -306,7 +306,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
             name="boilerHouseOption"
             id=""
             style={{ marginTop: 0 }}
-            data-testid="select"
+            data-testid="patch-select"
           >
             <option key="all" value="all" data-testid="select-option">
               All
@@ -328,25 +328,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
             <PatchTableHeader />
             <PatchTableBody tableItems={patchesAndAreas} />
           </Table>
-
-          <div>
-            <button
-              className="govuk-button lbh-button"
-              type="button"
-              data-testid="new-officer-button"
-            >
-              Replace Officer
-            </button>
-          </div>
-          <div>
-            <button
-              className="govuk-button lbh-button"
-              type="submit"
-              data-testid="submit-button"
-            >
-              Save Changes
-            </button>
-          </div>
         </div>
       </form>
     </div>
