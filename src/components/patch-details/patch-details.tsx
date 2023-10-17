@@ -16,20 +16,13 @@ import {
   Text,
 } from "@mtfh/common/lib/components";
 
-const PatchTable = ({ asset }: { asset: Asset }) => {
-  const assetPatch = (asset: Asset) => {
-    if (!asset.patches || asset.patches.length === 0) return null;
-    return asset.patches.find((patch) => patch.patchType === "patch");
-  };
+const PatchTable = ({ patches }: { patches: Patch[] }) => {
+  const assetPatch = patches.find((patch) => patch.patchType === "patch");
+  const assetArea = patches.find((patch) => patch.patchType === "area");
 
-  const assetArea = (asset: Asset) => {
-    if (!asset.patches || asset.patches.length === 0) return null;
-    return asset.patches.find((patch) => patch.patchType === "area");
-  };
-
-  const patchName = assetPatch(asset)?.name;
-  const housingOfficerName = assetPatch(asset)?.responsibleEntities[0]?.name;
-  const areaManagerName = assetArea(asset)?.responsibleEntities[0]?.name;
+  const patchName = assetPatch?.name;
+  const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
+  const areaManagerName = assetArea?.responsibleEntities[0]?.name;
 
   const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
   return (
@@ -58,7 +51,7 @@ export const PatchDetails = ({ asset }: PatchDetailsProps) => {
         {locale.patchDetails.heading}
       </Heading>
       {asset.patches && asset.patches.length > 0 ? (
-        <PatchTable asset={asset} />
+        <PatchTable patches={asset.patches} />
       ) : (
         <Text size="sm">{locale.patchDetails.noPatch}</Text>
       )}

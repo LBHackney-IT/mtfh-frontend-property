@@ -12,8 +12,7 @@ import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch, ResponsibleType } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
 
-
-var mockAreaId = crypto.randomBytes(20).toString("hex");
+const mockAreaId = crypto.randomBytes(20).toString("hex");
 
 const mockAssetPatch: Patch = {
   id: crypto.randomBytes(20).toString("hex"),
@@ -56,59 +55,74 @@ beforeEach(() => {
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 });
 
-test("it renders the component", async () => {
-  render(<PatchDetails asset={assetWithPatches} />);
+describe("Patch Details", () => {
+  test("it renders the component", async () => {
+    render(<PatchDetails asset={assetWithPatches} />);
 
-  await screen.findByText(locale.patchDetails.heading);
-});
-
-test("it shows edit patches button", async () => {
-  render(<PatchDetails asset={assetWithPatches} />);
-
-  await waitFor(async () => {
-    expect(screen.getByTestId("manage-patches-button")).toHaveTextContent(
-      locale.patchDetails.managePatches,
-    );
+    await screen.findByText(locale.patchDetails.heading);
   });
-});
 
-test("the edit patches button links to the correct page", async () => {
-  render(<PatchDetails asset={assetWithPatches} />);
+  test("it shows edit patches button", async () => {
+    render(<PatchDetails asset={assetWithPatches} />);
 
-  await waitFor(async () => {
-    expect(screen.getByTestId("manage-patches-button")).toHaveAttribute(
-      "href",
-      "/property/manage-patches",
-    );
+    await waitFor(async () => {
+      expect(screen.getByTestId("manage-patches-button")).toHaveTextContent(
+        locale.patchDetails.managePatches,
+      );
+    });
   });
-});
 
-test("it displays the patch, housing officer, and area manager", async () => {
-  render(<PatchDetails asset={assetWithPatches} />);
+  test("the edit patches button links to the correct page", async () => {
+    render(<PatchDetails asset={assetWithPatches} />);
 
-  const patchNameField = screen.getByTestId("patch-name");
-  const officerNameField = screen.getByTestId("officer-name");
-  const areaManagerNameField = screen.getByTestId("area-manager-name");
-
-  await waitFor(async () => {
-    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
-    expect(officerNameField).toHaveTextContent(
-      mockAssetPatch.responsibleEntities[0].name,
-    );
-    expect(areaManagerNameField).toHaveTextContent(
-      mockAssetArea.responsibleEntities[0].name,
-    );
+    await waitFor(async () => {
+      expect(screen.getByTestId("manage-patches-button")).toHaveAttribute(
+        "href",
+        "/property/manage-patches",
+      );
+    });
   });
-});
 
-test("it sets a cookie with the asset ID when the edit patches button is clicked", async () => {
-  // This is used to redirect the user back to the asset page after editing patches
-  render(<PatchDetails asset={assetWithPatches} />);
+  test("it displays the patch, housing officer, and area manager", async () => {
+    render(<PatchDetails asset={assetWithPatches} />);
 
-  const editPatchesButton = screen.getByTestId("manage-patches-button");
+    const patchNameField = screen.getByTestId("patch-name");
+    const officerNameField = screen.getByTestId("officer-name");
+    const areaManagerNameField = screen.getByTestId("area-manager-name");
 
-  await waitFor(async () => {
-    editPatchesButton.click();
-    expect(document.cookie).toContain(`fromAssetId=${assetWithPatches.id}`);
+    await waitFor(async () => {
+      expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
+      expect(officerNameField).toHaveTextContent(
+        mockAssetPatch.responsibleEntities[0].name,
+      );
+      expect(areaManagerNameField).toHaveTextContent(
+        mockAssetArea.responsibleEntities[0].name,
+      );
+    });
+  });
+
+  test("it sets a cookie with the asset ID when the edit patches button is clicked", async () => {
+    // This is used to redirect the user back to the asset page after editing patches
+    render(<PatchDetails asset={assetWithPatches} />);
+
+    const editPatchesButton = screen.getByTestId("manage-patches-button");
+
+    await waitFor(async () => {
+      editPatchesButton.click();
+      expect(document.cookie).toContain(`fromAssetId=${assetWithPatches.id}`);
+    });
+  });
+
+  test("it displays a message when there are no patches", async () => {
+    const assetWithNoPatches: Asset = {
+      ...mockAssetV1,
+      patches: [],
+    };
+
+    render(<PatchDetails asset={assetWithNoPatches} />);
+
+    await waitFor(async () => {
+      expect(screen.getByText(locale.patchDetails.noPatch)).toBeInTheDocument();
+    });
   });
 });
