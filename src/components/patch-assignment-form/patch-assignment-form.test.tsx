@@ -9,13 +9,13 @@ import { rest } from "msw";
 
 import { PatchAssignmentForm } from "./patch-assignment-form";
 
-import { Patch, ResponsibleEntity, ResponsibleType } from "@mtfh/common/lib/api/patch/v1";
+import { Patch, ResponsibleEntity } from "@mtfh/common/lib/api/patch/v1";
 import * as auth from "@mtfh/common/lib/auth/auth";
 
 const mockAreaResponsibleEntity: ResponsibleEntity = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "Second Last",
-  responsibleType: ResponsibleType.HousingOfficer,
+  responsibleType: "HousingOfficer",
 };
 const mockArea: Patch = {
   domain: "MMH",
@@ -30,7 +30,7 @@ const mockArea: Patch = {
 const mockPatchResponsibleEntity: ResponsibleEntity = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "First Last",
-  responsibleType: ResponsibleType.HousingAreaManager,
+  responsibleType: "HousingAreaManager",
 };
 const mockPatch: Patch = {
   domain: "MMH",
@@ -45,7 +45,7 @@ const mockPatch: Patch = {
 const mockPatchResponsibleEntity2: ResponsibleEntity = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "Third Last",
-  responsibleType: ResponsibleType.HousingOfficer,
+  responsibleType: "HousingOfficer",
 };
 const mockPatch2: Patch = {
   domain: "MMH",

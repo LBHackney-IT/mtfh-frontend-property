@@ -9,7 +9,7 @@ import { locale } from "../../services";
 import { PatchDetails } from "./patch-details";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { Patch, ResponsibleType } from "@mtfh/common/lib/api/patch/v1/types";
+import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
 
 const mockAreaId = crypto.randomBytes(20).toString("hex");
@@ -24,7 +24,7 @@ const mockAssetPatch: Patch = {
     {
       id: crypto.randomBytes(20).toString("hex"),
       name: "Housing Officer 1",
-      responsibleType: ResponsibleType.HousingOfficer,
+      responsibleType: "HousingOfficer",
     },
   ],
 };
@@ -39,7 +39,7 @@ const mockAssetArea: Patch = {
     {
       id: crypto.randomBytes(20).toString("hex"),
       name: "Area Manager 1",
-      responsibleType: ResponsibleType.HousingAreaManager,
+      responsibleType: "HousingAreaManager",
     },
   ],
 };
