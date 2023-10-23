@@ -27,7 +27,7 @@ interface Props {
 
 export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) => {
   const [patchesAndAreas, setPatchesAndAreas] = useState<Patch[]>([]);
-  const [patchOption, setPatchOption] = useState<string>("all");
+  const [areaOption, setAreaOption] = useState<string>("all");
   const [dialogActive, setDialogActive] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
 
@@ -37,6 +37,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
   useEffect(() => {
     setShowSpinner(true);
     getAllPatchesAndAreas().then((data) => {
+      data = data.filter((patchOrArea) => !["E2E", "Hackney"].includes(patchOrArea.name));
       setPatchesAndAreas(data);
       setShowSpinner(false);
     });
@@ -75,7 +76,11 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
         })
         .catch((err) => {
           setRequestError(
-            `Error switching patch assignments for ${patchA.name} and ${patchB.name} - (Status ${err.response.status}) ${err.message}`,
+            `Error switching patch assignments for ${patchA.name} and ${
+              patchB.name
+            } - (Status ${err.response.status}) - ${JSON.stringify(
+              err.response.data.message,
+            )}`,
           );
           return false;
         });
@@ -122,22 +127,18 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
   };
 
   const PatchTableBody = ({ tableItems }: { tableItems: Patch[] }): JSX.Element => {
-    let patches = tableItems.filter(
-      (patchOrArea) => patchOrArea.patchType === "patch" && patchOrArea.name !== "E2E",
-    );
-    const areas = tableItems.filter(
-      (patchOrArea) => patchOrArea.patchType === "area" && patchOrArea.name !== "E2E",
-    );
+    let patches = tableItems.filter((patchOrArea) => patchOrArea.patchType === "patch");
+    const areas = tableItems.filter((patchOrArea) => patchOrArea.patchType === "area");
 
     interface PatchTableItem extends Patch {
       parentAreaName: string | undefined;
     }
 
     let patchTableItems: PatchTableItem[] = [];
-    if (patchOption === "all") {
+    if (areaOption === "all") {
       patchTableItems = tableItems as PatchTableItem[];
     } else {
-      const selectedArea = areas.find((area) => area.id === patchOption);
+      const selectedArea = areas.find((area) => area.name === areaOption);
 
       patches = patches.filter((patch) => patch.parentId === selectedArea?.id);
       patchTableItems.push(selectedArea as PatchTableItem);
@@ -170,7 +171,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
           style={{ marginTop: 0, width: "10em" }}
           onClick={(e) => {
             e.preventDefault();
-            setPatchOption("all");
+            setAreaOption("all");
             setReassigningPatch(areaOrPatch);
           }}
         >
@@ -217,7 +218,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       <Tbody>
         {patchTableItems.map((areaOrPatch) => {
           return (
-            <Tr key={areaOrPatch.id} data-testid={areaOrPatch.id}>
+            <Tr key={areaOrPatch.id} data-testid={`${areaOrPatch.name}-row`}>
               <Td>{areaOrPatch.name}</Td>
               <Td>{areaOrPatch.parentAreaName}</Td>
               <Td>{areaOrPatch.responsibleEntities[0]?.name}</Td>
@@ -241,11 +242,11 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
         }}
         title="Switch assignment"
       >
-        <p>
+        <p data-testid={`reassign-message-${switchingWithPatch.name}`}>
           Reassigning <strong>{reassigningPatch?.responsibleEntities[0].name}</strong> to{" "}
           <strong>{switchingWithPatch?.name}</strong>
         </p>
-        <p>
+        <p data-testid={`reassign-message-${reassigningPatch.name}`}>
           Reassigning <strong>{switchingWithPatch?.responsibleEntities[0].name}</strong>{" "}
           to <strong>{reassigningPatch?.name}</strong>
         </p>
@@ -301,20 +302,20 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
           </label>
           <select
             className="govuk-select"
-            value={patchOption}
-            onChange={(e) => setPatchOption(e.target.value)}
+            value={areaOption}
+            onChange={(e) => setAreaOption(e.target.value)}
             name="boilerHouseOption"
             id=""
             style={{ marginTop: 0 }}
-            data-testid="patch-select"
+            data-testid="area-select"
           >
-            <option key="all" value="all" data-testid="select-option">
+            <option key="all" value="all">
               All
             </option>
             {areas
               ?.sort((a, b) => (a.name > b.name ? 1 : -1))
               .map((area) => (
-                <option key={area.id} value={area.id} data-testid="select-option">
+                <option key={area.id} value={area.name}>
                   {area.name}
                 </option>
               ))}
