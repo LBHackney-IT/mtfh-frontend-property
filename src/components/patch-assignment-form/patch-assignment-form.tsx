@@ -159,34 +159,34 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       return a.patchType !== "area" && b.patchType === "area" ? 1 : -1;
     });
 
-    const ReassignButton = ({
-      areaOrPatch,
-    }: {
-      areaOrPatch: PatchTableItem | Patch;
-    }): JSX.Element => {
-      return (
-        <button
-          data-testid="reassign-button"
-          className="govuk-button lbh-button"
-          style={{ marginTop: 0, width: "10em" }}
-          onClick={(e) => {
-            e.preventDefault();
-            setAreaOption("all");
-            setReassigningPatch(areaOrPatch);
-          }}
-        >
-          Reassign
-        </button>
-      );
-    };
-
-    const AssignButton = ({
-      areaOrPatch,
-    }: {
-      areaOrPatch: PatchTableItem | Patch;
-    }): JSX.Element => {
-      const reassigningOfficer = reassigningPatch?.responsibleEntities[0];
-      const officerFirstName = reassigningOfficer?.name.split(" ")[0];
+    /**
+     * Shows reassign btn if not reassigning, shows cancel btn if reassigning this patch, shows assign btn if reassigning another patch
+     * @param patch - A patch or area the button is for
+     * @returns a JSX.Element button
+     */
+    const DisplayedButton = ({ patch }: { patch: Patch }) => {
+      if (!reassigningPatch) {
+        return (
+          <button
+            data-testid="reassign-button"
+            className="govuk-button lbh-button"
+            style={{ marginTop: 0, width: "10em" }}
+            onClick={(e) => {
+              e.preventDefault();
+              setAreaOption("all");
+              setReassigningPatch(patch);
+            }}
+          >
+            Reassign
+          </button>
+        );
+      }
+      const reassigningThisEntity = patch.id === reassigningPatch.id;
+      if (reassigningThisEntity) {
+        return <CancelReassignmentButton />;
+      }
+      const officerBeingAssignedFirstName =
+        reassigningPatch?.responsibleEntities[0]?.name.split(" ")[0];
       return (
         <button
           data-testid="assign-button"
@@ -194,24 +194,13 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
           style={{ marginTop: 0, maxHeight: "2.5em" }}
           onClick={(e) => {
             e.preventDefault();
-            setSwitchingWithPatch(areaOrPatch);
+            setSwitchingWithPatch(patch);
             setDialogActive(true);
           }}
         >
-          Assign {officerFirstName}
+          Assign {officerBeingAssignedFirstName}
         </button>
       );
-    };
-
-    const DisplayedButton = ({ patch }: { patch: Patch }) => {
-      if (!reassigningPatch) {
-        return <ReassignButton areaOrPatch={patch} />;
-      }
-      const reassigningThisEntity = patch.id === reassigningPatch.id;
-      if (reassigningThisEntity) {
-        return <CancelReassignmentButton />;
-      }
-      return <AssignButton areaOrPatch={patch} />;
     };
 
     return (
