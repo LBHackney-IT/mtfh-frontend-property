@@ -12,12 +12,14 @@ interface Props {
   assetDetails: Asset;
   childAssets: Asset[] | undefined;
   enableNewProcesses: boolean;
+  id: string;
 }
 
 export const PropertyBody = ({
   assetDetails,
   childAssets,
   enableNewProcesses,
+  id,
 }: Props): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
@@ -54,6 +56,15 @@ export const PropertyBody = ({
           <div>
             <CommentList targetId={assetDetails.id} />
           </div>
+        </div>
+        <div>
+          <Button
+              variant="secondary"
+              as={RouterLink}
+              to={`/activities/property/${id}`}
+          >
+              {locale.activityHistory.activityHistoryButtonLabel}
+          </Button>
         </div>
       </div>
     </>

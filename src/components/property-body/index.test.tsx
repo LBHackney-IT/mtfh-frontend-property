@@ -81,7 +81,7 @@ beforeEach(() => {
 test("it shows the new process button", () => {
   // Arrange
   const { container } = render(
-    <PropertyBody assetDetails={assetData} childAssets={[]} enableNewProcesses />,
+    <PropertyBody assetDetails={assetData} childAssets={[]} enableNewProcesses id={assetData.id} />,
     {
       url: `/property/${assetData.id}`,
       path: "/property/:assetId",
@@ -99,7 +99,7 @@ test("it shows the new process button", () => {
 test("it hides the new process button", () => {
   // Arrange
   const { container } = render(
-    <PropertyBody assetDetails={assetData} childAssets={[]} enableNewProcesses={false} />,
+    <PropertyBody assetDetails={assetData} childAssets={[]} enableNewProcesses={false} id={assetData.id} />,
     {
       url: `/property/${assetData.id}`,
       path: "/property/:assetId",

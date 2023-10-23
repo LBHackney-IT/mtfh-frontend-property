@@ -264,3 +264,16 @@ test("it does NOT shows the 'Edit address details' when the user is not authoriz
   const editAddressDetailsBtn = screen.queryByTestId("edit-address-button");
   expect(editAddressDetailsBtn).toBeNull();
 });
+
+test("it shows activity history", async () => {
+  render(<AssetView />, {
+    url: `/property/${mockAssetV1.id}`,
+    path: "/property/:assetId",
+  });
+
+  await waitFor(() =>
+    expect(
+      screen.getByText(locale.activityHistory.activityHistoryButtonLabel),
+    ).toBeInTheDocument(),
+  );
+});
