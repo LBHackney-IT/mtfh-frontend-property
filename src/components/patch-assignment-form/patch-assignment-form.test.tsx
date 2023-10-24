@@ -15,7 +15,7 @@ import * as auth from "@mtfh/common/lib/auth/auth";
 const mockAreaResponsibleEntity: ResponsibleEntity = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "Second Last",
-  responsibleType: "HousingOfficer",
+  responsibleType: "HousingAreaManager",
 };
 const mockArea: Patch = {
   domain: "MMH",
@@ -30,7 +30,7 @@ const mockArea: Patch = {
 const mockPatchResponsibleEntity: ResponsibleEntity = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "First Last",
-  responsibleType: "HousingAreaManager",
+  responsibleType: "HousingOfficer",
 };
 const mockPatch: Patch = {
   domain: "MMH",
