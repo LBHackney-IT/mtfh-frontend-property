@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import Cookies from "js-cookie";
@@ -8,7 +8,7 @@ import { assetAdminAuthGroups } from "../../services/config/config";
 
 import { isAuthorisedForGroups } from "@mtfh/common";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
+import { Patch, getPatchOrAreaById } from "@mtfh/common/lib/api/patch/v1";
 import {
   Button,
   Heading,
@@ -18,24 +18,30 @@ import {
 } from "@mtfh/common/lib/components";
 
 const PatchTable = ({ patches }: { patches: Patch[] }) => {
-  const assetPatch = patches.find((patch) => patch.patchType === "patch");
-  const assetArea = patches.find((patch) => patch.patchType === "area");
+  const [assetPatch, setAssetPatch] = useState<Patch>();
+  const [parentArea, setParentArea] = useState<Patch>();
 
-  const patchName = assetPatch?.name;
+  useEffect(() => {
+    setAssetPatch(patches.find((patch) => patch.patchType === "patch"));
+    if (assetPatch) {
+      getPatchOrAreaById(assetPatch.parentId).then((parentArea) => {
+        setParentArea(parentArea);
+      });
+    }
+  }, [assetPatch, patches]);
   const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
-  const areaManagerName = assetArea?.responsibleEntities[0]?.name;
 
   const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
   return (
     <SummaryList overrides={[2 / 3]}>
       <SummaryListItem title={patchLabel} data-testid="patch-name" key="P">
-        {patchName}
+        {assetPatch?.name}
       </SummaryListItem>
       <SummaryListItem title={housingOfficerLabel} data-testid="officer-name" key="O">
         {housingOfficerName}
       </SummaryListItem>
       <SummaryListItem title={areaManagerLabel} data-testid="area-manager-name" key="M">
-        {areaManagerName}
+        {parentArea?.responsibleEntities[0]?.name}
       </SummaryListItem>
     </SummaryList>
   );
