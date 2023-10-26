@@ -8,7 +8,8 @@ import { assetAdminAuthGroups } from "../../services/config/config";
 
 import { isAuthorisedForGroups } from "@mtfh/common";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { Patch, getPatchOrAreaById } from "@mtfh/common/lib/api/patch/v1";
+import { Patch } from "@mtfh/common/lib/api/patch/v1";
+import { usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
 import {
   Button,
   Heading,
@@ -18,17 +19,11 @@ import {
 } from "@mtfh/common/lib/components";
 
 const PatchTable = ({ patches }: { patches: Patch[] }) => {
-  const [assetPatch, setAssetPatch] = useState<Patch>();
-  const [parentArea, setParentArea] = useState<Patch>();
+  var assetPatch = patches.find((patch) => patch.patchType === "patch");
 
-  useEffect(() => {
-    setAssetPatch(patches.find((patch) => patch.patchType === "patch"));
-    if (assetPatch) {
-      getPatchOrAreaById(assetPatch.parentId).then((parentArea) => {
-        setParentArea(parentArea);
-      });
-    }
-  }, [assetPatch, patches]);
+  if (!assetPatch) return <></>;
+  var parentArea = usePatchOrArea(assetPatch.parentId)?.data;
+
   const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
 
   const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;

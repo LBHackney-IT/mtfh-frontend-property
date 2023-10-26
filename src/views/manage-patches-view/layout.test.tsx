@@ -7,12 +7,20 @@ import { render, screen } from "@testing-library/react";
 import { ManagePatchesLayout } from "./layout";
 
 import * as auth from "@mtfh/common/lib/auth/auth";
+import { server } from "@hackney/mtfh-test-utils";
 
 const testAssetId = crypto.randomBytes(20).toString("hex");
 
 beforeEach(() => {
   jest.resetAllMocks();
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
+
+  // server.use(
+  //   rest.get(
+  //     `/api/v1/patch/${mockAssetPatch.parentId}`,
+  //     (req, res, ctx) => res(ctx.status(200), ctx.json(mockAssetArea)),
+  //   ),
+  // );
 });
 
 describe("ManagePatchesLayout", () => {

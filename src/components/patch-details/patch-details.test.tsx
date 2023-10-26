@@ -2,7 +2,7 @@ import * as crypto from "crypto";
 
 import React from "react";
 
-import { mockAssetV1, render } from "@hackney/mtfh-test-utils";
+import { mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
 import { screen, waitFor } from "@testing-library/react";
 
 import { locale } from "../../services";
@@ -11,6 +11,7 @@ import { PatchDetails } from "./patch-details";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
+import { rest } from "msw";
 
 const mockAreaId = crypto.randomBytes(20).toString("hex");
 
@@ -46,13 +47,22 @@ const mockAssetArea: Patch = {
 
 const assetWithPatches: Asset = {
   ...mockAssetV1,
-  patches: [mockAssetPatch, mockAssetArea],
+  patches: [mockAssetPatch],
 };
 
 beforeEach(() => {
   jest.resetAllMocks();
 
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
+});
+
+beforeEach(() => {
+  server.use(
+    rest.get(
+      `/api/v1/patch/${mockAssetPatch.parentId}`,
+      (req, res, ctx) => res(ctx.status(200), ctx.json(mockAssetArea)),
+    ),
+  );
 });
 
 describe("Patch Details", () => {
