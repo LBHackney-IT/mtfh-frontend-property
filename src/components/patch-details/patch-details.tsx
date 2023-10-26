@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import Cookies from "js-cookie";
@@ -8,8 +8,7 @@ import { assetAdminAuthGroups } from "../../services/config/config";
 
 import { isAuthorisedForGroups } from "@mtfh/common";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { Patch } from "@mtfh/common/lib/api/patch/v1";
-import { usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
+import { Patch, usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
 import {
   Button,
   Heading,
@@ -19,10 +18,11 @@ import {
 } from "@mtfh/common/lib/components";
 
 const PatchTable = ({ patches }: { patches: Patch[] }) => {
-  var assetPatch = patches.find((patch) => patch.patchType === "patch");
-
-  if (!assetPatch) return <></>;
-  var parentArea = usePatchOrArea(assetPatch.parentId)?.data;
+  const assetPatch = patches.find((patch) => patch.patchType === "patch");
+  const parentId = assetPatch?.parentId || "";
+  const parentAreaReq = usePatchOrArea(parentId);
+  const parentArea = parentAreaReq.data;
+  if (!assetPatch) return <h1>Error: Not found</h1>;
 
   const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
 

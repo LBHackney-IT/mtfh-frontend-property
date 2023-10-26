@@ -4,6 +4,7 @@ import React from "react";
 
 import { mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
 import { screen, waitFor } from "@testing-library/react";
+import { rest } from "msw";
 
 import { locale } from "../../services";
 import { PatchDetails } from "./patch-details";
@@ -11,7 +12,6 @@ import { PatchDetails } from "./patch-details";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
-import { rest } from "msw";
 
 const mockAreaId = crypto.randomBytes(20).toString("hex");
 
@@ -58,9 +58,8 @@ beforeEach(() => {
 
 beforeEach(() => {
   server.use(
-    rest.get(
-      `/api/v1/patch/${mockAssetPatch.parentId}`,
-      (req, res, ctx) => res(ctx.status(200), ctx.json(mockAssetArea)),
+    rest.get(`/api/v1/patch/${mockAssetPatch.parentId}`, (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(mockAssetArea)),
     ),
   );
 });

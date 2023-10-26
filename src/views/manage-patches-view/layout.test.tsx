@@ -7,7 +7,6 @@ import { render, screen } from "@testing-library/react";
 import { ManagePatchesLayout } from "./layout";
 
 import * as auth from "@mtfh/common/lib/auth/auth";
-import { server } from "@hackney/mtfh-test-utils";
 
 const testAssetId = crypto.randomBytes(20).toString("hex");
 
