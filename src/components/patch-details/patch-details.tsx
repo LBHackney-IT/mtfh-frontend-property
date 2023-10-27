@@ -4,9 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { locale } from "../../services";
-import { assetAdminAuthGroups } from "../../services/config/config";
 
-import { isAuthorisedForGroups } from "@mtfh/common";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch, usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
 import {
@@ -57,19 +55,19 @@ export const PatchDetails = ({ asset }: PatchDetailsProps) => {
       ) : (
         <Text size="sm">{locale.patchDetails.noPatch}</Text>
       )}
-      {isAuthorisedForGroups(assetAdminAuthGroups) && (
-        <Button
-          as={RouterLink}
-          to="/property/all-patches-and-areas"
-          data-testid="manage-patches-button"
-          onClick={() => {
-            // Set cookie to allow redirecting back to this asset
-            Cookies.set("fromAssetId", asset.id);
-          }}
-        >
-          {locale.patchDetails.allPatchesAndAreas}
-        </Button>
-      )}
+
+      <Button
+        as={RouterLink}
+        to="/property/all-patches-and-areas"
+        data-testid="manage-patches-button"
+        onClick={() => {
+          // Set cookie to allow redirecting back to this asset
+          Cookies.set("fromAssetId", asset.id);
+        }}
+      >
+        {locale.patchDetails.allPatchesAndAreas}
+      </Button>
+
       <hr className="lbh-horizontal-bar" />
     </aside>
   );

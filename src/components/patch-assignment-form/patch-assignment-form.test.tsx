@@ -97,89 +97,99 @@ beforeEach(() => {
 });
 
 describe("PatchAssignmentForm", () => {
-  test("it renders the component", async () => {
-    const area = await screen.findAllByText("Area").then((res) => {
-      return res[0];
+  describe("it allows viewing and filtering patches and areas", () => {
+    test("it renders the component", async () => {
+      const area = await screen.findAllByText("Area").then((res) => {
+        return res[0];
+      });
+      expect(area).toBeInTheDocument();
     });
-    expect(area).toBeInTheDocument();
+
+    test("it displays rows for each patch and area", async () => {
+      await waitFor(() => {
+        rowForPatch(mockArea.name);
+      });
+
+      expect(rowForPatch(mockArea.name)).toHaveTextContent(mockArea.name);
+      expect(rowForPatch(mockArea.name)).toHaveTextContent(
+        mockAreaResponsibleEntity.name,
+      );
+
+      expect(rowForPatch(mockPatch.name)).toHaveTextContent(mockPatch.name);
+      expect(rowForPatch(mockPatch.name)).toHaveTextContent(
+        mockPatchResponsibleEntity.name,
+      );
+    });
+
+    test("it filters the list of patches and areas based on the dropdown", async () => {
+      await waitFor(() => {
+        rowForPatch(mockArea.name);
+      });
+
+      const dropdown = getDropdown();
+      expect(dropdown).toHaveTextContent("All");
+
+      expect(rowForPatch(mockArea.name)).toBeVisible();
+      expect(rowForPatch(mockPatch.name)).toBeVisible();
+      expect(rowForPatch(mockPatch2.name)).toBeVisible();
+
+      userEvent.selectOptions(dropdown, mockArea.name);
+      expect(dropdown).toHaveTextContent(mockArea.name);
+
+      expect(rowForPatch(mockArea.name)).toBeVisible();
+      expect(rowForPatch(mockPatch.name)).toBeVisible();
+      expect(screen.queryByTestId(rowTestId(mockPatch2.name))).toBeNull();
+    });
   });
 
-  test("it displays rows for each patch and area", async () => {
-    await waitFor(() => {
-      rowForPatch(mockArea.name);
+  describe.skip("it allows reassigning patches and areas", () => {
+    test("it allows cancelling reassignment", async () => {
+      await waitFor(() => {
+        rowForPatch(mockArea.name);
+      });
+
+      const areaReassignButton = reassignBtnForPatch(mockArea.name);
+      expect(areaReassignButton).toHaveTextContent("Reassign");
+      areaReassignButton?.click();
+
+      const cancelButton = cancelBtnForPatch(mockArea.name);
+      expect(cancelButton).toBeVisible();
+      cancelButton?.click();
+
+      expect(reassignBtnForPatch(mockArea.name)).toHaveTextContent("Reassign");
+      expect(reassignBtnForPatch(mockPatch.name)).toHaveTextContent("Reassign");
     });
 
-    expect(rowForPatch(mockArea.name)).toHaveTextContent(mockArea.name);
-    expect(rowForPatch(mockArea.name)).toHaveTextContent(mockAreaResponsibleEntity.name);
+    test("it switches assignments between patches and/or areas when reassigning", async () => {
+      await waitFor(() => {
+        rowForPatch(mockArea.name);
+      });
 
-    expect(rowForPatch(mockPatch.name)).toHaveTextContent(mockPatch.name);
-    expect(rowForPatch(mockPatch.name)).toHaveTextContent(
-      mockPatchResponsibleEntity.name,
-    );
-  });
+      // Reassign area
+      reassignBtnForPatch(mockArea.name).click();
 
-  test("it allows cancelling reassignment", async () => {
-    await waitFor(() => {
-      rowForPatch(mockArea.name);
+      // Assign to patch
+      const assignButton = assignBtnForPatch(mockPatch.name);
+      expect(assignButton).toHaveTextContent(
+        `Assign ${mockAreaResponsibleEntity.name.split(" ")[0]}`,
+      );
+      assignButton.click();
+
+      // Confirm on dialog
+      const confirmReassignmentButton = screen.getByTestId("confirm-reassignment-button");
+      expect(confirmReassignmentButton).toBeVisible();
+      confirmReassignmentButton?.click();
+
+      expect(reassignBtnForPatch(mockArea.name)).toHaveTextContent("Reassign");
+      expect(reassignBtnForPatch(mockArea.name)).toHaveTextContent("Reassign");
+
+      // Names should be switched
+      expect(rowForPatch(mockArea.name)).toHaveTextContent(
+        mockPatchResponsibleEntity.name,
+      );
+      expect(rowForPatch(mockPatch.name)).toHaveTextContent(
+        mockAreaResponsibleEntity.name,
+      );
     });
-
-    const areaReassignButton = reassignBtnForPatch(mockArea.name);
-    expect(areaReassignButton).toHaveTextContent("Reassign");
-    areaReassignButton?.click();
-
-    const cancelButton = cancelBtnForPatch(mockArea.name);
-    expect(cancelButton).toBeVisible();
-    cancelButton?.click();
-
-    expect(reassignBtnForPatch(mockArea.name)).toHaveTextContent("Reassign");
-    expect(reassignBtnForPatch(mockPatch.name)).toHaveTextContent("Reassign");
-  });
-
-  test("it switches assignments between patches and/or areas when reassigning", async () => {
-    await waitFor(() => {
-      rowForPatch(mockArea.name);
-    });
-
-    // Reassign area
-    reassignBtnForPatch(mockArea.name).click();
-
-    // Assign to patch
-    const assignButton = assignBtnForPatch(mockPatch.name);
-    expect(assignButton).toHaveTextContent(
-      `Assign ${mockAreaResponsibleEntity.name.split(" ")[0]}`,
-    );
-    assignButton.click();
-
-    // Confirm on dialog
-    const confirmReassignmentButton = screen.getByTestId("confirm-reassignment-button");
-    expect(confirmReassignmentButton).toBeVisible();
-    confirmReassignmentButton?.click();
-
-    expect(reassignBtnForPatch(mockArea.name)).toHaveTextContent("Reassign");
-    expect(reassignBtnForPatch(mockArea.name)).toHaveTextContent("Reassign");
-
-    // Names should be switched
-    expect(rowForPatch(mockArea.name)).toHaveTextContent(mockPatchResponsibleEntity.name);
-    expect(rowForPatch(mockPatch.name)).toHaveTextContent(mockAreaResponsibleEntity.name);
-  });
-
-  test("it filters the list of patches and areas based on the dropdown", async () => {
-    await waitFor(() => {
-      rowForPatch(mockArea.name);
-    });
-
-    const dropdown = getDropdown();
-    expect(dropdown).toHaveTextContent("All");
-
-    expect(rowForPatch(mockArea.name)).toBeVisible();
-    expect(rowForPatch(mockPatch.name)).toBeVisible();
-    expect(rowForPatch(mockPatch2.name)).toBeVisible();
-
-    userEvent.selectOptions(dropdown, mockArea.name);
-    expect(dropdown).toHaveTextContent(mockArea.name);
-
-    expect(rowForPatch(mockArea.name)).toBeVisible();
-    expect(rowForPatch(mockPatch.name)).toBeVisible();
-    expect(screen.queryByTestId(rowTestId(mockPatch2.name))).toBeNull();
   });
 });

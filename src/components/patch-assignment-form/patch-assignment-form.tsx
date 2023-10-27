@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 
+import { assetAdminAuthGroups } from "../../services/config/config";
+
 import {
   Patch,
   ResponsibleEntity,
   getAllPatchesAndAreas,
   replacePatchResponsibleEntities,
 } from "@mtfh/common/lib/api/patch/v1";
+import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import {
   Button,
   Dialog,
@@ -120,6 +123,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
           <Th>Patch</Th>
           <Th>Area</Th>
           <Th>Assigned Officer</Th>
+          <Th>Contact</Th>
           <Th />
         </Tr>
       </Thead>
@@ -206,14 +210,18 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     return (
       <Tbody>
         {patchTableItems.map((areaOrPatch) => {
+          const officer = areaOrPatch.responsibleEntities[0];
           return (
             <Tr key={areaOrPatch.id} data-testid={`${areaOrPatch.name}-row`}>
               <Td>{areaOrPatch.name}</Td>
               <Td>{areaOrPatch.parentAreaName}</Td>
-              <Td>{areaOrPatch.responsibleEntities[0]?.name}</Td>
-              <Td>
-                <DisplayedButton patch={areaOrPatch} />
-              </Td>
+              <Td>{officer?.name}</Td>
+              <Td>{officer?.contactDetails?.emailAddress.toLowerCase()}</Td>
+              {false && isAuthorisedForGroups(assetAdminAuthGroups) && (
+                <Td>
+                  <DisplayedButton patch={areaOrPatch} />
+                </Td>
+              )}
             </Tr>
           );
         })}
