@@ -67,6 +67,9 @@ const asset: Asset = {
           id: "7fb98e5e-6543-4e3e-b654-ac06e0a3f2f9",
           name: "Fake_Lyla Fake_Kling",
           responsibleType: "HousingOfficer",
+          contactDetails: {
+            emailAddress: "test.test@hackney.gov.uk",
+          },
         },
       ],
     },

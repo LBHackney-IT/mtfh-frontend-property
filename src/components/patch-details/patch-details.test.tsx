@@ -26,6 +26,9 @@ const mockAssetPatch: Patch = {
       id: crypto.randomBytes(20).toString("hex"),
       name: "Housing Officer 1",
       responsibleType: "HousingOfficer",
+      contactDetails: {
+        emailAddress: "test.test@hackney.gov.uk",
+      },
     },
   ],
 };
@@ -41,6 +44,9 @@ const mockAssetArea: Patch = {
       id: crypto.randomBytes(20).toString("hex"),
       name: "Area Manager 1",
       responsibleType: "HousingAreaManager",
+      contactDetails: {
+        emailAddress: "test.test@hackney.gov.uk",
+      },
     },
   ],
 };

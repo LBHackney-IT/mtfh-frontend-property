@@ -16,6 +16,9 @@ const mockAreaResponsibleEntity: ResponsibleEntity = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "Second Last",
   responsibleType: "HousingAreaManager",
+  contactDetails: {
+    emailAddress: "test.test@hackney.gov.uk",
+  },
 };
 const mockArea: Patch = {
   domain: "MMH",
@@ -31,6 +34,9 @@ const mockPatchResponsibleEntity: ResponsibleEntity = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "First Last",
   responsibleType: "HousingOfficer",
+  contactDetails: {
+    emailAddress: "test.test@hackney.gov.uk",
+  },
 };
 const mockPatch: Patch = {
   domain: "MMH",
@@ -46,6 +52,9 @@ const mockPatchResponsibleEntity2: ResponsibleEntity = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "Third Last",
   responsibleType: "HousingOfficer",
+  contactDetails: {
+    emailAddress: "test.test@hackney.gov.uk",
+  },
 };
 const mockPatch2: Patch = {
   domain: "MMH",
