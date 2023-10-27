@@ -119,9 +119,9 @@ exports[`it hides boiler house details 1`] = `
           <a
             class="govuk-button lbh-button"
             data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
           <hr
             class="lbh-horizontal-bar"
@@ -261,9 +261,9 @@ exports[`it hides cautionary alerts 1`] = `
           <a
             class="govuk-button lbh-button"
             data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
           <hr
             class="lbh-horizontal-bar"
@@ -403,9 +403,9 @@ exports[`it hides tenure information 1`] = `
           <a
             class="govuk-button lbh-button"
             data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
           <hr
             class="lbh-horizontal-bar"
@@ -562,9 +562,9 @@ exports[`it shows boiler house details 1`] = `
           <a
             class="govuk-button lbh-button"
             data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
           <hr
             class="lbh-horizontal-bar"
@@ -739,9 +739,9 @@ exports[`it shows cautionary alerts 1`] = `
           <a
             class="govuk-button lbh-button"
             data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
           <hr
             class="lbh-horizontal-bar"
@@ -881,9 +881,9 @@ exports[`it shows tenure information 1`] = `
           <a
             class="govuk-button lbh-button"
             data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
           <hr
             class="lbh-horizontal-bar"

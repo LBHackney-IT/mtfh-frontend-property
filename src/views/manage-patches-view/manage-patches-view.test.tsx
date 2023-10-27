@@ -13,7 +13,7 @@ beforeEach(() => {
 describe("ManagePatchesView", () => {
   render(<ManagePatchesView />);
   test("it renders the component", async () => {
-    expect(screen.getByText("Patch reassignment")).toBeInTheDocument();
+    expect(screen.getByText("Patches and areas")).toBeInTheDocument();
   });
 
   test("it renders the back link when the fromAssetId cookie is null", async () => {

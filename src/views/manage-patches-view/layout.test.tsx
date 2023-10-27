@@ -25,7 +25,7 @@ beforeEach(() => {
 describe("ManagePatchesLayout", () => {
   test("it renders the component", async () => {
     render(<ManagePatchesLayout assetId="" />);
-    expect(screen.getByText("Patch reassignment")).toBeInTheDocument();
+    expect(screen.getByText("Patches and areas")).toBeInTheDocument();
   });
 
   test("it links back to the search when the fromAssetId is null", async () => {

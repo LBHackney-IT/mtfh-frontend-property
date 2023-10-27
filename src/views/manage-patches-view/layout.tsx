@@ -29,7 +29,7 @@ export const ManagePatchesLayout = ({ assetId }: { assetId: string | undefined }
         </StatusBox>
       )}
 
-      <h1 className="lbh-heading-h1">Patch reassignment</h1>
+      <h1 className="lbh-heading-h1">Patches and areas</h1>
 
       {requestError && (
         <ErrorSummary

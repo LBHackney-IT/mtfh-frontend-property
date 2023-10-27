@@ -97,7 +97,7 @@ export default {
     patchLabel: "Patch",
     housingOfficerLabel: "Housing officer",
     areaManagerLabel: "Area manager",
-    managePatches: "Manage patches",
+    allPatchesAndAreas: "All patches and areas",
     noPatch: "No patch",
   },
   boilerHouseDetails: {

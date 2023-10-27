@@ -60,14 +60,14 @@ export const PatchDetails = ({ asset }: PatchDetailsProps) => {
       {isAuthorisedForGroups(assetAdminAuthGroups) && (
         <Button
           as={RouterLink}
-          to="/property/manage-patches"
+          to="/property/all-patches-and-areas"
           data-testid="manage-patches-button"
           onClick={() => {
             // Set cookie to allow redirecting back to this asset
             Cookies.set("fromAssetId", asset.id);
           }}
         >
-          {locale.patchDetails.managePatches}
+          {locale.patchDetails.allPatchesAndAreas}
         </Button>
       )}
       <hr className="lbh-horizontal-bar" />

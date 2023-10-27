@@ -82,7 +82,7 @@ describe("Patch Details", () => {
 
     await waitFor(async () => {
       expect(screen.getByTestId("manage-patches-button")).toHaveTextContent(
-        locale.patchDetails.managePatches,
+        locale.patchDetails.allPatchesAndAreas,
       );
     });
   });
@@ -93,7 +93,7 @@ describe("Patch Details", () => {
     await waitFor(async () => {
       expect(screen.getByTestId("manage-patches-button")).toHaveAttribute(
         "href",
-        "/property/manage-patches",
+        "/property/all-patches-and-areas",
       );
     });
   });

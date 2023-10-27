@@ -12,7 +12,7 @@ import { RelatedAssetsView } from "./views/related-assets-view";
 export default function App(): JSX.Element {
   return (
     <Switch>
-      <Route path="/property/manage-patches" exact>
+      <Route path="/property/all-patches-and-areas" exact>
         <div data-testid="new-property">
           <ManagePatchesView />
         </div>
