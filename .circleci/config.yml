@@ -110,13 +110,13 @@ jobs:
         executor: node-executor
         steps:
             - *attach_workspace
-            - sonarcloud/scan
             - run:
                   name: Run linter
                   command: yarn lint
             - run:
                   name: Run unit lint-and-test
                   command: yarn test
+            - sonarcloud/scan
     build-deploy-development:
         executor: node-executor
         environment:
