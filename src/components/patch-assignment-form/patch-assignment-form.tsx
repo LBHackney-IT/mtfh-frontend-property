@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import { assetAdminAuthGroups } from "../../services/config/config";
+import { switchPatchAssignments } from "./utils/switch-patch-assignments";
 
-import {
-  Patch,
-  ResponsibleEntity,
-  getAllPatchesAndAreas,
-  replacePatchResponsibleEntities,
-} from "@mtfh/common/lib/api/patch/v1";
+import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import {
   Button,
@@ -45,56 +41,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       setShowSpinner(false);
     });
   }, []);
-
-  /**
-   * Switches the assigned responsible entities (housing officers or area managers) of two patches / areas
-   * @param patchA - A patch or area to switch assigned officer(s) with patchB
-   * @param patchB - A patch or area to switch assigned officer(s) with patchA
-   * @returns bool for whether the update was successful
-   */
-  function switchPatchAssignments(patchA: Patch, patchB: Patch): boolean {
-    if (!patchA.versionNumber) patchA.versionNumber = 0;
-    if (!patchB.versionNumber) patchB.versionNumber = 0;
-    if (!patchA || !patchB) return false;
-
-    const patchAResEnts = patchA.responsibleEntities;
-    const patchBResEnts = patchB.responsibleEntities;
-
-    const patches = [patchA, patchB];
-    patches.forEach((patch: Patch) => {
-      const otherPatchResEnts = patch === patchA ? patchBResEnts : patchAResEnts;
-
-      const request: ResponsibleEntity[] = [...otherPatchResEnts];
-      if (!patch.versionNumber) patch.versionNumber = 0;
-      replacePatchResponsibleEntities(patch.id, request, patch.versionNumber)
-        .then((res) => {
-          if (res.status !== 204) {
-            throw new Error(`${res.data.message}`);
-          }
-          patch.versionNumber = patch.versionNumber ? patch.versionNumber + 1 : 1;
-          patch.responsibleEntities = otherPatchResEnts;
-        })
-        .then(() => {
-          setDialogActive(false);
-        })
-        .catch((err) => {
-          setRequestError(
-            `Error switching patch assignments for ${patchA.name} and ${
-              patchB.name
-            } - (Status ${err.response.status}) - ${JSON.stringify(
-              err.response.data.message,
-            )}`,
-          );
-          return false;
-        });
-    });
-    patchA.responsibleEntities = patchBResEnts;
-    patchB.responsibleEntities = patchAResEnts;
-    setShowSuccess(true);
-    setReassigningPatch(null);
-    setSwitchingWithPatch(null);
-    return true;
-  }
 
   const areas = patchesAndAreas
     .filter((patchOrArea) => patchOrArea.patchType === "area")
@@ -235,6 +181,12 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
 
   const ConfirmReassignmentDialog = (): JSX.Element => {
     if (!reassigningPatch || !switchingWithPatch) return <></>;
+    const onSwitchAssignmentSuccess = () => {
+      setDialogActive(false);
+      setShowSuccess(true);
+      setReassigningPatch(null);
+      setSwitchingWithPatch(null);
+    };
     return (
       <Dialog
         isOpen={dialogActive}
@@ -257,7 +209,12 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
             data-testid="confirm-reassignment-button"
             onClick={() => {
               if (!reassigningPatch || !switchingWithPatch) return;
-              switchPatchAssignments(reassigningPatch, switchingWithPatch);
+              switchPatchAssignments(
+                reassigningPatch,
+                switchingWithPatch,
+                onSwitchAssignmentSuccess,
+                setRequestError,
+              );
             }}
           >
             Confirm
