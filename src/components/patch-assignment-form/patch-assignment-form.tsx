@@ -163,28 +163,28 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       return a.patchType !== "area" && b.patchType === "area" ? 1 : -1;
     });
 
+    const ReassignButton = ({ patch }: { patch: Patch }): JSX.Element => {
+      return (
+        <button
+          data-testid="reassign-button"
+          className="govuk-button lbh-button"
+          style={{ marginTop: 0 }}
+          onClick={(e) => {
+            e.preventDefault();
+            setReassigningPatch(patch);
+          }}
+        >
+          Reassign
+        </button>
+      );
+    };
+
     /**
-     * Shows reassign btn if not reassigning, shows cancel btn if reassigning this patch, shows assign btn if reassigning another patch
-     * @param patch - A patch or area the button is for
-     * @returns a JSX.Element button
+     * returns cancel btn if reassigning this patch
+     * returns assign btn if reassigning another patch
      */
-    const DisplayedButton = ({ patch }: { patch: Patch }) => {
-      if (!reassigningPatch) {
-        return (
-          <button
-            data-testid="reassign-button"
-            className="govuk-button lbh-button"
-            style={{ marginTop: 0, width: "10em" }}
-            onClick={(e) => {
-              e.preventDefault();
-              setAreaOption("all");
-              setReassigningPatch(patch);
-            }}
-          >
-            Reassign
-          </button>
-        );
-      }
+    const AssignButton = ({ patch }: { patch: Patch }) => {
+      if (!reassigningPatch) return <></>;
       const reassigningThisEntity = patch.id === reassigningPatch.id;
       if (reassigningThisEntity) {
         return <CancelReassignmentButton />;
@@ -217,9 +217,13 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
               <Td>{areaOrPatch.parentAreaName}</Td>
               <Td>{officer?.name}</Td>
               <Td>{officer?.contactDetails?.emailAddress.toLowerCase()}</Td>
-              {false && isAuthorisedForGroups(assetAdminAuthGroups) && (
+              {isAuthorisedForGroups(assetAdminAuthGroups) && (
                 <Td>
-                  <DisplayedButton patch={areaOrPatch} />
+                  {reassigningPatch ? (
+                    <AssignButton patch={areaOrPatch} />
+                  ) : (
+                    <ReassignButton patch={areaOrPatch} />
+                  )}
                 </Td>
               )}
             </Tr>
@@ -301,7 +305,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
             className="govuk-select"
             value={areaOption}
             onChange={(e) => setAreaOption(e.target.value)}
-            name="boilerHouseOption"
+            name="areaOption"
             id=""
             style={{ marginTop: 0 }}
             data-testid="area-select"
