@@ -15,7 +15,7 @@ export const ManagePatchesLayout = ({ assetId }: { assetId: string | undefined }
   return (
     <>
       <BrowserRouter>
-        <Link as={RouterLink} to={backLink} variant="back-link">
+        <Link as={RouterLink} to={backLink} variant="back-link" data-testid="back-link">
           {backLinkText}
         </Link>
       </BrowserRouter>

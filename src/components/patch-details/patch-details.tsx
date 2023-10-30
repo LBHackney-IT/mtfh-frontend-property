@@ -59,7 +59,7 @@ export const PatchDetails = ({ asset }: PatchDetailsProps) => {
       <Button
         as={RouterLink}
         to="/property/all-patches-and-areas"
-        data-testid="manage-patches-button"
+        data-testid="all-patches-and-areas-button"
         onClick={() => {
           // Set cookie to allow redirecting back to this asset
           Cookies.set("fromAssetId", asset.id);

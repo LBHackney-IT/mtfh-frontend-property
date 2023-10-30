@@ -81,7 +81,7 @@ describe("Patch Details", () => {
     render(<PatchDetails asset={assetWithPatches} />);
 
     await waitFor(async () => {
-      expect(screen.getByTestId("manage-patches-button")).toHaveTextContent(
+      expect(screen.getByTestId("all-patches-and-areas-button")).toHaveTextContent(
         locale.patchDetails.allPatchesAndAreas,
       );
     });
@@ -91,7 +91,7 @@ describe("Patch Details", () => {
     render(<PatchDetails asset={assetWithPatches} />);
 
     await waitFor(async () => {
-      expect(screen.getByTestId("manage-patches-button")).toHaveAttribute(
+      expect(screen.getByTestId("all-patches-and-areas-button")).toHaveAttribute(
         "href",
         "/property/all-patches-and-areas",
       );
@@ -120,7 +120,7 @@ describe("Patch Details", () => {
     // This is used to redirect the user back to the asset page after editing patches
     render(<PatchDetails asset={assetWithPatches} />);
 
-    const editPatchesButton = screen.getByTestId("manage-patches-button");
+    const editPatchesButton = screen.getByTestId("all-patches-and-areas-button");
 
     await waitFor(async () => {
       editPatchesButton.click();
