@@ -290,7 +290,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
   return (
     <div>
       <ConfirmReassignmentDialog />
-      <form onSubmit={() => {}}>
+      <form>
         <div className="govuk-form-group">
           {reassigningPatch && <ReassignmentOfficerOptions patch={reassigningPatch} />}
 
