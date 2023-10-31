@@ -17,7 +17,7 @@ export function switchPatchAssignments(
   patchB: Patch,
   onSuccess: Function,
   setRequestError: Function,
-): boolean {
+) {
   if (!patchA.versionNumber) patchA.versionNumber = 0;
   if (!patchB.versionNumber) patchB.versionNumber = 0;
   if (!patchA || !patchB) return false;
@@ -38,6 +38,10 @@ export function switchPatchAssignments(
         }
         patch.versionNumber = patch.versionNumber ? patch.versionNumber + 1 : 1;
         patch.responsibleEntities = otherPatchResEnts;
+
+        patchA.responsibleEntities = patchBResEnts;
+        patchB.responsibleEntities = patchAResEnts;
+        onSuccess();
       })
       .catch((err) => {
         setRequestError(
@@ -47,11 +51,6 @@ export function switchPatchAssignments(
             err.response.data.message,
           )}`,
         );
-        return false;
       });
   });
-  patchA.responsibleEntities = patchBResEnts;
-  patchB.responsibleEntities = patchAResEnts;
-  onSuccess();
-  return true;
 }
