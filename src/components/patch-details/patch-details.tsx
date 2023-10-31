@@ -27,13 +27,21 @@ const PatchTable = ({ patches }: { patches: Patch[] }) => {
   const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
   return (
     <SummaryList overrides={[2 / 3]}>
-      <SummaryListItem title={patchLabel} data-testid="patch-name" key="P">
+      <SummaryListItem title={patchLabel} data-testid="patch-name" key="patchName">
         {assetPatch?.name}
       </SummaryListItem>
-      <SummaryListItem title={housingOfficerLabel} data-testid="officer-name" key="O">
+      <SummaryListItem
+        title={housingOfficerLabel}
+        data-testid="officer-name"
+        key="officerName"
+      >
         {housingOfficerName}
       </SummaryListItem>
-      <SummaryListItem title={areaManagerLabel} data-testid="area-manager-name" key="M">
+      <SummaryListItem
+        title={areaManagerLabel}
+        data-testid="area-manager-name"
+        key="areaManagerName"
+      >
         {parentArea?.responsibleEntities[0]?.name}
       </SummaryListItem>
     </SummaryList>
