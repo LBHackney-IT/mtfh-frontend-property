@@ -62,20 +62,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     );
   };
 
-  const PatchTableHeader = (): JSX.Element => {
-    return (
-      <Thead>
-        <Tr>
-          <Th>Patch</Th>
-          <Th>Area</Th>
-          <Th>Assigned Officer</Th>
-          <Th>Contact</Th>
-          <Th />
-        </Tr>
-      </Thead>
-    );
-  };
-
   const PatchTableBody = ({ tableItems }: { tableItems: Patch[] }): JSX.Element => {
     let patches = tableItems.filter((patchOrArea) => patchOrArea.patchType === "patch");
     const areas = tableItems.filter((patchOrArea) => patchOrArea.patchType === "area");
@@ -285,7 +271,15 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
           {showSpinner && <Spinner />}
 
           <Table>
-            <PatchTableHeader />
+            <Thead>
+              <Tr>
+                <Th>Patch</Th>
+                <Th>Area</Th>
+                <Th>Assigned Officer</Th>
+                <Th>Contact</Th>
+                <Th />
+              </Tr>
+            </Thead>
             <PatchTableBody tableItems={patchesAndAreas} />
           </Table>
         </div>
