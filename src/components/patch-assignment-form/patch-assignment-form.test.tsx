@@ -142,6 +142,7 @@ describe("PatchAssignmentForm", () => {
     });
   });
 
+  /* TODO: Toggle this when ready to release patch reassignment */
   describe.skip("it allows reassigning patches and areas", () => {
     test("it allows cancelling reassignment", async () => {
       await waitFor(() => {
