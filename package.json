@@ -10,7 +10,7 @@
     "lintfix": "eslint src --ext js,ts,tsx --fix",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "test": "cross-env BABEL_ENV=test jest --coverage",
+    "test": "cross-env BABEL_ENV=test jest --runInBand --coverage",
     "watch-tests": "cross-env BABEL_ENV=test jest --watch",
     "prepare": "husky install"
   },
@@ -71,6 +71,7 @@
     "@mtfh/common": "https://github.com/LBHackney-IT/mtfh-frontend-common",
     "@mtfh/search": "https://github.com/LBHackney-IT/mtfh-frontend-search",
     "@types/jest": "^26.0.23",
+    "@types/js-cookie": "^3.0.4",
     "@types/react": "17.0.20",
     "@types/react-dom": "17.0.9",
     "@types/systemjs": "^6.1.0",

@@ -104,6 +104,30 @@ exports[`it hides boiler house details 1`] = `
           />
         </aside>
         <aside
+          class="mtfh-patch-details"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+          >
+            Patch details
+          </h2>
+          <p
+            class="lbh-body-s"
+          >
+            No patch
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
+          >
+            All patches and areas
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
+        <aside
           class="mtfh-lbh-ownership-info"
         >
           <h2
@@ -222,6 +246,30 @@ exports[`it hides cautionary alerts 1`] = `
           class="lbh-horizontal-bar"
         />
         <aside
+          class="mtfh-patch-details"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+          >
+            Patch details
+          </h2>
+          <p
+            class="lbh-body-s"
+          >
+            No patch
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
+          >
+            All patches and areas
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
+        <aside
           class="mtfh-lbh-ownership-info"
         >
           <h2
@@ -339,6 +387,30 @@ exports[`it hides tenure information 1`] = `
         <hr
           class="lbh-horizontal-bar"
         />
+        <aside
+          class="mtfh-patch-details"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+          >
+            Patch details
+          </h2>
+          <p
+            class="lbh-body-s"
+          >
+            No patch
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
+          >
+            All patches and areas
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
         <aside
           class="mtfh-lbh-ownership-info"
         >
@@ -470,6 +542,30 @@ exports[`it shows boiler house details 1`] = `
           >
             None
           </p>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
+        <aside
+          class="mtfh-patch-details"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+          >
+            Patch details
+          </h2>
+          <p
+            class="lbh-body-s"
+          >
+            No patch
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
+          >
+            All patches and areas
+          </a>
           <hr
             class="lbh-horizontal-bar"
           />
@@ -628,6 +724,30 @@ exports[`it shows cautionary alerts 1`] = `
           />
         </aside>
         <aside
+          class="mtfh-patch-details"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+          >
+            Patch details
+          </h2>
+          <p
+            class="lbh-body-s"
+          >
+            No patch
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
+          >
+            All patches and areas
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
+        <aside
           class="mtfh-lbh-ownership-info"
         >
           <h2
@@ -745,6 +865,30 @@ exports[`it shows tenure information 1`] = `
         <hr
           class="lbh-horizontal-bar"
         />
+        <aside
+          class="mtfh-patch-details"
+        >
+          <h2
+            class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+          >
+            Patch details
+          </h2>
+          <p
+            class="lbh-body-s"
+          >
+            No patch
+          </p>
+          <a
+            class="govuk-button lbh-button"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
+          >
+            All patches and areas
+          </a>
+          <hr
+            class="lbh-horizontal-bar"
+          />
+        </aside>
         <aside
           class="mtfh-lbh-ownership-info"
         >

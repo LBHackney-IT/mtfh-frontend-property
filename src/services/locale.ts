@@ -92,6 +92,14 @@ export default {
     cautionaryAlerts: "Cautionary alerts",
     none: "None",
   },
+  patchDetails: {
+    heading: "Patch details",
+    patchLabel: "Patch",
+    housingOfficerLabel: "Housing officer",
+    areaManagerLabel: "Area manager",
+    allPatchesAndAreas: "All patches and areas",
+    noPatch: "No patch",
+  },
   boilerHouseDetails: {
     heading: "Boiler house",
     addBoilerHouseButton: "Add boiler house ",
