@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 import { Patch } from "@mtfh/common/lib/api/patch/v1";
 
@@ -36,19 +36,9 @@ export const ReassignButton = ({ onClick }: { onClick: Function }): JSX.Element 
 
 interface AssignButtonProps {
   reassigningPatch: Patch;
-  setReassigningPatch: Dispatch<SetStateAction<Patch | null>>;
-  reassigningThisEntity: boolean;
   onClick: Function;
 }
-export const AssignButton = ({
-  reassigningPatch,
-  setReassigningPatch,
-  reassigningThisEntity,
-  onClick,
-}: AssignButtonProps) => {
-  if (reassigningThisEntity) {
-    return <CancelReassignmentButton onClick={() => setReassigningPatch(null)} />;
-  }
+export const AssignButton = ({ reassigningPatch, onClick }: AssignButtonProps) => {
   const officerName = reassigningPatch.responsibleEntities[0].name;
   return (
     <button

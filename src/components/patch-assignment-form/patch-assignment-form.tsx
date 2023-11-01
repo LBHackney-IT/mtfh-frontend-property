@@ -81,6 +81,8 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       <Tbody>
         {patchTableItems.map((areaOrPatch) => {
           const officer = areaOrPatch.responsibleEntities[0];
+          const reassigningThisPatch =
+            reassigningPatch && reassigningPatch.id === areaOrPatch.id;
           return (
             <Tr key={areaOrPatch.id} data-testid={`${areaOrPatch.name}-row`}>
               <Td>{areaOrPatch.name}</Td>
@@ -88,16 +90,18 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
               <Td>{officer?.name}</Td>
               <Td>{officer?.contactDetails?.emailAddress.toLowerCase()}</Td>
               {/* TODO: Toggle this when ready to release patch reassignment */}
-              {false && isAuthorisedForGroups(assetAdminAuthGroups) && (
+              {isAuthorisedForGroups(assetAdminAuthGroups) && (
                 <Td>
-                  {reassigningPatch ? (
+                  {reassigningThisPatch && (
+                    <CancelReassignmentButton onClick={() => setReassigningPatch(null)} />
+                  )}
+                  {reassigningPatch && !reassigningThisPatch && (
                     <AssignButton
                       reassigningPatch={reassigningPatch as Patch}
-                      setReassigningPatch={setReassigningPatch}
-                      reassigningThisEntity={areaOrPatch.id === reassigningPatch?.id}
                       onClick={() => onAssignButtonClick(areaOrPatch)}
                     />
-                  ) : (
+                  )}
+                  {!reassigningPatch && (
                     <ReassignButton onClick={() => setReassigningPatch(areaOrPatch)} />
                   )}
                 </Td>
