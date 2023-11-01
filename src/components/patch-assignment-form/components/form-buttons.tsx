@@ -12,10 +12,8 @@ export const CancelReassignmentButton = ({
       data-testid="cancel-reassignment-button"
       className="govuk-button lbh-button"
       style={{ marginTop: 0 }}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick();
-      }}
+      type="button"
+      onClick={() => onClick()}
     >
       Cancel
     </button>
@@ -28,10 +26,8 @@ export const ReassignButton = ({ onClick }: { onClick: Function }): JSX.Element 
       data-testid="reassign-button"
       className="govuk-button lbh-button"
       style={{ marginTop: 0 }}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick();
-      }}
+      type="button"
+      onClick={() => onClick()}
     >
       Reassign
     </button>
@@ -39,29 +35,28 @@ export const ReassignButton = ({ onClick }: { onClick: Function }): JSX.Element 
 };
 
 interface AssignButtonProps {
+  reassigningPatch: Patch;
   setReassigningPatch: Dispatch<SetStateAction<Patch | null>>;
   reassigningThisEntity: boolean;
-  officerName: string;
   onClick: Function;
 }
 export const AssignButton = ({
+  reassigningPatch,
   setReassigningPatch,
   reassigningThisEntity,
-  officerName,
   onClick,
 }: AssignButtonProps) => {
   if (reassigningThisEntity) {
     return <CancelReassignmentButton onClick={() => setReassigningPatch(null)} />;
   }
+  const officerName = reassigningPatch.responsibleEntities[0].name;
   return (
     <button
       data-testid="assign-button"
       className="govuk-button lbh-button"
-      style={{ marginTop: 0, maxHeight: "2.5em" }}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick();
-      }}
+      style={{ marginTop: 0, maxHeight: "2.5em", display: "flex", alignItems: "center" }}
+      type="button"
+      onClick={() => onClick()}
     >
       Assign {officerName}
     </button>

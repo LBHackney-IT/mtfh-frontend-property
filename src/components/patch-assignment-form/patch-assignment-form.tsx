@@ -81,7 +81,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       <Tbody>
         {patchTableItems.map((areaOrPatch) => {
           const officer = areaOrPatch.responsibleEntities[0];
-          const firstName = officer?.name.split(" ")[0];
           return (
             <Tr key={areaOrPatch.id} data-testid={`${areaOrPatch.name}-row`}>
               <Td>{areaOrPatch.name}</Td>
@@ -93,9 +92,9 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
                 <Td>
                   {reassigningPatch ? (
                     <AssignButton
+                      reassigningPatch={reassigningPatch as Patch}
                       setReassigningPatch={setReassigningPatch}
                       reassigningThisEntity={areaOrPatch.id === reassigningPatch?.id}
-                      officerName={firstName}
                       onClick={() => onAssignButtonClick(areaOrPatch)}
                     />
                   ) : (
