@@ -10,8 +10,8 @@ interface ConfirmReassignmentDialogProps {
   onDialogCancel: Function;
   setRequestError: Dispatch<SetStateAction<string | null>>;
   isOpen: boolean;
-  reassigningPatch: Patch | null;
-  switchingWithPatch: Patch | null;
+  reassigningPatch: Patch;
+  switchingWithPatch: Patch;
 }
 
 export const ConfirmReassignmentDialog = ({
@@ -22,10 +22,7 @@ export const ConfirmReassignmentDialog = ({
   reassigningPatch,
   switchingWithPatch,
 }: ConfirmReassignmentDialogProps): JSX.Element => {
-  if (!reassigningPatch || !switchingWithPatch) return <></>;
-  const onSwitchAssignmentSuccess = () => {
-    onSuccess();
-  };
+  const onSwitchAssignmentSuccess = () => onSuccess();
   return (
     <Dialog
       isOpen={isOpen}

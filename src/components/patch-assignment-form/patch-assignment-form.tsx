@@ -112,19 +112,21 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
 
   return (
     <div>
-      <ConfirmReassignmentDialog
-        onSuccess={() => {
-          setDialogActive(false);
-          setShowSuccess(true);
-          setReassigningPatch(null);
-          setSwitchingWithPatch(null);
-        }}
-        onDialogCancel={() => setDialogActive(false)}
-        setRequestError={setRequestError}
-        isOpen={dialogActive}
-        reassigningPatch={reassigningPatch}
-        switchingWithPatch={switchingWithPatch}
-      />
+      {!!reassigningPatch && !!switchingWithPatch && (
+        <ConfirmReassignmentDialog
+          onSuccess={() => {
+            setDialogActive(false);
+            setShowSuccess(true);
+            setReassigningPatch(null);
+            setSwitchingWithPatch(null);
+          }}
+          onDialogCancel={() => setDialogActive(false)}
+          setRequestError={setRequestError}
+          isOpen={dialogActive}
+          reassigningPatch={reassigningPatch}
+          switchingWithPatch={switchingWithPatch}
+        />
+      )}
       <form>
         <div className="govuk-form-group">
           {reassigningPatch && (
