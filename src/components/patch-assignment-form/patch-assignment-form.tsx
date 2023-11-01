@@ -139,7 +139,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
                     <Td>{officer?.name}</Td>
                     <Td>{officer?.contactDetails?.emailAddress.toLowerCase()}</Td>
                     {/* TODO: Toggle this when ready to release patch reassignment */}
-                    {isAuthorisedForGroups(assetAdminAuthGroups) && (
+                    {false && isAuthorisedForGroups(assetAdminAuthGroups) && (
                       <Td>
                         {reassigningThisPatch && (
                           <CancelReassignmentButton
