@@ -39,78 +39,25 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     .filter((patchOrArea) => patchOrArea.patchType === "area")
     .sort((a, b) => (a.name > b.name ? 1 : -1));
 
-  const PatchTableBody = ({ tableItems }: { tableItems: Patch[] }): JSX.Element => {
-    let patches = tableItems.filter((patchOrArea) => patchOrArea.patchType === "patch");
-    const areas = tableItems.filter((patchOrArea) => patchOrArea.patchType === "area");
+  // Returns the patches/areas that match the dropdown option and attaches parent area name
+  const patchTableItems = patchesAndAreas
+    .filter((patchOrArea) => {
+      if (areaOption === "all" || areaOption === patchOrArea.name) return true;
+      const parentArea = areas.find((area) => area.name === areaOption);
+      return patchOrArea.parentId === parentArea?.id;
+    })
+    .map((patchOrArea) => {
+      return {
+        ...patchOrArea,
+        parentAreaName: areas.find((area) => area.id === patchOrArea.parentId)?.name,
+      };
+    })
+    .sort((a, b) => (a.name > b.name ? 1 : -1))
+    .sort((a, b) => (a.patchType !== "area" && b.patchType === "area" ? 1 : -1));
 
-    interface PatchTableItem extends Patch {
-      parentAreaName: string | undefined;
-    }
-
-    let patchTableItems: PatchTableItem[] = [];
-    if (areaOption === "all") {
-      patchTableItems = tableItems as PatchTableItem[];
-    } else {
-      const selectedArea = areas.find((area) => area.name === areaOption);
-
-      patches = patches.filter((patch) => patch.parentId === selectedArea?.id);
-      patchTableItems.push(selectedArea as PatchTableItem);
-      patches.forEach((patch) => {
-        patchTableItems.push(patch as PatchTableItem);
-      });
-    }
-
-    patches.forEach((patch) => {
-      const patchListItem = patch as PatchTableItem;
-      const parentArea = areas.filter((area) => area.id === patch.parentId)[0];
-      patchListItem.parentAreaName = parentArea?.name;
-    });
-
-    patchTableItems = patchTableItems.sort((a, b) => (a.name > b.name ? 1 : -1));
-
-    patchTableItems.sort((a, b) => {
-      return a.patchType !== "area" && b.patchType === "area" ? 1 : -1;
-    });
-
-    const onAssignButtonClick = (patch: Patch) => {
-      setSwitchingWithPatch(patch);
-      setDialogActive(true);
-    };
-
-    return (
-      <Tbody>
-        {patchTableItems.map((areaOrPatch) => {
-          const officer = areaOrPatch.responsibleEntities[0];
-          const reassigningThisPatch =
-            reassigningPatch && reassigningPatch.id === areaOrPatch.id;
-          return (
-            <Tr key={areaOrPatch.id} data-testid={`${areaOrPatch.name}-row`}>
-              <Td>{areaOrPatch.name}</Td>
-              <Td>{areaOrPatch.parentAreaName}</Td>
-              <Td>{officer?.name}</Td>
-              <Td>{officer?.contactDetails?.emailAddress.toLowerCase()}</Td>
-              {/* TODO: Toggle this when ready to release patch reassignment */}
-              {isAuthorisedForGroups(assetAdminAuthGroups) && (
-                <Td>
-                  {reassigningThisPatch && (
-                    <CancelReassignmentButton onClick={() => setReassigningPatch(null)} />
-                  )}
-                  {reassigningPatch && !reassigningThisPatch && (
-                    <AssignButton
-                      reassigningPatch={reassigningPatch as Patch}
-                      onClick={() => onAssignButtonClick(areaOrPatch)}
-                    />
-                  )}
-                  {!reassigningPatch && (
-                    <ReassignButton onClick={() => setReassigningPatch(areaOrPatch)} />
-                  )}
-                </Td>
-              )}
-            </Tr>
-          );
-        })}
-      </Tbody>
-    );
+  const onAssignButtonClick = (patch: Patch) => {
+    setSwitchingWithPatch(patch);
+    setDialogActive(true);
   };
 
   return (
@@ -180,7 +127,42 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
                 <Th />
               </Tr>
             </Thead>
-            <PatchTableBody tableItems={patchesAndAreas} />
+            <Tbody>
+              {patchTableItems.map((areaOrPatch) => {
+                const officer = areaOrPatch.responsibleEntities[0];
+                const reassigningThisPatch =
+                  reassigningPatch && reassigningPatch.id === areaOrPatch.id;
+                return (
+                  <Tr key={areaOrPatch.id} data-testid={`${areaOrPatch.name}-row`}>
+                    <Td>{areaOrPatch.name}</Td>
+                    <Td>{areaOrPatch.parentAreaName}</Td>
+                    <Td>{officer?.name}</Td>
+                    <Td>{officer?.contactDetails?.emailAddress.toLowerCase()}</Td>
+                    {/* TODO: Toggle this when ready to release patch reassignment */}
+                    {isAuthorisedForGroups(assetAdminAuthGroups) && (
+                      <Td>
+                        {reassigningThisPatch && (
+                          <CancelReassignmentButton
+                            onClick={() => setReassigningPatch(null)}
+                          />
+                        )}
+                        {reassigningPatch && !reassigningThisPatch && (
+                          <AssignButton
+                            reassigningPatch={reassigningPatch as Patch}
+                            onClick={() => onAssignButtonClick(areaOrPatch)}
+                          />
+                        )}
+                        {!reassigningPatch && (
+                          <ReassignButton
+                            onClick={() => setReassigningPatch(areaOrPatch)}
+                          />
+                        )}
+                      </Td>
+                    )}
+                  </Tr>
+                );
+              })}
+            </Tbody>
           </Table>
         </div>
       </form>
