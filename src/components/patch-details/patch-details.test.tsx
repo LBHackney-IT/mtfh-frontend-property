@@ -65,7 +65,7 @@ beforeEach(() => {
 beforeEach(() => {
   server.use(
     rest.get(`/api/v1/assets/:id`, (req, res, ctx) =>
-    res(ctx.status(200), ctx.json(assetWithPatches)),
+      res(ctx.status(200), ctx.json(assetWithPatches)),
     ),
   );
 });

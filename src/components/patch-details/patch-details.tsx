@@ -22,11 +22,10 @@ const PatchTable = ({ patches }: { patches: Patch[] }) => {
   // const parentArea = parentAreaReq.data;
   if (!assetPatch) return <h1>Error: Not found</h1>;
   const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
-  
+
   const assetArea = patches.find((patch) => patch.patchType === "area");
   if (!assetArea) return <h1>Error: Not found</h1>;
   const housingAreaManagerName = assetArea?.responsibleEntities[0]?.name;
-
 
   const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
   return (
