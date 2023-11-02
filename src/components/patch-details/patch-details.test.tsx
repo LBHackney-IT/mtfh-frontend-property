@@ -53,7 +53,7 @@ const mockAssetArea: Patch = {
 
 const assetWithPatches: Asset = {
   ...mockAssetV1,
-  patches: [mockAssetPatch],
+  patches: [mockAssetPatch, mockAssetArea],
 };
 
 beforeEach(() => {
@@ -64,8 +64,8 @@ beforeEach(() => {
 
 beforeEach(() => {
   server.use(
-    rest.get(`/api/v1/patch/${mockAssetPatch.parentId}`, (req, res, ctx) =>
-      res(ctx.status(200), ctx.json(mockAssetArea)),
+    rest.get(`/api/v1/assets/:id`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(assetWithPatches)),
     ),
   );
 });

@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { locale } from "../../services";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { Patch, usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
+import { Patch } from "@mtfh/common/lib/api/patch/v1";
 import {
   Button,
   Heading,
@@ -17,12 +17,16 @@ import {
 
 const PatchTable = ({ patches }: { patches: Patch[] }) => {
   const assetPatch = patches.find((patch) => patch.patchType === "patch");
-  const parentId = assetPatch?.parentId || "";
-  const parentAreaReq = usePatchOrArea(parentId);
-  const parentArea = parentAreaReq.data;
+  // const parentId = assetPatch?.parentId || "";
+  // const parentAreaReq = usePatchOrArea(parentId);
+  // const parentArea = parentAreaReq.data;
   if (!assetPatch) return <h1>Error: Not found</h1>;
-
   const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
+  
+  const assetArea = patches.find((patch) => patch.patchType === "area");
+  if (!assetArea) return <h1>Error: Not found</h1>;
+  const housingAreaManagerName = assetArea?.responsibleEntities[0]?.name;
+
 
   const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
   return (
@@ -42,7 +46,7 @@ const PatchTable = ({ patches }: { patches: Patch[] }) => {
         data-testid="area-manager-name"
         key="areaManagerName"
       >
-        {parentArea?.responsibleEntities[0]?.name}
+        {housingAreaManagerName}
       </SummaryListItem>
     </SummaryList>
   );
