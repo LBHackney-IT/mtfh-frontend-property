@@ -17,9 +17,6 @@ import {
 
 const PatchTable = ({ patches }: { patches: Patch[] }) => {
   const assetPatch = patches.find((patch) => patch.patchType === "patch");
-  // const parentId = assetPatch?.parentId || "";
-  // const parentAreaReq = usePatchOrArea(parentId);
-  // const parentArea = parentAreaReq.data;
   if (!assetPatch) return <h1>Error: Not found</h1>;
   const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
 
