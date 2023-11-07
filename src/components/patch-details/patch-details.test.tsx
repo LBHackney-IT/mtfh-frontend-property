@@ -75,7 +75,7 @@ beforeEach(() => {
 
 describe("Patch Details", () => {
   test("it renders the component", async () => {
-    if (!assetWithPatches.patches) return;
+    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetId={assetWithPatches.id}
@@ -87,7 +87,7 @@ describe("Patch Details", () => {
   });
 
   test("it shows edit patches button", async () => {
-    if (!assetWithPatches.patches) return;
+    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetId={assetWithPatches.id}
@@ -103,7 +103,7 @@ describe("Patch Details", () => {
   });
 
   test("the edit patches button links to the correct page", async () => {
-    if (!assetWithPatches.patches) return;
+    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetId={assetWithPatches.id}
@@ -120,7 +120,7 @@ describe("Patch Details", () => {
   });
 
   test("it displays the patch, housing officer, and area manager", async () => {
-    if (!assetWithPatches.patches) return;
+    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetId={assetWithPatches.id}
@@ -146,7 +146,7 @@ describe("Patch Details", () => {
 
   test("it sets a cookie with the asset ID when the edit patches button is clicked", async () => {
     // This is used to redirect the user back to the asset page after editing patches
-    if (!assetWithPatches.patches) return;
+    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetId={assetWithPatches.id}
