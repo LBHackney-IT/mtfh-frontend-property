@@ -144,6 +144,15 @@ describe("Patch Details", () => {
     );
   });
 
+  test("it displays a 'no patch' message when asset has no patches", async () => {
+    render(<PatchDetails assetPk={mockAssetV1.id} assetPatch={undefined} />);
+
+    await waitFor(async () => {
+      screen.getByText(locale.patchDetails.noPatch);
+    });
+    expect(screen.queryByTestId("patch-name")).toBeNull();
+  });
+
   test("it sets a cookie with the asset ID when the edit patches button is clicked", async () => {
     // This is used to redirect the user back to the asset page after editing patches
     if (!assetWithPatches.patches) throw new Error("No patches");
