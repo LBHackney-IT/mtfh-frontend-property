@@ -103,11 +103,13 @@ exports[`it hides boiler house details 1`] = `
             class="lbh-horizontal-bar"
           />
         </aside>
-        <h2>
-          Patch Details
+        <h2
+          class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+        >
+          Patch details
         </h2>
         <p>
-          No patches
+          No patch
         </p>
         <aside
           class="mtfh-lbh-ownership-info"
@@ -227,11 +229,13 @@ exports[`it hides cautionary alerts 1`] = `
         <hr
           class="lbh-horizontal-bar"
         />
-        <h2>
-          Patch Details
+        <h2
+          class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+        >
+          Patch details
         </h2>
         <p>
-          No patches
+          No patch
         </p>
         <aside
           class="mtfh-lbh-ownership-info"
@@ -351,11 +355,13 @@ exports[`it hides tenure information 1`] = `
         <hr
           class="lbh-horizontal-bar"
         />
-        <h2>
-          Patch Details
+        <h2
+          class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+        >
+          Patch details
         </h2>
         <p>
-          No patches
+          No patch
         </p>
         <aside
           class="mtfh-lbh-ownership-info"
@@ -492,11 +498,13 @@ exports[`it shows boiler house details 1`] = `
             class="lbh-horizontal-bar"
           />
         </aside>
-        <h2>
-          Patch Details
+        <h2
+          class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+        >
+          Patch details
         </h2>
         <p>
-          No patches
+          No patch
         </p>
         <aside
           class="mtfh-lbh-ownership-info"
@@ -651,11 +659,13 @@ exports[`it shows cautionary alerts 1`] = `
             class="lbh-horizontal-bar"
           />
         </aside>
-        <h2>
-          Patch Details
+        <h2
+          class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+        >
+          Patch details
         </h2>
         <p>
-          No patches
+          No patch
         </p>
         <aside
           class="mtfh-lbh-ownership-info"
@@ -775,11 +785,13 @@ exports[`it shows tenure information 1`] = `
         <hr
           class="lbh-horizontal-bar"
         />
-        <h2>
-          Patch Details
+        <h2
+          class="lbh-heading-h2 lbh-heading lbh-heading-h3"
+        >
+          Patch details
         </h2>
         <p>
-          No patches
+          No patch
         </p>
         <aside
           class="mtfh-lbh-ownership-info"

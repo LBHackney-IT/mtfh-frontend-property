@@ -12,7 +12,7 @@ import { PatchDetails } from "../patch-details/patch-details";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
-import { Button, SideBar, SideBarProps } from "@mtfh/common/lib/components";
+import { Button, Heading, SideBar, SideBarProps } from "@mtfh/common/lib/components";
 import { isFutureDate } from "@mtfh/common/lib/utils";
 
 interface Props extends Partial<SideBarProps> {
@@ -73,13 +73,13 @@ export const AssetSideBar = ({
           <hr className="lbh-horizontal-bar" />
 
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
+          <Heading variant="h2" className="lbh-heading lbh-heading-h3">
+            {locale.patchDetails.heading}
+          </Heading>
           {patches ? (
             <PatchDetails assetId={assetId} assetPatch={patches[0]} />
           ) : (
-            <>
-              <h2>Patch Details</h2>
-              <p>No patches</p>
-            </>
+            <p>{locale.patchDetails.noPatch}</p>
           )}
           <LbhOwnershipInformation asset={assetDetails} />
           {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
