@@ -12,7 +12,6 @@ import { PropertyTree } from "./property-tree";
 
 beforeEach(() => {
   jest.resetAllMocks();
-
   server.use(
     rest.get(
       `/api/v1/cautionary-alerts/properties-new/${mockAssetV1.assetId}`,
