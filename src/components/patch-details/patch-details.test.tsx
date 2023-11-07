@@ -78,7 +78,7 @@ describe("Patch Details", () => {
     if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
-        assetId={assetWithPatches.id}
+        assetPk={assetWithPatches.id}
         assetPatch={assetWithPatches.patches[0]}
       />,
     );
@@ -90,7 +90,7 @@ describe("Patch Details", () => {
     if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
-        assetId={assetWithPatches.id}
+        assetPk={assetWithPatches.id}
         assetPatch={assetWithPatches.patches[0]}
       />,
     );
@@ -106,7 +106,7 @@ describe("Patch Details", () => {
     if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
-        assetId={assetWithPatches.id}
+        assetPk={assetWithPatches.id}
         assetPatch={assetWithPatches.patches[0]}
       />,
     );
@@ -123,7 +123,7 @@ describe("Patch Details", () => {
     if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
-        assetId={assetWithPatches.id}
+        assetPk={assetWithPatches.id}
         assetPatch={assetWithPatches.patches[0]}
       />,
     );
@@ -149,7 +149,7 @@ describe("Patch Details", () => {
     if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
-        assetId={assetWithPatches.id}
+        assetPk={assetWithPatches.id}
         assetPatch={assetWithPatches.patches[0]}
       />,
     );

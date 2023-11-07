@@ -77,7 +77,7 @@ export const AssetSideBar = ({
             {locale.patchDetails.heading}
           </Heading>
           {patches ? (
-            <PatchDetails assetId={assetId} assetPatch={patches[0]} />
+            <PatchDetails assetPk={id} assetPatch={patches[0]} />
           ) : (
             <p>{locale.patchDetails.noPatch}</p>
           )}

@@ -48,11 +48,11 @@ const PatchDetailsTable = ({ assetPatch }: { assetPatch: Patch }) => {
 };
 
 interface PatchDetailsProps {
-  assetId: string;
+  assetPk: string;
   assetPatch?: Patch;
 }
 
-export const PatchDetails = ({ assetId, assetPatch }: PatchDetailsProps) => {
+export const PatchDetails = ({ assetPk, assetPatch }: PatchDetailsProps) => {
   const { heading, noPatch } = locale.patchDetails;
   return (
     <>
@@ -65,7 +65,7 @@ export const PatchDetails = ({ assetId, assetPatch }: PatchDetailsProps) => {
           as={RouterLink}
           to="/property/all-patches-and-areas"
           data-testid="all-patches-and-areas-button"
-          onClick={() => Cookies.set("fromAssetId", assetId)}
+          onClick={() => Cookies.set("fromAssetId", assetPk)}
         >
           {locale.patchDetails.allPatchesAndAreas}
         </Button>
