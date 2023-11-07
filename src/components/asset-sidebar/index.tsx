@@ -40,7 +40,7 @@ export const AssetSideBar = ({
   showCautionaryAlerts,
   ...properties
 }: Props) => {
-  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics } =
+  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics, patches } =
     assetDetails;
 
   // only show button when there is no active tenure on the asset
@@ -73,7 +73,14 @@ export const AssetSideBar = ({
           <hr className="lbh-horizontal-bar" />
 
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
-          <PatchDetails asset={assetDetails} />
+          {patches ? (
+            <PatchDetails assetId={assetId} assetPatch={patches[0]} />
+          ) : (
+            <>
+              <h2>Patch Details</h2>
+              <p>No patches</p>
+            </>
+          )}
           <LbhOwnershipInformation asset={assetDetails} />
           {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (

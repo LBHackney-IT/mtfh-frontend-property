@@ -109,30 +109,12 @@ exports[`it hides the cautionary alerts icon 1`] = `
               <hr
                 class="lbh-horizontal-bar"
               />
-              <aside
-                class="mtfh-patch-details"
-              >
-                <h2
-                  class="lbh-heading-h2 lbh-heading lbh-heading-h3"
-                >
-                  Patch details
-                </h2>
-                <p
-                  class="lbh-body-s"
-                >
-                  No patch
-                </p>
-                <a
-                  class="govuk-button lbh-button"
-                  data-testid="all-patches-and-areas-button"
-                  href="/property/all-patches-and-areas"
-                >
-                  All patches and areas
-                </a>
-                <hr
-                  class="lbh-horizontal-bar"
-                />
-              </aside>
+              <h2>
+                Patch Details
+              </h2>
+              <p>
+                No patches
+              </p>
               <aside
                 class="mtfh-lbh-ownership-info"
               >
@@ -545,30 +527,12 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                   class="lbh-horizontal-bar"
                 />
               </aside>
-              <aside
-                class="mtfh-patch-details"
-              >
-                <h2
-                  class="lbh-heading-h2 lbh-heading lbh-heading-h3"
-                >
-                  Patch details
-                </h2>
-                <p
-                  class="lbh-body-s"
-                >
-                  No patch
-                </p>
-                <a
-                  class="govuk-button lbh-button"
-                  data-testid="all-patches-and-areas-button"
-                  href="/property/all-patches-and-areas"
-                >
-                  All patches and areas
-                </a>
-                <hr
-                  class="lbh-horizontal-bar"
-                />
-              </aside>
+              <h2>
+                Patch Details
+              </h2>
+              <p>
+                No patches
+              </p>
               <aside
                 class="mtfh-lbh-ownership-info"
               >
