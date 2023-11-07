@@ -5,30 +5,29 @@ import Cookies from "js-cookie";
 
 import { locale } from "../../services";
 
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch, usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
 import {
   Button,
   Heading,
+  Spinner,
   SummaryList,
   SummaryListItem,
-  Text,
 } from "@mtfh/common/lib/components";
 
-const PatchTable = ({ patches }: { patches: Patch[] }) => {
-  const assetPatch = patches.find((patch) => patch.patchType === "patch");
-  const parentId = assetPatch?.parentId || "";
-  const parentAreaReq = usePatchOrArea(parentId);
-  const parentArea = parentAreaReq.data;
-  if (!assetPatch) return <h1>Error: Not found</h1>;
-
-  const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
-
+const PatchDetailsTable = ({ assetPatch }: { assetPatch: Patch }) => {
   const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
+
+  const patch = usePatchOrArea(assetPatch.id).data;
+  const parentArea = usePatchOrArea(assetPatch.parentId).data;
+  if (!patch && !parentArea) return <Spinner />;
+
+  const housingOfficerName = patch?.responsibleEntities[0].name;
+  const areaManagerName = parentArea?.responsibleEntities[0].name;
+
   return (
     <SummaryList overrides={[2 / 3]}>
       <SummaryListItem title={patchLabel} data-testid="patch-name" key="patchName">
-        {assetPatch?.name}
+        {patch?.name}
       </SummaryListItem>
       <SummaryListItem
         title={housingOfficerLabel}
@@ -42,41 +41,36 @@ const PatchTable = ({ patches }: { patches: Patch[] }) => {
         data-testid="area-manager-name"
         key="areaManagerName"
       >
-        {parentArea?.responsibleEntities[0]?.name}
+        {areaManagerName}
       </SummaryListItem>
     </SummaryList>
   );
 };
 
 interface PatchDetailsProps {
-  asset: Asset;
+  assetPk: string;
+  assetPatch?: Patch;
 }
 
-export const PatchDetails = ({ asset }: PatchDetailsProps) => {
+export const PatchDetails = ({ assetPk, assetPatch }: PatchDetailsProps) => {
+  const { heading, noPatch } = locale.patchDetails;
   return (
-    <aside className="mtfh-patch-details">
-      <Heading variant="h2" className="lbh-heading lbh-heading-h3">
-        {locale.patchDetails.heading}
-      </Heading>
-      {asset.patches && asset.patches.length > 0 ? (
-        <PatchTable patches={asset.patches} />
-      ) : (
-        <Text size="sm">{locale.patchDetails.noPatch}</Text>
-      )}
-
-      <Button
-        as={RouterLink}
-        to="/property/all-patches-and-areas"
-        data-testid="all-patches-and-areas-button"
-        onClick={() => {
-          // Set cookie to allow redirecting back to this asset
-          Cookies.set("fromAssetId", asset.id);
-        }}
-      >
-        {locale.patchDetails.allPatchesAndAreas}
-      </Button>
-
+    <>
+      <aside className="mtfh-patch-details">
+        <Heading variant="h2" className="lbh-heading lbh-heading-h3">
+          {heading}
+        </Heading>
+        {assetPatch ? <PatchDetailsTable assetPatch={assetPatch} /> : <p>{noPatch}</p>}
+        <Button
+          as={RouterLink}
+          to="/property/all-patches-and-areas"
+          data-testid="all-patches-and-areas-button"
+          onClick={() => Cookies.set("fromAssetId", assetPk)}
+        >
+          {locale.patchDetails.allPatchesAndAreas}
+        </Button>
+      </aside>
       <hr className="lbh-horizontal-bar" />
-    </aside>
+    </>
   );
 };
