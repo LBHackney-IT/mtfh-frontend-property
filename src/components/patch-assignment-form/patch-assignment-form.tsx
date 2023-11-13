@@ -137,7 +137,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
                     <Td>{areaOrPatch.name}</Td>
                     <Td>{areaOrPatch.parentAreaName}</Td>
                     <Td>{officer?.name}</Td>
-                    <Td>{officer?.contactDetails?.emailAddress.toLowerCase()}</Td>
+                    <Td>{officer?.contactDetails?.emailAddress?.toLowerCase()}</Td>
                     {/* TODO: Toggle this when ready to release patch reassignment */}
                     {false && isAuthorisedForGroups(assetAdminAuthGroups) && (
                       <Td>
