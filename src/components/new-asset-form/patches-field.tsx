@@ -105,7 +105,7 @@ export const PatchesField = ({
       </label>
       <div id="property-patches-container">{renderPropertyPatches()}</div>
       <div>
-        {patchesState.patches.length === 0 ? (
+        {patchesState.patches.length === 0 && (
           <button
             className="lbh-link"
             onClick={(e) => handleAddNewPatch(e)}
@@ -113,15 +113,6 @@ export const PatchesField = ({
             id="patch-add-link"
           >
             Add a patch
-          </button>
-        ) : (
-          <button
-            className="lbh-link"
-            onClick={(e) => handleAddNewPatch(e)}
-            data-testid="patch-add-link"
-            id="patch-add-link"
-          >
-            Add another patch
           </button>
         )}
       </div>

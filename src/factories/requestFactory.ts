@@ -45,6 +45,7 @@ export const assembleCreateNewAssetRequest = (
       windowType: values?.windowType ?? "",
       numberOfLifts: values?.numberOfLifts ?? null,
     },
+    //TODO: remove patches and add areaId and patchId
     patches: patches.length ? patches : undefined,
     addDefaultSorContracts: values?.addDefaultSorContracts === "Yes",
   };
