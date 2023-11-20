@@ -54,14 +54,25 @@ export const NewAsset = ({
   const [patchesAndAreasData, setPatchesAndAreasData] = useState<Patch[]>([]);
 
   useEffect(() => {
-    getAllPatchesAndAreas()
-      .then((res) => setPatchesAndAreasData(res))
-      .catch((error) => {
-        console.error("Unable to retrieve patch data. Error:", error);
-        setErrorHeading("Unable to retrieve patch data");
-        setErrorDescription(locale.errors.tryAgainOrContactSupport);
-        setShowError(true);
-      });
+    getAllPatchesAndAreas().then((data) => {
+      data = data.filter((patchOrArea) => ![
+      "Hackney", 
+      "CL Area",
+      "CP Area",
+      "HN1 Area",
+      "HN2 Area",
+      "SD Area",
+      "SH Area",
+      "SN Area"].includes(patchOrArea.name));
+      setPatchesAndAreasData(data);
+    // .catch((error) => {
+    //   console.error("Unable to retrieve patch data. Error:", error);
+    //   setErrorHeading("Unable to retrieve patch data");
+    //   setErrorDescription(locale.errors.tryAgainOrContactSupport);
+    //   setShowError(true);
+    // });
+      
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
