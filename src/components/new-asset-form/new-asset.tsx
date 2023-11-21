@@ -51,40 +51,46 @@ export const NewAsset = ({
   const [patchesState, dispatch] = useReducer(reducer, initialPatchesState);
 
   // Data from API request
-  const [patchesAndAreasData, setPatchesAndAreasData] = useState<Patch[]>([]);
+  const [patchesData, setpatchesData] = useState<Patch[]>([]);
+  //this is to seperate the areas from the patch
+  const [areasData, setAreasData] = useState<Patch[]>([]);
 
   useEffect(() => {
     getAllPatchesAndAreas().then((data) => {
-      data = data.filter((patchOrArea) => ![
-      "Hackney", 
-      "CL Area",
-      "CP Area",
-      "HN1 Area",
-      "HN2 Area",
-      "SD Area",
-      "SH Area",
-      "SN Area"].includes(patchOrArea.name));
-      setPatchesAndAreasData(data);
-    // .catch((error) => {
-    //   console.error("Unable to retrieve patch data. Error:", error);
-    //   setErrorHeading("Unable to retrieve patch data");
-    //   setErrorDescription(locale.errors.tryAgainOrContactSupport);
-    //   setShowError(true);
-    // });
-      
+      data = data.filter((patchOrArea) => !["Hackney"].includes(patchOrArea.name));
+      // console.log(data + "remove Hackney")
+      const patchesFilter = data.filter((patch) => !["Area"].includes(patch.patchType));
+      const areasFilter = data.filter((area) => !["Patch"].includes(area.patchType));
+      setpatchesData(patchesFilter);
+      setAreasData(areasFilter);
+      console.log(`${patchesData}patches data`);
+      console.log(`${areasData}areas data`);
+      // .catch((error) => {
+      //   console.error("Unable to retrieve patch data. Error:", error);
+      //   setErrorHeading("Unable to retrieve patch data");
+      //   setErrorDescription(locale.errors.tryAgainOrContactSupport);
+      //   setShowError(true);
+      // });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getFullPatchData = (patchesState: any) => {
-    // Get patches GUIDs from patchesState
-    const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
+  // const getFullPatchData = (patchesState: any) => {
+  //   // Get patches GUIDs from patchesState
+  //   const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
 
-    // Return full patch objects with the above GUIDs in patchesAndAreasData
-    return patchesAndAreasData.filter((patchObject: Patch) =>
-      patchesGuids.includes(patchObject.id),
-    );
-  };
+  //   // Return full patch objects with the above GUIDs in patchesData
+  //   const patchObject = patchesData.filter((patchObject: Patch) =>
+  //     patchesGuids.includes(patchObject.id),
+  //   );
+
+  //   // Return full patch objects with the above GUIDs in areasData
+  //   const areasObject = areasData.filter((patchObject: Patch) =>
+  //     patchesGuids.includes(patchObject.id),
+  //   );
+
+  //   return [patchesGuids];
+  // };
 
   const handleSubmit = async (values: NewPropertyFormData) => {
     setShowSuccess(false);
@@ -92,8 +98,7 @@ export const NewAsset = ({
     setErrorHeading(null);
     setErrorDescription(null);
 
-    const patches = getFullPatchData(patchesState);
-    const asset = assembleCreateNewAssetRequest(values, patches);
+    const asset = assembleCreateNewAssetRequest(values);
 
     setLoading(true);
     await createAsset(asset)
@@ -124,6 +129,8 @@ export const NewAsset = ({
       <Formik<NewPropertyFormData>
         initialValues={{
           assetId: "",
+          areaId: "",
+          patchId: "",
           assetType: "",
           parentAsset: "",
           floorNo: "",
@@ -139,7 +146,6 @@ export const NewAsset = ({
           areaOfficeName: "",
           isCouncilProperty: "",
           managingOrganisation: "London Borough of Hackney",
-          patches: patchesState,
           numberOfBedrooms: undefined,
           numberOfLivingRooms: undefined,
           numberOfLifts: undefined,
@@ -607,7 +613,8 @@ export const NewAsset = ({
               <PatchesField
                 patchesState={patchesState}
                 dispatch={dispatch}
-                patchesAndAreasData={patchesAndAreasData}
+                patchesData={patchesData}
+                areasData={areasData}
               />
               <div
                 className={

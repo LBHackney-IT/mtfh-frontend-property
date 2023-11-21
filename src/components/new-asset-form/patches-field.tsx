@@ -10,20 +10,20 @@ import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 export interface PatchesFieldProps {
   patchesState: any;
   dispatch: any;
-  patchesAndAreasData: Patch[];
+  patchesData: Patch[];
+  areasData: Patch[]; //this is to seperate the areas from the patch
 }
 
 export const PatchesField = ({
   patchesState,
   dispatch,
-  patchesAndAreasData,
+  patchesData,
+  areasData,
 }: PatchesFieldProps) => {
   const renderAreaOptions = (): JSX.Element[] | undefined => {
-    if (patchesAndAreasData) {
-     patchesAndAreasData.filter((patchesAndAreasData) => ![
-      "Hackney"].includes(patchesAndAreasData.name));
-      console.log(patchesAndAreasData)
-      return patchesAndAreasData.map(({ id, name }) => (
+    if (areasData) {
+      console.log(`${areasData}areas data`);
+      return areasData.map(({ id, name }) => (
         <option key={id} value={id}>
           {name}
         </option>
@@ -32,21 +32,13 @@ export const PatchesField = ({
   };
 
   const renderPatchOptions = (): JSX.Element[] | undefined => {
-    if (patchesAndAreasData) {
-      patchesAndAreasData.filter((patchesAndAreasData) => ![
-        "Hackney", 
-        "CL Area",
-        "CP Area",
-        "HN1 Area",
-        "HN2 Area",
-        "SD Area",
-        "SH Area",
-        "SN Area"].includes(patchesAndAreasData.name));
-        return patchesAndAreasData.map(({ id, name }) => (
-          <option key={id} value={id}>
-            {name}
-          </option>
-        ));
+    if (patchesData) {
+      console.log(`${patchesData}patches data`);
+      return patchesData.map(({ id, name }) => (
+        <option key={id} value={id}>
+          {name}
+        </option>
+      ));
     }
   };
 
@@ -59,7 +51,7 @@ export const PatchesField = ({
   };
 
   const renderPropertyPatches = () => {
-    if (patchesAndAreasData.length) {
+    if (patchesData.length) {
       const patches = patchesState.patches.map((patch: PropertyPatch) => {
         return (
           <div className="patch" key={patch.id}>
@@ -88,6 +80,17 @@ export const PatchesField = ({
           </div>
         );
       });
+      return patches;
+    }
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  };
+
+  const renderPropertyAreas = () => {
+    if (patchesData.length) {
       const areas = patchesState.patches.map((area: PropertyPatch) => {
         return (
           <div className="area" key={area.id}>
@@ -116,7 +119,7 @@ export const PatchesField = ({
           </div>
         );
       });
-      return patches;
+      return [areas];
     }
     return (
       <div>
@@ -153,7 +156,7 @@ export const PatchesField = ({
       <label className="govuk-label lbh-label" htmlFor="area">
         Area
       </label>
-      <div id="property-patches-container">{renderPropertyPatches()}</div>
+      <div id="property-patches-container">{renderPropertyAreas()}</div>
       <label className="govuk-label lbh-label" htmlFor="patches">
         Patch
       </label>
