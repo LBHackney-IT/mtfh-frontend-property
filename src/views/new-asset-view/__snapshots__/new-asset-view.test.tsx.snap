@@ -548,9 +548,9 @@ exports[`renders the whole 'New asset form' view 1`] = `
         </select>
         <label
           class="govuk-label lbh-label"
-          for="patches"
+          for="area"
         >
-          Patches
+          Area
         </label>
         <div
           id="property-patches-container"
@@ -599,15 +599,60 @@ exports[`renders the whole 'New asset form' view 1`] = `
             </svg>
           </div>
         </div>
-        <div>
-          <button
-            class="lbh-link"
-            data-testid="patch-add-link"
-            id="patch-add-link"
-          >
-            Add another patch
-          </button>
+        <label
+          class="govuk-label lbh-label"
+          for="patches"
+        >
+          Patch
+        </label>
+        <div
+          id="property-patches-container"
+        >
+          <div>
+            <svg
+              class="mtfh-icon"
+              focusable="false"
+              height="50"
+              stroke="#00703c"
+              viewBox="0 0 42 42"
+              width="50"
+            >
+              <title>
+                Loading...
+              </title>
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  stroke-width="5"
+                  transform="translate(3 3)"
+                >
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="18"
+                    stroke-opacity=".5"
+                  />
+                  <path
+                    d="M36 18c0-9.94-8.06-18-18-18"
+                    transform="rotate(112.708 18 18)"
+                  >
+                    <animatetransform
+                      attributeName="transform"
+                      dur="1s"
+                      from="0 18 18"
+                      repeatCount="indefinite"
+                      to="360 18 18"
+                      type="rotate"
+                    />
+                  </path>
+                </g>
+              </g>
+            </svg>
+          </div>
         </div>
+        <div />
         <div
           class="govuk-form-group lbh-form-group"
         >

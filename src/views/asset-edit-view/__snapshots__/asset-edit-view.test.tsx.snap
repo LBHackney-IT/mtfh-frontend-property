@@ -291,3 +291,5 @@ exports[`renders the whole 'Edit property address' view 1`] = `
   </div>
 </div>
 `;
+
+exports[`the current address from the asset is updated using the LLPG address suggestion 1`] = `<div />`;
