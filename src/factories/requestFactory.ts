@@ -12,8 +12,8 @@ export const assembleCreateNewAssetRequest = (
 ) => {
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
-    assetId: values.assetId,
-    areaId: getPatchParentId(patch),
+    assetId: values.propertyReference,
+    areaId: getParentId(patch),
     patchId: getPatchId(patch),
     assetType: values.assetType,
     parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
@@ -72,7 +72,23 @@ const getParentAsset = (parentAsset: string): ParentAsset => {
   };
 };
 
-const getPatchParentId = (patch: Patch): string => {
+const getAreaName = (patch: Patch): string => {
+  if (patch.name === "HN10" || patch.name === "HN11" || patch.name === "HN2") {
+    return "HN1 Area";
+  }
+  if (patch.name !== "HN10" && patch.name !== "HN11" && patch.name !== "HN2") {
+    return "HN2 Area";
+  }
+
+  const first2 = patch.name.slice(0, 2);
+  console.log(first2);
+  return `${first2} Area`;
+};
+
+const getParentId = (patch: Patch): string => {
+  getAreaName(patch);
+  //to do - get the parentId based on the name given. - need to test
+  console.log(`parentId${patch.parentId}`);
   return patch.parentId;
 };
 

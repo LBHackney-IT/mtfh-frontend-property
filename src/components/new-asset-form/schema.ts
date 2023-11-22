@@ -6,7 +6,7 @@ import { removeWhitespace } from "@mtfh/common/lib/utils";
 
 export const newPropertySchema = () =>
   Yup.object({
-    assetId: Yup.string().required("Asset ID is a required field"),
+    propertyReference: Yup.string().required("Property Reference is a required field"),
     areaId: Yup.string(),
     patchId: Yup.string(),
     assetType: Yup.string().required("Asset Type is a required field"),

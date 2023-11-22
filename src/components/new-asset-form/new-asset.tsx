@@ -51,13 +51,24 @@ export const NewAsset = ({
   const [patchesState, dispatch] = useReducer(reducer, initialPatchesState);
 
   // Data from API request
-  const [patchesData, setPatchesAndAreasData] = useState<Patch[]>([]);
-
+  const [patchesData, setPatchesData] = useState<Patch[]>([]);
   useEffect(() => {
     getAllPatchesAndAreas()
       .then((data) => {
-        data = data.filter((patchOrArea) => !["Hackney"].includes(patchOrArea.name));
-        setPatchesAndAreasData(data);
+        data = data.filter(
+          (patchOrArea) =>
+            ![
+              "Hackney",
+              "CL Area",
+              "CP Area",
+              "HN1 Area",
+              "HN2 Area",
+              "SD Area",
+              "SH Area",
+              "SN Area",
+            ].includes(patchOrArea.name),
+        );
+        setPatchesData(data);
       })
       .catch((error) => {
         console.error("Unable to retrieve patch data. Error:", error);
@@ -119,7 +130,7 @@ export const NewAsset = ({
     <>
       <Formik<NewPropertyFormData>
         initialValues={{
-          assetId: "",
+          propertyReference: "",
           areaId: "",
           patchId: "",
           assetType: "",
@@ -160,35 +171,35 @@ export const NewAsset = ({
             <Form>
               <div
                 className={
-                  errors.assetId && touched.assetId
+                  errors.propertyReference && touched.propertyReference
                     ? "govuk-form-group govuk-form-group--error lbh-form-group"
                     : "govuk-form-group lbh-form-group"
                 }
               >
-                <label className="govuk-label lbh-label" htmlFor="assetId">
-                  Asset ID*
+                <label className="govuk-label lbh-label" htmlFor="propertyReference">
+                  Property Reference*
                 </label>
-                {errors.assetId && touched.assetId && (
+                {errors.propertyReference && touched.propertyReference && (
                   <span
-                    id="assetId-input-error"
+                    id="propertyReference-input-error"
                     className="govuk-error-message lbh-error-message"
                   >
-                    <span className="govuk-visually-hidden" data-testid="error-asset-id">
+                    <span className="govuk-visually-hidden" data-testid="error-prop-ref">
                       Error:
                     </span>
-                    {errors.assetId}
+                    {errors.propertyReference}
                   </span>
                 )}
                 <Field
-                  id="asset-id"
-                  name="assetId"
+                  id="prop-ref"
+                  name="propertyReference"
                   className={
-                    errors.assetId && touched.assetId
+                    errors.propertyReference && touched.propertyReference
                       ? "govuk-input lbh-input govuk-input--error"
                       : "govuk-input lbh-input"
                   }
                   type="text"
-                  data-testid="asset-id"
+                  data-testid="prop-ref"
                 />
               </div>
               <div
