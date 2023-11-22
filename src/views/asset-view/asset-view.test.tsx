@@ -32,8 +32,7 @@ beforeEach(() => {
   );
 });
 
-//TO DO: uncomment after catch is defined in getAllPatchesAndAreas() new-asset.tsx
-test.skip("renders the error on Asset failure", async () => {
+test("renders the error on Asset failure", async () => {
   server.use(getAssetV1(undefined, 500));
   render(<AssetView />, {
     url: `/property/${mockAssetV1.id}`,

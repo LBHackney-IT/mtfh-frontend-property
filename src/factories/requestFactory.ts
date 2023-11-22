@@ -4,13 +4,17 @@ import { NewPropertyFormData } from "../components/new-asset-form/schema";
 import { managingOrganisations } from "../components/new-asset-form/utils/managing-organisations";
 
 import { CreateNewAssetRequest, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
+import { Patch } from "@mtfh/common/lib/api/patch/v1";
 
-export const assembleCreateNewAssetRequest = (values: NewPropertyFormData) => {
+export const assembleCreateNewAssetRequest = (
+  values: NewPropertyFormData,
+  patch: Patch,
+) => {
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
     assetId: values.assetId,
-    areaId: values?.areaId ?? "",
-    patchId: values?.patchId ?? "",
+    areaId: getPatchParentId(patch),
+    patchId: getPatchId(patch),
     assetType: values.assetType,
     parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
     isActive: true,
@@ -66,4 +70,12 @@ const getParentAsset = (parentAsset: string): ParentAsset => {
     name: parentAssetObject.label,
     type: parentAssetObject.assetType,
   };
+};
+
+const getPatchParentId = (patch: Patch): string => {
+  return patch.parentId;
+};
+
+const getPatchId = (patch: Patch): string => {
+  return patch.id;
 };

@@ -11,29 +11,18 @@ export interface PatchesFieldProps {
   patchesState: any;
   dispatch: any;
   patchesData: Patch[];
-  areasData: Patch[]; //this is to seperate the areas from the patch
 }
 
 export const PatchesField = ({
   patchesState,
   dispatch,
   patchesData,
-  areasData,
 }: PatchesFieldProps) => {
-  const renderAreaOptions = (): JSX.Element[] | undefined => {
-    if (areasData) {
-      console.log(`${areasData}areas data`);
-      return areasData.map(({ id, name }) => (
-        <option key={id} value={id}>
-          {name}
-        </option>
-      ));
-    }
-  };
-
-  const renderPatchOptions = (): JSX.Element[] | undefined => {
+  const renderOptions = (): JSX.Element[] | undefined => {
     if (patchesData) {
-      console.log(`${patchesData}patches data`);
+      console.log(`${patchesData.length}patchesData L25`);
+      patchesData.filter((patchOrArea) => !["Hackney"].includes(patchOrArea.name));
+      console.log(`${patchesData.length}patchesData L26`);
       return patchesData.map(({ id, name }) => (
         <option key={id} value={id}>
           {name}
@@ -67,7 +56,7 @@ export const PatchesField = ({
                 {" "}
                 -- Select an option --{" "}
               </option>
-              {renderPatchOptions()}
+              {renderOptions()}
             </Field>
             <button
               className="lbh-link patch-remove-link"
@@ -80,6 +69,7 @@ export const PatchesField = ({
           </div>
         );
       });
+      console.log(`${patches}PATCHES patches-field L81`);
       return patches;
     }
     return (
@@ -89,44 +79,45 @@ export const PatchesField = ({
     );
   };
 
-  const renderPropertyAreas = () => {
-    if (patchesData.length) {
-      const areas = patchesState.patches.map((area: PropertyPatch) => {
-        return (
-          <div className="area" key={area.id}>
-            <Field
-              as="select"
-              id={`patch-dropdown-${area.id}`}
-              className="govuk-input lbh-input"
-              data-testid={`patch-dropdown-${area.id}`}
-              value={area.value}
-              onChange={(e: any) => handlePatchEdit(e, area.id)}
-            >
-              <option disabled value="">
-                {" "}
-                -- Select an option --{" "}
-              </option>
-              {renderAreaOptions()}
-            </Field>
-            <button
-              className="lbh-link patch-remove-link"
-              onClick={(e) => handleRemovePatch(e, area.id)}
-              data-testid={`patch-remove-link-${area.id}`}
-              id={`patch-remove-link-${area.id}`}
-            >
-              Remove area
-            </button>
-          </div>
-        );
-      });
-      return [areas];
-    }
-    return (
-      <div>
-        <Spinner />
-      </div>
-    );
-  };
+  // const renderPropertyAreas = () => {
+  //   if (patchesData.length) {
+  //     const area = patchesState.patches.map((area: PropertyPatch) => {
+  //       return (
+  //         <div className="area" key={area.id}>
+  //           <Field
+  //             as="select"
+  //             id={`patch-dropdown-${area.id}`}
+  //             className="govuk-input lbh-input"
+  //             data-testid={`patch-dropdown-${area.id}`}
+  //             value={area.value}
+  //             onChange={(e: any) => handlePatchEdit(e, area.id)}
+  //           >
+  //             <option disabled value="">
+  //               {" "}
+  //               -- Select an option --{" "}
+  //             </option>
+  //             {renderOptions()}
+  //           </Field>
+  //           <button
+  //             className="lbh-link patch-remove-link"
+  //             onClick={(e) => handleRemovePatch(e, area.id)}
+  //             data-testid={`patch-remove-link-${area.id}`}
+  //             id={`patch-remove-link-${area.id}`}
+  //           >
+  //             Remove area
+  //           </button>
+  //         </div>
+  //       );
+  //     });
+  //     console.log(area + "AREA patches-fields L120")
+  //     return [area];
+  //   }
+  //   return (
+  //     <div>
+  //       <Spinner />
+  //     </div>
+  //   );
+  // };
 
   const handleAddNewPatch = (e: any) => {
     e.preventDefault();
@@ -153,14 +144,14 @@ export const PatchesField = ({
 
   return (
     <>
-      <label className="govuk-label lbh-label" htmlFor="area">
-        Area
-      </label>
-      <div id="property-patches-container">{renderPropertyAreas()}</div>
       <label className="govuk-label lbh-label" htmlFor="patches">
         Patch
       </label>
       <div id="property-patches-container">{renderPropertyPatches()}</div>
+      {/* <label className="govuk-label lbh-label" htmlFor="area">
+        Area
+      </label>
+      <div id="property-patches-container">{renderPropertyAreas()}</div> */}
       <div>
         {patchesState.patches.length === 0 && (
           <button

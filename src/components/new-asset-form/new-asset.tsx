@@ -51,46 +51,36 @@ export const NewAsset = ({
   const [patchesState, dispatch] = useReducer(reducer, initialPatchesState);
 
   // Data from API request
-  const [patchesData, setpatchesData] = useState<Patch[]>([]);
-  //this is to seperate the areas from the patch
-  const [areasData, setAreasData] = useState<Patch[]>([]);
+  const [patchesData, setPatchesAndAreasData] = useState<Patch[]>([]);
 
   useEffect(() => {
-    getAllPatchesAndAreas().then((data) => {
-      data = data.filter((patchOrArea) => !["Hackney"].includes(patchOrArea.name));
-      // console.log(data + "remove Hackney")
-      const patchesFilter = data.filter((patch) => !["Area"].includes(patch.patchType));
-      const areasFilter = data.filter((area) => !["Patch"].includes(area.patchType));
-      setpatchesData(patchesFilter);
-      setAreasData(areasFilter);
-      console.log(`${patchesData}patches data`);
-      console.log(`${areasData}areas data`);
-      // .catch((error) => {
-      //   console.error("Unable to retrieve patch data. Error:", error);
-      //   setErrorHeading("Unable to retrieve patch data");
-      //   setErrorDescription(locale.errors.tryAgainOrContactSupport);
-      //   setShowError(true);
-      // });
-    });
+    getAllPatchesAndAreas()
+      .then((data) => {
+        data = data.filter((patchOrArea) => !["Hackney"].includes(patchOrArea.name));
+        setPatchesAndAreasData(data);
+      })
+      .catch((error) => {
+        console.error("Unable to retrieve patch data. Error:", error);
+        setErrorHeading("Unable to retrieve patch data");
+        setErrorDescription(locale.errors.tryAgainOrContactSupport);
+        setShowError(true);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const getFullPatchData = (patchesState: any) => {
-  //   // Get patches GUIDs from patchesState
-  //   const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
+  const getFullPatchData = (patchesState: any): Patch => {
+    // Get patches GUIDs from patchesState
+    const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
 
-  //   // Return full patch objects with the above GUIDs in patchesData
-  //   const patchObject = patchesData.filter((patchObject: Patch) =>
-  //     patchesGuids.includes(patchObject.id),
-  //   );
+    // Return full patch objects with the above GUIDs in patchesData
+    const patchObject = patchesData.filter((patchObject: Patch) =>
+      patchesGuids.includes(patchObject.id),
+    );
+    console.log(patchObject);
 
-  //   // Return full patch objects with the above GUIDs in areasData
-  //   const areasObject = areasData.filter((patchObject: Patch) =>
-  //     patchesGuids.includes(patchObject.id),
-  //   );
-
-  //   return [patchesGuids];
-  // };
+    //A property can only be assigned to one patch hence always getting the first patch in the list
+    return patchObject[0];
+  };
 
   const handleSubmit = async (values: NewPropertyFormData) => {
     setShowSuccess(false);
@@ -98,7 +88,8 @@ export const NewAsset = ({
     setErrorHeading(null);
     setErrorDescription(null);
 
-    const asset = assembleCreateNewAssetRequest(values);
+    const fullObject = getFullPatchData(patchesState);
+    const asset = assembleCreateNewAssetRequest(values, fullObject);
 
     setLoading(true);
     await createAsset(asset)
@@ -614,7 +605,6 @@ export const NewAsset = ({
                 patchesState={patchesState}
                 dispatch={dispatch}
                 patchesData={patchesData}
-                areasData={areasData}
               />
               <div
                 className={
