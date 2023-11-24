@@ -8,11 +8,12 @@ import { CreateNewAssetRequest, ParentAsset } from "@mtfh/common/lib/api/asset/v
 export const assembleCreateNewAssetRequest = (
   values: NewPropertyFormData,
   patchId: string,
+  areaId: string,
 ) => {
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
     patchId,
-    areaId: uuidv4(),
+    areaId,
     assetId: values.assetId,
     assetType: values.assetType,
     parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
