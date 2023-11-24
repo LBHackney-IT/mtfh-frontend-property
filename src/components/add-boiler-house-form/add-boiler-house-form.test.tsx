@@ -4,6 +4,7 @@ import { render, server } from "@hackney/mtfh-test-utils";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
+import { v4 as uuidv4 } from "uuid";
 
 import { AddBoilerHouseForm } from "./add-boiler-house-form";
 
@@ -11,6 +12,8 @@ import { Asset } from "@mtfh/common/lib/api/asset/v1";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
+  patchId: uuidv4(),
+  areaId: uuidv4(),
   assetId: "0019062023",
   assetType: "Block",
   assetLocation: {
@@ -67,6 +70,8 @@ const assetData: Asset = {
 
 const boilerHouseData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
+  patchId: uuidv4(),
+  areaId: uuidv4(),
   assetId: "0019062023",
   assetType: "Block",
   assetLocation: {

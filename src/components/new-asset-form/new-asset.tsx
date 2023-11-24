@@ -82,7 +82,8 @@ export const NewAsset = ({
     setErrorDescription(null);
 
     const patches = getFullPatchData(patchesState);
-    const asset = assembleCreateNewAssetRequest(values, patches);
+    const patchId = patches[0].id;
+    const asset = assembleCreateNewAssetRequest(values, patchId);
 
     setLoading(true);
     await createAsset(asset)

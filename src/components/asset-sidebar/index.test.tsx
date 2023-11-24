@@ -3,6 +3,7 @@ import React from "react";
 import { render, server } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import { rest } from "msw";
+import { v4 as uuidv4 } from "uuid";
 
 import { locale } from "../../services";
 
@@ -15,6 +16,8 @@ const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
   assetId: "0019062023",
   assetType: "Block",
+  patchId: uuidv4(),
+  areaId: uuidv4(),
   assetLocation: {
     parentAssets: [],
     floorNo: "0",

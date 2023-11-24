@@ -4,14 +4,15 @@ import { NewPropertyFormData } from "../components/new-asset-form/schema";
 import { managingOrganisations } from "../components/new-asset-form/utils/managing-organisations";
 
 import { CreateNewAssetRequest, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
-import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 export const assembleCreateNewAssetRequest = (
   values: NewPropertyFormData,
-  patches: Patch[],
+  patchId: string,
 ) => {
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
+    patchId,
+    areaId: uuidv4(),
     assetId: values.assetId,
     assetType: values.assetType,
     parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
@@ -45,7 +46,6 @@ export const assembleCreateNewAssetRequest = (
       windowType: values?.windowType ?? "",
       numberOfLifts: values?.numberOfLifts ?? null,
     },
-    patches: patches.length ? patches : undefined,
     addDefaultSorContracts: values?.addDefaultSorContracts === "Yes",
   };
 
