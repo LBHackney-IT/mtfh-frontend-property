@@ -1,7 +1,11 @@
+import { v4 as uuidv4 } from "uuid";
+
 import { Asset, RentGroup } from "@mtfh/common/lib/api/asset/v1/types";
 
 export const testValidDwellingFixture: Asset = {
   id: "2d13b5cb-baf2-91fd-c231-8c5c2ee9548c",
+  patchId: uuidv4(),
+  areaId: uuidv4(),
   assetId: "00023400",
   assetType: "Dwelling",
   rootAsset: "14edf718-19ff-ff43-4679-f8ef404fa029",
@@ -95,6 +99,8 @@ export interface ValidChildAsset extends Asset {
 export const testValidChildAssetFixture: ValidChildAsset[] = [
   {
     id: "77ec7c49-1ec5-0ef5-bd51-3fbccce7e96e",
+    patchId: uuidv4(),
+    areaId: uuidv4(),
     assetId: "00049158",
     assetType: "LettableNonDwelling",
     isAssetCautionaryAlerted: false,
