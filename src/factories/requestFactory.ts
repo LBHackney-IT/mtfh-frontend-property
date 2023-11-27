@@ -10,8 +10,9 @@ export const assembleCreateNewAssetRequest = (
   values: NewPropertyFormData,
   patch: Patch,
 ) => {
-  const areaId = patch ? getParentId(patch) : "";
-  const patchId = patch ? getPatchId(patch) : "";
+  //set to undefined for instances where a asset doesn't need a patch
+  const areaId = patch ? getParentId(patch) : undefined;
+  const patchId = patch ? getPatchId(patch) : undefined;
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
     assetId: values.propertyReference,
