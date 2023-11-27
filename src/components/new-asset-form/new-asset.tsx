@@ -87,8 +87,6 @@ export const NewAsset = ({
     const patchObject = patchesData.filter((patchObject: Patch) =>
       patchesGuids.includes(patchObject.id),
     );
-    console.log(patchObject);
-
     //A property can only be assigned to one patch hence always getting the first patch in the list
     return patchObject[0];
   };

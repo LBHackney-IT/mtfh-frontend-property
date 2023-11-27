@@ -66,7 +66,6 @@ export const PatchesField = ({
           </div>
         );
       });
-      console.log(`${patches}PATCHES patches-field L81`);
       return patches;
     }
     return (
