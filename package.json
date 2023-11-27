@@ -10,7 +10,7 @@
     "lintfix": "eslint src --ext js,ts,tsx --fix",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "test": "cross-env BABEL_ENV=test jest --runInBand --coverage --updateSnapshot",
+    "test": "cross-env BABEL_ENV=test jest --runInBand --coverage",
     "watch-tests": "cross-env BABEL_ENV=test jest --watch",
     "prepare": "husky install"
   },
