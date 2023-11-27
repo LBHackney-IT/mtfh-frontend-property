@@ -4,7 +4,6 @@ import { NewPropertyFormData } from "../components/new-asset-form/schema";
 import { managingOrganisations } from "../components/new-asset-form/utils/managing-organisations";
 
 import { CreateNewAssetRequest, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
-
 import { Patch } from "@mtfh/common/lib/api/patch/v1";
 
 export const assembleCreateNewAssetRequest = (
