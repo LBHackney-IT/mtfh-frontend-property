@@ -5,16 +5,19 @@ import { managingOrganisations } from "../components/new-asset-form/utils/managi
 
 import { CreateNewAssetRequest, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
 
+import { Patch } from "@mtfh/common/lib/api/patch/v1";
+
 export const assembleCreateNewAssetRequest = (
   values: NewPropertyFormData,
-  patchId: string,
-  areaId: string,
+  patch: Patch,
 ) => {
+  const areaId = patch ? getParentId(patch) : "";
+  const patchId = patch ? getPatchId(patch) : "";
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
-    patchId,
+    assetId: values.propertyReference,
     areaId,
-    assetId: values.assetId,
+    patchId,
     assetType: values.assetType,
     parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
     isActive: true,
@@ -70,4 +73,25 @@ const getParentAsset = (parentAsset: string): ParentAsset => {
     name: parentAssetObject.label,
     type: parentAssetObject.assetType,
   };
+};
+
+const getAreaName = (patch: Patch): string => {
+  const prefix = patch.name.slice(0, 2);
+  if (prefix === "HN") {
+    const HN2Patches = ["HN3", "HN4", "HN6", "HN1", "HN7"];
+    if (HN2Patches.includes(patch.name)) return "HN2 Area";
+    return "HN1 Area";
+  }
+  console.log(prefix);
+  return `${prefix} Area`;
+};
+
+const getParentId = (patch: Patch): string => {
+  getAreaName(patch);
+  console.log(`parentId${patch.parentId}`);
+  return patch.parentId;
+};
+
+const getPatchId = (patch: Patch): string => {
+  return patch.id;
 };

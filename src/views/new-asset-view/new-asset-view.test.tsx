@@ -45,3 +45,8 @@ test("unauthorized message is shown for unauthorized users", async () => {
     expect(unauthorizedErrorMessage).toBeVisible();
   });
 });
+
+test("patch is filtered to not have area and Hackney", async () => {
+  jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
+  render(<NewAssetView />);
+});

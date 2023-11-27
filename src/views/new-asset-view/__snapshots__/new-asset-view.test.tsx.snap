@@ -550,7 +550,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
           class="govuk-label lbh-label"
           for="patches"
         >
-          Patches
+          Patch
         </label>
         <div
           id="property-patches-container"
@@ -599,15 +599,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             </svg>
           </div>
         </div>
-        <div>
-          <button
-            class="lbh-link"
-            data-testid="patch-add-link"
-            id="patch-add-link"
-          >
-            Add another patch
-          </button>
-        </div>
+        <div />
         <div
           class="govuk-form-group lbh-form-group"
         >
