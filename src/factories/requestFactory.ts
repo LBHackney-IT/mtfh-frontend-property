@@ -10,11 +10,13 @@ export const assembleCreateNewAssetRequest = (
   values: NewPropertyFormData,
   patch: Patch,
 ) => {
+  const areaId = patch ? getParentId(patch) : "";
+  const patchId = patch ? getPatchId(patch) : "";
   const asset: CreateNewAssetRequest = {
     id: uuidv4(),
     assetId: values.propertyReference,
-    areaId: getParentId(patch),
-    patchId: getPatchId(patch),
+    areaId,
+    patchId,
     assetType: values.assetType,
     parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
     isActive: true,
@@ -73,21 +75,18 @@ const getParentAsset = (parentAsset: string): ParentAsset => {
 };
 
 const getAreaName = (patch: Patch): string => {
-  if (patch.name === "HN10" || patch.name === "HN11" || patch.name === "HN2") {
+  const prefix = patch.name.slice(0, 2);
+  if (prefix === "HN") {
+    const HN2Patches = ["HN3", "HN4", "HN6", "HN1", "HN7"];
+    if (HN2Patches.includes(patch.name)) return "HN2 Area";
     return "HN1 Area";
   }
-  if (patch.name !== "HN10" && patch.name !== "HN11" && patch.name !== "HN2") {
-    return "HN2 Area";
-  }
-
-  const first2 = patch.name.slice(0, 2);
-  console.log(first2);
-  return `${first2} Area`;
+  console.log(prefix);
+  return `${prefix} Area`;
 };
 
 const getParentId = (patch: Patch): string => {
   getAreaName(patch);
-  //to do - get the parentId based on the name given. - need to test
   console.log(`parentId${patch.parentId}`);
   return patch.parentId;
 };

@@ -46,12 +46,7 @@ test("unauthorized message is shown for unauthorized users", async () => {
   });
 });
 
-test.skip("patch is filtered to not have area", async () => {
-  jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
-  render(<NewAssetView />);
-});
-
-test.skip("Hackney is removed from the patch/area list", async () => {
+test("patch is filtered to not have area and Hackney", async () => {
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
   render(<NewAssetView />);
 });
