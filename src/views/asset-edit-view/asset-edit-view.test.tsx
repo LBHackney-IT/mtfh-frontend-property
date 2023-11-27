@@ -52,6 +52,8 @@ const tenureData = {
 const assetData = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
   assetId: "100021045676",
+  areaId: "7c9790a5-ea4d-4819-bcdb-0a10094b7166",
+  patchId: "a6809b57-9ba9-4a7d-bf14-f3a1182ca994",
   assetType: "LettableNonDwelling",
   rootAsset: null,
   parentAssetIds: null,
@@ -89,17 +91,6 @@ const assetData = {
     startOfTenureDate: "2011-01-01T00:00:00Z",
   },
   versionNumber: 18,
-  patches: [
-    {
-      id: "bd0a8e2b-c3b5-4628-aa33-8e7509d5eac6",
-      parentId: "8d4fb05d-3ff5-48b7-a17a-71fcb27a66a8",
-      name: "SN4",
-      patchType: "patch",
-      domain: "MMH",
-      responsibleEntities: [],
-      versionNumber: null,
-    },
-  ],
 };
 
 const llpgAddressData = {

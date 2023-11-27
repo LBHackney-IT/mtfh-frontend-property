@@ -10,17 +10,17 @@ import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 export interface PatchesFieldProps {
   patchesState: any;
   dispatch: any;
-  patchesAndAreasData: Patch[];
+  patchesData: Patch[];
 }
 
 export const PatchesField = ({
   patchesState,
   dispatch,
-  patchesAndAreasData,
+  patchesData,
 }: PatchesFieldProps) => {
   const renderPatchOptions = (): JSX.Element[] | undefined => {
-    if (patchesAndAreasData) {
-      return patchesAndAreasData.map(({ id, name }) => (
+    if (patchesData) {
+      return patchesData.map(({ id, name }) => (
         <option key={id} value={id}>
           {name}
         </option>
@@ -37,7 +37,7 @@ export const PatchesField = ({
   };
 
   const renderPropertyPatches = () => {
-    if (patchesAndAreasData.length) {
+    if (patchesData.length) {
       const patches = patchesState.patches.map((patch: PropertyPatch) => {
         return (
           <div className="patch" key={patch.id}>
@@ -101,11 +101,11 @@ export const PatchesField = ({
   return (
     <>
       <label className="govuk-label lbh-label" htmlFor="patches">
-        Patches
+        Patch
       </label>
       <div id="property-patches-container">{renderPropertyPatches()}</div>
       <div>
-        {patchesState.patches.length === 0 ? (
+        {patchesState.patches.length === 0 && (
           <button
             className="lbh-link"
             onClick={(e) => handleAddNewPatch(e)}
@@ -113,15 +113,6 @@ export const PatchesField = ({
             id="patch-add-link"
           >
             Add a patch
-          </button>
-        ) : (
-          <button
-            className="lbh-link"
-            onClick={(e) => handleAddNewPatch(e)}
-            data-testid="patch-add-link"
-            id="patch-add-link"
-          >
-            Add another patch
           </button>
         )}
       </div>

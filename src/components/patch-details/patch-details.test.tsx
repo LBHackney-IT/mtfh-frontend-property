@@ -53,7 +53,8 @@ const mockAssetArea: Patch = {
 
 const assetWithPatches: Asset = {
   ...mockAssetV1,
-  patches: [mockAssetPatch],
+  patchId: mockAssetPatch.id,
+  areaId: mockAssetArea.id,
 };
 
 beforeEach(() => {
@@ -75,11 +76,11 @@ beforeEach(() => {
 
 describe("Patch Details", () => {
   test("it renders the component", async () => {
-    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={assetWithPatches.patches[0]}
+        assetPatch={mockAssetPatch}
+        assetArea={mockAssetArea}
       />,
     );
 
@@ -87,11 +88,11 @@ describe("Patch Details", () => {
   });
 
   test("it shows edit patches button", async () => {
-    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={assetWithPatches.patches[0]}
+        assetPatch={mockAssetPatch}
+        assetArea={mockAssetArea}
       />,
     );
 
@@ -103,11 +104,11 @@ describe("Patch Details", () => {
   });
 
   test("the edit patches button links to the correct page", async () => {
-    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={assetWithPatches.patches[0]}
+        assetPatch={mockAssetPatch}
+        assetArea={mockAssetArea}
       />,
     );
 
@@ -120,11 +121,11 @@ describe("Patch Details", () => {
   });
 
   test("it displays the patch, housing officer, and area manager", async () => {
-    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={assetWithPatches.patches[0]}
+        assetPatch={mockAssetPatch}
+        assetArea={mockAssetArea}
       />,
     );
     await waitFor(async () => {
@@ -145,21 +146,27 @@ describe("Patch Details", () => {
   });
 
   test("it displays a 'no patch' message when asset has no patches", async () => {
-    render(<PatchDetails assetPk={mockAssetV1.id} assetPatch={undefined} />);
+    render(
+      <PatchDetails
+        assetPk={mockAssetV1.id}
+        assetPatch={undefined}
+        assetArea={undefined}
+      />,
+    );
 
     await waitFor(async () => {
-      screen.getByText(locale.patchDetails.noPatch);
+      expect(screen.getByText(locale.patchDetails.noPatch)).toBeVisible();
     });
-    expect(screen.queryByTestId("patch-name")).toBeNull();
+    expect(screen.queryByTestId("patch-name")).not.toBeInTheDocument();
   });
 
   test("it sets a cookie with the asset ID when the edit patches button is clicked", async () => {
     // This is used to redirect the user back to the asset page after editing patches
-    if (!assetWithPatches.patches) throw new Error("No patches");
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={assetWithPatches.patches[0]}
+        assetPatch={mockAssetPatch}
+        assetArea={mockAssetArea}
       />,
     );
 

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { render } from "@hackney/mtfh-test-utils";
+import { v4 as uuidv4 } from "uuid";
 
 import { RelatedAssetsLayout } from "./layout";
 
@@ -8,6 +9,8 @@ import { Asset } from "@mtfh/common/lib/api/asset/v1";
 
 const asset: Asset = {
   id: "a65918aa-e441-bc34-e49d-fa8671f768da",
+  patchId: uuidv4(),
+  areaId: uuidv4(),
   assetId: "00074866",
   assetType: "HighRiseBlock",
   rootAsset: "14edf718-19ff-ff43-4679-f8ef404fa029",
@@ -55,25 +58,6 @@ const asset: Asset = {
     propertyFactor: "",
     architecturalType: "",
   },
-  patches: [
-    {
-      id: "bd0a8e2b-c3b5-4628-aa33-8e7509d5eac6",
-      parentId: "8d4fb05d-3ff5-48b7-a17a-71fcb27a66a8",
-      name: "SN4",
-      patchType: "patch",
-      domain: "MMH",
-      responsibleEntities: [
-        {
-          id: "7fb98e5e-6543-4e3e-b654-ac06e0a3f2f9",
-          name: "Fake_Lyla Fake_Kling",
-          responsibleType: "HousingOfficer",
-          contactDetails: {
-            emailAddress: "test.test@hackney.gov.uk",
-          },
-        },
-      ],
-    },
-  ],
   boilerHouseId: "",
   rentGroup: null,
   tenure: null,
@@ -83,6 +67,8 @@ const asset: Asset = {
 const childrenAssets: Asset[] = [
   {
     id: "13e7cf17-60a0-729d-c297-a4e76a16b6fa",
+    patchId: uuidv4(),
+    areaId: uuidv4(),
     assetId: "00023449",
     assetType: "Dwelling",
     assetAddress: {

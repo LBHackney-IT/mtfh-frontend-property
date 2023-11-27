@@ -51,11 +51,25 @@ export const NewAsset = ({
   const [patchesState, dispatch] = useReducer(reducer, initialPatchesState);
 
   // Data from API request
-  const [patchesAndAreasData, setPatchesAndAreasData] = useState<Patch[]>([]);
-
+  const [patchesData, setPatchesData] = useState<Patch[]>([]);
   useEffect(() => {
     getAllPatchesAndAreas()
-      .then((res) => setPatchesAndAreasData(res))
+      .then((data) => {
+        data = data.filter(
+          (patchOrArea) =>
+            ![
+              "Hackney",
+              "CL Area",
+              "CP Area",
+              "HN1 Area",
+              "HN2 Area",
+              "SD Area",
+              "SH Area",
+              "SN Area",
+            ].includes(patchOrArea.name),
+        );
+        setPatchesData(data);
+      })
       .catch((error) => {
         console.error("Unable to retrieve patch data. Error:", error);
         setErrorHeading("Unable to retrieve patch data");
@@ -65,14 +79,16 @@ export const NewAsset = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getFullPatchData = (patchesState: any) => {
+  const getFullPatchData = (patchesState: any): Patch => {
     // Get patches GUIDs from patchesState
     const patchesGuids = patchesState.patches.map((patch: PropertyPatch) => patch.value);
 
-    // Return full patch objects with the above GUIDs in patchesAndAreasData
-    return patchesAndAreasData.filter((patchObject: Patch) =>
+    // Return full patch objects with the above GUIDs in patchesData
+    const patchObject = patchesData.filter((patchObject: Patch) =>
       patchesGuids.includes(patchObject.id),
     );
+    //A property can only be assigned to one patch hence always getting the first patch in the list
+    return patchObject[0];
   };
 
   const handleSubmit = async (values: NewPropertyFormData) => {
@@ -81,8 +97,8 @@ export const NewAsset = ({
     setErrorHeading(null);
     setErrorDescription(null);
 
-    const patches = getFullPatchData(patchesState);
-    const asset = assembleCreateNewAssetRequest(values, patches);
+    const fullObject = getFullPatchData(patchesState);
+    const asset = assembleCreateNewAssetRequest(values, fullObject);
 
     setLoading(true);
     await createAsset(asset)
@@ -112,7 +128,9 @@ export const NewAsset = ({
     <>
       <Formik<NewPropertyFormData>
         initialValues={{
-          assetId: "",
+          propertyReference: "",
+          areaId: "",
+          patchId: "",
           assetType: "",
           parentAsset: "",
           floorNo: "",
@@ -128,7 +146,6 @@ export const NewAsset = ({
           areaOfficeName: "",
           isCouncilProperty: "",
           managingOrganisation: "London Borough of Hackney",
-          patches: patchesState,
           numberOfBedrooms: undefined,
           numberOfLivingRooms: undefined,
           numberOfLifts: undefined,
@@ -152,35 +169,35 @@ export const NewAsset = ({
             <Form>
               <div
                 className={
-                  errors.assetId && touched.assetId
+                  errors.propertyReference && touched.propertyReference
                     ? "govuk-form-group govuk-form-group--error lbh-form-group"
                     : "govuk-form-group lbh-form-group"
                 }
               >
-                <label className="govuk-label lbh-label" htmlFor="assetId">
-                  Asset ID*
+                <label className="govuk-label lbh-label" htmlFor="propertyReference">
+                  Property Reference*
                 </label>
-                {errors.assetId && touched.assetId && (
+                {errors.propertyReference && touched.propertyReference && (
                   <span
-                    id="assetId-input-error"
+                    id="propertyReference-input-error"
                     className="govuk-error-message lbh-error-message"
                   >
-                    <span className="govuk-visually-hidden" data-testid="error-asset-id">
+                    <span className="govuk-visually-hidden" data-testid="error-prop-ref">
                       Error:
                     </span>
-                    {errors.assetId}
+                    {errors.propertyReference}
                   </span>
                 )}
                 <Field
-                  id="asset-id"
-                  name="assetId"
+                  id="prop-ref"
+                  name="propertyReference"
                   className={
-                    errors.assetId && touched.assetId
+                    errors.propertyReference && touched.propertyReference
                       ? "govuk-input lbh-input govuk-input--error"
                       : "govuk-input lbh-input"
                   }
                   type="text"
-                  data-testid="asset-id"
+                  data-testid="prop-ref"
                 />
               </div>
               <div
@@ -596,7 +613,7 @@ export const NewAsset = ({
               <PatchesField
                 patchesState={patchesState}
                 dispatch={dispatch}
-                patchesAndAreasData={patchesAndAreasData}
+                patchesData={patchesData}
               />
               <div
                 className={

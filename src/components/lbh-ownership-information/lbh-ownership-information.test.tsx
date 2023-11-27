@@ -2,6 +2,7 @@ import React from "react";
 
 import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
+import { v4 as uuidv4 } from "uuid";
 
 import { locale } from "../../services";
 import { LbhOwnershipInformation } from "./lbh-ownership-information";
@@ -11,6 +12,8 @@ import * as auth from "@mtfh/common/lib/auth/auth";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
+  patchId: uuidv4(),
+  areaId: uuidv4(),
   assetId: "0019062023",
   assetType: "Block",
   assetLocation: {
