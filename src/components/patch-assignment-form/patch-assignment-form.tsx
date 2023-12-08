@@ -59,7 +59,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     setSwitchingWithPatch(patch);
     setDialogActive(true);
   };
-
   return (
     <div>
       {!!reassigningPatch && !!switchingWithPatch && (
@@ -79,16 +78,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
       )}
       <form>
         <div className="govuk-form-group">
-          {reassigningPatch && (
-            <>
-              <h2>
-                Reassigning {reassigningPatch?.responsibleEntities[0]?.name} from patch{" "}
-                {reassigningPatch.name}
-              </h2>
-              <CancelReassignmentButton onClick={() => setReassigningPatch(null)} />
-            </>
-          )}
-
           <label className="govuk-label lbh-label" htmlFor="searchQuery">
             Area
           </label>
