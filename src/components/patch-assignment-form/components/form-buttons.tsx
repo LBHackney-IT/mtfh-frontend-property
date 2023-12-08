@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Patch } from "@mtfh/common/lib/api/patch/v1";
-
 export const CancelReassignmentButton = ({
   onClick,
 }: {
@@ -11,7 +9,7 @@ export const CancelReassignmentButton = ({
     <button
       data-testid="cancel-reassignment-button"
       className="govuk-button lbh-button"
-      style={{ marginTop: 0 }}
+      style={{ marginTop: 0, backgroundColor: "red" }}
       type="button"
       onClick={() => onClick()}
     >
@@ -34,21 +32,19 @@ export const ReassignButton = ({ onClick }: { onClick: Function }): JSX.Element 
   );
 };
 
-interface AssignButtonProps {
-  reassigningPatch: Patch;
-  onClick: Function;
-}
-export const AssignButton = ({ reassigningPatch, onClick }: AssignButtonProps) => {
-  const officerName = reassigningPatch.responsibleEntities[0].name;
+export const ConfirmReassignmentButton = (): JSX.Element => {
   return (
     <button
-      data-testid="assign-button"
+      data-testid="confirm-reassignment-button"
       className="govuk-button lbh-button"
-      style={{ marginTop: 0, maxHeight: "2.5em", display: "flex", alignItems: "center" }}
-      type="button"
-      onClick={() => onClick()}
+      style={{ marginTop: 0, marginRight: "1rem" }}
+      type="submit"
+      value="Submit"
+      onClick={() => {
+        console.log("Submitted!");
+      }}
     >
-      Assign {officerName}
+      Confirm
     </button>
   );
 };
