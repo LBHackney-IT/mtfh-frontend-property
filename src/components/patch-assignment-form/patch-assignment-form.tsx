@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from "react";
 
-import { assetAdminAuthGroups } from "../../services/config/config";
 import { AreaSelectionDialog } from "./components/area-selection-dialog";
-import {
-  CancelReassignmentButton,
-  ConfirmReassignmentButton,
-  ReassignButton,
-} from "./components/form-buttons";
+import { TableRow } from "./components/rows";
 
+import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
 import {
-  Patch,
-  ResponsibleEntity,
-  getAllPatchesAndAreas,
-  replacePatchResponsibleEntities,
-} from "@mtfh/common/lib/api/patch/v1";
-import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
-import { Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@mtfh/common/lib/components";
-
-interface PatchRow extends Patch {
-  parentAreaName?: string;
-}
+  Spinner,
+  StatusHeading,
+  Table,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+} from "@mtfh/common/lib/components";
 
 interface Props {
   setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,77 +34,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     });
   }, []);
 
-  const ReadOnlyRow = ({
-    officer,
-    areaOrPatch,
-  }: {
-    officer: ResponsibleEntity;
-    areaOrPatch: PatchRow;
-  }): JSX.Element => {
-    return (
-      <>
-        <Td>{areaOrPatch.name}</Td>
-        <Td>{areaOrPatch.parentAreaName}</Td>
-        <Td>{officer?.name}</Td>
-        <Td>{officer?.contactDetails?.emailAddress?.toLowerCase()}</Td>
-      </>
-    );
-  };
-
-  const EditableRow = ({
-    officer,
-    areaOrPatch,
-    reassigningThisPatch,
-  }: {
-    officer: ResponsibleEntity;
-    areaOrPatch: PatchRow;
-    reassigningThisPatch: boolean | null;
-  }): JSX.Element => {
-    return (
-      <>
-        {!reassigningThisPatch ? (
-          <ReadOnlyRow officer={officer} areaOrPatch={areaOrPatch} />
-        ) : (
-          <>
-            <Td>{areaOrPatch.name}</Td>
-            <Td>{areaOrPatch.parentAreaName}</Td>
-            <Td>
-              <input
-                className="govuk-input"
-                type="text"
-                name="officerName"
-                id=""
-                defaultValue={officer?.name}
-                data-testid="officer-name-input"
-              />
-            </Td>
-            <Td>
-              <input
-                className="govuk-input"
-                type="text"
-                name="officerEmail"
-                id=""
-                defaultValue={officer?.contactDetails?.emailAddress?.toLowerCase()}
-                data-testid="officer-email-input"
-              />
-            </Td>
-          </>
-        )}
-        <Td>
-          {reassigningThisPatch && (
-            <>
-              <ConfirmReassignmentButton />
-              <CancelReassignmentButton onClick={() => setReassigningPatch(null)} />
-            </>
-          )}
-          {!reassigningPatch && (
-            <ReassignButton onClick={() => setReassigningPatch(areaOrPatch)} />
-          )}
-        </Td>
-      </>
-    );
-  };
-
   const areas = patchesAndAreas
     .filter((patchOrArea) => patchOrArea.patchType === "area")
     .sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -132,47 +54,27 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     .sort((a, b) => (a.name > b.name ? 1 : -1))
     .sort((a, b) => (a.patchType !== "area" && b.patchType === "area" ? 1 : -1));
 
-  const handleSubmission = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const newOfficerName = formData.get("officerName") as string;
-    const newOfficerEmail = formData.get("officerEmail") as string;
-
-    if (!reassigningPatch) return;
-    const currentPatch = patchesAndAreas.find(
-      (patch) => patch.id === reassigningPatch.id,
-    );
-    if (!currentPatch) return;
-
-    const newResEnt: ResponsibleEntity = {
-      ...reassigningPatch.responsibleEntities[0],
-      name: newOfficerName,
-      contactDetails: {
-        emailAddress: newOfficerEmail,
-      },
-    };
-    const currentVersionNumber = currentPatch?.versionNumber || 0;
-    replacePatchResponsibleEntities(
-      reassigningPatch.id,
-      [newResEnt],
-      currentVersionNumber,
-    )
-      .then((data) => {
-        if (data.status === 200) setShowSuccess(true);
-        currentPatch.responsibleEntities[0] = newResEnt;
-        currentPatch.versionNumber = currentVersionNumber + 1;
-      })
-      .catch((error) => {
-        setRequestError(error.message);
-        setShowSuccess(false);
-      })
-      .finally(() => {
-        setReassigningPatch(null);
-      });
-  };
+  function handleSubmission(success: boolean, patch: Patch, error?: Error) {
+    if (success) {
+      const matchingPatch = patchesAndAreas.find(
+        (patchOrArea) => patchOrArea.id === patch.id,
+      );
+      if (!matchingPatch) return;
+      matchingPatch.responsibleEntities[0] = patch.responsibleEntities[0];
+      setPatchesAndAreas([...patchesAndAreas]);
+      setShowSuccess(true);
+      setReassigningPatch(null);
+    } else {
+      setRequestError(error?.message || "An error occurred");
+    }
+  }
 
   return (
     <div>
+      <StatusHeading
+        title="Each person should only be assigned to one patch or area to ensure processes are correctly displayed on their worktray"
+        variant="warning"
+      />
       <div className="govuk-form-group">
         <AreaSelectionDialog
           areas={areas}
@@ -183,42 +85,45 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
 
         {showSpinner && <Spinner />}
 
-        <form onSubmit={handleSubmission}>
-          <Table>
-            <Thead>
-              <Tr>
-                <Th>Patch</Th>
-                <Th>Area</Th>
-                <Th>Assigned Officer</Th>
-                <Th>Contact</Th>
-                <Th />
-              </Tr>
-            </Thead>
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>Patch</Th>
+              <Th>Area</Th>
+              <Th>Assigned Officer</Th>
+              <Th>Contact</Th>
+              <Th />
+            </Tr>
+          </Thead>
 
-            <Tbody>
-              {patchTableItems.map((areaOrPatch) => {
-                const officer = areaOrPatch.responsibleEntities[0];
-                const reassigningThisPatch =
-                  reassigningPatch && reassigningPatch.id === areaOrPatch.id;
-                return (
-                  <>
-                    <Tr key={areaOrPatch.id} data-testid={`${areaOrPatch.name}-row`}>
-                      {isAuthorisedForGroups(assetAdminAuthGroups) ? (
-                        <EditableRow
-                          officer={officer}
-                          areaOrPatch={areaOrPatch}
-                          reassigningThisPatch={reassigningThisPatch}
-                        />
-                      ) : (
-                        <ReadOnlyRow officer={officer} areaOrPatch={areaOrPatch} />
-                      )}
-                    </Tr>
-                  </>
-                );
-              })}
-            </Tbody>
-          </Table>
-        </form>
+          <Tbody>
+            {patchTableItems.map((areaOrPatchTableItem) => {
+              const areaOrPatch = patchesAndAreas.find(
+                (patchOrArea) => patchOrArea.id === areaOrPatchTableItem.id,
+              );
+              if (!areaOrPatch) return null;
+
+              const reassigningThisPatch = reassigningPatch
+                ? reassigningPatch.id === areaOrPatchTableItem.id
+                : false;
+              return (
+                <>
+                  <Tr
+                    key={areaOrPatchTableItem.id}
+                    data-testid={`${areaOrPatchTableItem.name}-row`}
+                  >
+                    <TableRow
+                      areaOrPatch={areaOrPatch}
+                      reassigningThisPatch={reassigningThisPatch}
+                      setReassigningPatch={setReassigningPatch}
+                      handleSubmission={handleSubmission}
+                    />
+                  </Tr>
+                </>
+              );
+            })}
+          </Tbody>
+        </Table>
       </div>
     </div>
   );

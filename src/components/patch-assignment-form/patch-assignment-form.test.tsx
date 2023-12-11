@@ -73,7 +73,7 @@ const rowForPatch = (patchName: string) => screen.getByTestId(rowTestId(patchNam
 const cancelBtnForPatch = (patchName: string) =>
   within(rowForPatch(patchName)).getByTestId("cancel-reassignment-button");
 const reassignBtnForPatch = (patchName: string) =>
-  within(rowForPatch(patchName)).getByTestId("reassign-button");
+  within(rowForPatch(patchName)).getByTestId("edit-assignment-button");
 const assignBtnForPatch = (patchName: string) =>
   within(rowForPatch(patchName)).getByTestId("assign-button");
 

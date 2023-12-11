@@ -18,31 +18,31 @@ export const CancelReassignmentButton = ({
   );
 };
 
-export const ReassignButton = ({ onClick }: { onClick: Function }): JSX.Element => {
+export const EditAssignmentButton = ({ onClick }: { onClick: Function }): JSX.Element => {
   return (
     <button
-      data-testid="reassign-button"
+      data-testid="edit-assignment-button"
       className="govuk-button lbh-button"
       style={{ marginTop: 0 }}
       type="button"
       onClick={() => onClick()}
     >
-      Reassign
+      Edit
     </button>
   );
 };
 
-export const ConfirmReassignmentButton = (): JSX.Element => {
+export const ConfirmReassignmentButton = ({
+  onClick,
+}: {
+  onClick: Function;
+}): JSX.Element => {
   return (
     <button
       data-testid="confirm-reassignment-button"
       className="govuk-button lbh-button"
       style={{ marginTop: 0, marginRight: "1rem" }}
-      type="submit"
-      value="Submit"
-      onClick={() => {
-        console.log("Submitted!");
-      }}
+      onClick={() => onClick()}
     >
       Confirm
     </button>
