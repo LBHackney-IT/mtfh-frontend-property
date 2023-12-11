@@ -85,7 +85,7 @@ export const TableRow = ({
             name="officerName"
             id="officerNameInput"
             defaultValue={officer?.name}
-            data-testid="officer-name-input"
+            data-testid={`officer-name-input-${areaOrPatch.name}`}
             onChange={(event) => setNewOfficerName(event.target.value)}
           />
         </Td>
@@ -96,7 +96,7 @@ export const TableRow = ({
             name="officerEmail"
             id=""
             defaultValue={officer?.contactDetails?.emailAddress?.toLowerCase()}
-            data-testid="officer-email-input"
+            data-testid={`officer-email-input-${areaOrPatch.name}`}
             onChange={(event) => setNewOfficerEmail(event.target.value)}
           />
         </Td>

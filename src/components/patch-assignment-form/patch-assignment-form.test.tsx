@@ -70,12 +70,16 @@ const mockPatch2: Patch = {
 const getDropdown = () => screen.getByTestId("area-select");
 const rowTestId = (patchName: string) => `${patchName}-row`;
 const rowForPatch = (patchName: string) => screen.getByTestId(rowTestId(patchName));
+const officerNameInputForPatch = (patchName: string) =>
+  within(rowForPatch(patchName)).getByTestId(`officer-name-input-${patchName}`);
+const officerEmailInputForPatch = (patchName: string) =>
+  within(rowForPatch(patchName)).getByTestId(`officer-email-input-${patchName}`);
 const cancelBtnForPatch = (patchName: string) =>
   within(rowForPatch(patchName)).getByTestId("cancel-reassignment-button");
-const reassignBtnForPatch = (patchName: string) =>
+const editAssignmentBtnForPatch = (patchName: string) =>
   within(rowForPatch(patchName)).getByTestId("edit-assignment-button");
-const assignBtnForPatch = (patchName: string) =>
-  within(rowForPatch(patchName)).getByTestId("assign-button");
+const confirmReassignmentBtnForPatch = (patchName: string) =>
+  within(rowForPatch(patchName)).getByTestId("confirm-reassignment-button");
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -142,55 +146,54 @@ describe("PatchAssignmentForm", () => {
     });
   });
 
-  /* TODO: Toggle this when ready to release patch reassignment */
-  describe.skip("it allows reassigning patches and areas", () => {
+  describe("it allows reassigning patches and areas", () => {
     test("it allows cancelling reassignment", async () => {
       await waitFor(() => {
         rowForPatch(mockArea.name);
       });
 
-      const areaReassignButton = reassignBtnForPatch(mockArea.name);
-      expect(areaReassignButton).toHaveTextContent("Reassign");
+      const areaReassignButton = editAssignmentBtnForPatch(mockArea.name);
+      expect(areaReassignButton).toHaveTextContent("Edit");
       areaReassignButton?.click();
 
       const cancelButton = cancelBtnForPatch(mockArea.name);
       expect(cancelButton).toBeVisible();
       cancelButton?.click();
 
-      expect(reassignBtnForPatch(mockArea.name)).toHaveTextContent("Reassign");
-      expect(reassignBtnForPatch(mockPatch.name)).toHaveTextContent("Reassign");
+      expect(editAssignmentBtnForPatch(mockArea.name)).toHaveTextContent("Edit");
     });
 
-    test("it switches assignments between patches and/or areas when reassigning", async () => {
+    test("it edits the name and email address as entered by the user", async () => {
       await waitFor(() => {
         rowForPatch(mockArea.name);
       });
 
-      // Reassign area
-      reassignBtnForPatch(mockArea.name).click();
+      const newName = "New Name";
+      const newEmail = "new.name@hackney.gov.uk";
+
+      editAssignmentBtnForPatch(mockArea.name).click();
 
       // Assign to patch
-      const assignButton = assignBtnForPatch(mockPatch.name);
-      expect(assignButton).toHaveTextContent(
-        `Assign ${mockAreaResponsibleEntity.name.split(" ")[0]}`,
-      );
-      assignButton.click();
+      const officerNameInput = officerNameInputForPatch(mockArea.name);
+      expect(officerNameInput).toHaveValue(mockAreaResponsibleEntity.name);
+      userEvent.clear(officerNameInput);
+      userEvent.type(officerNameInput, newName);
 
-      // Confirm on dialog
-      const confirmReassignmentButton = screen.getByTestId("confirm-reassignment-button");
-      expect(confirmReassignmentButton).toBeVisible();
-      confirmReassignmentButton?.click();
-
-      expect(reassignBtnForPatch(mockArea.name)).toHaveTextContent("Reassign");
-      expect(reassignBtnForPatch(mockArea.name)).toHaveTextContent("Reassign");
-
-      // Names should be switched
-      expect(rowForPatch(mockArea.name)).toHaveTextContent(
-        mockPatchResponsibleEntity.name,
+      const officerEmailInput = officerEmailInputForPatch(mockArea.name);
+      expect(officerEmailInput).toHaveValue(
+        mockAreaResponsibleEntity.contactDetails.emailAddress,
       );
-      expect(rowForPatch(mockPatch.name)).toHaveTextContent(
-        mockAreaResponsibleEntity.name,
-      );
+      userEvent.clear(officerEmailInput);
+      userEvent.type(officerEmailInput, newEmail);
+
+      confirmReassignmentBtnForPatch(mockArea.name).click();
+      await waitFor(() => {
+        expect(editAssignmentBtnForPatch(mockArea.name)).toHaveTextContent("Edit");
+      });
+
+      // Check that the new officer name and email address are displayed
+      expect(rowForPatch(mockArea.name)).toHaveTextContent(newName);
+      expect(rowForPatch(mockArea.name)).toHaveTextContent(newEmail);
     });
   });
 });

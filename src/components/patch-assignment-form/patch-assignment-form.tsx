@@ -54,7 +54,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     .sort((a, b) => (a.name > b.name ? 1 : -1))
     .sort((a, b) => (a.patchType !== "area" && b.patchType === "area" ? 1 : -1));
 
-  function handleSubmission(success: boolean, patch: Patch, error?: Error) {
+  function displaySubmissionStatus(success: boolean, patch: Patch, error?: Error) {
     if (success) {
       const matchingPatch = patchesAndAreas.find(
         (patchOrArea) => patchOrArea.id === patch.id,
@@ -106,6 +106,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
               const reassigningThisPatch = reassigningPatch
                 ? reassigningPatch.id === areaOrPatchTableItem.id
                 : false;
+
               return (
                 <>
                   <Tr
@@ -116,7 +117,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
                       areaOrPatch={areaOrPatch}
                       reassigningThisPatch={reassigningThisPatch}
                       setReassigningPatch={setReassigningPatch}
-                      handleSubmission={handleSubmission}
+                      handleSubmission={displaySubmissionStatus}
                     />
                   </Tr>
                 </>
