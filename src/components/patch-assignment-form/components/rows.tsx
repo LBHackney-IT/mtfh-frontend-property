@@ -64,6 +64,8 @@ export const TableRow = ({
     editPatchAssignment(areaOrPatch, newOfficerName, newOfficerEmail, handleSubmission);
   }
   function onCancelButtonClick() {
+    setNewOfficerName(officer?.name || "");
+    setNewOfficerEmail(officer?.contactDetails?.emailAddress?.toLowerCase() || "");
     setReassigningPatch(null);
     setValidationError(null);
   }
@@ -87,6 +89,13 @@ export const TableRow = ({
     );
   }
 
+  const anyChangesMade = () => {
+    return (
+      newOfficerName !== officer?.name ||
+      newOfficerEmail !== officer?.contactDetails?.emailAddress?.toLowerCase()
+    );
+  };
+
   return (
     <>
       <>
@@ -98,7 +107,7 @@ export const TableRow = ({
             type="text"
             name="officerName"
             id="officerNameInput"
-            defaultValue={officer?.name}
+            defaultValue={newOfficerName || officer?.name}
             data-testid={`officer-name-input-${areaOrPatch.name}`}
             onChange={(event) => setNewOfficerName(event.target.value.trim())}
           />
@@ -109,7 +118,9 @@ export const TableRow = ({
             type="text"
             name="officerEmail"
             id=""
-            defaultValue={officer?.contactDetails?.emailAddress?.toLowerCase()}
+            defaultValue={
+              newOfficerEmail || officer?.contactDetails?.emailAddress?.toLowerCase()
+            }
             data-testid={`officer-email-input-${areaOrPatch.name}`}
             onChange={(event) =>
               setNewOfficerEmail(event.target.value.trim().toLowerCase())
@@ -124,7 +135,10 @@ export const TableRow = ({
               <span className="govuk-visually-hidden">Error:</span> {validationError}
             </div>
           )}
-          <ConfirmReassignmentButton onClick={onConfirmButtonClick} />
+          <ConfirmReassignmentButton
+            onClick={onConfirmButtonClick}
+            enabled={anyChangesMade()}
+          />
           <CancelReassignmentButton onClick={onCancelButtonClick} />
         </>
       </Td>

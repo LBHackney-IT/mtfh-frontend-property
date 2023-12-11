@@ -32,13 +32,17 @@ export const EditAssignmentButton = ({ onClick }: { onClick: Function }): JSX.El
   );
 };
 
+interface ConfirmReassignmentButtonProps {
+  onClick: Function;
+  enabled: boolean;
+}
 export const ConfirmReassignmentButton = ({
   onClick,
-}: {
-  onClick: Function;
-}): JSX.Element => {
+  enabled,
+}: ConfirmReassignmentButtonProps): JSX.Element => {
   return (
     <button
+      disabled={!enabled}
       data-testid="confirm-reassignment-button"
       className="govuk-button lbh-button"
       style={{ marginTop: 0, marginRight: "1rem" }}
