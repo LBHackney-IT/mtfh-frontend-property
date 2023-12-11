@@ -10,12 +10,6 @@ export function editPatchAssignment(
   newOfficerEmail: string,
   handleSubmission: Function,
 ) {
-  // TODO: Handle Error
-  if (!newOfficerName || !newOfficerEmail)
-    throw new Error(
-      `Invalid officer name or email: ${newOfficerName} ${newOfficerEmail}`,
-    );
-
   const officer = patch?.responsibleEntities[0];
 
   const newResEnt: ResponsibleEntity = {

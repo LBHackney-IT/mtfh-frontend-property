@@ -49,9 +49,23 @@ export const TableRow = ({
   const [newOfficerEmail, setNewOfficerEmail] = useState<string>(
     officer?.contactDetails?.emailAddress?.toLowerCase() || "",
   );
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   function onConfirmButtonClick() {
+    if (!newOfficerName || !newOfficerEmail) {
+      setValidationError("Please enter a name and email address");
+      return;
+    }
+    if (!newOfficerEmail.includes("@hackney.gov.uk")) {
+      setValidationError("Email address must include @hackney.gov.uk");
+      return;
+    }
+    setValidationError(null);
     editPatchAssignment(areaOrPatch, newOfficerName, newOfficerEmail, handleSubmission);
+  }
+  function onCancelButtonClick() {
+    setReassigningPatch(null);
+    setValidationError(null);
   }
 
   if (!isAuthorisedForGroups(assetAdminAuthGroups)) {
@@ -86,7 +100,7 @@ export const TableRow = ({
             id="officerNameInput"
             defaultValue={officer?.name}
             data-testid={`officer-name-input-${areaOrPatch.name}`}
-            onChange={(event) => setNewOfficerName(event.target.value)}
+            onChange={(event) => setNewOfficerName(event.target.value.trim())}
           />
         </Td>
         <Td>
@@ -97,14 +111,21 @@ export const TableRow = ({
             id=""
             defaultValue={officer?.contactDetails?.emailAddress?.toLowerCase()}
             data-testid={`officer-email-input-${areaOrPatch.name}`}
-            onChange={(event) => setNewOfficerEmail(event.target.value)}
+            onChange={(event) =>
+              setNewOfficerEmail(event.target.value.trim().toLowerCase())
+            }
           />
         </Td>
       </>
       <Td>
         <>
-          <ConfirmReassignmentButton onClick={() => onConfirmButtonClick()} />
-          <CancelReassignmentButton onClick={() => setReassigningPatch(null)} />
+          {validationError && (
+            <div className="govuk-error-message">
+              <span className="govuk-visually-hidden">Error:</span> {validationError}
+            </div>
+          )}
+          <ConfirmReassignmentButton onClick={onConfirmButtonClick} />
+          <CancelReassignmentButton onClick={onCancelButtonClick} />
         </>
       </Td>
     </>

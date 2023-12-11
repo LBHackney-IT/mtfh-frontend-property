@@ -34,7 +34,7 @@ export const ManagePatchesLayout = ({ assetId }: { assetId: string | undefined }
       {requestError && (
         <ErrorSummary
           id="patch-asset-error"
-          title="Unexpected error"
+          title="Error"
           description={requestError || undefined}
         />
       )}
