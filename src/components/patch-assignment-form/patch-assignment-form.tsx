@@ -4,15 +4,7 @@ import { AreaSelectionDialog } from "./components/area-selection-dialog";
 import { TableRow } from "./components/rows";
 
 import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
-import {
-  Spinner,
-  StatusHeading,
-  Table,
-  Tbody,
-  Th,
-  Thead,
-  Tr,
-} from "@mtfh/common/lib/components";
+import { Spinner, Table, Tbody, Th, Thead, Tr } from "@mtfh/common/lib/components";
 
 interface Props {
   setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
@@ -71,10 +63,14 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
 
   return (
     <div>
-      <StatusHeading
-        title="Each person should only be assigned to one patch or area to ensure processes are correctly displayed on their worktray"
-        variant="warning"
-      />
+      <section className="lbh-page-announcement lbh-page-announcement--info">
+        <h3 className="lbh-page-announcement__title">
+          Each person should only be assigned to one patch or area
+        </h3>
+        <div className="lbh-page-announcement__content">
+          <p>This ensures processes are correctly displayed on their worktray</p>
+        </div>
+      </section>
       <div className="govuk-form-group">
         <AreaSelectionDialog
           areas={areas}
@@ -84,7 +80,6 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
         <br />
 
         {showSpinner && <Spinner />}
-
         <Table>
           <Thead>
             <Tr>
