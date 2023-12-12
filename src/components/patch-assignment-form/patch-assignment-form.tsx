@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import { assetAdminAuthGroups } from "../../services/config/config";
-import { ConfirmReassignmentDialog } from "./components/confirm-reassignment-dialog";
-import {
-  AssignButton,
-  CancelReassignmentButton,
-  ReassignButton,
-} from "./components/form-buttons";
+import { AreaSelectionDialog } from "./components/area-selection-dialog";
+import { TableRow } from "./components/rows";
 
 import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
-import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
-import { Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@mtfh/common/lib/components";
+import { Spinner, Table, Tbody, Th, Thead, Tr } from "@mtfh/common/lib/components";
 
 interface Props {
   setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,11 +14,8 @@ interface Props {
 export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) => {
   const [patchesAndAreas, setPatchesAndAreas] = useState<Patch[]>([]);
   const [areaOption, setAreaOption] = useState<string>("all");
-  const [dialogActive, setDialogActive] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
-
   const [reassigningPatch, setReassigningPatch] = useState<Patch | null>(null);
-  const [switchingWithPatch, setSwitchingWithPatch] = useState<Patch | null>(null);
 
   useEffect(() => {
     setShowSpinner(true);
@@ -55,117 +46,81 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     .sort((a, b) => (a.name > b.name ? 1 : -1))
     .sort((a, b) => (a.patchType !== "area" && b.patchType === "area" ? 1 : -1));
 
-  const onAssignButtonClick = (patch: Patch) => {
-    setSwitchingWithPatch(patch);
-    setDialogActive(true);
-  };
+  function displaySubmissionStatus(success: boolean, patch: Patch, error?: Error) {
+    if (success) {
+      const matchingPatch = patchesAndAreas.find(
+        (patchOrArea) => patchOrArea.id === patch.id,
+      );
+      if (!matchingPatch) return;
+      matchingPatch.responsibleEntities[0] = patch.responsibleEntities[0];
+      setPatchesAndAreas([...patchesAndAreas]);
+      setShowSuccess(true);
+      setReassigningPatch(null);
+    } else {
+      setRequestError(error?.message || "An error occurred");
+    }
+  }
 
   return (
     <div>
-      {!!reassigningPatch && !!switchingWithPatch && (
-        <ConfirmReassignmentDialog
-          onSuccess={() => {
-            setDialogActive(false);
-            setShowSuccess(true);
-            setReassigningPatch(null);
-            setSwitchingWithPatch(null);
-          }}
-          onDialogCancel={() => setDialogActive(false)}
-          setRequestError={setRequestError}
-          isOpen={dialogActive}
-          reassigningPatch={reassigningPatch}
-          switchingWithPatch={switchingWithPatch}
-        />
-      )}
-      <form>
-        <div className="govuk-form-group">
-          {reassigningPatch && (
-            <>
-              <h2>
-                Reassigning {reassigningPatch?.responsibleEntities[0]?.name} from patch{" "}
-                {reassigningPatch.name}
-              </h2>
-              <CancelReassignmentButton onClick={() => setReassigningPatch(null)} />
-            </>
-          )}
-
-          <label className="govuk-label lbh-label" htmlFor="searchQuery">
-            Area
-          </label>
-          <select
-            className="govuk-select"
-            value={areaOption}
-            onChange={(e) => setAreaOption(e.target.value)}
-            name="areaOption"
-            id=""
-            style={{ marginTop: 0 }}
-            data-testid="area-select"
-          >
-            <option key="all" value="all">
-              All
-            </option>
-            {areas
-              ?.sort((a, b) => (a.name > b.name ? 1 : -1))
-              .map((area) => (
-                <option key={area.id} value={area.name}>
-                  {area.name}
-                </option>
-              ))}
-          </select>
-
-          <br />
-
-          {showSpinner && <Spinner />}
-
-          <Table>
-            <Thead>
-              <Tr>
-                <Th>Patch</Th>
-                <Th>Area</Th>
-                <Th>Assigned Officer</Th>
-                <Th>Contact</Th>
-                <Th />
-              </Tr>
-            </Thead>
-            <Tbody>
-              {patchTableItems.map((areaOrPatch) => {
-                const officer = areaOrPatch.responsibleEntities[0];
-                const reassigningThisPatch =
-                  reassigningPatch && reassigningPatch.id === areaOrPatch.id;
-                return (
-                  <Tr key={areaOrPatch.id} data-testid={`${areaOrPatch.name}-row`}>
-                    <Td>{areaOrPatch.name}</Td>
-                    <Td>{areaOrPatch.parentAreaName}</Td>
-                    <Td>{officer?.name}</Td>
-                    <Td>{officer?.contactDetails?.emailAddress?.toLowerCase()}</Td>
-                    {/* TODO: Toggle this when ready to release patch reassignment */}
-                    {false && isAuthorisedForGroups(assetAdminAuthGroups) && (
-                      <Td>
-                        {reassigningThisPatch && (
-                          <CancelReassignmentButton
-                            onClick={() => setReassigningPatch(null)}
-                          />
-                        )}
-                        {reassigningPatch && !reassigningThisPatch && (
-                          <AssignButton
-                            reassigningPatch={reassigningPatch as Patch}
-                            onClick={() => onAssignButtonClick(areaOrPatch)}
-                          />
-                        )}
-                        {!reassigningPatch && (
-                          <ReassignButton
-                            onClick={() => setReassigningPatch(areaOrPatch)}
-                          />
-                        )}
-                      </Td>
-                    )}
-                  </Tr>
-                );
-              })}
-            </Tbody>
-          </Table>
+      <section className="lbh-page-announcement lbh-page-announcement--info">
+        <h3 className="lbh-page-announcement__title">
+          Each person should only be assigned to one patch or area
+        </h3>
+        <div className="lbh-page-announcement__content">
+          <p>This ensures processes are correctly displayed on their worktray</p>
         </div>
-      </form>
+      </section>
+      <div className="govuk-form-group">
+        <AreaSelectionDialog
+          areas={areas}
+          areaOption={areaOption}
+          setAreaOption={setAreaOption}
+        />
+        <br />
+
+        {showSpinner && <Spinner />}
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>Patch</Th>
+              <Th>Area</Th>
+              <Th>Assigned Officer</Th>
+              <Th>Contact</Th>
+              <Th />
+            </Tr>
+          </Thead>
+
+          <Tbody>
+            {patchTableItems.map((areaOrPatchTableItem) => {
+              const areaOrPatch = patchesAndAreas.find(
+                (patchOrArea) => patchOrArea.id === areaOrPatchTableItem.id,
+              );
+              if (!areaOrPatch) return null;
+
+              const reassigningThisPatch = reassigningPatch
+                ? reassigningPatch.id === areaOrPatchTableItem.id
+                : false;
+
+              return (
+                <>
+                  <Tr
+                    key={areaOrPatchTableItem.id}
+                    data-testid={`${areaOrPatchTableItem.name}-row`}
+                  >
+                    <TableRow
+                      areaOrPatch={areaOrPatch}
+                      reassigningThisPatch={reassigningThisPatch}
+                      setReassigningPatch={setReassigningPatch}
+                      handleSubmission={displaySubmissionStatus}
+                    />
+                  </Tr>
+                </>
+              );
+            })}
+          </Tbody>
+        </Table>
+      </div>
     </div>
   );
 };

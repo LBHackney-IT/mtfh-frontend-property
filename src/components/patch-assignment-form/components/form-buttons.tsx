@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Patch } from "@mtfh/common/lib/api/patch/v1";
-
 export const CancelReassignmentButton = ({
   onClick,
 }: {
@@ -11,7 +9,7 @@ export const CancelReassignmentButton = ({
     <button
       data-testid="cancel-reassignment-button"
       className="govuk-button lbh-button"
-      style={{ marginTop: 0 }}
+      style={{ marginTop: 0, backgroundColor: "red" }}
       type="button"
       onClick={() => onClick()}
     >
@@ -20,35 +18,37 @@ export const CancelReassignmentButton = ({
   );
 };
 
-export const ReassignButton = ({ onClick }: { onClick: Function }): JSX.Element => {
+export const EditAssignmentButton = ({ onClick }: { onClick: Function }): JSX.Element => {
   return (
     <button
-      data-testid="reassign-button"
+      data-testid="edit-assignment-button"
       className="govuk-button lbh-button"
       style={{ marginTop: 0 }}
       type="button"
       onClick={() => onClick()}
     >
-      Reassign
+      Edit
     </button>
   );
 };
 
-interface AssignButtonProps {
-  reassigningPatch: Patch;
+interface ConfirmReassignmentButtonProps {
   onClick: Function;
+  enabled: boolean;
 }
-export const AssignButton = ({ reassigningPatch, onClick }: AssignButtonProps) => {
-  const officerName = reassigningPatch.responsibleEntities[0].name;
+export const ConfirmReassignmentButton = ({
+  onClick,
+  enabled,
+}: ConfirmReassignmentButtonProps): JSX.Element => {
   return (
     <button
-      data-testid="assign-button"
+      disabled={!enabled}
+      data-testid="confirm-reassignment-button"
       className="govuk-button lbh-button"
-      style={{ marginTop: 0, maxHeight: "2.5em", display: "flex", alignItems: "center" }}
-      type="button"
+      style={{ marginTop: 0, marginRight: "1rem" }}
       onClick={() => onClick()}
     >
-      Assign {officerName}
+      Confirm
     </button>
   );
 };
