@@ -52,11 +52,7 @@ export const TableRow = ({
   const [validationError, setValidationError] = useState<string | null>(null);
 
   function onConfirmButtonClick() {
-    if (!newOfficerName || !newOfficerEmail) {
-      setValidationError("Please enter a name and email address");
-      return;
-    }
-    if (!newOfficerEmail.includes("@hackney.gov.uk")) {
+    if (newOfficerEmail && !newOfficerEmail.includes("@hackney.gov.uk")) {
       setValidationError("Email address must include @hackney.gov.uk");
       return;
     }
@@ -65,7 +61,7 @@ export const TableRow = ({
   }
   function onCancelButtonClick() {
     setNewOfficerName(officer?.name || "");
-    setNewOfficerEmail(officer?.contactDetails?.emailAddress?.toLowerCase() || "");
+    setNewOfficerEmail(officer?.contactDetails?.emailAddress?.toLowerCase().trim() || "");
     setReassigningPatch(null);
     setValidationError(null);
   }
@@ -123,7 +119,7 @@ export const TableRow = ({
             }
             data-testid={`officer-email-input-${areaOrPatch.name}`}
             onChange={(event) =>
-              setNewOfficerEmail(event.target.value.trim().toLowerCase())
+              setNewOfficerEmail(event.target.value.trim().toLowerCase().trim())
             }
           />
         </Td>
