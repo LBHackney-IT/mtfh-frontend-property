@@ -82,13 +82,11 @@ const getAreaName = (patch: Patch): string => {
     if (HN2Patches.includes(patch.name)) return "HN2 Area";
     return "HN1 Area";
   }
-  console.log(prefix);
   return `${prefix} Area`;
 };
 
 const getParentId = (patch: Patch): string => {
   getAreaName(patch);
-  console.log(`parentId${patch.parentId}`);
   return patch.parentId;
 };
 

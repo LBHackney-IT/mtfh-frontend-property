@@ -21,7 +21,6 @@ export function editPatchAssignment(
   };
 
   const currentVersionNumber = patch.versionNumber || 0;
-  // console.log(`${patch.name} ${patch.versionNumber} || ${newResEnt.name} -> ${newResEnt.contactDetails?.emailAddress}`);
   replacePatchResponsibleEntities(patch.id, [newResEnt], currentVersionNumber)
     .then((data) => {
       if (!data) throw new Error("No data returned from API");
