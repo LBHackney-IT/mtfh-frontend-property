@@ -20,7 +20,7 @@ export const ManagePatchesLayout = ({ assetId }: { assetId: string | undefined }
         </Link>
       </BrowserRouter>
       {showSuccess && (
-        <StatusBox variant="success" title="The patch has been updated successfully">
+        <StatusBox variant="success" title="The update has completed successfully">
           <BrowserRouter>
             <Link as={RouterLink} to={backLink} variant="back-link">
               {backLinkText}
