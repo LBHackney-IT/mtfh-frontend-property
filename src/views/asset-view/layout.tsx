@@ -10,7 +10,6 @@ import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { useTenure } from "@mtfh/common/lib/api/tenure/v1";
 import {
   Alert as AlertIcon,
-  Button,
   Center,
   Heading,
   Layout,
@@ -57,9 +56,7 @@ export const AssetLayout: FC<Props> = ({
         alert.personId = matchingMember.id;
       }
     });
-
   }
-
 
   if (isLoadingCautionaryAlerts) {
     return (
@@ -108,7 +105,6 @@ export const AssetLayout: FC<Props> = ({
           enableNewProcesses={enableNewProcesses}
           id={assetDetails.id}
         />
-        
       </Layout>
     </PageAnnouncementProvider>
   );

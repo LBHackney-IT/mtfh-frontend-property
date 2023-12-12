@@ -12,10 +12,8 @@ import { RelatedAssetsView } from "./views/related-assets-view";
 export default function App(): JSX.Element {
   return (
     <Switch>
-      <Route path="/property/manage-patches" exact>
-        <div data-testid="new-property">
-          <ManagePatchesView />
-        </div>
+      <Route path="/property/all-patches-and-areas" exact>
+        <ManagePatchesView />
       </Route>
       <Route path="/property/new" exact>
         <div data-testid="new-property">

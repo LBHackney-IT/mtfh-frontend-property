@@ -11,6 +11,7 @@ import { PatchDetails } from "../patch-details/patch-details";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
+import { usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import { Button, SideBar, SideBarProps } from "@mtfh/common/lib/components";
 import { isFutureDate } from "@mtfh/common/lib/utils";
@@ -40,8 +41,16 @@ export const AssetSideBar = ({
   showCautionaryAlerts,
   ...properties
 }: Props) => {
-  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics } =
-    assetDetails;
+  const {
+    assetAddress,
+    assetId,
+    assetType,
+    tenure,
+    id,
+    assetCharacteristics,
+    patchId,
+    areaId,
+  } = assetDetails;
 
   // only show button when there is no active tenure on the asset
   const showAddTenureButton = () =>
@@ -50,6 +59,9 @@ export const AssetSideBar = ({
   const showBoilerHouseInformation = () => {
     return boilerHouseAssetTypes.has(assetType);
   };
+
+  const assetPatch = usePatchOrArea(patchId).data;
+  const assetArea = usePatchOrArea(areaId).data;
 
   return (
     <div className="mtfh-asset-sidebar">
@@ -73,7 +85,7 @@ export const AssetSideBar = ({
           <hr className="lbh-horizontal-bar" />
 
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
-          <PatchDetails asset={assetDetails} />
+          <PatchDetails assetPk={id} assetPatch={assetPatch} assetArea={assetArea} />
           <LbhOwnershipInformation asset={assetDetails} />
           {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (

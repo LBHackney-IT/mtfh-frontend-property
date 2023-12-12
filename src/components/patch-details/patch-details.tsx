@@ -4,72 +4,70 @@ import { Link as RouterLink } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { locale } from "../../services";
-import { assetAdminAuthGroups } from "../../services/config/config";
 
-import { isAuthorisedForGroups } from "@mtfh/common";
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
+import { Patch } from "@mtfh/common/lib/api/patch/v1";
 import {
   Button,
   Heading,
   SummaryList,
   SummaryListItem,
-  Text,
 } from "@mtfh/common/lib/components";
 
-const PatchTable = ({ patches }: { patches: Patch[] }) => {
-  const assetPatch = patches.find((patch) => patch.patchType === "patch");
-  const assetArea = patches.find((patch) => patch.patchType === "area");
-
-  const patchName = assetPatch?.name;
-  const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
-  const areaManagerName = assetArea?.responsibleEntities[0]?.name;
-
-  const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
-  return (
-    <SummaryList overrides={[2 / 3]}>
-      <SummaryListItem title={patchLabel} data-testid="patch-name" key="P">
-        {patchName}
-      </SummaryListItem>
-      <SummaryListItem title={housingOfficerLabel} data-testid="officer-name" key="O">
-        {housingOfficerName}
-      </SummaryListItem>
-      <SummaryListItem title={areaManagerLabel} data-testid="area-manager-name" key="M">
-        {areaManagerName}
-      </SummaryListItem>
-    </SummaryList>
-  );
-};
-
 interface PatchDetailsProps {
-  asset: Asset;
+  assetPk: string;
+  assetPatch?: Patch;
+  assetArea?: Patch;
 }
 
-export const PatchDetails = ({ asset }: PatchDetailsProps) => {
+export const PatchDetails = ({ assetPk, assetPatch, assetArea }: PatchDetailsProps) => {
+  const { heading } = locale.patchDetails;
+
+  const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
+
+  const patchOrAreaDefined = assetPatch || assetArea;
+  const housingOfficerName = assetPatch?.responsibleEntities[0].name;
+  const areaManagerName = assetArea?.responsibleEntities[0].name;
+
   return (
-    <aside className="mtfh-patch-details">
-      <Heading variant="h2" className="lbh-heading lbh-heading-h3">
-        {locale.patchDetails.heading}
-      </Heading>
-      {asset.patches && asset.patches.length > 0 ? (
-        <PatchTable patches={asset.patches} />
-      ) : (
-        <Text size="sm">{locale.patchDetails.noPatch}</Text>
-      )}
-      {isAuthorisedForGroups(assetAdminAuthGroups) && (
+    <>
+      <aside className="mtfh-patch-details">
+        <Heading variant="h2" className="lbh-heading lbh-heading-h3">
+          {heading}
+        </Heading>
+
+        {patchOrAreaDefined ? (
+          <SummaryList overrides={[2 / 3]}>
+            <SummaryListItem title={patchLabel} data-testid="patch-name" key="patchName">
+              {assetPatch?.name}
+            </SummaryListItem>
+            <SummaryListItem
+              title={housingOfficerLabel}
+              data-testid="officer-name"
+              key="officerName"
+            >
+              {housingOfficerName}
+            </SummaryListItem>
+            <SummaryListItem
+              title={areaManagerLabel}
+              data-testid="area-manager-name"
+              key="areaManagerName"
+            >
+              {areaManagerName}
+            </SummaryListItem>
+          </SummaryList>
+        ) : (
+          <p>{locale.patchDetails.noPatch}</p>
+        )}
         <Button
           as={RouterLink}
-          to="/property/manage-patches"
-          data-testid="manage-patches-button"
-          onClick={() => {
-            // Set cookie to allow redirecting back to this asset
-            Cookies.set("fromAssetId", asset.id);
-          }}
+          to="/property/all-patches-and-areas"
+          data-testid="all-patches-and-areas-button"
+          onClick={() => Cookies.set("fromAssetId", assetPk)}
         >
-          {locale.patchDetails.managePatches}
+          {locale.patchDetails.allPatchesAndAreas}
         </Button>
-      )}
+      </aside>
       <hr className="lbh-horizontal-bar" />
-    </aside>
+    </>
   );
 };

@@ -2,7 +2,9 @@ import * as crypto from "crypto";
 
 import React from "react";
 
+import { server } from "@hackney/mtfh-test-utils";
 import { render, screen } from "@testing-library/react";
+import { rest } from "msw";
 
 import { ManagePatchesLayout } from "./layout";
 
@@ -13,12 +15,18 @@ const testAssetId = crypto.randomBytes(20).toString("hex");
 beforeEach(() => {
   jest.resetAllMocks();
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
+
+  server.use(
+    rest.get("/api/v1/patch/all", (req, res, ctx) => {
+      return res(ctx.json([]));
+    }),
+  );
 });
 
 describe("ManagePatchesLayout", () => {
   test("it renders the component", async () => {
     render(<ManagePatchesLayout assetId="" />);
-    expect(screen.getByText("Patch reassignment")).toBeInTheDocument();
+    expect(screen.getByText("Patches and areas")).toBeInTheDocument();
   });
 
   test("it links back to the search when the fromAssetId is null", async () => {

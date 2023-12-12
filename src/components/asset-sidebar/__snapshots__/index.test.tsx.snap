@@ -111,22 +111,20 @@ exports[`it hides boiler house details 1`] = `
           >
             Patch details
           </h2>
-          <p
-            class="lbh-body-s"
-          >
+          <p>
             No patch
           </p>
           <a
             class="govuk-button lbh-button"
-            data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
-          <hr
-            class="lbh-horizontal-bar"
-          />
         </aside>
+        <hr
+          class="lbh-horizontal-bar"
+        />
         <aside
           class="mtfh-lbh-ownership-info"
         >
@@ -253,22 +251,20 @@ exports[`it hides cautionary alerts 1`] = `
           >
             Patch details
           </h2>
-          <p
-            class="lbh-body-s"
-          >
+          <p>
             No patch
           </p>
           <a
             class="govuk-button lbh-button"
-            data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
-          <hr
-            class="lbh-horizontal-bar"
-          />
         </aside>
+        <hr
+          class="lbh-horizontal-bar"
+        />
         <aside
           class="mtfh-lbh-ownership-info"
         >
@@ -395,22 +391,20 @@ exports[`it hides tenure information 1`] = `
           >
             Patch details
           </h2>
-          <p
-            class="lbh-body-s"
-          >
+          <p>
             No patch
           </p>
           <a
             class="govuk-button lbh-button"
-            data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
-          <hr
-            class="lbh-horizontal-bar"
-          />
         </aside>
+        <hr
+          class="lbh-horizontal-bar"
+        />
         <aside
           class="mtfh-lbh-ownership-info"
         >
@@ -554,22 +548,20 @@ exports[`it shows boiler house details 1`] = `
           >
             Patch details
           </h2>
-          <p
-            class="lbh-body-s"
-          >
+          <p>
             No patch
           </p>
           <a
             class="govuk-button lbh-button"
-            data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
-          <hr
-            class="lbh-horizontal-bar"
-          />
         </aside>
+        <hr
+          class="lbh-horizontal-bar"
+        />
         <aside
           class="mtfh-lbh-ownership-info"
         >
@@ -731,22 +723,20 @@ exports[`it shows cautionary alerts 1`] = `
           >
             Patch details
           </h2>
-          <p
-            class="lbh-body-s"
-          >
+          <p>
             No patch
           </p>
           <a
             class="govuk-button lbh-button"
-            data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
-          <hr
-            class="lbh-horizontal-bar"
-          />
         </aside>
+        <hr
+          class="lbh-horizontal-bar"
+        />
         <aside
           class="mtfh-lbh-ownership-info"
         >
@@ -873,22 +863,20 @@ exports[`it shows tenure information 1`] = `
           >
             Patch details
           </h2>
-          <p
-            class="lbh-body-s"
-          >
+          <p>
             No patch
           </p>
           <a
             class="govuk-button lbh-button"
-            data-testid="manage-patches-button"
-            href="/property/manage-patches"
+            data-testid="all-patches-and-areas-button"
+            href="/property/all-patches-and-areas"
           >
-            Manage patches
+            All patches and areas
           </a>
-          <hr
-            class="lbh-horizontal-bar"
-          />
         </aside>
+        <hr
+          class="lbh-horizontal-bar"
+        />
         <aside
           class="mtfh-lbh-ownership-info"
         >

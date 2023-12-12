@@ -15,12 +15,12 @@ export const ManagePatchesLayout = ({ assetId }: { assetId: string | undefined }
   return (
     <>
       <BrowserRouter>
-        <Link as={RouterLink} to={backLink} variant="back-link">
+        <Link as={RouterLink} to={backLink} variant="back-link" data-testid="back-link">
           {backLinkText}
         </Link>
       </BrowserRouter>
       {showSuccess && (
-        <StatusBox variant="success" title="The patches have been updated successfully">
+        <StatusBox variant="success" title="The update has completed successfully">
           <BrowserRouter>
             <Link as={RouterLink} to={backLink} variant="back-link">
               {backLinkText}
@@ -29,12 +29,12 @@ export const ManagePatchesLayout = ({ assetId }: { assetId: string | undefined }
         </StatusBox>
       )}
 
-      <h1 className="lbh-heading-h1">Patch reassignment</h1>
+      <h1 className="lbh-heading-h1">Patches and areas</h1>
 
       {requestError && (
         <ErrorSummary
           id="patch-asset-error"
-          title="Unexpected error"
+          title="Error"
           description={requestError || undefined}
         />
       )}

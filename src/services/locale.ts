@@ -8,7 +8,7 @@ export default {
   backToSearch: "Search results",
   cancel: "Cancel",
   activityHistory: {
-    activityHistoryButtonLabel: 'Activity history',
+    activityHistoryButtonLabel: "Activity history",
   },
   noDataForKey: "N/A",
   assets: {
@@ -100,7 +100,7 @@ export default {
     patchLabel: "Patch",
     housingOfficerLabel: "Housing officer",
     areaManagerLabel: "Area manager",
-    managePatches: "Manage patches",
+    allPatchesAndAreas: "All patches and areas",
     noPatch: "No patch",
   },
   boilerHouseDetails: {

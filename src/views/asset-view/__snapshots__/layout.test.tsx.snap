@@ -117,22 +117,20 @@ exports[`it hides the cautionary alerts icon 1`] = `
                 >
                   Patch details
                 </h2>
-                <p
-                  class="lbh-body-s"
-                >
+                <p>
                   No patch
                 </p>
                 <a
                   class="govuk-button lbh-button"
-                  data-testid="manage-patches-button"
-                  href="/property/manage-patches"
+                  data-testid="all-patches-and-areas-button"
+                  href="/property/all-patches-and-areas"
                 >
-                  Manage patches
+                  All patches and areas
                 </a>
-                <hr
-                  class="lbh-horizontal-bar"
-                />
               </aside>
+              <hr
+                class="lbh-horizontal-bar"
+              />
               <aside
                 class="mtfh-lbh-ownership-info"
               >
@@ -355,6 +353,14 @@ exports[`it hides the cautionary alerts icon 1`] = `
                 </svg>
               </div>
             </div>
+          </div>
+          <div>
+            <a
+              class="govuk-button lbh-button govuk-button--secondary lbh-button--secondary"
+              href="/activities/property/769894bd-b0bc-47eb-a780-322372c2448f"
+            >
+              Activity history
+            </a>
           </div>
         </div>
       </div>
@@ -553,22 +559,20 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                 >
                   Patch details
                 </h2>
-                <p
-                  class="lbh-body-s"
-                >
+                <p>
                   No patch
                 </p>
                 <a
                   class="govuk-button lbh-button"
-                  data-testid="manage-patches-button"
-                  href="/property/manage-patches"
+                  data-testid="all-patches-and-areas-button"
+                  href="/property/all-patches-and-areas"
                 >
-                  Manage patches
+                  All patches and areas
                 </a>
-                <hr
-                  class="lbh-horizontal-bar"
-                />
               </aside>
+              <hr
+                class="lbh-horizontal-bar"
+              />
               <aside
                 class="mtfh-lbh-ownership-info"
               >
@@ -791,6 +795,14 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                 </svg>
               </div>
             </div>
+          </div>
+          <div>
+            <a
+              class="govuk-button lbh-button govuk-button--secondary lbh-button--secondary"
+              href="/activities/property/769894bd-b0bc-47eb-a780-322372c2448f"
+            >
+              Activity history
+            </a>
           </div>
         </div>
       </div>

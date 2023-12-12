@@ -58,12 +58,8 @@ export const PropertyBody = ({
           </div>
         </div>
         <div>
-          <Button
-              variant="secondary"
-              as={RouterLink}
-              to={`/activities/property/${id}`}
-          >
-              {locale.activityHistory.activityHistoryButtonLabel}
+          <Button variant="secondary" as={RouterLink} to={`/activities/property/${id}`}>
+            {locale.activityHistory.activityHistoryButtonLabel}
           </Button>
         </div>
       </div>
