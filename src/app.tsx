@@ -13,9 +13,7 @@ export default function App(): JSX.Element {
   return (
     <Switch>
       <Route path="/property/all-patches-and-areas" exact>
-        <div data-testid="new-property">
-          <ManagePatchesView />
-        </div>
+        <ManagePatchesView />
       </Route>
       <Route path="/property/new" exact>
         <div data-testid="new-property">

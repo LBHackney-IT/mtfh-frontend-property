@@ -7,6 +7,9 @@ import {
 export default {
   backToSearch: "Search results",
   cancel: "Cancel",
+  activityHistory: {
+    activityHistoryButtonLabel: "Activity history",
+  },
   noDataForKey: "N/A",
   assets: {
     assetDetails: {

@@ -103,6 +103,7 @@ export const AssetLayout: FC<Props> = ({
           assetDetails={assetDetails}
           childAssets={assetChildren}
           enableNewProcesses={enableNewProcesses}
+          id={assetDetails.id}
         />
       </Layout>
     </PageAnnouncementProvider>

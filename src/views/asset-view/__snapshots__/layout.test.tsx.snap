@@ -354,6 +354,14 @@ exports[`it hides the cautionary alerts icon 1`] = `
               </div>
             </div>
           </div>
+          <div>
+            <a
+              class="govuk-button lbh-button govuk-button--secondary lbh-button--secondary"
+              href="/activities/property/769894bd-b0bc-47eb-a780-322372c2448f"
+            >
+              Activity history
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -787,6 +795,14 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                 </svg>
               </div>
             </div>
+          </div>
+          <div>
+            <a
+              class="govuk-button lbh-button govuk-button--secondary lbh-button--secondary"
+              href="/activities/property/769894bd-b0bc-47eb-a780-322372c2448f"
+            >
+              Activity history
+            </a>
           </div>
         </div>
       </div>
