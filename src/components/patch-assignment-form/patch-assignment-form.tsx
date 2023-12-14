@@ -109,7 +109,7 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
                     data-testid={`${areaOrPatchTableItem.name}-row`}
                   >
                     <TableRow
-                      areaOrPatch={areaOrPatch}
+                      areaOrPatch={areaOrPatchTableItem}
                       reassigningThisPatch={reassigningThisPatch}
                       setReassigningPatch={setReassigningPatch}
                       handleSubmission={displaySubmissionStatus}
