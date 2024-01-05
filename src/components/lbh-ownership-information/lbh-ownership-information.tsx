@@ -13,6 +13,15 @@ interface LbhOwnershipInformationProps {
 }
 
 export const LbhOwnershipInformation = ({ asset }: LbhOwnershipInformationProps) => {
+  let displayMessage;
+  if (!asset.assetManagement) {
+    displayMessage = "No asset management data found";
+  } else if (asset.assetManagement?.isCouncilProperty) {
+    displayMessage = locale.lbhOwnershipInformation.ownedByLbh;
+  } else {
+    displayMessage = locale.lbhOwnershipInformation.notOwnedByLbh;
+  }
+
   return (
     <aside className="mtfh-lbh-ownership-info">
       <Heading
@@ -23,15 +32,9 @@ export const LbhOwnershipInformation = ({ asset }: LbhOwnershipInformationProps)
         {locale.lbhOwnershipInformation.sideBarHeading}
       </Heading>
 
-      {asset.assetManagement.isCouncilProperty ? (
-        <Text size="sm" data-testid="ownership-info">
-          {locale.lbhOwnershipInformation.ownedByLbh}
-        </Text>
-      ) : (
-        <Text size="sm" data-testid="ownership-info">
-          {locale.lbhOwnershipInformation.notOwnedByLbh}
-        </Text>
-      )}
+      <Text size="sm" data-testid="ownership-info">
+        {displayMessage}
+      </Text>
 
       {isAuthorisedForGroups(assetAdminAuthGroups) && (
         <Button

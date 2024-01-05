@@ -23,7 +23,7 @@ export const EditAssetOwnershipForm = ({
   asset,
 }: EditAssetOwnershipFormProps) => {
   const [isCouncilProperty, setIsCouncilProperty] = useState<boolean>(
-    asset.assetManagement.isCouncilProperty,
+    asset.assetManagement?.isCouncilProperty,
   );
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -125,7 +125,7 @@ export const EditAssetOwnershipForm = ({
             data-testid="submit-edit-ownership-button"
             disabled={
               formSubmitted ||
-              isCouncilProperty === asset.assetManagement.isCouncilProperty
+              isCouncilProperty === asset.assetManagement?.isCouncilProperty
             }
           >
             Confirm change
