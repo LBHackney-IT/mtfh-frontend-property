@@ -5,7 +5,7 @@ orbs:
     aws-cli: circleci/aws-cli@2.0.0
     aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
     snyk: snyk/snyk@1.0.2
-    sonarcloud: sonarsource/sonarcloud@1.0.3
+    sonarcloud: sonarsource/sonarcloud@2.0.0
 
 parameters:
     run_development_workflow:
@@ -36,6 +36,9 @@ executors:
     node-executor:
         docker:
             - image: circleci/node:14.17.0-browsers
+    orb-executor:
+        docker:
+            - image: cimg/node:21.6.1-browsers
     docker-terraform:
         docker:
             - image: "hashicorp/terraform:light"
@@ -116,7 +119,16 @@ jobs:
             - run:
                   name: Run unit lint-and-test
                   command: yarn test
+            - persist_to_workspace:
+                  root: *workspace_root
+                  paths: .
+
+    sonar-scan:
+        executor: orb-executor
+        steps:
+            - *attach_workspace
             - sonarcloud/scan
+
     build-deploy-development:
         executor: node-executor
         environment:
@@ -249,8 +261,12 @@ workflows:
         jobs:
             - install-dependencies
             - lint-and-test:
-                  context: SonarCloud
                   requires:
+                      - install-dependencies
+            # This scan can run in parallel to the tests.
+            - sonar-scan:
+                context: SonarCloud
+                requires:
                       - install-dependencies
 #             - security-scan:
 #                   context: mtfh-security-scan
@@ -264,6 +280,7 @@ workflows:
                   requires:
                     #   - security-scan
                       - lint-and-test
+                      - sonar-scan
                   filters:
                       branches:
                           only: main

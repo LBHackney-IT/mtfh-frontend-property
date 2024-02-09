@@ -22,7 +22,7 @@ import { renderManagingOrganisationOptions } from "./utils/managing-organisation
 import { reducer } from "./utils/reducer";
 
 import { Center, Spinner } from "@mtfh/common";
-import { createAsset } from "@mtfh/common/lib/api/asset/v1";
+import { RentGroup, createAsset } from "@mtfh/common/lib/api/asset/v1";
 import { CreateNewAssetRequest } from "@mtfh/common/lib/api/asset/v1/types";
 import { Patch, getAllPatchesAndAreas } from "@mtfh/common/lib/api/patch/v1";
 
@@ -132,6 +132,7 @@ export const NewAsset = ({
           areaId: "",
           patchId: "",
           assetType: "",
+          rentGroup: undefined,
           parentAsset: "",
           floorNo: "",
           totalBlockFloors: undefined,
@@ -246,6 +247,7 @@ export const NewAsset = ({
                   ))}
                 </Field>
               </div>
+
               <InlineAssetSearch
                 assetTypes={[]}
                 name="parentAsset"
@@ -307,6 +309,54 @@ export const NewAsset = ({
                   </div>
                 </>
               )}
+
+              <div
+                className={
+                  errors.rentGroup && touched.rentGroup
+                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                    : "govuk-form-group lbh-form-group"
+                }
+              >
+                <label className="govuk-label lbh-label" htmlFor="rentGroup">
+                  Rent Group
+                </label>
+                {errors.rentGroup && touched.rentGroup && (
+                  <span
+                    id="rentGroup-input-error"
+                    className="govuk-error-message lbh-error-message"
+                  >
+                    <span
+                      className="govuk-visually-hidden"
+                      data-testid="error-rent-group"
+                    >
+                      Error:
+                    </span>
+                    {errors.rentGroup}
+                  </span>
+                )}
+                <Field
+                  as="select"
+                  id="rent-group"
+                  name="rentGroup"
+                  className={
+                    errors.rentGroup && touched.rentGroup
+                      ? "govuk-input lbh-input govuk-input--error"
+                      : "govuk-input lbh-input"
+                  }
+                  data-testid="rent-group"
+                >
+                  <option selected value="">
+                    {" "}
+                    -- Select an option --{" "}
+                  </option>
+                  {Object.keys(RentGroup).map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))}
+                </Field>
+              </div>
+
               <h2 className="lbh-heading-h2">Address</h2>
               <label className="govuk-label lbh-label" htmlFor="uprn">
                 UPRN

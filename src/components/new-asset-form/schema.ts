@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import { regexUkPostcode } from "../../utils/uk-postcode-regex";
 
+import { RentGroup } from "@mtfh/common/lib/api/asset/v1";
 import { removeWhitespace } from "@mtfh/common/lib/utils";
 
 export const newPropertySchema = () =>
@@ -10,6 +11,9 @@ export const newPropertySchema = () =>
     areaId: Yup.string(),
     patchId: Yup.string(),
     assetType: Yup.string().required("Asset Type is a required field"),
+    rentGroup: Yup.string()
+      .nullable()
+      .oneOf([undefined, null, ...Object.keys(RentGroup)]),
     parentAsset: Yup.string(),
     floorNo: Yup.string(),
     totalBlockFloors: Yup.number()
