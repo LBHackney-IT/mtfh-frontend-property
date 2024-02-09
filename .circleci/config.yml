@@ -36,6 +36,9 @@ executors:
     node-executor:
         docker:
             - image: circleci/node:14.17.0-browsers
+    orb-executor:
+        docker:
+            - image: cimg/node:21.6.1-browsers
     docker-terraform:
         docker:
             - image: "hashicorp/terraform:light"
@@ -116,7 +119,13 @@ jobs:
             - run:
                   name: Run unit lint-and-test
                   command: yarn test
+
+    sonar-scan:
+        executor: orb-executor
+        steps:
+            - checkout
             - sonarcloud/scan
+
     build-deploy-development:
         executor: node-executor
         environment:
