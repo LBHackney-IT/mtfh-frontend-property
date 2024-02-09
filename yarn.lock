@@ -1555,7 +1555,8 @@
 
 "@mtfh/common@https://github.com/LBHackney-IT/mtfh-frontend-common":
   version "0.0.1"
-  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common#e796c4a55d233678fb82136cee4f29489e28e154"
+  uid "75c2f52fb23a091fc436cdc68f85a15ef8d5d97f"
+  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common#75c2f52fb23a091fc436cdc68f85a15ef8d5d97f"
   dependencies:
     "@babel/preset-react" "^7.13.13"
     "@radix-ui/react-polymorphic" "^0.0.12"
@@ -1588,7 +1589,7 @@
 
 "@mtfh/common@https://github.com/LBHackney-IT/mtfh-frontend-common.git":
   version "0.0.1"
-  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common.git#eddd7fbc12504ad7916a831bce65b7794378ea1b"
+  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common.git#75c2f52fb23a091fc436cdc68f85a15ef8d5d97f"
   dependencies:
     "@babel/preset-react" "^7.13.13"
     "@radix-ui/react-polymorphic" "^0.0.12"
