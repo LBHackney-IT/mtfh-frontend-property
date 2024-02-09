@@ -258,8 +258,12 @@ workflows:
         jobs:
             - install-dependencies
             - lint-and-test:
-                  context: SonarCloud
                   requires:
+                      - install-dependencies
+            # This scan can run in parallel to the tests.
+            - sonar-scan:
+                context: SonarCloud
+                requires:
                       - install-dependencies
 #             - security-scan:
 #                   context: mtfh-security-scan
@@ -273,6 +277,7 @@ workflows:
                   requires:
                     #   - security-scan
                       - lint-and-test
+                      - sonar-scan
                   filters:
                       branches:
                           only: main
