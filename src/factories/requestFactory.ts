@@ -3,7 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import { NewPropertyFormData } from "../components/new-asset-form/schema";
 import { managingOrganisations } from "../components/new-asset-form/utils/managing-organisations";
 
-import { CreateNewAssetRequest, ParentAsset } from "@mtfh/common/lib/api/asset/v1";
+import {
+  CreateNewAssetRequest,
+  ParentAsset,
+  RentGroup,
+} from "@mtfh/common/lib/api/asset/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1";
 
 export const assembleCreateNewAssetRequest = (
@@ -19,6 +23,7 @@ export const assembleCreateNewAssetRequest = (
     areaId,
     patchId,
     assetType: values.assetType,
+    rentGroup: RentGroup[values.rentGroup as keyof typeof RentGroup],
     parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
     isActive: true,
     assetLocation: {
