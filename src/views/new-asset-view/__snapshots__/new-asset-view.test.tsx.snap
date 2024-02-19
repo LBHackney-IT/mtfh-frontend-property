@@ -310,7 +310,7 @@ exports[`renders the whole 'New asset form' view 1`] = `
             <option
               value="TAG"
             >
-              TAG - Temporary Accommodation General Fun
+              TAG - Temporary Accommodation General Fund
             </option>
             <option
               value="TAH"
