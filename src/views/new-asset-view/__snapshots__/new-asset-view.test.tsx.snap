@@ -280,47 +280,47 @@ exports[`renders the whole 'New asset form' view 1`] = `
             <option
               value="GPS"
             >
-              GPS
+              GPS - Garages & Parking Spaces HRA
             </option>
             <option
               value="HGF"
             >
-              HGF
+              HGF - Housing General Fund
             </option>
             <option
               value="HRA"
             >
-              HRA
+              HRA - Housing Revenue Account
             </option>
             <option
               value="LMW"
             >
-              LMW
+              LMW - Leasehold Major Works
             </option>
             <option
               value="LSC"
             >
-              LSC
+              LSC - Leasehold Service Charges
             </option>
             <option
               value="RSL"
             >
-              RSL
+              RSL - Registered Social Landlord and XBorough
             </option>
             <option
               value="TAG"
             >
-              TAG
+              TAG - Temporary Accommodation General Fund
             </option>
             <option
               value="TAH"
             >
-              TAH
+              TAH - Temporary Accommodation HRA
             </option>
             <option
               value="TRA"
             >
-              TRA
+              TRA - Travellers General Fund
             </option>
           </select>
         </div>

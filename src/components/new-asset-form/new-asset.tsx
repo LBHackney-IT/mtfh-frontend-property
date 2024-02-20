@@ -349,9 +349,9 @@ export const NewAsset = ({
                     {" "}
                     -- Select an option --{" "}
                   </option>
-                  {Object.keys(RentGroup).map((key) => (
+                  {Object.entries(RentGroup).map(([key, desc]) => (
                     <option key={key} value={key}>
-                      {key}
+                      {`${key} - ${desc}`}
                     </option>
                   ))}
                 </Field>
