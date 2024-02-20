@@ -23,7 +23,7 @@ export const assembleCreateNewAssetRequest = (
     areaId,
     patchId,
     assetType: values.assetType,
-    rentGroup: RentGroup[values.rentGroup as keyof typeof RentGroup],
+    rentGroup: getRentGroupEitherAsKeyOrNothing(values.rentGroup),
     parentAssetIds: values?.parentAsset ? getParentAsset(values?.parentAsset).id : "",
     isActive: true,
     assetLocation: {
@@ -98,3 +98,10 @@ const getParentId = (patch: Patch): string => {
 const getPatchId = (patch: Patch): string => {
   return patch.id;
 };
+
+const getRentGroupEitherAsKeyOrNothing = (
+  rentGroupKey: string | undefined,
+): RentGroup | undefined =>
+  RentGroup[rentGroupKey as keyof typeof RentGroup]
+    ? (rentGroupKey as RentGroup)
+    : undefined;

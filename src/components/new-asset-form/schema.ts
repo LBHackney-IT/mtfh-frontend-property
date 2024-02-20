@@ -11,9 +11,7 @@ export const newPropertySchema = () =>
     areaId: Yup.string(),
     patchId: Yup.string(),
     assetType: Yup.string().required("Asset Type is a required field"),
-    rentGroup: Yup.string()
-      .nullable()
-      .oneOf([undefined, null, ...Object.keys(RentGroup)]),
+    rentGroup: Yup.string().oneOf([undefined, "", ...Object.keys(RentGroup)]),
     parentAsset: Yup.string(),
     floorNo: Yup.string(),
     totalBlockFloors: Yup.number()
