@@ -243,7 +243,7 @@ jobs:
                   curl --location --request POST 'https://circleci.com/api/v2/project/gh/LBHackney-IT/mtfh-tl-e2e-tests/pipeline' \
                   --header 'Circle-Token: '"$CIRCLE_TOKEN"'' \
                   --header 'Content-Type: application/json' \
-                  --data '{"branch": "master", "parameters": {"run_workflow_ci": false, "external_trigger": true, "upstream_pipeline_name": "<< pipeline.project.git_url >>", '\""$DEPLOYMENT_ENVIRONMENT"\"': true}}'
+                  --data '{"branch": "filter-tests-per-mfe", "parameters": {"run_workflow_ci": false, "external_trigger": true, "upstream_pipeline_name": "<< pipeline.project.git_url >>", '\""$DEPLOYMENT_ENVIRONMENT"\"': true}}'
 
     failure-downstream:
         executor: cimg-base
@@ -275,36 +275,36 @@ workflows:
 #                   filters:
 #                       branches:
 #                           only: main
-            - assume-role-development:
-                  context: api-assume-role-housing-development-context
-                  requires:
-                    #   - security-scan
-                      - lint-and-test
-                      - sonar-scan
-                  filters:
-                      branches:
-                          only: main
-            - terraform-init-and-apply-to-development:
-                  requires:
-                      - assume-role-development
-                  filters:
-                      branches:
-                          only: main
-            - build-deploy-development:
-                  stage: "development"
-                  requires:
-                      - terraform-init-and-apply-to-development
-                  filters:
-                      branches:
-                          only: main
+            # - assume-role-development:
+            #       context: api-assume-role-housing-development-context
+            #       requires:
+            #         #   - security-scan
+            #           - lint-and-test
+            #           - sonar-scan
+            #       filters:
+            #           branches:
+            #               only: main
+            # - terraform-init-and-apply-to-development:
+            #       requires:
+            #           - assume-role-development
+            #       filters:
+            #           branches:
+            #               only: main
+            # - build-deploy-development:
+            #       stage: "development"
+            #       requires:
+            #           - terraform-init-and-apply-to-development
+            #       filters:
+            #           branches:
+            #               only: main
             - trigger-e2e-pipeline:
                   context: mtfh-mfe-e2e-tests
                   stage: "development"
-                  requires:
-                      - build-deploy-development
-                  filters:
-                      branches:
-                          only: main
+                #   requires:
+                #       - build-deploy-development
+                #   filters:
+                #       branches:
+                #           only: main
 
     continuous-delivery-staging:
         when: << pipeline.parameters.run_staging_workflow >>
