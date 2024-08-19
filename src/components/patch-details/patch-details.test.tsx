@@ -33,6 +33,15 @@ const mockAssetPatch: Patch = {
   ],
 };
 
+const mockAssetPatchWithoutResponsibleEntities: Patch = {
+  id: crypto.randomBytes(20).toString("hex"),
+  name: "AR1",
+  patchType: "patch",
+  parentId: mockAreaId,
+  domain: "Hackney",
+  responsibleEntities: []
+}
+
 const mockAssetArea: Patch = {
   id: mockAreaId,
   name: "AR",
@@ -50,6 +59,15 @@ const mockAssetArea: Patch = {
     },
   ],
 };
+
+const mockAssetAreaWithoutResponsibleEntities: Patch = {
+  id: mockAreaId,
+  name: "AR",
+  patchType: "area",
+  parentId: crypto.randomBytes(20).toString("hex"),
+  domain: "Hackney",
+  responsibleEntities: []
+}
 
 const assetWithPatches: Asset = {
   ...mockAssetV1,
@@ -140,6 +158,52 @@ describe("Patch Details", () => {
     expect(officerNameField).toHaveTextContent(
       mockAssetPatch.responsibleEntities[0].name,
     );
+    expect(areaManagerNameField).toHaveTextContent(
+      mockAssetArea.responsibleEntities[0].name,
+    );
+  });
+
+  test("it displays the patch and housing officer when area manager is not defined", async () => {
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        assetPatch={mockAssetPatch}
+        assetArea={mockAssetAreaWithoutResponsibleEntities}
+      />,
+    );
+    await waitFor(async () => {
+      screen.getByTestId("patch-name");
+    });
+
+    const patchNameField = screen.getByTestId("patch-name");
+    const officerNameField = screen.getByTestId("officer-name");
+    const areaManagerNameField = screen.getByTestId("area-manager-name");
+
+    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
+    expect(officerNameField).toHaveTextContent(
+      mockAssetPatch.responsibleEntities[0].name,
+    );
+    expect(areaManagerNameField).toHaveTextContent("N/A");
+  });
+
+  test("it displays the patch and area manager when housing officer is not defined", async () => {
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        assetPatch={mockAssetPatchWithoutResponsibleEntities}
+        assetArea={mockAssetArea}
+      />,
+    );
+    await waitFor(async () => {
+      screen.getByTestId("patch-name");
+    });
+
+    const patchNameField = screen.getByTestId("patch-name");
+    const officerNameField = screen.getByTestId("officer-name");
+    const areaManagerNameField = screen.getByTestId("area-manager-name");
+
+    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
+    expect(officerNameField).toHaveTextContent("N/A");
     expect(areaManagerNameField).toHaveTextContent(
       mockAssetArea.responsibleEntities[0].name,
     );

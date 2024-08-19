@@ -25,8 +25,8 @@ export const PatchDetails = ({ assetPk, assetPatch, assetArea }: PatchDetailsPro
   const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
 
   const patchOrAreaDefined = assetPatch || assetArea;
-  const housingOfficerName = assetPatch?.responsibleEntities[0].name;
-  const areaManagerName = assetArea?.responsibleEntities[0].name;
+  const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
+  const areaManagerName = assetArea?.responsibleEntities[0]?.name;
 
   return (
     <>
@@ -45,14 +45,14 @@ export const PatchDetails = ({ assetPk, assetPatch, assetArea }: PatchDetailsPro
               data-testid="officer-name"
               key="officerName"
             >
-              {housingOfficerName}
+              {housingOfficerName || "N/A"}
             </SummaryListItem>
             <SummaryListItem
               title={areaManagerLabel}
               data-testid="area-manager-name"
               key="areaManagerName"
             >
-              {areaManagerName}
+              {areaManagerName || "N/A"}
             </SummaryListItem>
           </SummaryList>
         ) : (
