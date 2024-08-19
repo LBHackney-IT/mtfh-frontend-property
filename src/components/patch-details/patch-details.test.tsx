@@ -39,8 +39,8 @@ const mockAssetPatchWithoutResponsibleEntities: Patch = {
   patchType: "patch",
   parentId: mockAreaId,
   domain: "Hackney",
-  responsibleEntities: []
-}
+  responsibleEntities: [],
+};
 
 const mockAssetArea: Patch = {
   id: mockAreaId,
@@ -66,8 +66,8 @@ const mockAssetAreaWithoutResponsibleEntities: Patch = {
   patchType: "area",
   parentId: crypto.randomBytes(20).toString("hex"),
   domain: "Hackney",
-  responsibleEntities: []
-}
+  responsibleEntities: [],
+};
 
 const assetWithPatches: Asset = {
   ...mockAssetV1,
