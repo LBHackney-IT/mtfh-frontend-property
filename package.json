@@ -69,7 +69,6 @@
   },
   "dependencies": {
     "@mtfh/common": "https://github.com/LBHackney-IT/mtfh-frontend-common",
-    "@mtfh/search": "https://github.com/LBHackney-IT/mtfh-frontend-search",
     "@types/jest": "^26.0.23",
     "@types/js-cookie": "^3.0.4",
     "@types/react": "17.0.20",
