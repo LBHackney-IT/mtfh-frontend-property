@@ -1,7 +1,7 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import { SearchCard } from "../../search/components/search-card";
+import { SearchCard } from "../../search/search-card";
 import { RelatedAsset as IRelatedAsset } from "./utils";
 
 import { Link, LinkBox, LinkOverlay } from "@mtfh/common/lib/components";

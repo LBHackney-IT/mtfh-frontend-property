@@ -133,7 +133,7 @@ beforeEach(() => {
 
   server.use(
     rest.get(
-      `/api/search/assets?searchText=pitcairn&useCustomSorting=true&assetTypes=BoilerHouse`,
+      `/api/v1/search/assets?searchText=pitcairn&useCustomSorting=true&assetTypes=BoilerHouse`,
       (req, res, ctx) =>
         res(
           ctx.status(200),

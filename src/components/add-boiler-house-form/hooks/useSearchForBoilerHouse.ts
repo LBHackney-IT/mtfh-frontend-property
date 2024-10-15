@@ -1,6 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 
-import { useSearchResults } from "@mtfh/search";
+import { useSearchResults } from "../../../search/useSearchResults";
 
 export const useSearchForBoilerHouse = (resetSelectBoilerHouseForm: () => void) => {
   const [searchQuery, setSearchQuery] = useState("");

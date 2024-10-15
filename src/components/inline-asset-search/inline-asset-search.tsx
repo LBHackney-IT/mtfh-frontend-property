@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 import { Field } from "formik";
 
+import { useSearchResults } from "../../search/useSearchResults";
 import { InlineSearchForm } from "../inline-search-form";
 
 import { Spinner } from "@mtfh/common";
 import { AssetType } from "@mtfh/common/lib/api/asset/v1";
-import { useSearchResults } from "@mtfh/search";
 
 interface Props {
   assetTypes: AssetType[];
