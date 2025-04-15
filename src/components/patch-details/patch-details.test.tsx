@@ -33,6 +33,24 @@ const mockAssetPatch: Patch = {
   ],
 };
 
+const mockPatch: Patch = {
+  id: crypto.randomBytes(20).toString("hex"),
+  name: "HN1",
+  patchType: "patch",
+  parentId: mockAreaId,
+  domain: "Hackney",
+  responsibleEntities: [
+    {
+      id: crypto.randomBytes(20).toString("hex"),
+      name: "Housing Officer 1",
+      responsibleType: "HousingOfficer",
+      contactDetails: {
+        emailAddress: "test.test@hackney.gov.uk",
+      },
+    },
+  ],
+};
+
 const mockAssetPatchWithoutResponsibleEntities: Patch = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "AR1",
@@ -75,17 +93,19 @@ const assetWithPatches: Asset = {
   areaId: mockAssetArea.id,
 };
 
-const mockPatchList: Patch[] = [mockAssetPatch, mockAssetArea, mockAssetAreaWithoutResponsibleEntities, mockAssetPatchWithoutResponsibleEntities];
+const mockPatchList: Patch[] = [
+  mockPatch,
+  mockAssetPatch,
+  mockAssetArea,
+  mockAssetAreaWithoutResponsibleEntities,
+  mockAssetPatchWithoutResponsibleEntities,
+];
 
 // Mock the API response for the patch list
 beforeEach(() => {
   jest.resetAllMocks();
-  
+
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
-  
-  jest.fn(() => {
-  return Promise.resolve(mockPatchList);
-  });
 
   server.use(
     rest.get(`/api/v1/patch/${mockAssetPatch.id}`, (req, res, ctx) =>
@@ -100,7 +120,7 @@ beforeEach(() => {
 
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
-      return res(ctx.json([mockAssetPatch, mockAssetArea, mockAssetAreaWithoutResponsibleEntities, mockAssetPatchWithoutResponsibleEntities]));
+      return res(ctx.json([...mockPatchList]));
     }),
   );
   server.use(
@@ -136,7 +156,6 @@ describe("Patch Details", () => {
         assetPatch={mockAssetPatch}
         assetArea={mockAssetArea}
         versionNumber={assetWithPatches.versionNumber}
-
       />,
     );
 
@@ -154,7 +173,6 @@ describe("Patch Details", () => {
         assetPatch={mockAssetPatch}
         assetArea={mockAssetArea}
         versionNumber={assetWithPatches.versionNumber}
-
       />,
     );
 
@@ -166,95 +184,95 @@ describe("Patch Details", () => {
     });
   });
 
-  // test("it displays the patch, housing officer, and area manager", async () => {
-  //   render(
-  //     <PatchDetails
-  //       assetPk={assetWithPatches.id}
-  //       assetPatch={mockAssetPatch}
-  //       assetArea={mockAssetArea}
-  //       versionNumber={assetWithPatches.versionNumber}
-  //     />,
-  //   );
-  //   await waitFor(async () => {
-  //     screen.getByTestId("patch-name");
-  //   });
+  test("it displays the patch, housing officer, and area manager", async () => {
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        assetPatch={mockAssetPatch}
+        assetArea={mockAssetArea}
+        versionNumber={assetWithPatches.versionNumber}
+      />,
+    );
+    await waitFor(async () => {
+      screen.getByTestId("patch-name");
+    });
 
-  //   const patchNameField = screen.getByTestId("patch-name");
-  //   const officerNameField = screen.getByTestId("officer-name");
-  //   const areaManagerNameField = screen.getByTestId("area-manager-name");
+    const patchNameField = screen.getByTestId("patch-name");
+    const officerNameField = screen.getByTestId("officer-name");
+    const areaManagerNameField = screen.getByTestId("area-manager-name");
 
-  //   expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
-  //   expect(officerNameField).toHaveTextContent(
-  //     mockAssetPatch.responsibleEntities[0].name,
-  //   );
-  //   expect(areaManagerNameField).toHaveTextContent(
-  //     mockAssetArea.responsibleEntities[0].name,
-  //   );
-  // });
+    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
+    expect(officerNameField).toHaveTextContent(
+      mockAssetPatch.responsibleEntities[0].name,
+    );
+    expect(areaManagerNameField).toHaveTextContent(
+      mockAssetArea.responsibleEntities[0].name,
+    );
+  });
 
-  // test("it displays the patch and housing officer when area manager is not defined", async () => {
-  //   render(
-  //     <PatchDetails
-  //       assetPk={assetWithPatches.id}
-  //       assetPatch={mockAssetPatch}
-  //       assetArea={mockAssetAreaWithoutResponsibleEntities}
-  //       versionNumber={assetWithPatches.versionNumber}
-  //     />,
-  //   );
-  //   await waitFor(async () => {
-  //     screen.getByTestId("patch-name");
-  //   });
+  test("it displays the patch and housing officer when area manager is not defined", async () => {
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        assetPatch={mockAssetPatch}
+        assetArea={mockAssetAreaWithoutResponsibleEntities}
+        versionNumber={assetWithPatches.versionNumber}
+      />,
+    );
+    await waitFor(async () => {
+      screen.getByTestId("patch-name");
+    });
 
-  //   const patchNameField = screen.getByTestId("patch-name");
-  //   const officerNameField = screen.getByTestId("officer-name");
-  //   const areaManagerNameField = screen.getByTestId("area-manager-name");
+    const patchNameField = screen.getByTestId("patch-name");
+    const officerNameField = screen.getByTestId("officer-name");
+    const areaManagerNameField = screen.getByTestId("area-manager-name");
 
-  //   expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
-  //   expect(officerNameField).toHaveTextContent(
-  //     mockAssetPatch.responsibleEntities[0].name,
-  //   );
-  //   expect(areaManagerNameField).toHaveTextContent("N/A");
-  // });
+    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
+    expect(officerNameField).toHaveTextContent(
+      mockAssetPatch.responsibleEntities[0].name,
+    );
+    expect(areaManagerNameField).toHaveTextContent("N/A");
+  });
 
-  // test("it displays the patch and area manager when housing officer is not defined", async () => {
-  //   render(
-  //     <PatchDetails
-  //       assetPk={assetWithPatches.id}
-  //       assetPatch={mockAssetPatchWithoutResponsibleEntities}
-  //       assetArea={mockAssetArea}
-  //       versionNumber={assetWithPatches.versionNumber}
-  //     />,
-  //   );
-  //   await waitFor(async () => {
-  //     screen.getByTestId("patch-name");
-  //   });
+  test("it displays the patch and area manager when housing officer is not defined", async () => {
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        assetPatch={mockAssetPatchWithoutResponsibleEntities}
+        assetArea={mockAssetArea}
+        versionNumber={assetWithPatches.versionNumber}
+      />,
+    );
+    await waitFor(async () => {
+      screen.getByTestId("patch-name");
+    });
 
-  //   const patchNameField = screen.getByTestId("patch-name");
-  //   const officerNameField = screen.getByTestId("officer-name");
-  //   const areaManagerNameField = screen.getByTestId("area-manager-name");
+    const patchNameField = screen.getByTestId("patch-name");
+    const officerNameField = screen.getByTestId("officer-name");
+    const areaManagerNameField = screen.getByTestId("area-manager-name");
 
-  //   expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
-  //   expect(officerNameField).toHaveTextContent("N/A");
-  //   expect(areaManagerNameField).toHaveTextContent(
-  //     mockAssetArea.responsibleEntities[0].name,
-  //   );
-  // });
+    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
+    expect(officerNameField).toHaveTextContent("N/A");
+    expect(areaManagerNameField).toHaveTextContent(
+      mockAssetArea.responsibleEntities[0].name,
+    );
+  });
 
-  // test("it displays a 'no patch' message when asset has no patches", async () => {
-  //   render(
-  //     <PatchDetails
-  //       assetPk={mockAssetV1.id}
-  //       assetPatch={undefined}
-  //       assetArea={undefined}
-  //       versionNumber={assetWithPatches.versionNumber}
-  //     />,
-  //   );
+  test("it displays a 'no patch' message when asset has no patches", async () => {
+    render(
+      <PatchDetails
+        assetPk={mockAssetV1.id}
+        assetPatch={undefined}
+        assetArea={undefined}
+        versionNumber={assetWithPatches.versionNumber}
+      />,
+    );
 
-  //   await waitFor(async () => {
-  //     expect(screen.getByText(locale.patchDetails.noPatch)).toBeVisible();
-  //   });
-  //   expect(screen.queryByTestId("patch-name")).not.toBeInTheDocument();
-  // });
+    await waitFor(async () => {
+      expect(screen.getByText(locale.patchDetails.noPatch)).toBeVisible();
+    });
+    expect(screen.queryByTestId("patch-name")).not.toBeInTheDocument();
+  });
 
   test("it sets a cookie with the asset ID when the edit patches button is clicked", async () => {
     // This is used to redirect the user back to the asset page after editing patches
@@ -315,8 +333,10 @@ describe("Patch Details", () => {
     );
 
     await waitFor(async () => {
-      expect(screen.getByTestId("cancel-reassignment-button")).toBeVisible();
+      const editButton = screen.getByTestId("edit-assignment-button");
+      editButton.click();
     });
+    expect(screen.getByTestId("cancel-reassignment-button")).toBeVisible();
   });
   test("it does not show the cancel button when the user is not authorised", async () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
@@ -333,8 +353,7 @@ describe("Patch Details", () => {
     await waitFor(async () => {
       expect(screen.queryByTestId("cancel-reassignment-button")).not.toBeInTheDocument();
     });
-  }
-  );
+  });
   test("it shows the confirm button when the user is authorised", async () => {
     render(
       <PatchDetails
@@ -346,10 +365,11 @@ describe("Patch Details", () => {
     );
 
     await waitFor(async () => {
-      expect(screen.getByTestId("confirm-reassignment-button")).toBeVisible();
+      const editButton = screen.getByTestId("edit-assignment-button");
+      editButton.click();
     });
-  }
-  );
+    expect(screen.getByTestId("confirm-reassignment-button")).toBeVisible();
+  });
   test("it does not show the confirm button when the user is not authorised", async () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
 
@@ -365,5 +385,79 @@ describe("Patch Details", () => {
     await waitFor(async () => {
       expect(screen.queryByTestId("confirm-reassignment-button")).not.toBeInTheDocument();
     });
+  });
+
+  test("patch name is edited successfully", async () => {
+    jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
+
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        assetPatch={mockPatch}
+        assetArea={mockAssetArea}
+        versionNumber={assetWithPatches.versionNumber}
+      />,
+    );
+
+    await waitFor(async () => {
+      const editButton = screen.getByTestId("edit-assignment-button");
+      editButton.click();
+    });
+
+    expect(screen.getByTestId("patch-dropdown-options")).toBeVisible();
+    const confirmButton = screen.getByTestId("confirm-reassignment-button");
+    expect(confirmButton).toBeVisible();
+    expect(screen.getByTestId("cancel-reassignment-button")).toBeVisible();
+
+    const patchDropdown = screen.getByTestId("patch-dropdown-options");
+    const patchOption = "HN1";
+    patchDropdown.click();
+    expect(patchDropdown).toHaveTextContent(patchOption);
+
+    confirmButton.click();
+    expect(screen.getByTestId("patch-name")).toHaveTextContent(patchOption);
+    expect(screen.getByTestId("officer-name")).toHaveTextContent(
+      mockPatch.responsibleEntities[0].name,
+    );
+    expect(screen.getByTestId("area-manager-name")).toHaveTextContent(
+      mockAssetArea.responsibleEntities[0].name,
+    );
+  });
+  test("patch name is not edited if cancel button is clicked", async () => {
+    jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
+
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        assetPatch={mockPatch}
+        assetArea={mockAssetArea}
+        versionNumber={assetWithPatches.versionNumber}
+      />,
+    );
+
+    await waitFor(async () => {
+      const editButton = screen.getByTestId("edit-assignment-button");
+      editButton.click();
+    });
+
+    expect(screen.getByTestId("patch-dropdown-options")).toBeVisible();
+    const confirmButton = screen.getByTestId("confirm-reassignment-button");
+    expect(confirmButton).toBeVisible();
+    const cancelButton = screen.getByTestId("cancel-reassignment-button");
+    expect(cancelButton).toBeVisible();
+
+    const patchDropdown = screen.getByTestId("patch-dropdown-options");
+    const patchOption = "HN1";
+    patchDropdown.click();
+    expect(patchDropdown).toHaveTextContent(patchOption);
+
+    cancelButton.click();
+    expect(screen.getByTestId("patch-name")).toHaveTextContent(mockPatch.name);
+    expect(screen.getByTestId("officer-name")).toHaveTextContent(
+      mockPatch.responsibleEntities[0].name,
+    );
+    expect(screen.getByTestId("area-manager-name")).toHaveTextContent(
+      mockAssetArea.responsibleEntities[0].name,
+    );
   });
 });

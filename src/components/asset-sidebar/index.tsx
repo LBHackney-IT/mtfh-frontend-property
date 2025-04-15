@@ -85,7 +85,12 @@ export const AssetSideBar = ({
           <hr className="lbh-horizontal-bar" />
 
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
-          <PatchDetails assetPk={id} assetPatch={assetPatch} assetArea={assetArea} versionNumber={assetDetails?.versionNumber} />
+          <PatchDetails
+            assetPk={id}
+            assetPatch={assetPatch}
+            assetArea={assetArea}
+            versionNumber={assetDetails?.versionNumber}
+          />
           <LbhOwnershipInformation asset={assetDetails} />
           {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (
