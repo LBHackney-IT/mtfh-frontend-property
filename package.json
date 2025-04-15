@@ -2,7 +2,7 @@
   "name": "@mtfh/property",
   "version": "0.0.1",
   "scripts": {
-    "start": "webpack serve --port 8010",
+    "start": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack serve --port 8010",
     "start:standalone": "webpack serve --env standalone",
     "build": "webpack --mode=production",
     "analyze": "webpack --mode=production --env analyze",
