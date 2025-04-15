@@ -98,11 +98,11 @@ beforeEach(() => {
     ),
   );
 
-  // server.use(
-  //   rest.get("/api/v1/patch/all", (req, res, ctx) => {
-  //     return res(ctx.json([mockAssetPatch, mockAssetArea, mockAssetAreaWithoutResponsibleEntities, mockAssetPatchWithoutResponsibleEntities]));
-  //   }),
-  // );
+  server.use(
+    rest.get("/api/v1/patch/all", (req, res, ctx) => {
+      return res(ctx.json([mockAssetPatch, mockAssetArea, mockAssetAreaWithoutResponsibleEntities, mockAssetPatchWithoutResponsibleEntities]));
+    }),
+  );
   server.use(
     rest.get(`/api/v1/patch/name`, (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(mockAssetPatch));

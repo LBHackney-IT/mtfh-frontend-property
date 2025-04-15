@@ -14,9 +14,8 @@ import {
   SummaryList,
   SummaryListItem,
 } from "@mtfh/common/lib/components";
-import { Asset, updatePropertyPatch, UpdatePropertyPatchRequest } from "@mtfh/common/lib/api/asset/v1";
+import { updatePropertyPatch, UpdatePropertyPatchRequest } from "@mtfh/common/lib/api/asset/v1";
 import { EditAssignmentButton, CancelReassignmentButton, ConfirmReassignmentButton } from "../patch-assignment-form/components/form-buttons";
-import { Console } from "console";
 interface PatchDetailsProps {
   assetPk: string;
   assetPatch?: Patch;
