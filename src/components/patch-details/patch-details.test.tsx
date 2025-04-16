@@ -292,7 +292,7 @@ describe("Patch Details", () => {
     });
   });
 
-  test("it shows the edit patches button when the user is authorised", async () => {
+  test("it shows the edit patches, cancel and confirm buttons when the user is authorised", async () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
@@ -303,10 +303,14 @@ describe("Patch Details", () => {
     );
 
     await waitFor(async () => {
-      expect(screen.getByTestId("edit-assignment-button")).toBeVisible();
+      const editButton = screen.getByTestId("edit-assignment-button");
+      expect(editButton).toBeVisible();
+      editButton.click();
     });
+    expect(screen.getByTestId("cancel-reassignment-button")).toBeVisible();
+    expect(screen.getByTestId("confirm-reassignment-button")).toBeVisible();
   });
-  test("it does not show the edit patches button when the user is not authorised", async () => {
+  test("it does not show the edit patches, cancel and confirm button when the user is not authorised", async () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
 
     render(
@@ -320,73 +324,10 @@ describe("Patch Details", () => {
 
     await waitFor(async () => {
       expect(screen.queryByTestId("edit-assignment-button")).not.toBeInTheDocument();
-    });
-  });
-  test("it shows the cancel button when the user is authorised", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
-      />,
-    );
-
-    await waitFor(async () => {
-      const editButton = screen.getByTestId("edit-assignment-button");
-      editButton.click();
-    });
-    expect(screen.getByTestId("cancel-reassignment-button")).toBeVisible();
-  });
-  test("it does not show the cancel button when the user is not authorised", async () => {
-    jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
-
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
-      />,
-    );
-
-    await waitFor(async () => {
+      expect(screen.queryByTestId("confirm-reassignment-button")).not.toBeInTheDocument();
       expect(screen.queryByTestId("cancel-reassignment-button")).not.toBeInTheDocument();
     });
   });
-  test("it shows the confirm button when the user is authorised", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
-      />,
-    );
-
-    await waitFor(async () => {
-      const editButton = screen.getByTestId("edit-assignment-button");
-      editButton.click();
-    });
-    expect(screen.getByTestId("confirm-reassignment-button")).toBeVisible();
-  });
-  test("it does not show the confirm button when the user is not authorised", async () => {
-    jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(false);
-
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
-      />,
-    );
-
-    await waitFor(async () => {
-      expect(screen.queryByTestId("confirm-reassignment-button")).not.toBeInTheDocument();
-    });
-  });
-
   test("patch name is edited successfully", async () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
