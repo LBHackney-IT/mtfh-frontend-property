@@ -20,10 +20,10 @@ import { locale } from "../../services";
 
 import { AssetView } from ".";
 
+import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
 import { $configuration } from "@mtfh/common/lib/configuration";
 import { formatDate, formatTime } from "@mtfh/common/lib/utils";
-import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 const mockPatch: Patch = {
   id: crypto.randomBytes(20).toString("hex"),
@@ -52,10 +52,10 @@ beforeEach(() => {
     ),
   );
   server.use(
-        rest.get("/api/v1/patch/all", (req, res, ctx) => {
-          return res(ctx.json([mockPatch]));
-        }),
-    );
+    rest.get("/api/v1/patch/all", (req, res, ctx) => {
+      return res(ctx.json([mockPatch]));
+    }),
+  );
 });
 
 test("renders the error on Asset failure", async () => {

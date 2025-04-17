@@ -10,8 +10,8 @@ import { AssetLayout } from "./layout";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
-import * as auth from "@mtfh/common/lib/auth/auth";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
+import * as auth from "@mtfh/common/lib/auth/auth";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
@@ -117,11 +117,10 @@ beforeEach(() => {
   );
 
   server.use(
-      rest.get("/api/v1/patch/all", (req, res, ctx) => {
-        return res(ctx.json([mockPatch]));
-      }),
+    rest.get("/api/v1/patch/all", (req, res, ctx) => {
+      return res(ctx.json([mockPatch]));
+    }),
   );
-  
 });
 
 test("it shows the new cautionary alerts icon", async () => {
