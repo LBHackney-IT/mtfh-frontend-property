@@ -1,3 +1,5 @@
+import * as crypto from "crypto";
+
 import React from "react";
 
 import {
@@ -21,6 +23,25 @@ import { AssetView } from ".";
 import * as auth from "@mtfh/common/lib/auth/auth";
 import { $configuration } from "@mtfh/common/lib/configuration";
 import { formatDate, formatTime } from "@mtfh/common/lib/utils";
+import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
+
+const mockPatch: Patch = {
+  id: crypto.randomBytes(20).toString("hex"),
+  name: "HN1",
+  patchType: "patch",
+  parentId: crypto.randomBytes(20).toString("hex"),
+  domain: "Hackney",
+  responsibleEntities: [
+    {
+      id: crypto.randomBytes(20).toString("hex"),
+      name: "Housing Officer 1",
+      responsibleType: "HousingOfficer",
+      contactDetails: {
+        emailAddress: "test.test@hackney.gov.uk",
+      },
+    },
+  ],
+};
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -30,6 +51,11 @@ beforeEach(() => {
       (req, res, ctx) => res(ctx.status(200), ctx.json({ alerts: [] })),
     ),
   );
+  server.use(
+        rest.get("/api/v1/patch/all", (req, res, ctx) => {
+          return res(ctx.json([mockPatch]));
+        }),
+    );
 });
 
 test("renders the error on Asset failure", async () => {

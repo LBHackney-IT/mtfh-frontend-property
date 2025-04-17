@@ -1,3 +1,5 @@
+import * as crypto from "crypto";
+
 import React from "react";
 
 import { render, server } from "@hackney/mtfh-test-utils";
@@ -11,13 +13,14 @@ import { AssetSideBar } from ".";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import * as auth from "@mtfh/common/lib/auth/auth";
+import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
   assetId: "0019062023",
   assetType: "Block",
-  patchId: uuidv4(),
-  areaId: uuidv4(),
+  patchId: crypto.randomBytes(20).toString("hex"),
+  areaId: crypto.randomBytes(20).toString("hex"),
   assetLocation: {
     parentAssets: [],
     floorNo: "0",
@@ -70,6 +73,23 @@ const assetData: Asset = {
   boilerHouseId: "",
 };
 
+const mockPatch: Patch = {
+  id: crypto.randomBytes(20).toString("hex"),
+  name: "HN1",
+  patchType: "patch",
+  parentId: crypto.randomBytes(20).toString("hex"),
+  domain: "Hackney",
+  responsibleEntities: [
+    {
+      id: crypto.randomBytes(20).toString("hex"),
+      name: "Housing Officer 1",
+      responsibleType: "HousingOfficer",
+      contactDetails: {
+        emailAddress: "test.test@hackney.gov.uk",
+      },
+    },
+  ],
+};
 beforeEach(() => {
   jest.resetAllMocks();
 
@@ -81,145 +101,153 @@ beforeEach(() => {
       (req, res, ctx) => res(ctx.status(200), ctx.json({ alerts: [] })),
     ),
   );
+
+  server.use(
+    rest.get("/api/v1/patch/all", (req, res, ctx) => {
+      return res(ctx.json([mockPatch]));
+    }),
+  );
 });
 
-test("it shows cautionary alerts", () => {
-  // Arrange
-  const { container } = render(
-    <AssetSideBar
-      alerts={[]}
-      assetDetails={assetData}
-      showCautionaryAlerts
-      showTenureInformation={false}
-    />,
-    {
-      url: `/property/${assetData.id}`,
-      path: "/property/:assetId",
-    },
-  );
+describe("Assets Sidebar", () => {
+  test("it shows cautionary alerts", () => {
+    // Arrange
+    const { container } = render(
+      <AssetSideBar
+        alerts={[]}
+        assetDetails={assetData}
+        showCautionaryAlerts
+        showTenureInformation={false}
+      />,
+      {
+        url: `/property/${assetData.id}`,
+        path: "/property/:assetId",
+      },
+    );
 
-  // Assert
-  const cautionaryAlertsHeading = screen.getByText("Cautionary alerts");
+    // Assert
+    const cautionaryAlertsHeading = screen.getByText("Cautionary alerts");
 
-  expect(cautionaryAlertsHeading).toBeVisible();
+    expect(cautionaryAlertsHeading).toBeVisible();
 
-  expect(container).toMatchSnapshot();
-});
+    expect(container).toMatchSnapshot();
+  });
 
-test("it hides cautionary alerts", () => {
-  // Arrange
-  const { container } = render(
-    <AssetSideBar
-      alerts={[]}
-      assetDetails={assetData}
-      showCautionaryAlerts={false}
-      showTenureInformation={false}
-    />,
-    {
-      url: `/property/${assetData.id}`,
-      path: "/property/:assetId",
-    },
-  );
+  test("it hides cautionary alerts", () => {
+    // Arrange
+    const { container } = render(
+      <AssetSideBar
+        alerts={[]}
+        assetDetails={assetData}
+        showCautionaryAlerts={false}
+        showTenureInformation={false}
+      />,
+      {
+        url: `/property/${assetData.id}`,
+        path: "/property/:assetId",
+      },
+    );
 
-  // Assert
-  const cautionaryAlertsHeading = screen.queryByText("Cautionary alerts");
+    // Assert
+    const cautionaryAlertsHeading = screen.queryByText("Cautionary alerts");
 
-  expect(cautionaryAlertsHeading).not.toBeInTheDocument();
+    expect(cautionaryAlertsHeading).not.toBeInTheDocument();
 
-  expect(container).toMatchSnapshot();
-});
+    expect(container).toMatchSnapshot();
+  });
 
-test("it shows boiler house details", () => {
-  // Arrange
-  const asset = JSON.parse(JSON.stringify(assetData));
-  asset.assetType = "Dwelling";
+  test("it shows boiler house details", () => {
+    // Arrange
+    const asset = JSON.parse(JSON.stringify(assetData));
+    asset.assetType = "Dwelling";
 
-  const { container } = render(
-    <AssetSideBar
-      alerts={[]}
-      assetDetails={asset}
-      showCautionaryAlerts
-      showTenureInformation={false}
-    />,
-    {
-      url: `/property/${assetData.id}`,
-      path: "/property/:assetId",
-    },
-  );
+    const { container } = render(
+      <AssetSideBar
+        alerts={[]}
+        assetDetails={asset}
+        showCautionaryAlerts
+        showTenureInformation={false}
+      />,
+      {
+        url: `/property/${assetData.id}`,
+        path: "/property/:assetId",
+      },
+    );
 
-  // Assert
-  const boilerHouseDetailsHeading = screen.getByText(locale.boilerHouseDetails.heading);
+    // Assert
+    const boilerHouseDetailsHeading = screen.getByText(locale.boilerHouseDetails.heading);
 
-  expect(boilerHouseDetailsHeading).toBeVisible();
+    expect(boilerHouseDetailsHeading).toBeVisible();
 
-  expect(container).toMatchSnapshot();
-});
+    expect(container).toMatchSnapshot();
+  });
 
-test("it hides boiler house details", async () => {
-  // Arrange
-  const asset = JSON.parse(JSON.stringify(assetData));
-  asset.assetType = "Block";
+  test("it hides boiler house details", async () => {
+    // Arrange
+    const asset = JSON.parse(JSON.stringify(assetData));
+    asset.assetType = "Block";
 
-  const { container } = render(
-    <AssetSideBar
-      alerts={[]}
-      assetDetails={asset}
-      showCautionaryAlerts
-      showTenureInformation={false}
-    />,
-    {
-      url: `/property/${assetData.id}`,
-      path: "/property/:assetId",
-    },
-  );
+    const { container } = render(
+      <AssetSideBar
+        alerts={[]}
+        assetDetails={asset}
+        showCautionaryAlerts
+        showTenureInformation={false}
+      />,
+      {
+        url: `/property/${assetData.id}`,
+        path: "/property/:assetId",
+      },
+    );
 
-  // Assert
-  expect(screen.queryByText(locale.boilerHouseDetails.heading));
-  expect(container).toMatchSnapshot();
-});
+    // Assert
+    expect(screen.queryByText(locale.boilerHouseDetails.heading));
+    expect(container).toMatchSnapshot();
+  });
 
-test("it shows tenure information", () => {
-  // Arrange
-  const { container } = render(
-    <AssetSideBar
-      alerts={[]}
-      assetDetails={assetData}
-      showCautionaryAlerts={false}
-      showTenureInformation
-    />,
-    {
-      url: `/property/${assetData.id}`,
-      path: "/property/:assetId",
-    },
-  );
+  test("it shows tenure information", () => {
+    // Arrange
+    const { container } = render(
+      <AssetSideBar
+        alerts={[]}
+        assetDetails={assetData}
+        showCautionaryAlerts={false}
+        showTenureInformation
+      />,
+      {
+        url: `/property/${assetData.id}`,
+        path: "/property/:assetId",
+      },
+    );
 
-  // Assert
-  const tenureInformationHeading = screen.getByText("Tenure");
+    // Assert
+    const tenureInformationHeading = screen.getByText("Tenure");
 
-  expect(tenureInformationHeading).toBeVisible();
+    expect(tenureInformationHeading).toBeVisible();
 
-  expect(container).toMatchSnapshot();
-});
+    expect(container).toMatchSnapshot();
+  });
 
-test("it hides tenure information", () => {
-  // Arrange
-  const { container } = render(
-    <AssetSideBar
-      alerts={[]}
-      assetDetails={assetData}
-      showCautionaryAlerts={false}
-      showTenureInformation={false}
-    />,
-    {
-      url: `/property/${assetData.id}`,
-      path: "/property/:assetId",
-    },
-  );
+  test("it hides tenure information", () => {
+    // Arrange
+    const { container } = render(
+      <AssetSideBar
+        alerts={[]}
+        assetDetails={assetData}
+        showCautionaryAlerts={false}
+        showTenureInformation={false}
+      />,
+      {
+        url: `/property/${assetData.id}`,
+        path: "/property/:assetId",
+      },
+    );
 
-  // Assert
-  const tenureInformationHeading = screen.queryByText("Tenure");
+    // Assert
+    const tenureInformationHeading = screen.queryByText("Tenure");
 
-  expect(tenureInformationHeading).not.toBeInTheDocument();
+    expect(tenureInformationHeading).not.toBeInTheDocument();
 
-  expect(container).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
+  });
 });

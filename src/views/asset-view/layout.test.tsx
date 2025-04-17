@@ -1,20 +1,22 @@
+import * as crypto from "crypto";
+
 import React from "react";
 
 import { render, server } from "@hackney/mtfh-test-utils";
 import { waitFor } from "@testing-library/react";
 import { rest } from "msw";
-import { v4 as uuidv4 } from "uuid";
 
 import { AssetLayout } from "./layout";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
+import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
-  patchId: uuidv4(),
-  areaId: uuidv4(),
+  patchId: crypto.randomBytes(20).toString("hex"),
+  areaId: crypto.randomBytes(20).toString("hex"),
   assetId: "0019062023",
   assetType: "Block",
   assetLocation: {
@@ -84,6 +86,24 @@ const alert: Alert = {
   isActive: true,
 };
 
+const mockPatch: Patch = {
+  id: crypto.randomBytes(20).toString("hex"),
+  name: "HN1",
+  patchType: "patch",
+  parentId: crypto.randomBytes(20).toString("hex"),
+  domain: "Hackney",
+  responsibleEntities: [
+    {
+      id: crypto.randomBytes(20).toString("hex"),
+      name: "Housing Officer 1",
+      responsibleType: "HousingOfficer",
+      contactDetails: {
+        emailAddress: "test.test@hackney.gov.uk",
+      },
+    },
+  ],
+};
+
 beforeEach(() => {
   jest.resetAllMocks();
 
@@ -95,6 +115,13 @@ beforeEach(() => {
       (req, res, ctx) => res(ctx.status(200), ctx.json({ alerts: [alert] })),
     ),
   );
+
+  server.use(
+      rest.get("/api/v1/patch/all", (req, res, ctx) => {
+        return res(ctx.json([mockPatch]));
+      }),
+  );
+  
 });
 
 test("it shows the new cautionary alerts icon", async () => {
