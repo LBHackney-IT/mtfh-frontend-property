@@ -1,10 +1,10 @@
-import * as crypto from "crypto";
 
 import React from "react";
 
 import { render, server } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import { rest } from "msw";
+import { v4 as uuidv4 } from "uuid";
 
 import { locale } from "../../services";
 
@@ -18,8 +18,8 @@ const assetData: Asset = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
   assetId: "0019062023",
   assetType: "Block",
-  patchId: crypto.randomBytes(20).toString("hex"),
-  areaId: crypto.randomBytes(20).toString("hex"),
+  patchId: uuidv4(),
+  areaId: uuidv4(),
   assetLocation: {
     parentAssets: [],
     floorNo: "0",
@@ -73,14 +73,14 @@ const assetData: Asset = {
 };
 
 const mockPatch: Patch = {
-  id: crypto.randomBytes(20).toString("hex"),
+  id: uuidv4(),
   name: "HN1",
   patchType: "patch",
-  parentId: crypto.randomBytes(20).toString("hex"),
+  parentId: uuidv4(),
   domain: "Hackney",
   responsibleEntities: [
     {
-      id: crypto.randomBytes(20).toString("hex"),
+      id: uuidv4(),
       name: "Housing Officer 1",
       responsibleType: "HousingOfficer",
       contactDetails: {

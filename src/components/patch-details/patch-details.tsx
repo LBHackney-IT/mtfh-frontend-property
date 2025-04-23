@@ -94,8 +94,6 @@ export const PatchDetails = ({
       .then((data) => {
         const id = JSON.stringify(data).match(/"id":"(.*?)"/);
         const parentId = JSON.stringify(data).match(/"parentId":"(.*?)"/);
-        console.log("id L84", id);
-        console.log("parentId L85", parentId);
         if (!id?.[1] || !parentId?.[1]) {
           throw new Error("Invalid patch data: id or parentId is undefined");
         }
@@ -107,7 +105,6 @@ export const PatchDetails = ({
       });
   };
   const handleEdit = () => {
-    console.log("newPatchName", newPatchName);
     if (newPatchName) {
       getbyPatchNameCall(newPatchName);
     }

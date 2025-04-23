@@ -142,7 +142,6 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         assetPatch={mockAssetPatch}
         assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
       />,
     );
 
@@ -155,7 +154,6 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         assetPatch={mockAssetPatch}
         assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
       />,
     );
 
@@ -172,7 +170,6 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         assetPatch={mockAssetPatch}
         assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
       />,
     );
 
@@ -190,7 +187,6 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         assetPatch={mockAssetPatch}
         assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
       />,
     );
     await waitFor(async () => {
@@ -216,7 +212,6 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         assetPatch={mockAssetPatch}
         assetArea={mockAssetAreaWithoutResponsibleEntities}
-        versionNumber={assetWithPatches.versionNumber}
       />,
     );
     await waitFor(async () => {
@@ -240,7 +235,6 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         assetPatch={mockAssetPatchWithoutResponsibleEntities}
         assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
       />,
     );
     await waitFor(async () => {
@@ -264,7 +258,6 @@ describe("Patch Details", () => {
         assetPk={mockAssetV1.id}
         assetPatch={undefined}
         assetArea={undefined}
-        versionNumber={assetWithPatches.versionNumber}
       />,
     );
 
@@ -281,7 +274,6 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         assetPatch={mockAssetPatch}
         assetArea={mockAssetArea}
-        versionNumber={assetWithPatches.versionNumber}
       />,
     );
 
