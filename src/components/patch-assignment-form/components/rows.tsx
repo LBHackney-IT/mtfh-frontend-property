@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 
 import { assetAdminAuthGroups } from "../../../services/config/config";
 import { editPatchAssignment } from "../utils/edit-patch-assignment";
@@ -81,19 +81,19 @@ export const TableRow = ({
 
   const handleOfficerNameChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setNewOfficerName(event.target.value.trim());
+      setNewOfficerName(event.target.value?.trim());
     },
     [setNewOfficerName],
   );
 
   const handleOfficerEmailChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setNewOfficerEmail(event.target.value.trim().toLowerCase().trim());
+      setNewOfficerEmail(event.target.value.toLowerCase().trim());
     },
     [setNewOfficerEmail],
   );
 
-  const anyChangesMade = useCallback(() => {
+  const anyChangesMade = useMemo(() => {
     return (
       newOfficerName !== officer?.name ||
       newOfficerEmail !== officer?.contactDetails?.emailAddress?.toLowerCase()
@@ -158,7 +158,7 @@ export const TableRow = ({
           )}
           <ConfirmReassignmentButton
             onClick={handleConfirmClick}
-            enabled={anyChangesMade()}
+            enabled={anyChangesMade}
           />
           <CancelReassignmentButton onClick={handleCancelClick} />
         </>
