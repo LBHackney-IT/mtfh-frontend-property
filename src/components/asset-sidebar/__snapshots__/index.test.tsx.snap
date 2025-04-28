@@ -114,14 +114,21 @@ exports[`Assets Sidebar it hides boiler house details 1`] = `
           <p>
             No patch
           </p>
-          <button
-            class="govuk-button lbh-button"
-            data-testid="edit-assignment-button"
-            style="margin-top: 0px;"
-            type="button"
+          <aside
+            class="mtfh-edit-patch-details"
           >
-            Edit
-          </button>
+            <button
+              class="govuk-button lbh-button"
+              data-testid="edit-assignment-button"
+              style="margin-top: 0px;"
+              type="button"
+            >
+              Edit
+            </button>
+          </aside>
+          <hr
+            class="lbh-horizontal-bar"
+          />
           <a
             class="govuk-button lbh-button"
             data-testid="all-patches-and-areas-button"
@@ -262,14 +269,21 @@ exports[`Assets Sidebar it hides cautionary alerts 1`] = `
           <p>
             No patch
           </p>
-          <button
-            class="govuk-button lbh-button"
-            data-testid="edit-assignment-button"
-            style="margin-top: 0px;"
-            type="button"
+          <aside
+            class="mtfh-edit-patch-details"
           >
-            Edit
-          </button>
+            <button
+              class="govuk-button lbh-button"
+              data-testid="edit-assignment-button"
+              style="margin-top: 0px;"
+              type="button"
+            >
+              Edit
+            </button>
+          </aside>
+          <hr
+            class="lbh-horizontal-bar"
+          />
           <a
             class="govuk-button lbh-button"
             data-testid="all-patches-and-areas-button"
@@ -410,14 +424,21 @@ exports[`Assets Sidebar it hides tenure information 1`] = `
           <p>
             No patch
           </p>
-          <button
-            class="govuk-button lbh-button"
-            data-testid="edit-assignment-button"
-            style="margin-top: 0px;"
-            type="button"
+          <aside
+            class="mtfh-edit-patch-details"
           >
-            Edit
-          </button>
+            <button
+              class="govuk-button lbh-button"
+              data-testid="edit-assignment-button"
+              style="margin-top: 0px;"
+              type="button"
+            >
+              Edit
+            </button>
+          </aside>
+          <hr
+            class="lbh-horizontal-bar"
+          />
           <a
             class="govuk-button lbh-button"
             data-testid="all-patches-and-areas-button"
@@ -575,14 +596,21 @@ exports[`Assets Sidebar it shows boiler house details 1`] = `
           <p>
             No patch
           </p>
-          <button
-            class="govuk-button lbh-button"
-            data-testid="edit-assignment-button"
-            style="margin-top: 0px;"
-            type="button"
+          <aside
+            class="mtfh-edit-patch-details"
           >
-            Edit
-          </button>
+            <button
+              class="govuk-button lbh-button"
+              data-testid="edit-assignment-button"
+              style="margin-top: 0px;"
+              type="button"
+            >
+              Edit
+            </button>
+          </aside>
+          <hr
+            class="lbh-horizontal-bar"
+          />
           <a
             class="govuk-button lbh-button"
             data-testid="all-patches-and-areas-button"
@@ -758,14 +786,21 @@ exports[`Assets Sidebar it shows cautionary alerts 1`] = `
           <p>
             No patch
           </p>
-          <button
-            class="govuk-button lbh-button"
-            data-testid="edit-assignment-button"
-            style="margin-top: 0px;"
-            type="button"
+          <aside
+            class="mtfh-edit-patch-details"
           >
-            Edit
-          </button>
+            <button
+              class="govuk-button lbh-button"
+              data-testid="edit-assignment-button"
+              style="margin-top: 0px;"
+              type="button"
+            >
+              Edit
+            </button>
+          </aside>
+          <hr
+            class="lbh-horizontal-bar"
+          />
           <a
             class="govuk-button lbh-button"
             data-testid="all-patches-and-areas-button"
@@ -906,14 +941,21 @@ exports[`Assets Sidebar it shows tenure information 1`] = `
           <p>
             No patch
           </p>
-          <button
-            class="govuk-button lbh-button"
-            data-testid="edit-assignment-button"
-            style="margin-top: 0px;"
-            type="button"
+          <aside
+            class="mtfh-edit-patch-details"
           >
-            Edit
-          </button>
+            <button
+              class="govuk-button lbh-button"
+              data-testid="edit-assignment-button"
+              style="margin-top: 0px;"
+              type="button"
+            >
+              Edit
+            </button>
+          </aside>
+          <hr
+            class="lbh-horizontal-bar"
+          />
           <a
             class="govuk-button lbh-button"
             data-testid="all-patches-and-areas-button"
