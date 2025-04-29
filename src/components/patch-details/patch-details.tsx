@@ -49,7 +49,7 @@ export const PatchDetails = ({
     setAreaId(areaId);
     mutatePatch();
     mutateArea();
-  }
+  };
 
   return (
     <>

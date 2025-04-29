@@ -84,7 +84,7 @@ const assetWithPatches: Asset = {
   areaId: mockAssetArea.id,
 };
 
-const mockPatchList: Patch[] = [mockPatch,mockAssetArea];
+const mockPatchList: Patch[] = [mockPatch, mockAssetArea];
 
 // Mock the API response for the patch list
 beforeEach(() => {
@@ -158,7 +158,7 @@ describe("Edit Patch Details", () => {
     server.use(
       rest.patch(`/api/v1/asset/${assetWithPatches.id}/patch`, (req, res, ctx) =>
         res(ctx.status(204)),
-      ), 
+      ),
     );
 
     // render(
