@@ -82,28 +82,25 @@ export const PatchEdit = ({ assetPk, versionNumber, patchName, onEdit }: Props) 
         setIsEditingPatchName(false);
       });
   };
-  const getbyPatchNameCall = (patchName: string) => {
-    getByPatchName(patchName)
-      .then((data) => {
-        setLoading(true);
-        const id = JSON.stringify(data).match(/"id":"(.*?)"/);
-        const parentId = JSON.stringify(data).match(/"parentId":"(.*?)"/);
-        // Extract the id and parentId from the data which will always be the second item in the array as the first item is a json object
-        // whereas the  second item is a string value
-        if (!id?.[1] || !parentId?.[1]) {
-          throw new Error("Invalid patch data: id or parentId is undefined");
-        }
-        const request = buildUpdatePropertyPatchRequest(id[1], parentId[1]);
-        updatePropertyPatchCall(request, assetPk, versionNumber?.toString() ?? "");
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(true);
-      });
-  };
   const handleEdit = () => {
     if (newPatchName) {
-      getbyPatchNameCall(newPatchName);
+      getByPatchName(newPatchName)
+        .then((data) => {
+          setLoading(true);
+          const id = JSON.stringify(data).match(/"id":"(.*?)"/);
+          const parentId = JSON.stringify(data).match(/"parentId":"(.*?)"/);
+          // Extract the id and parentId from the data which will always be the second item in the array as the first item is a json object
+          // whereas the  second item is a string value
+          if (!id?.[1] || !parentId?.[1]) {
+            throw new Error("Invalid patch data: id or parentId is undefined");
+          }
+          const request = buildUpdatePropertyPatchRequest(id[1], parentId[1]);
+          updatePropertyPatchCall(request, assetPk, versionNumber?.toString() ?? "");
+        })
+        .catch((err) => {
+          console.error(err);
+          setError(true);
+        });
     }
   };
 
