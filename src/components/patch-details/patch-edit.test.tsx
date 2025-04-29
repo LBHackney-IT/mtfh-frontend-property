@@ -10,7 +10,6 @@ import { rest } from "msw";
 import { PatchEdit } from "./patch-edit";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
-import * as commonPatch from "@mtfh/common/lib/api/patch/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
 
@@ -83,8 +82,6 @@ beforeEach(() => {
   jest.resetAllMocks();
 
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
-
-  jest.spyOn(commonPatch, "getByPatchName").mockReturnValue(Promise.resolve(updateAssetPatch));
 
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
