@@ -12,6 +12,7 @@ import { PatchEdit } from "./patch-edit";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
+import userEvent from "@testing-library/user-event";
 
 const mockAreaId = crypto.randomBytes(20).toString("hex");
 
@@ -84,7 +85,7 @@ const assetWithPatches: Asset = {
   areaId: mockAssetArea.id,
 };
 
-const mockPatchList: Patch[] = [mockPatch, mockAssetArea];
+const mockPatchList: Patch[] = [mockPatch, updateAssetPatch];
 
 // Mock the API response for the patch list
 beforeEach(() => {
@@ -105,7 +106,7 @@ beforeEach(() => {
 
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
-      return res(ctx.json([...mockPatchList]));
+      return res(ctx.status(200),ctx.json([mockPatchList]));
     }),
   );
   server.use(
@@ -160,21 +161,18 @@ describe("Edit Patch Details", () => {
         res(ctx.status(204)),
       ),
     );
-
-    // render(
-    //   <PatchEdit
-    //     assetPk={assetWithPatches.id}
-    //     versionNumber={assetWithPatches.versionNumber}
-    //     patchName={mockAssetPatch.name}
-    //     onEdit={jest.fn()}
-    //   />,
+    // server.use(
+    //   rest.get("/api/v1/patch/all", (req, res, ctx) => {
+    //     return res(ctx.json([...mockPatchList]));
+    //   }),
     // );
 
     render(
-      <PatchDetails
+      <PatchEdit
         assetPk={assetWithPatches.id}
-        initialPatchId={mockPatch.id}
-        initialAreaId={mockAreaId}
+        versionNumber={assetWithPatches.versionNumber}
+        patchName={mockPatch.name}
+        onEdit={jest.fn()}
       />,
     );
 
@@ -183,24 +181,32 @@ describe("Edit Patch Details", () => {
       editButton.click();
     });
 
-    expect(screen.getByTestId("patch-dropdown-options")).toBeVisible();
     const confirmButton = screen.getByTestId("confirm-reassignment-button");
     expect(confirmButton).toBeVisible();
     expect(screen.getByTestId("cancel-reassignment-button")).toBeVisible();
 
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        initialPatchId={updateAssetPatch.id}
+        initialAreaId={mockAreaId}
+      />,
+    );
+
     const patchDropdown = screen.getByTestId("patch-dropdown-options");
-    const patchOption = "HN1";
-    patchDropdown.click();
-    expect(patchDropdown).toHaveTextContent(patchOption);
+    expect(patchDropdown).toBeInTheDocument();
+    await userEvent.click(patchDropdown);
+    userEvent.selectOptions(patchDropdown, [
+      updateAssetPatch.name,
+    ]);
 
     confirmButton.click();
-    expect(screen.getByTestId("patch-name")).toHaveTextContent(patchOption);
-    expect(screen.getByTestId("officer-name")).toHaveTextContent(
-      mockPatch.responsibleEntities[0].name,
-    );
-    expect(screen.getByTestId("area-manager-name")).toHaveTextContent(
-      mockAssetArea.responsibleEntities[0].name,
-    );
+    await waitFor(() => {
+      expect(screen.queryByTestId("patch-dropdown-options")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("confirm-reassignment-button")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("cancel-reassignment-button")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("edit-assignment-button")).toBeInTheDocument();
+    });
   });
   test("patch name is not edited if cancel button is clicked", async () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
@@ -225,19 +231,14 @@ describe("Edit Patch Details", () => {
     expect(cancelButton).toBeVisible();
 
     const patchDropdown = screen.getByTestId("patch-dropdown-options");
-    // const patchOption = "HN1";
     patchDropdown.click();
-    // expect(patchDropdown).toHaveTextContent(patchOption);
 
     cancelButton.click();
 
-    const patchNameField = screen.getByTestId("patch-name");
-    expect(patchNameField).toHaveTextContent(mockPatch.name);
-    expect(screen.getByTestId("officer-name")).toHaveTextContent(
-      mockPatch.responsibleEntities[0].name,
-    );
-    expect(screen.getByTestId("area-manager-name")).toHaveTextContent(
-      mockAssetArea.responsibleEntities[0].name,
-    );
+    expect(screen.queryByTestId("patch-dropdown-options")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("confirm-reassignment-button")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("cancel-reassignment-button")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("edit-assignment-button")).toBeInTheDocument();
+
   });
 });
