@@ -75,6 +75,26 @@ const assetWithPatches: Asset = {
   areaId: mockAssetArea.id,
 };
 
+const mockPatch: Patch = {
+  id: crypto.randomBytes(20).toString("hex"),
+  name: "HN1",
+  patchType: "patch",
+  parentId: mockAreaId,
+  domain: "Hackney",
+  responsibleEntities: [
+    {
+      id: crypto.randomBytes(20).toString("hex"),
+      name: "Housing Officer 1",
+      responsibleType: "HousingOfficer",
+      contactDetails: {
+        emailAddress: "test.test@hackney.gov.uk",
+      },
+    },
+  ],
+};
+
+const mockPatchList: Patch[] = [mockPatch, mockAssetPatch];
+
 // Mock the API response for the patch list
 beforeEach(() => {
   jest.resetAllMocks();
@@ -91,6 +111,21 @@ beforeEach(() => {
       res(ctx.status(200), ctx.json(mockAssetArea)),
     ),
   );
+  server.use(
+      rest.get("/api/v1/patch/all", (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json(mockPatchList));
+      }),
+    );
+    server.use(
+      rest.get(`/api/v1/patch/patchName/*`, (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json(mockPatch));
+      }),
+    );
+    server.use(
+      rest.patch(`/api/v1/assets/${assetWithPatches.id}/patch`, (req, res, ctx) =>
+        res(ctx.status(204)),
+      ),
+    );
 });
 
 describe("Patch Details", () => {

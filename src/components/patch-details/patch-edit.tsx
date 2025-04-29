@@ -88,7 +88,6 @@ export const PatchEdit = ({ assetPk, versionNumber, patchName, onEdit }: Props) 
         setLoading(true);
         const id = JSON.stringify(data).match(/"id":"(.*?)"/);
         const parentId = JSON.stringify(data).match(/"parentId":"(.*?)"/);
-        console.log(id, parentId);
         // Extract the id and parentId from the data which will always be the second item in the array as the first item is a json object
         // whereas the  second item is a string value
         if (!id?.[1] || !parentId?.[1]) {
@@ -103,7 +102,6 @@ export const PatchEdit = ({ assetPk, versionNumber, patchName, onEdit }: Props) 
       });
   };
   const handleEdit = () => {
-    console.log("handleEdit");
     if (newPatchName) {
       getbyPatchNameCall(newPatchName);
     }

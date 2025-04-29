@@ -44,7 +44,6 @@ export const PatchDetails = ({
   const areaManagerName = assetArea?.responsibleEntities[0]?.name;
 
   const onEdit = (patchId: string, areaId: string) => {
-    console.log("On edit!");
     setPatchId(patchId);
     setAreaId(areaId);
     mutatePatch();
