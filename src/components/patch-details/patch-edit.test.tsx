@@ -106,7 +106,7 @@ beforeEach(() => {
 
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
-      return res(ctx.status(200),ctx.json([mockPatchList]));
+      return res(ctx.status(200), ctx.json([mockPatchList]));
     }),
   );
   server.use(
