@@ -7,7 +7,6 @@ import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
-import { PatchDetails } from "./patch-details";
 import { PatchEdit } from "./patch-edit";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -143,10 +142,11 @@ describe("Edit Patch Details", () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
     render(
-      <PatchDetails
+      <PatchEdit
         assetPk={assetWithPatches.id}
-        initialPatchId={updateAssetPatch.id}
-        initialAreaId={mockAreaId}
+        versionNumber={assetWithPatches.versionNumber}
+        patchName={mockPatch.name}
+        onEdit={jest.fn()}
       />,
     );
 
@@ -178,10 +178,11 @@ describe("Edit Patch Details", () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
     render(
-      <PatchDetails
+      <PatchEdit
         assetPk={assetWithPatches.id}
-        initialPatchId={mockPatch.id}
-        initialAreaId={mockAreaId}
+        versionNumber={assetWithPatches.versionNumber}
+        patchName={mockPatch.name}
+        onEdit={jest.fn()}
       />,
     );
 
