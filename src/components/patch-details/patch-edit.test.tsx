@@ -90,7 +90,7 @@ beforeEach(() => {
     }),
   );
   server.use(
-    rest.get(`/api/v1/patch/patchName/${updateAssetPatch.name}`, (req, res, ctx) => {
+    rest.get(`/api/v1/patch/patchName/*`, (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(mockPatch));
     }),
   );
