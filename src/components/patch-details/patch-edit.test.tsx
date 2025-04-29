@@ -52,15 +52,6 @@ const mockPatch: Patch = {
   ],
 };
 
-// const mockAssetPatchWithoutResponsibleEntities: Patch = {
-//   id: crypto.randomBytes(20).toString("hex"),
-//   name: "AR1",
-//   patchType: "patch",
-//   parentId: mockAreaId,
-//   domain: "Hackney",
-//   responsibleEntities: [],
-// };
-
 const mockAssetArea: Patch = {
   id: mockAreaId,
   name: "AR",
@@ -92,27 +83,21 @@ beforeEach(() => {
   jest.resetAllMocks();
 
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
-
-  // server.use(
-  //   rest.get(`/api/v1/patch/${mockAssetPatch.id}`, (req, res, ctx) =>
-  //     res(ctx.status(200), ctx.json(mockAssetPatch)),
-  //   ),
-  // );
-  // server.use(
-  //   rest.get(`/api/v1/patch/${mockAssetPatch.parentId}`, (req, res, ctx) =>
-  //     res(ctx.status(200), ctx.json(mockAssetArea)),
-  //   ),
-  // );
-
+  
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json([mockPatchList]));
+      return res(ctx.status(200), ctx.json(mockPatchList));
     }),
   );
   server.use(
-    rest.get(`/api/v1/patch/name`, (req, res, ctx) => {
+    rest.get(`/api/v1/patch/patchName/*`, (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(mockPatch));
     }),
+  );
+  server.use(
+    rest.patch(`/api/v1/assets/${assetWithPatches.id}/patch`, (req, res, ctx) =>
+      res(ctx.status(204)),
+    ),
   );
 });
 
@@ -156,23 +141,11 @@ describe("Edit Patch Details", () => {
   test("patch name is edited successfully", async () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
-    server.use(
-      rest.patch(`/api/v1/asset/${assetWithPatches.id}/patch`, (req, res, ctx) =>
-        res(ctx.status(204)),
-      ),
-    );
-    // server.use(
-    //   rest.get("/api/v1/patch/all", (req, res, ctx) => {
-    //     return res(ctx.json([...mockPatchList]));
-    //   }),
-    // );
-
     render(
-      <PatchEdit
+      <PatchDetails
         assetPk={assetWithPatches.id}
-        versionNumber={assetWithPatches.versionNumber}
-        patchName={mockPatch.name}
-        onEdit={jest.fn()}
+        initialPatchId={updateAssetPatch.id}
+        initialAreaId={mockAreaId}
       />,
     );
 
@@ -185,20 +158,14 @@ describe("Edit Patch Details", () => {
     expect(confirmButton).toBeVisible();
     expect(screen.getByTestId("cancel-reassignment-button")).toBeVisible();
 
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={updateAssetPatch.id}
-        initialAreaId={mockAreaId}
-      />,
-    );
-
     const patchDropdown = screen.getByTestId("patch-dropdown-options");
     expect(patchDropdown).toBeInTheDocument();
     await userEvent.click(patchDropdown);
-    userEvent.selectOptions(patchDropdown, [updateAssetPatch.name]);
-
-    confirmButton.click();
+    await waitFor(() => {
+      expect(screen.getByText(updateAssetPatch.name)).toBeVisible();
+    });
+    userEvent.selectOptions(patchDropdown, updateAssetPatch.name);
+    await userEvent.click(confirmButton);
     await waitFor(() => {
       expect(screen.queryByTestId("patch-dropdown-options")).not.toBeInTheDocument();
       expect(screen.queryByTestId("confirm-reassignment-button")).not.toBeInTheDocument();
