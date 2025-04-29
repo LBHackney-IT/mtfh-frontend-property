@@ -12,6 +12,7 @@ import { PatchEdit } from "./patch-edit";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
+import * as commonPatch from "@mtfh/common/lib/api/patch/v1";
 
 const mockAreaId = crypto.randomBytes(20).toString("hex");
 
@@ -82,6 +83,8 @@ beforeEach(() => {
   jest.resetAllMocks();
 
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
+
+  jest.spyOn(commonPatch, "getByPatchName").mockResolvedValue(updateAssetPatch);
 
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
