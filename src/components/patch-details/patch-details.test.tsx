@@ -112,20 +112,20 @@ beforeEach(() => {
     ),
   );
   server.use(
-      rest.get("/api/v1/patch/all", (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(mockPatchList));
-      }),
-    );
-    server.use(
-      rest.get(`/api/v1/patch/patchName/*`, (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(mockPatch));
-      }),
-    );
-    server.use(
-      rest.patch(`/api/v1/assets/${assetWithPatches.id}/patch`, (req, res, ctx) =>
-        res(ctx.status(204)),
-      ),
-    );
+    rest.get("/api/v1/patch/all", (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(mockPatchList));
+    }),
+  );
+  server.use(
+    rest.get(`/api/v1/patch/patchName/*`, (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(mockPatch));
+    }),
+  );
+  server.use(
+    rest.patch(`/api/v1/assets/${assetWithPatches.id}/patch`, (req, res, ctx) =>
+      res(ctx.status(204)),
+    ),
+  );
 });
 
 describe("Patch Details", () => {
@@ -201,8 +201,10 @@ describe("Patch Details", () => {
 
   test("it displays the patch and housing officer when area manager is not defined", async () => {
     server.use(
-      rest.get(`/api/v1/patch/${mockAssetAreaWithoutResponsibleEntities.id}`, (req, res, ctx) =>
-        res(ctx.status(200), ctx.json(mockAssetAreaWithoutResponsibleEntities)),
+      rest.get(
+        `/api/v1/patch/${mockAssetAreaWithoutResponsibleEntities.id}`,
+        (req, res, ctx) =>
+          res(ctx.status(200), ctx.json(mockAssetAreaWithoutResponsibleEntities)),
       ),
     );
 
@@ -230,8 +232,10 @@ describe("Patch Details", () => {
 
   test("it displays the patch and area manager when housing officer is not defined", async () => {
     server.use(
-      rest.get(`/api/v1/patch/${mockAssetPatchWithoutResponsibleEntities.id}`, (req, res, ctx) =>
-        res(ctx.status(200), ctx.json(mockAssetPatchWithoutResponsibleEntities)),
+      rest.get(
+        `/api/v1/patch/${mockAssetPatchWithoutResponsibleEntities.id}`,
+        (req, res, ctx) =>
+          res(ctx.status(200), ctx.json(mockAssetPatchWithoutResponsibleEntities)),
       ),
     );
     render(
