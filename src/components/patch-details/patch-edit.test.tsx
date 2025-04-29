@@ -4,6 +4,9 @@ import React from "react";
 
 import { mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
 import { screen, waitFor } from "@testing-library/react";
+
+import userEvent from "@testing-library/user-event";
+
 import { rest } from "msw";
 
 import { PatchDetails } from "./patch-details";
@@ -12,7 +15,6 @@ import { PatchEdit } from "./patch-edit";
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
-import userEvent from "@testing-library/user-event";
 
 const mockAreaId = crypto.randomBytes(20).toString("hex");
 
@@ -106,7 +108,7 @@ beforeEach(() => {
 
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
-      return res(ctx.status(200),ctx.json([mockPatchList]));
+       return res(ctx.status(200),ctx.json([mockPatchList]));
     }),
   );
   server.use(
@@ -196,9 +198,7 @@ describe("Edit Patch Details", () => {
     const patchDropdown = screen.getByTestId("patch-dropdown-options");
     expect(patchDropdown).toBeInTheDocument();
     await userEvent.click(patchDropdown);
-    userEvent.selectOptions(patchDropdown, [
-      updateAssetPatch.name,
-    ]);
+    userEvent.selectOptions(patchDropdown, [updateAssetPatch.name,]);
 
     confirmButton.click();
     await waitFor(() => {
@@ -239,6 +239,5 @@ describe("Edit Patch Details", () => {
     expect(screen.queryByTestId("confirm-reassignment-button")).not.toBeInTheDocument();
     expect(screen.queryByTestId("cancel-reassignment-button")).not.toBeInTheDocument();
     expect(screen.queryByTestId("edit-assignment-button")).toBeInTheDocument();
-
   });
 });
