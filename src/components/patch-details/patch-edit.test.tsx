@@ -15,7 +15,7 @@ import * as auth from "@mtfh/common/lib/auth/auth";
 
 const mockAreaId = crypto.randomBytes(20).toString("hex");
 
-const mockAssetPatch: Patch = {
+const updateAssetPatch: Patch = {
   id: crypto.randomBytes(20).toString("hex"),
   name: "AR1",
   patchType: "patch",
@@ -51,14 +51,14 @@ const mockPatch: Patch = {
   ],
 };
 
-const mockAssetPatchWithoutResponsibleEntities: Patch = {
-  id: crypto.randomBytes(20).toString("hex"),
-  name: "AR1",
-  patchType: "patch",
-  parentId: mockAreaId,
-  domain: "Hackney",
-  responsibleEntities: [],
-};
+// const mockAssetPatchWithoutResponsibleEntities: Patch = {
+//   id: crypto.randomBytes(20).toString("hex"),
+//   name: "AR1",
+//   patchType: "patch",
+//   parentId: mockAreaId,
+//   domain: "Hackney",
+//   responsibleEntities: [],
+// };
 
 const mockAssetArea: Patch = {
   id: mockAreaId,
@@ -78,27 +78,15 @@ const mockAssetArea: Patch = {
   ],
 };
 
-const mockAssetAreaWithoutResponsibleEntities: Patch = {
-  id: mockAreaId,
-  name: "AR",
-  patchType: "area",
-  parentId: crypto.randomBytes(20).toString("hex"),
-  domain: "Hackney",
-  responsibleEntities: [],
-};
-
 const assetWithPatches: Asset = {
   ...mockAssetV1,
-  patchId: mockAssetPatch.id,
+  patchId: updateAssetPatch.id,
   areaId: mockAssetArea.id,
 };
 
 const mockPatchList: Patch[] = [
   mockPatch,
-  mockAssetPatch,
-  mockAssetArea,
-  mockAssetAreaWithoutResponsibleEntities,
-  mockAssetPatchWithoutResponsibleEntities,
+  mockAssetArea
 ];
 // Mock the API response for the patch list
 beforeEach(() => {
@@ -106,16 +94,16 @@ beforeEach(() => {
 
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
-  server.use(
-    rest.get(`/api/v1/patch/${mockAssetPatch.id}`, (req, res, ctx) =>
-      res(ctx.status(200), ctx.json(mockAssetPatch)),
-    ),
-  );
-  server.use(
-    rest.get(`/api/v1/patch/${mockAssetPatch.parentId}`, (req, res, ctx) =>
-      res(ctx.status(200), ctx.json(mockAssetArea)),
-    ),
-  );
+  // server.use(
+  //   rest.get(`/api/v1/patch/${mockAssetPatch.id}`, (req, res, ctx) =>
+  //     res(ctx.status(200), ctx.json(mockAssetPatch)),
+  //   ),
+  // );
+  // server.use(
+  //   rest.get(`/api/v1/patch/${mockAssetPatch.parentId}`, (req, res, ctx) =>
+  //     res(ctx.status(200), ctx.json(mockAssetArea)),
+  //   ),
+  // );
 
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
@@ -124,13 +112,8 @@ beforeEach(() => {
   );
   server.use(
     rest.get(`/api/v1/patch/name`, (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(mockAssetPatch));
+      return res(ctx.status(200), ctx.json(mockPatch));
     }),
-  );
-  server.use(
-    rest.patch(`/api/v1/asset/${assetWithPatches.id}/patch`, (req, res, ctx) =>
-      res(ctx.status(204)),
-    ),
   );
 });
 
@@ -140,7 +123,7 @@ describe("Edit Patch Details", () => {
       <PatchEdit
         assetPk={assetWithPatches.id}
         versionNumber={assetWithPatches.versionNumber}
-        patchName={mockAssetPatch.name}
+        patchName={mockPatch.name}
         onEdit={jest.fn()}
       />,
     );
@@ -160,7 +143,7 @@ describe("Edit Patch Details", () => {
       <PatchEdit
         assetPk={assetWithPatches.id}
         versionNumber={assetWithPatches.versionNumber}
-        patchName={mockAssetPatch.name}
+        patchName={mockPatch.name}
         onEdit={jest.fn()}
       />,
     );
@@ -174,6 +157,12 @@ describe("Edit Patch Details", () => {
   test("patch name is edited successfully", async () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
+    server.use(
+      rest.patch(`/api/v1/asset/${assetWithPatches.id}/patch`, (req, res, ctx) =>
+        res(ctx.status(204)),
+      ), 
+    );
+
     // render(
     //   <PatchEdit
     //     assetPk={assetWithPatches.id}
@@ -186,7 +175,7 @@ describe("Edit Patch Details", () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
+        initialPatchId={mockPatch.id}
         initialAreaId={mockAreaId}
       />,
     );
@@ -221,7 +210,7 @@ describe("Edit Patch Details", () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
+        initialPatchId={mockPatch.id}
         initialAreaId={mockAreaId}
       />,
     );

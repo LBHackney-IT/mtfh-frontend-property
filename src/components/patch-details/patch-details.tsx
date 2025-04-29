@@ -85,7 +85,7 @@ export const PatchDetails = ({
             assetPk={assetPk}
             patchName={assetPatch?.name || ""}
             versionNumber={versionNumber}
-            onEdit={() => onEdit}
+            onEdit={onEdit}
           />
         )}
         <Button
