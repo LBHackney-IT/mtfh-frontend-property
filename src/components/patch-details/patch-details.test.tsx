@@ -200,6 +200,12 @@ describe("Patch Details", () => {
   });
 
   test("it displays the patch and housing officer when area manager is not defined", async () => {
+    server.use(
+      rest.get(`/api/v1/patch/${mockAssetAreaWithoutResponsibleEntities.id}`, (req, res, ctx) =>
+        res(ctx.status(200), ctx.json(mockAssetAreaWithoutResponsibleEntities)),
+      ),
+    );
+
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
@@ -223,6 +229,11 @@ describe("Patch Details", () => {
   });
 
   test("it displays the patch and area manager when housing officer is not defined", async () => {
+    server.use(
+      rest.get(`/api/v1/patch/${mockAssetPatchWithoutResponsibleEntities.id}`, (req, res, ctx) =>
+        res(ctx.status(200), ctx.json(mockAssetPatchWithoutResponsibleEntities)),
+      ),
+    );
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
