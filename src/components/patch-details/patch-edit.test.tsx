@@ -83,7 +83,7 @@ beforeEach(() => {
   jest.resetAllMocks();
 
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
-  
+
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(mockPatchList));
