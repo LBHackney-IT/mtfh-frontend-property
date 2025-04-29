@@ -84,7 +84,7 @@ beforeEach(() => {
 
   jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
-  jest.spyOn(commonPatch, "getByPatchName").mockResolvedValue(updateAssetPatch);
+  jest.spyOn(commonPatch, "getByPatchName").mockReturnValue(Promise.resolve(updateAssetPatch));
 
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
