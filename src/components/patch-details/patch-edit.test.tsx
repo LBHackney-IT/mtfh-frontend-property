@@ -4,9 +4,7 @@ import React from "react";
 
 import { mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
 import { screen, waitFor } from "@testing-library/react";
-
 import userEvent from "@testing-library/user-event";
-
 import { rest } from "msw";
 
 import { PatchDetails } from "./patch-details";
@@ -108,7 +106,7 @@ beforeEach(() => {
 
   server.use(
     rest.get("/api/v1/patch/all", (req, res, ctx) => {
-       return res(ctx.status(200),ctx.json([mockPatchList]));
+      return res(ctx.status(200),ctx.json([mockPatchList]));
     }),
   );
   server.use(
@@ -198,7 +196,7 @@ describe("Edit Patch Details", () => {
     const patchDropdown = screen.getByTestId("patch-dropdown-options");
     expect(patchDropdown).toBeInTheDocument();
     await userEvent.click(patchDropdown);
-    userEvent.selectOptions(patchDropdown, [updateAssetPatch.name,]);
+    userEvent.selectOptions(patchDropdown, [updateAssetPatch.name]);
 
     confirmButton.click();
     await waitFor(() => {
