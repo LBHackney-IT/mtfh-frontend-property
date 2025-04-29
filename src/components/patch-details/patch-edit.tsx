@@ -103,7 +103,7 @@ export const PatchEdit = ({ assetPk, versionNumber, patchName, onEdit }: Props) 
   // };
   const handleEdit = () => {
     if (newPatchName) {
-      getByPatchName(patchName)
+      getByPatchName(newPatchName)
         .then((data) => {
           setLoading(true);
           const id = JSON.stringify(data).match(/"id":"(.*?)"/);

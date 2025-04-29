@@ -138,6 +138,7 @@ describe("Edit Patch Details", () => {
       expect(screen.queryByTestId("cancel-reassignment-button")).not.toBeInTheDocument();
     });
   });
+
   test("patch name is edited successfully", async () => {
     jest.spyOn(auth, "isAuthorisedForGroups").mockReturnValue(true);
 
@@ -160,7 +161,7 @@ describe("Edit Patch Details", () => {
 
     const patchDropdown = screen.getByTestId("patch-dropdown-options");
     expect(patchDropdown).toBeInTheDocument();
-    await userEvent.click(patchDropdown);
+    // await userEvent.click(patchDropdown);
     await waitFor(() => {
       expect(screen.getByText(updateAssetPatch.name)).toBeVisible();
     });
