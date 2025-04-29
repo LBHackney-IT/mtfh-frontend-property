@@ -84,10 +84,8 @@ const assetWithPatches: Asset = {
   areaId: mockAssetArea.id,
 };
 
-const mockPatchList: Patch[] = [
-  mockPatch,
-  mockAssetArea
-];
+const mockPatchList: Patch[] = [mockPatch,mockAssetArea];
+
 // Mock the API response for the patch list
 beforeEach(() => {
   jest.resetAllMocks();

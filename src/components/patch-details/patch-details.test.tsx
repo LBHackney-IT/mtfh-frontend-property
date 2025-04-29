@@ -185,17 +185,18 @@ describe("Patch Details", () => {
     const officerNameField = screen.getByTestId("officer-name");
     const areaManagerNameField = screen.getByTestId("area-manager-name");
 
-    expect(patchNameField).toHaveTextContent(mockAssetPatch .name);
+    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
     expect(areaManagerNameField).toHaveTextContent("N/A");
     expect(officerNameField).toHaveTextContent(
       mockAssetPatch.responsibleEntities[0].name,
     );
   });
 
-  test("it displays the patch and area manager when housing officer is not defined", async () => {
-
+  test("it displays the patch and area manager when housing officer is not defined", async () => {  
     server.use(
-      rest.get(`/api/v1/patch/${mockAssetPatchWithoutResponsibleEntities.id}`, (req, res, ctx) =>
+      rest.get(
+        `/api/v1/patch/${mockAssetPatchWithoutResponsibleEntities.id}`,
+         (req, res, ctx) =>
         res(ctx.status(200), ctx.json(mockAssetPatchWithoutResponsibleEntities)),
       ),
     );

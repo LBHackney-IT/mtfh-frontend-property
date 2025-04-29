@@ -43,7 +43,7 @@ export const PatchDetails = ({
   const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
   const areaManagerName = assetArea?.responsibleEntities[0]?.name;
 
-  function onEdit(patchId: string, areaId: string) {
+  const onEdit = (patchId: string, areaId: string) => {
     console.log("On edit!");
     setPatchId(patchId);
     setAreaId(areaId);
