@@ -11,3 +11,13 @@ export const assetAdminAuthGroups =
         "e2e-testing-staging",
         "e2e-testing-production",
       ];
+
+export const patchAdminAuthGroups =
+  process.env.APP_ENV === "production"
+    ? ["mmh-patches-admin"]
+    : [
+        "mmh-project-team",
+        "e2e-testing-development",
+        "e2e-testing-staging",
+        "e2e-testing-production",
+      ];

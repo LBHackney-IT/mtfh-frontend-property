@@ -120,6 +120,21 @@ exports[`it hides the cautionary alerts icon 1`] = `
                 <p>
                   No patch
                 </p>
+                <aside
+                  class="mtfh-edit-patch-details"
+                >
+                  <button
+                    class="govuk-button lbh-button"
+                    data-testid="edit-assignment-button"
+                    style="margin-top: 0px;"
+                    type="button"
+                  >
+                    Edit
+                  </button>
+                </aside>
+                <hr
+                  class="lbh-horizontal-bar"
+                />
                 <a
                   class="govuk-button lbh-button"
                   data-testid="all-patches-and-areas-button"
@@ -562,6 +577,21 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                 <p>
                   No patch
                 </p>
+                <aside
+                  class="mtfh-edit-patch-details"
+                >
+                  <button
+                    class="govuk-button lbh-button"
+                    data-testid="edit-assignment-button"
+                    style="margin-top: 0px;"
+                    type="button"
+                  >
+                    Edit
+                  </button>
+                </aside>
+                <hr
+                  class="lbh-horizontal-bar"
+                />
                 <a
                   class="govuk-button lbh-button"
                   data-testid="all-patches-and-areas-button"

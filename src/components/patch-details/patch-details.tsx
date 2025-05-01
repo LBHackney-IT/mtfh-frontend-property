@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import Cookies from "js-cookie";
 
 import { locale } from "../../services";
+import { patchAdminAuthGroups } from "../../services/config/config";
+import { PatchEdit } from "./patch-edit";
 
-import { Patch } from "@mtfh/common/lib/api/patch/v1";
+import { usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
+import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import {
   Button,
   Heading,
@@ -15,11 +18,23 @@ import {
 
 interface PatchDetailsProps {
   assetPk: string;
-  assetPatch?: Patch;
-  assetArea?: Patch;
+  initialPatchId: string;
+  initialAreaId: string;
+  versionNumber?: number;
 }
 
-export const PatchDetails = ({ assetPk, assetPatch, assetArea }: PatchDetailsProps) => {
+export const PatchDetails = ({
+  assetPk,
+  initialPatchId,
+  initialAreaId,
+  versionNumber,
+}: PatchDetailsProps) => {
+  const [patchId, setPatchId] = useState(initialPatchId);
+  const [areaId, setAreaId] = useState(initialAreaId);
+
+  const { data: assetPatch, mutate: mutatePatch } = usePatchOrArea(patchId);
+  const { data: assetArea, mutate: mutateArea } = usePatchOrArea(areaId);
+
   const { heading } = locale.patchDetails;
 
   const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
@@ -28,13 +43,19 @@ export const PatchDetails = ({ assetPk, assetPatch, assetArea }: PatchDetailsPro
   const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
   const areaManagerName = assetArea?.responsibleEntities[0]?.name;
 
+  const onEdit = (patchId: string, areaId: string) => {
+    setPatchId(patchId);
+    setAreaId(areaId);
+    mutatePatch();
+    mutateArea();
+  };
+
   return (
     <>
       <aside className="mtfh-patch-details">
         <Heading variant="h2" className="lbh-heading lbh-heading-h3">
           {heading}
         </Heading>
-
         {patchOrAreaDefined ? (
           <SummaryList overrides={[2 / 3]}>
             <SummaryListItem title={patchLabel} data-testid="patch-name" key="patchName">
@@ -57,6 +78,14 @@ export const PatchDetails = ({ assetPk, assetPatch, assetArea }: PatchDetailsPro
           </SummaryList>
         ) : (
           <p>{locale.patchDetails.noPatch}</p>
+        )}
+        {isAuthorisedForGroups(patchAdminAuthGroups) && (
+          <PatchEdit
+            assetPk={assetPk}
+            patchName={assetPatch?.name || ""}
+            versionNumber={versionNumber}
+            onEdit={onEdit}
+          />
         )}
         <Button
           as={RouterLink}

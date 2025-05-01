@@ -75,6 +75,27 @@ const assetWithPatches: Asset = {
   areaId: mockAssetArea.id,
 };
 
+const mockPatch: Patch = {
+  id: crypto.randomBytes(20).toString("hex"),
+  name: "HN1",
+  patchType: "patch",
+  parentId: mockAreaId,
+  domain: "Hackney",
+  responsibleEntities: [
+    {
+      id: crypto.randomBytes(20).toString("hex"),
+      name: "Housing Officer 1",
+      responsibleType: "HousingOfficer",
+      contactDetails: {
+        emailAddress: "test.test@hackney.gov.uk",
+      },
+    },
+  ],
+};
+
+const mockPatchList: Patch[] = [mockPatch, mockAssetPatch];
+
+// Mock the API response for the patch list
 beforeEach(() => {
   jest.resetAllMocks();
 
@@ -90,6 +111,21 @@ beforeEach(() => {
       res(ctx.status(200), ctx.json(mockAssetArea)),
     ),
   );
+  server.use(
+    rest.get("/api/v1/patch/all", (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(mockPatchList));
+    }),
+  );
+  server.use(
+    rest.get(`/api/v1/patch/patchName/*`, (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(mockPatch));
+    }),
+  );
+  server.use(
+    rest.patch(`/api/v1/assets/${assetWithPatches.id}/patch`, (req, res, ctx) =>
+      res(ctx.status(204)),
+    ),
+  );
 });
 
 describe("Patch Details", () => {
@@ -97,8 +133,8 @@ describe("Patch Details", () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetArea}
+        initialPatchId={mockAssetPatch.id}
+        initialAreaId={mockAreaId}
       />,
     );
 
@@ -109,8 +145,8 @@ describe("Patch Details", () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetArea}
+        initialPatchId={mockAssetPatch.id}
+        initialAreaId={mockAreaId}
       />,
     );
 
@@ -125,8 +161,8 @@ describe("Patch Details", () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetArea}
+        initialPatchId={mockAssetPatch.id}
+        initialAreaId={mockAreaId}
       />,
     );
 
@@ -142,8 +178,8 @@ describe("Patch Details", () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetArea}
+        initialPatchId={mockAssetPatch.id}
+        initialAreaId={mockAreaId}
       />,
     );
     await waitFor(async () => {
@@ -164,11 +200,19 @@ describe("Patch Details", () => {
   });
 
   test("it displays the patch and housing officer when area manager is not defined", async () => {
+    server.use(
+      rest.get(
+        `/api/v1/patch/${mockAssetAreaWithoutResponsibleEntities.id}`,
+        (req, res, ctx) =>
+          res(ctx.status(200), ctx.json(mockAssetAreaWithoutResponsibleEntities)),
+      ),
+    );
+
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetAreaWithoutResponsibleEntities}
+        initialPatchId={mockAssetPatch.id}
+        initialAreaId={mockAssetAreaWithoutResponsibleEntities.id}
       />,
     );
     await waitFor(async () => {
@@ -180,18 +224,25 @@ describe("Patch Details", () => {
     const areaManagerNameField = screen.getByTestId("area-manager-name");
 
     expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
+    expect(areaManagerNameField).toHaveTextContent("N/A");
     expect(officerNameField).toHaveTextContent(
       mockAssetPatch.responsibleEntities[0].name,
     );
-    expect(areaManagerNameField).toHaveTextContent("N/A");
   });
 
   test("it displays the patch and area manager when housing officer is not defined", async () => {
+    server.use(
+      rest.get(
+        `/api/v1/patch/${mockAssetPatchWithoutResponsibleEntities.id}`,
+        (req, res, ctx) =>
+          res(ctx.status(200), ctx.json(mockAssetPatchWithoutResponsibleEntities)),
+      ),
+    );
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatchWithoutResponsibleEntities}
-        assetArea={mockAssetArea}
+        initialPatchId={mockAssetPatchWithoutResponsibleEntities.id}
+        initialAreaId={mockAreaId}
       />,
     );
     await waitFor(async () => {
@@ -202,7 +253,9 @@ describe("Patch Details", () => {
     const officerNameField = screen.getByTestId("officer-name");
     const areaManagerNameField = screen.getByTestId("area-manager-name");
 
-    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
+    expect(patchNameField).toHaveTextContent(
+      mockAssetPatchWithoutResponsibleEntities.name,
+    );
     expect(officerNameField).toHaveTextContent("N/A");
     expect(areaManagerNameField).toHaveTextContent(
       mockAssetArea.responsibleEntities[0].name,
@@ -210,13 +263,7 @@ describe("Patch Details", () => {
   });
 
   test("it displays a 'no patch' message when asset has no patches", async () => {
-    render(
-      <PatchDetails
-        assetPk={mockAssetV1.id}
-        assetPatch={undefined}
-        assetArea={undefined}
-      />,
-    );
+    render(<PatchDetails assetPk={mockAssetV1.id} initialPatchId="" initialAreaId="" />);
 
     await waitFor(async () => {
       expect(screen.getByText(locale.patchDetails.noPatch)).toBeVisible();
@@ -229,8 +276,8 @@ describe("Patch Details", () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
-        assetPatch={mockAssetPatch}
-        assetArea={mockAssetArea}
+        initialPatchId={mockAssetPatch.id}
+        initialAreaId={mockAreaId}
       />,
     );
 

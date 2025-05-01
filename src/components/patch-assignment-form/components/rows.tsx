@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 
 import { assetAdminAuthGroups } from "../../../services/config/config";
 import { editPatchAssignment } from "../utils/edit-patch-assignment";
@@ -51,20 +51,54 @@ export const TableRow = ({
   );
   const [validationError, setValidationError] = useState<string | null>(null);
 
-  function onConfirmButtonClick() {
+  const handleConfirmClick = useCallback(() => {
     if (newOfficerEmail && !newOfficerEmail.includes("@hackney.gov.uk")) {
       setValidationError("Email address must include @hackney.gov.uk");
       return;
     }
     setValidationError(null);
     editPatchAssignment(areaOrPatch, newOfficerName, newOfficerEmail, handleSubmission);
-  }
-  function onCancelButtonClick() {
+  }, [
+    areaOrPatch,
+    newOfficerName,
+    newOfficerEmail,
+    handleSubmission,
+    setValidationError,
+  ]);
+
+  const handleCancelClick = useCallback(() => {
     setNewOfficerName(officer?.name || "");
     setNewOfficerEmail(officer?.contactDetails?.emailAddress?.toLowerCase().trim() || "");
     setReassigningPatch(null);
     setValidationError(null);
-  }
+  }, [
+    officer,
+    setReassigningPatch,
+    setNewOfficerName,
+    setNewOfficerEmail,
+    setValidationError,
+  ]);
+
+  const handleOfficerNameChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setNewOfficerName(event.target.value?.trim());
+    },
+    [setNewOfficerName],
+  );
+
+  const handleOfficerEmailChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setNewOfficerEmail(event.target.value.toLowerCase().trim());
+    },
+    [setNewOfficerEmail],
+  );
+
+  const anyChangesMade = useMemo(() => {
+    return (
+      newOfficerName !== officer?.name ||
+      newOfficerEmail !== officer?.contactDetails?.emailAddress?.toLowerCase()
+    );
+  }, [newOfficerName, newOfficerEmail, officer]);
 
   if (!isAuthorisedForGroups(assetAdminAuthGroups)) {
     return (
@@ -85,13 +119,6 @@ export const TableRow = ({
     );
   }
 
-  const anyChangesMade = () => {
-    return (
-      newOfficerName !== officer?.name ||
-      newOfficerEmail !== officer?.contactDetails?.emailAddress?.toLowerCase()
-    );
-  };
-
   return (
     <>
       <>
@@ -105,7 +132,7 @@ export const TableRow = ({
             id="officerNameInput"
             defaultValue={newOfficerName || officer?.name}
             data-testid={`officer-name-input-${areaOrPatch.name}`}
-            onChange={(event) => setNewOfficerName(event.target.value.trim())}
+            onChange={handleOfficerNameChange}
           />
         </Td>
         <Td>
@@ -113,14 +140,12 @@ export const TableRow = ({
             className="govuk-input"
             type="text"
             name="officerEmail"
-            id=""
+            id="officerEmailInput"
             defaultValue={
               newOfficerEmail || officer?.contactDetails?.emailAddress?.toLowerCase()
             }
             data-testid={`officer-email-input-${areaOrPatch.name}`}
-            onChange={(event) =>
-              setNewOfficerEmail(event.target.value.trim().toLowerCase().trim())
-            }
+            onChange={handleOfficerEmailChange}
           />
         </Td>
       </>
@@ -132,10 +157,10 @@ export const TableRow = ({
             </div>
           )}
           <ConfirmReassignmentButton
-            onClick={onConfirmButtonClick}
-            enabled={anyChangesMade()}
+            onClick={handleConfirmClick}
+            enabled={anyChangesMade}
           />
-          <CancelReassignmentButton onClick={onCancelButtonClick} />
+          <CancelReassignmentButton onClick={handleCancelClick} />
         </>
       </Td>
     </>

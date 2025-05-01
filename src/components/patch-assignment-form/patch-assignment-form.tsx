@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { AreaSelectionDialog } from "./components/area-selection-dialog";
 import { TableRow } from "./components/rows";
@@ -46,20 +46,23 @@ export const PatchAssignmentForm = ({ setShowSuccess, setRequestError }: Props) 
     .sort((a, b) => (a.name > b.name ? 1 : -1))
     .sort((a, b) => (a.patchType !== "area" && b.patchType === "area" ? 1 : -1));
 
-  function displaySubmissionStatus(success: boolean, patch: Patch, error?: Error) {
-    if (success) {
-      const matchingPatch = patchesAndAreas.find(
-        (patchOrArea) => patchOrArea.id === patch.id,
-      );
-      if (!matchingPatch) return;
-      matchingPatch.responsibleEntities[0] = patch.responsibleEntities[0];
-      setPatchesAndAreas([...patchesAndAreas]);
-      setShowSuccess(true);
-      setReassigningPatch(null);
-    } else {
-      setRequestError(error?.message || "An error occurred");
-    }
-  }
+  const displaySubmissionStatus = useCallback(
+    (success: boolean, patch: Patch, error?: Error) => {
+      if (success) {
+        const matchingPatch = patchesAndAreas.find(
+          (patchOrArea) => patchOrArea.id === patch.id,
+        );
+        if (!matchingPatch) return;
+        matchingPatch.responsibleEntities[0] = patch.responsibleEntities[0];
+        setPatchesAndAreas([...patchesAndAreas]);
+        setShowSuccess(true);
+        setReassigningPatch(null);
+      } else {
+        setRequestError(error?.message || "An error occurred");
+      }
+    },
+    [patchesAndAreas, setShowSuccess, setRequestError],
+  );
 
   return (
     <div>
