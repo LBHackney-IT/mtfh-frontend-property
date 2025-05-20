@@ -44,19 +44,6 @@ export const PatchEdit = ({ assetPk, versionNumber, patchName, onEdit }: Props) 
 
   useEffect(() => {
     getAllPatchesAndAreas().then((data) => {
-      data = data.filter(
-        (patchOrArea) =>
-          ![
-            "Hackney",
-            "CL Area",
-            "CP Area",
-            "HN1 Area",
-            "HN2 Area",
-            "SD Area",
-            "SH Area",
-            "SN Area",
-          ].includes(patchOrArea.name),
-      );
       setPatchesAndAreas(data);
     });
   }, []);
@@ -124,7 +111,9 @@ export const PatchEdit = ({ assetPk, versionNumber, patchName, onEdit }: Props) 
               </option>
               <option selected>{patchName}</option>
               {patchesAndAreas
-                .filter((patchOrArea) => patchOrArea.patchType === "patch")
+                .filter(
+                    (patchOrArea) => patchOrArea.patchType === "patch" || 
+                     patchOrArea.patchType === "tmoPatch")
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
                 .map(({ name }) => (
                   <option key={name} value={name}>
