@@ -112,8 +112,10 @@ export const PatchEdit = ({ assetPk, versionNumber, patchName, onEdit }: Props) 
               <option selected>{patchName}</option>
               {patchesAndAreas
                 .filter(
-                    (patchOrArea) => patchOrArea.patchType === "patch" || 
-                     patchOrArea.patchType === "tmoPatch")
+                  (patchOrArea) =>
+                    patchOrArea.patchType === "patch" ||
+                    patchOrArea.patchType === "tmoPatch",
+                )
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
                 .map(({ name }) => (
                   <option key={name} value={name}>
