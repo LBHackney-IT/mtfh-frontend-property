@@ -16,7 +16,7 @@ parameters:
     run_staging_workflow:
         default: false
         type: boolean
-    
+
     run_production_workflow:
         default: false
         type: boolean
@@ -35,7 +35,7 @@ references:
 executors:
     node-executor:
         docker:
-            - image: circleci/node:14.17.0-browsers
+            - image: cimg/node:24.12.0-browsers
     orb-executor:
         docker:
             - image: cimg/node:21.6.1-browsers
@@ -391,7 +391,7 @@ workflows:
                   filters:
                       branches:
                           only: main
-    
+
     e2e-tests-failure:
         when: << pipeline.parameters.e2e_test_failure >>
         jobs:
