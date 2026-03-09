@@ -130,7 +130,7 @@ jobs:
             - checkout
             - run:
                 name: Fetch full git history for SonarCloud
-                command: git fetch --unshallow || true
+                command: git fetch --unshallow
             - sonarcloud/scan
 
     build-deploy-development:
