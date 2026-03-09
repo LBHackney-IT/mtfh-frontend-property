@@ -127,6 +127,10 @@ jobs:
         executor: orb-executor
         steps:
             - *attach_workspace
+            - checkout
+            - run:
+                name: Fetch full git history for SonarCloud
+                command: git fetch --unshallow || true
             - sonarcloud/scan
 
     build-deploy-development:
