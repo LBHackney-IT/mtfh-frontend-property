@@ -2,7 +2,7 @@
   "name": "@mtfh/property",
   "version": "0.0.1",
   "scripts": {
-    "start": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack serve --port 8010",
+    "start": "webpack serve --port 8010",
     "start:standalone": "webpack serve --env standalone",
     "build": "webpack --mode=production",
     "analyze": "webpack --mode=production --env analyze",
@@ -95,6 +95,9 @@
   "resolutions": {
     "webpack": "5.104.1",
     "loader-utils": "2.0.4",
-    "form-data": ">=3.0.4"
+    "form-data": ">=3.0.4",
+    "@babel/traverse": ">=7.23.2",
+    "minimist": ">=1.2.6",
+    "@xmldom/xmldom": ">=0.7.7"
   }
 }
