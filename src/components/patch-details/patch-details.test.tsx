@@ -246,20 +246,14 @@ describe("Patch Details", () => {
       />,
     );
     await waitFor(async () => {
-      screen.getByTestId("patch-name");
+      expect(screen.getByTestId("patch-name")).toHaveTextContent(
+        mockAssetPatchWithoutResponsibleEntities.name,
+      );
+      expect(screen.getByTestId("officer-name")).toHaveTextContent("N/A");
+      expect(screen.getByTestId("area-manager-name")).toHaveTextContent(
+        mockAssetArea.responsibleEntities[0].name,
+      );
     });
-
-    const patchNameField = screen.getByTestId("patch-name");
-    const officerNameField = screen.getByTestId("officer-name");
-    const areaManagerNameField = screen.getByTestId("area-manager-name");
-
-    expect(patchNameField).toHaveTextContent(
-      mockAssetPatchWithoutResponsibleEntities.name,
-    );
-    expect(officerNameField).toHaveTextContent("N/A");
-    expect(areaManagerNameField).toHaveTextContent(
-      mockAssetArea.responsibleEntities[0].name,
-    );
   });
 
   test("it displays a 'no patch' message when asset has no patches", async () => {
