@@ -241,7 +241,7 @@ describe("Patch Details", () => {
       />,
     );
 
-    await waitFor(async () => screen.getByTestId("patch-name"));
+    await screen.findByTestId("patch-name");
 
     expect(screen.queryByTestId("all-patches-and-areas-button")).not.toBeInTheDocument();
   });
@@ -256,7 +256,9 @@ describe("Patch Details", () => {
     );
 
     await waitFor(async () => {
-      expect(screen.getByTestId("patch-note")).toHaveTextContent(locale.patchDetails.note);
+      expect(screen.getByTestId("patch-note")).toHaveTextContent(
+        locale.patchDetails.note,
+      );
     });
   });
 

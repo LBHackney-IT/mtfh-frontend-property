@@ -14,11 +14,7 @@ interface Props {
   id: string;
 }
 
-export const PropertyBody = ({
-  assetDetails,
-  childAssets,
-  id,
-}: Props): JSX.Element => {
+export const PropertyBody = ({ assetDetails, childAssets, id }: Props): JSX.Element => {
   const hasRepairsList = useFeatureToggle("MMH.RepairsList");
 
   return (

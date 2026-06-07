@@ -83,11 +83,7 @@ beforeEach(() => {
 
 test("it does not show the new process button", () => {
   const { container } = render(
-    <PropertyBody
-      assetDetails={assetData}
-      childAssets={[]}
-      id={assetData.id}
-    />,
+    <PropertyBody assetDetails={assetData} childAssets={[]} id={assetData.id} />,
     {
       url: `/property/${assetData.id}`,
       path: "/property/:assetId",

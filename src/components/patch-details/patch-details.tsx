@@ -6,11 +6,7 @@ import { PatchEdit } from "./patch-edit";
 
 import { usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
-import {
-  Heading,
-  SummaryList,
-  SummaryListItem,
-} from "@mtfh/common/lib/components";
+import { Heading, SummaryList, SummaryListItem } from "@mtfh/common/lib/components";
 
 const TRIAGE_FORM_URL = "https://example.com/triage-form";
 
