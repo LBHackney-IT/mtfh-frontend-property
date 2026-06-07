@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-
-import Cookies from "js-cookie";
 
 import { locale } from "../../services";
 import { patchAdminAuthGroups } from "../../services/config/config";
@@ -10,11 +7,12 @@ import { PatchEdit } from "./patch-edit";
 import { usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import {
-  Button,
   Heading,
   SummaryList,
   SummaryListItem,
 } from "@mtfh/common/lib/components";
+
+const TRIAGE_FORM_URL = "https://example.com/triage-form";
 
 interface PatchDetailsProps {
   assetPk: string;
@@ -87,14 +85,18 @@ export const PatchDetails = ({
             onEdit={onEdit}
           />
         )}
-        <Button
-          as={RouterLink}
-          to="/property/all-patches-and-areas"
-          data-testid="all-patches-and-areas-button"
-          onClick={() => Cookies.set("fromAssetId", assetPk)}
+        <p className="lbh-body-s" data-testid="patch-note">
+          {locale.patchDetails.note}
+        </p>
+        <a
+          href={TRIAGE_FORM_URL}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="govuk-link lbh-link"
+          data-testid="triage-form-link"
         >
-          {locale.patchDetails.allPatchesAndAreas}
-        </Button>
+          {locale.patchDetails.triageFormLinkText}
+        </a>
       </aside>
       <hr className="lbh-horizontal-bar" />
     </>

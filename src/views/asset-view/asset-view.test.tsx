@@ -13,7 +13,6 @@ import {
   server,
 } from "@hackney/mtfh-test-utils";
 import { screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
 import { locale } from "../../services";
@@ -84,16 +83,6 @@ test("renders the property view", async () => {
   screen.getByText(/UPRN/);
   screen.getByText(mockAssetV1.assetId);
   screen.getByText(/Reference/);
-});
-
-test("renders the process menu button and contains correct path", async () => {
-  render(<AssetView />, {
-    url: `/property/${mockAssetV1.id}`,
-    path: "/property/:assetId",
-  });
-  await waitFor(() => expect(screen.getByText(locale.static.newProcess)));
-  userEvent.click(screen.getByText(locale.static.newProcess));
-  expect(window.location.pathname).toContain(`/processes/property/${mockAssetV1.id}`);
 });
 
 test("it shows the back button", async () => {

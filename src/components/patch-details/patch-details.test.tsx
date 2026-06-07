@@ -141,39 +141,6 @@ describe("Patch Details", () => {
     await screen.findByText(locale.patchDetails.heading);
   });
 
-  test("it shows edit patches button", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
-        initialAreaId={mockAreaId}
-      />,
-    );
-
-    await waitFor(async () => {
-      expect(screen.getByTestId("all-patches-and-areas-button")).toHaveTextContent(
-        locale.patchDetails.allPatchesAndAreas,
-      );
-    });
-  });
-
-  test("the edit patches button links to the correct page", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
-        initialAreaId={mockAreaId}
-      />,
-    );
-
-    await waitFor(async () => {
-      expect(screen.getByTestId("all-patches-and-areas-button")).toHaveAttribute(
-        "href",
-        "/property/all-patches-and-areas",
-      );
-    });
-  });
-
   test("it displays the patch, housing officer, and area manager", async () => {
     render(
       <PatchDetails
@@ -265,8 +232,21 @@ describe("Patch Details", () => {
     expect(screen.queryByTestId("patch-name")).not.toBeInTheDocument();
   });
 
-  test("it sets a cookie with the asset ID when the edit patches button is clicked", async () => {
-    // This is used to redirect the user back to the asset page after editing patches
+  test("it does not show the all patches and areas button", async () => {
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        initialPatchId={mockAssetPatch.id}
+        initialAreaId={mockAreaId}
+      />,
+    );
+
+    await waitFor(async () => screen.getByTestId("patch-name"));
+
+    expect(screen.queryByTestId("all-patches-and-areas-button")).not.toBeInTheDocument();
+  });
+
+  test("it shows the explanatory note", async () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
@@ -276,9 +256,23 @@ describe("Patch Details", () => {
     );
 
     await waitFor(async () => {
-      const editPatchesButton = screen.getByTestId("all-patches-and-areas-button");
-      editPatchesButton.click();
-      expect(document.cookie).toContain(`fromAssetId=${assetWithPatches.id}`);
+      expect(screen.getByTestId("patch-note")).toHaveTextContent(locale.patchDetails.note);
+    });
+  });
+
+  test("it shows the triage form link with the correct URL", async () => {
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        initialPatchId={mockAssetPatch.id}
+        initialAreaId={mockAreaId}
+      />,
+    );
+
+    await waitFor(async () => {
+      const link = screen.getByTestId("triage-form-link");
+      expect(link).toHaveTextContent(locale.patchDetails.triageFormLinkText);
+      expect(link).toHaveAttribute("href", "https://example.com/triage-form");
     });
   });
 });

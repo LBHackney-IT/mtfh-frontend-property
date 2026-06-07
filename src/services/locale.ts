@@ -102,6 +102,8 @@ export default {
     areaManagerLabel: "Area manager",
     allPatchesAndAreas: "All patches and areas",
     noPatch: "No patch",
+    note: "From 1 June 2025, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.",
+    triageFormLinkText: "Submit a triage request",
   },
   boilerHouseDetails: {
     heading: "Boiler house",
