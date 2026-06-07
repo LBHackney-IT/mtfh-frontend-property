@@ -129,12 +129,20 @@ exports[`Assets Sidebar it hides boiler house details 1`] = `
           <hr
             class="lbh-horizontal-bar"
           />
-          <a
-            class="govuk-button lbh-button"
-            data-testid="all-patches-and-areas-button"
-            href="/property/all-patches-and-areas"
+          <p
+            class="lbh-body-s"
+            data-testid="patch-note"
           >
-            All patches and areas
+            From 1 June 2025, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+          </p>
+          <a
+            class="govuk-link lbh-link"
+            data-testid="triage-form-link"
+            href="https://example.com/triage-form"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Submit a triage request
           </a>
         </aside>
         <hr
@@ -284,12 +292,20 @@ exports[`Assets Sidebar it hides cautionary alerts 1`] = `
           <hr
             class="lbh-horizontal-bar"
           />
-          <a
-            class="govuk-button lbh-button"
-            data-testid="all-patches-and-areas-button"
-            href="/property/all-patches-and-areas"
+          <p
+            class="lbh-body-s"
+            data-testid="patch-note"
           >
-            All patches and areas
+            From 1 June 2025, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+          </p>
+          <a
+            class="govuk-link lbh-link"
+            data-testid="triage-form-link"
+            href="https://example.com/triage-form"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Submit a triage request
           </a>
         </aside>
         <hr
@@ -439,12 +455,20 @@ exports[`Assets Sidebar it hides tenure information 1`] = `
           <hr
             class="lbh-horizontal-bar"
           />
-          <a
-            class="govuk-button lbh-button"
-            data-testid="all-patches-and-areas-button"
-            href="/property/all-patches-and-areas"
+          <p
+            class="lbh-body-s"
+            data-testid="patch-note"
           >
-            All patches and areas
+            From 1 June 2025, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+          </p>
+          <a
+            class="govuk-link lbh-link"
+            data-testid="triage-form-link"
+            href="https://example.com/triage-form"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Submit a triage request
           </a>
         </aside>
         <hr
@@ -611,12 +635,20 @@ exports[`Assets Sidebar it shows boiler house details 1`] = `
           <hr
             class="lbh-horizontal-bar"
           />
-          <a
-            class="govuk-button lbh-button"
-            data-testid="all-patches-and-areas-button"
-            href="/property/all-patches-and-areas"
+          <p
+            class="lbh-body-s"
+            data-testid="patch-note"
           >
-            All patches and areas
+            From 1 June 2025, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+          </p>
+          <a
+            class="govuk-link lbh-link"
+            data-testid="triage-form-link"
+            href="https://example.com/triage-form"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Submit a triage request
           </a>
         </aside>
         <hr
@@ -801,12 +833,20 @@ exports[`Assets Sidebar it shows cautionary alerts 1`] = `
           <hr
             class="lbh-horizontal-bar"
           />
-          <a
-            class="govuk-button lbh-button"
-            data-testid="all-patches-and-areas-button"
-            href="/property/all-patches-and-areas"
+          <p
+            class="lbh-body-s"
+            data-testid="patch-note"
           >
-            All patches and areas
+            From 1 June 2025, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+          </p>
+          <a
+            class="govuk-link lbh-link"
+            data-testid="triage-form-link"
+            href="https://example.com/triage-form"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Submit a triage request
           </a>
         </aside>
         <hr
@@ -956,12 +996,20 @@ exports[`Assets Sidebar it shows tenure information 1`] = `
           <hr
             class="lbh-horizontal-bar"
           />
-          <a
-            class="govuk-button lbh-button"
-            data-testid="all-patches-and-areas-button"
-            href="/property/all-patches-and-areas"
+          <p
+            class="lbh-body-s"
+            data-testid="patch-note"
           >
-            All patches and areas
+            From 1 June 2025, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+          </p>
+          <a
+            class="govuk-link lbh-link"
+            data-testid="triage-form-link"
+            href="https://example.com/triage-form"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Submit a triage request
           </a>
         </aside>
         <hr
