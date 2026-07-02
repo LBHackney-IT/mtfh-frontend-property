@@ -139,17 +139,8 @@ exports[`it hides the cautionary alerts icon 1`] = `
                   class="lbh-body-s"
                   data-testid="patch-note"
                 >
-                  From 1 June 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+                  From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
                 </p>
-                <a
-                  class="govuk-link lbh-link"
-                  data-testid="triage-form-link"
-                  href="https://example.com/triage-form"
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >
-                  Submit a triage request
-                </a>
               </aside>
               <hr
                 class="lbh-horizontal-bar"
@@ -604,17 +595,8 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                   class="lbh-body-s"
                   data-testid="patch-note"
                 >
-                  From 1 June 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+                  From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
                 </p>
-                <a
-                  class="govuk-link lbh-link"
-                  data-testid="triage-form-link"
-                  href="https://example.com/triage-form"
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >
-                  Submit a triage request
-                </a>
               </aside>
               <hr
                 class="lbh-horizontal-bar"

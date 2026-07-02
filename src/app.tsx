@@ -5,16 +5,12 @@ import { AddBoilerHouseView } from "./views/add-boiler-house-view";
 import { AssetEditView } from "./views/asset-edit-view";
 import { AssetView } from "./views/asset-view";
 import { EditAssetOwnershipView } from "./views/edit-asset-ownership-view";
-import { ManagePatchesView } from "./views/manage-patches-view/manage-patches-view";
 import { NewAssetView } from "./views/new-asset-view";
 import { RelatedAssetsView } from "./views/related-assets-view";
 
 export default function App(): JSX.Element {
   return (
     <Switch>
-      <Route path="/property/all-patches-and-areas" exact>
-        <ManagePatchesView />
-      </Route>
       <Route path="/property/new" exact>
         <div data-testid="new-property">
           <NewAssetView />
