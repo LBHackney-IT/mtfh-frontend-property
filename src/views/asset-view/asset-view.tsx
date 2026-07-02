@@ -45,7 +45,6 @@ export const AssetView = (): JSX.Element => {
       assetChildren={childAssetResponse?.childAssets}
       showTenureInformation={isDwellingOrLettableNonDwelling(asset)}
       showCautionaryAlerts={isDwellingOrLettableNonDwelling(asset)}
-      enableNewProcesses={isDwellingOrLettableNonDwelling(asset)}
     />
   );
 };

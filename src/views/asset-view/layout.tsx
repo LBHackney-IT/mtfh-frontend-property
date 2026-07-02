@@ -26,7 +26,6 @@ export interface Props {
   assetChildren: Asset[] | undefined;
   showTenureInformation: boolean;
   showCautionaryAlerts: boolean;
-  enableNewProcesses: boolean;
 }
 
 export const AssetLayout: FC<Props> = ({
@@ -34,7 +33,6 @@ export const AssetLayout: FC<Props> = ({
   assetChildren,
   showTenureInformation,
   showCautionaryAlerts,
-  enableNewProcesses,
 }) => {
   const { alertsData, isLoading: isLoadingCautionaryAlerts } = useCautionaryAlerts(
     assetDetails.assetId,
@@ -102,7 +100,6 @@ export const AssetLayout: FC<Props> = ({
         <PropertyBody
           assetDetails={assetDetails}
           childAssets={assetChildren}
-          enableNewProcesses={enableNewProcesses}
           id={assetDetails.id}
         />
       </Layout>

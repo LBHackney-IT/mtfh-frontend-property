@@ -131,7 +131,6 @@ test("it shows the new cautionary alerts icon", async () => {
       assetChildren={[]}
       showTenureInformation={false}
       showCautionaryAlerts
-      enableNewProcesses={false}
     />,
     {
       url: `/property/${assetData.id}`,
@@ -160,7 +159,6 @@ test("it hides the cautionary alerts icon", () => {
       assetChildren={[]}
       showTenureInformation={false}
       showCautionaryAlerts={false}
-      enableNewProcesses={false}
     />,
     {
       url: `/property/${assetData.id}`,

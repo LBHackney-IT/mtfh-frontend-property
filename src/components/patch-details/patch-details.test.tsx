@@ -33,15 +33,6 @@ const mockAssetPatch: Patch = {
   ],
 };
 
-const mockAssetPatchWithoutResponsibleEntities: Patch = {
-  id: crypto.randomBytes(20).toString("hex"),
-  name: "AR1",
-  patchType: "patch",
-  parentId: mockAreaId,
-  domain: "Hackney",
-  responsibleEntities: [],
-};
-
 const mockAssetArea: Patch = {
   id: mockAreaId,
   name: "AR",
@@ -58,15 +49,6 @@ const mockAssetArea: Patch = {
       },
     },
   ],
-};
-
-const mockAssetAreaWithoutResponsibleEntities: Patch = {
-  id: mockAreaId,
-  name: "AR",
-  patchType: "area",
-  parentId: crypto.randomBytes(20).toString("hex"),
-  domain: "Hackney",
-  responsibleEntities: [],
 };
 
 const assetWithPatches: Asset = {
@@ -141,7 +123,7 @@ describe("Patch Details", () => {
     await screen.findByText(locale.patchDetails.heading);
   });
 
-  test("it shows edit patches button", async () => {
+  test("it displays the patch name", async () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
@@ -150,110 +132,13 @@ describe("Patch Details", () => {
       />,
     );
 
-    await waitFor(async () => {
-      expect(screen.getByTestId("all-patches-and-areas-button")).toHaveTextContent(
-        locale.patchDetails.allPatchesAndAreas,
-      );
-    });
-  });
-
-  test("the edit patches button links to the correct page", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
-        initialAreaId={mockAreaId}
-      />,
-    );
-
-    await waitFor(async () => {
-      expect(screen.getByTestId("all-patches-and-areas-button")).toHaveAttribute(
-        "href",
-        "/property/all-patches-and-areas",
-      );
-    });
-  });
-
-  test("it displays the patch, housing officer, and area manager", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
-        initialAreaId={mockAreaId}
-      />,
-    );
     await waitFor(async () => {
       screen.getByTestId("patch-name");
     });
 
-    const patchNameField = screen.getByTestId("patch-name");
-    const officerNameField = screen.getByTestId("officer-name");
-    const areaManagerNameField = screen.getByTestId("area-manager-name");
-
-    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
-    expect(officerNameField).toHaveTextContent(
-      mockAssetPatch.responsibleEntities[0].name,
-    );
-    expect(areaManagerNameField).toHaveTextContent(
-      mockAssetArea.responsibleEntities[0].name,
-    );
-  });
-
-  test("it displays the patch and housing officer when area manager is not defined", async () => {
-    server.use(
-      rest.get(
-        `/api/v1/patch/${mockAssetAreaWithoutResponsibleEntities.id}`,
-        (req, res, ctx) =>
-          res(ctx.status(200), ctx.json(mockAssetAreaWithoutResponsibleEntities)),
-      ),
-    );
-
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
-        initialAreaId={mockAssetAreaWithoutResponsibleEntities.id}
-      />,
-    );
-    await waitFor(async () => {
-      screen.getByTestId("patch-name");
-    });
-
-    const patchNameField = screen.getByTestId("patch-name");
-    const officerNameField = screen.getByTestId("officer-name");
-    const areaManagerNameField = screen.getByTestId("area-manager-name");
-
-    expect(patchNameField).toHaveTextContent(mockAssetPatch.name);
-    expect(areaManagerNameField).toHaveTextContent("N/A");
-    expect(officerNameField).toHaveTextContent(
-      mockAssetPatch.responsibleEntities[0].name,
-    );
-  });
-
-  test("it displays the patch and area manager when housing officer is not defined", async () => {
-    server.use(
-      rest.get(
-        `/api/v1/patch/${mockAssetPatchWithoutResponsibleEntities.id}`,
-        (req, res, ctx) =>
-          res(ctx.status(200), ctx.json(mockAssetPatchWithoutResponsibleEntities)),
-      ),
-    );
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatchWithoutResponsibleEntities.id}
-        initialAreaId={mockAreaId}
-      />,
-    );
-    await waitFor(async () => {
-      expect(screen.getByTestId("patch-name")).toHaveTextContent(
-        mockAssetPatchWithoutResponsibleEntities.name,
-      );
-      expect(screen.getByTestId("officer-name")).toHaveTextContent("N/A");
-      expect(screen.getByTestId("area-manager-name")).toHaveTextContent(
-        mockAssetArea.responsibleEntities[0].name,
-      );
-    });
+    expect(screen.getByTestId("patch-name")).toHaveTextContent(mockAssetPatch.name);
+    expect(screen.queryByTestId("officer-name")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("area-manager-name")).not.toBeInTheDocument();
   });
 
   test("it displays a 'no patch' message when asset has no patches", async () => {
@@ -265,8 +150,21 @@ describe("Patch Details", () => {
     expect(screen.queryByTestId("patch-name")).not.toBeInTheDocument();
   });
 
-  test("it sets a cookie with the asset ID when the edit patches button is clicked", async () => {
-    // This is used to redirect the user back to the asset page after editing patches
+  test("it does not show the all patches and areas button", async () => {
+    render(
+      <PatchDetails
+        assetPk={assetWithPatches.id}
+        initialPatchId={mockAssetPatch.id}
+        initialAreaId={mockAreaId}
+      />,
+    );
+
+    await screen.findByTestId("patch-name");
+
+    expect(screen.queryByTestId("all-patches-and-areas-button")).not.toBeInTheDocument();
+  });
+
+  test("it shows the explanatory note", async () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
@@ -276,9 +174,9 @@ describe("Patch Details", () => {
     );
 
     await waitFor(async () => {
-      const editPatchesButton = screen.getByTestId("all-patches-and-areas-button");
-      editPatchesButton.click();
-      expect(document.cookie).toContain(`fromAssetId=${assetWithPatches.id}`);
+      expect(screen.getByTestId("patch-note")).toHaveTextContent(
+        locale.patchDetails.note,
+      );
     });
   });
 });

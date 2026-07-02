@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-
-import Cookies from "js-cookie";
 
 import { locale } from "../../services";
 import { patchAdminAuthGroups } from "../../services/config/config";
@@ -9,12 +6,7 @@ import { PatchEdit } from "./patch-edit";
 
 import { usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
-import {
-  Button,
-  Heading,
-  SummaryList,
-  SummaryListItem,
-} from "@mtfh/common/lib/components";
+import { Heading, SummaryList, SummaryListItem } from "@mtfh/common/lib/components";
 
 interface PatchDetailsProps {
   assetPk: string;
@@ -37,11 +29,9 @@ export const PatchDetails = ({
 
   const { heading } = locale.patchDetails;
 
-  const { patchLabel, housingOfficerLabel, areaManagerLabel } = locale.patchDetails;
+  const { patchLabel } = locale.patchDetails;
 
   const patchOrAreaDefined = assetPatch || assetArea;
-  const housingOfficerName = assetPatch?.responsibleEntities[0]?.name;
-  const areaManagerName = assetArea?.responsibleEntities[0]?.name;
 
   const onEdit = (patchId: string, areaId: string) => {
     setPatchId(patchId);
@@ -61,20 +51,6 @@ export const PatchDetails = ({
             <SummaryListItem title={patchLabel} data-testid="patch-name" key="patchName">
               {assetPatch?.name}
             </SummaryListItem>
-            <SummaryListItem
-              title={housingOfficerLabel}
-              data-testid="officer-name"
-              key="officerName"
-            >
-              {housingOfficerName || "N/A"}
-            </SummaryListItem>
-            <SummaryListItem
-              title={areaManagerLabel}
-              data-testid="area-manager-name"
-              key="areaManagerName"
-            >
-              {areaManagerName || "N/A"}
-            </SummaryListItem>
           </SummaryList>
         ) : (
           <p>{locale.patchDetails.noPatch}</p>
@@ -87,14 +63,9 @@ export const PatchDetails = ({
             onEdit={onEdit}
           />
         )}
-        <Button
-          as={RouterLink}
-          to="/property/all-patches-and-areas"
-          data-testid="all-patches-and-areas-button"
-          onClick={() => Cookies.set("fromAssetId", assetPk)}
-        >
-          {locale.patchDetails.allPatchesAndAreas}
-        </Button>
+        <p className="lbh-body-s" data-testid="patch-note">
+          {locale.patchDetails.note}
+        </p>
       </aside>
       <hr className="lbh-horizontal-bar" />
     </>

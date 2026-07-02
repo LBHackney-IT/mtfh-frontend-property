@@ -81,48 +81,16 @@ beforeEach(() => {
   );
 });
 
-test("it shows the new process button", () => {
-  // Arrange
+test("it does not show the new process button", () => {
   const { container } = render(
-    <PropertyBody
-      assetDetails={assetData}
-      childAssets={[]}
-      enableNewProcesses
-      id={assetData.id}
-    />,
+    <PropertyBody assetDetails={assetData} childAssets={[]} id={assetData.id} />,
     {
       url: `/property/${assetData.id}`,
       path: "/property/:assetId",
     },
   );
 
-  // Assert
-  const newProcessButton = screen.getByText("New Process");
-
-  expect(newProcessButton).toBeVisible();
-
-  expect(container).toMatchSnapshot();
-});
-
-test("it hides the new process button", () => {
-  // Arrange
-  const { container } = render(
-    <PropertyBody
-      assetDetails={assetData}
-      childAssets={[]}
-      enableNewProcesses={false}
-      id={assetData.id}
-    />,
-    {
-      url: `/property/${assetData.id}`,
-      path: "/property/:assetId",
-    },
-  );
-
-  // Assert
-  const newProcessButton = screen.queryByText("New Process");
-
-  expect(newProcessButton).not.toBeInTheDocument();
+  expect(screen.queryByText("New Process")).not.toBeInTheDocument();
 
   expect(container).toMatchSnapshot();
 });

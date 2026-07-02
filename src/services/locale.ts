@@ -98,10 +98,11 @@ export default {
   patchDetails: {
     heading: "Patch details",
     patchLabel: "Patch",
-    housingOfficerLabel: "Housing officer",
+    housingOfficerLabel: "Neighbourhood Lead",
     areaManagerLabel: "Area manager",
     allPatchesAndAreas: "All patches and areas",
     noPatch: "No patch",
+    note: "From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.",
   },
   boilerHouseDetails: {
     heading: "Boiler house",
