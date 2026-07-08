@@ -12,6 +12,7 @@ interface PatchDetailsProps {
   assetPk: string;
   initialPatchId: string;
   initialAreaId: string;
+  neighbourhood?: string;
   versionNumber?: number;
 }
 
@@ -19,19 +20,21 @@ export const PatchDetails = ({
   assetPk,
   initialPatchId,
   initialAreaId,
+  neighbourhood,
   versionNumber,
 }: PatchDetailsProps) => {
   const [patchId, setPatchId] = useState(initialPatchId);
   const [areaId, setAreaId] = useState(initialAreaId);
 
   const { data: assetPatch, mutate: mutatePatch } = usePatchOrArea(patchId);
-  const { data: assetArea, mutate: mutateArea } = usePatchOrArea(areaId);
+  const { mutate: mutateArea } = usePatchOrArea(areaId);
 
   const { heading } = locale.patchDetails;
 
-  const { patchLabel } = locale.patchDetails;
+  // const { patchLabel } = locale.patchDetails;
+  // const patchOrAreaDefined = assetPatch || assetArea;
 
-  const patchOrAreaDefined = assetPatch || assetArea;
+  const { housingManagementAreaLabel, noHousingManagementArea } = locale.patchDetails;
 
   const onEdit = (patchId: string, areaId: string) => {
     setPatchId(patchId);
@@ -46,6 +49,8 @@ export const PatchDetails = ({
         <Heading variant="h2" className="lbh-heading lbh-heading-h3">
           {heading}
         </Heading>
+
+        {/* Patch visualisation — commented out, do not delete
         {patchOrAreaDefined ? (
           <SummaryList overrides={[2 / 3]}>
             <SummaryListItem title={patchLabel} data-testid="patch-name" key="patchName">
@@ -55,6 +60,22 @@ export const PatchDetails = ({
         ) : (
           <p>{locale.patchDetails.noPatch}</p>
         )}
+        */}
+
+        {neighbourhood ? (
+          <SummaryList overrides={[2 / 3]}>
+            <SummaryListItem
+              title={housingManagementAreaLabel}
+              data-testid="neighbourhood-name"
+              key="neighbourhoodName"
+            >
+              {neighbourhood}
+            </SummaryListItem>
+          </SummaryList>
+        ) : (
+          <p data-testid="no-neighbourhood">{noHousingManagementArea}</p>
+        )}
+
         {isAuthorisedForGroups(patchAdminAuthGroups) && (
           <PatchEdit
             assetPk={assetPk}

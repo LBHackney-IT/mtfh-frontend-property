@@ -9,7 +9,7 @@ import { CautionaryAlertsDetails } from "../cautionary-alerts-details/cautionary
 import { LbhOwnershipInformation } from "../lbh-ownership-information/lbh-ownership-information";
 import { PatchDetails } from "../patch-details/patch-details";
 
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
+import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import { isAuthorisedForGroups } from "@mtfh/common/lib/auth";
 import { Button, SideBar, SideBarProps } from "@mtfh/common/lib/components";
@@ -51,6 +51,9 @@ export const AssetSideBar = ({
     areaId,
   } = assetDetails;
 
+  // neighbourhood is not yet in the @mtfh/common AssetAddress type but is returned by the API
+  const { neighbourhood } = assetAddress as AssetAddress & { neighbourhood?: string };
+
   // only show button when there is no active tenure on the asset
   const showAddTenureButton = () =>
     !tenure || !tenure.isActive || !isFutureDate(tenure.endOfTenureDate) || !tenure.id;
@@ -85,6 +88,7 @@ export const AssetSideBar = ({
             assetPk={id}
             initialPatchId={patchId}
             initialAreaId={areaId}
+            neighbourhood={neighbourhood}
             versionNumber={assetDetails?.versionNumber}
           />
           <LbhOwnershipInformation asset={assetDetails} />

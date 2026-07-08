@@ -103,6 +103,8 @@ export default {
     allPatchesAndAreas: "All patches and areas",
     noPatch: "No patch",
     note: "From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.",
+    housingManagementAreaLabel: "Housing Management Area",
+    noHousingManagementArea: "No Housing Management Area",
   },
   boilerHouseDetails: {
     heading: "Boiler house",

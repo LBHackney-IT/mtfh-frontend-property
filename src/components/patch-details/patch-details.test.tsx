@@ -123,31 +123,31 @@ describe("Patch Details", () => {
     await screen.findByText(locale.patchDetails.heading);
   });
 
-  test("it displays the patch name", async () => {
+  test("it displays the neighbourhood name when provided", async () => {
     render(
       <PatchDetails
         assetPk={assetWithPatches.id}
         initialPatchId={mockAssetPatch.id}
         initialAreaId={mockAreaId}
+        neighbourhood="Hackney North"
       />,
     );
 
-    await waitFor(async () => {
-      screen.getByTestId("patch-name");
-    });
+    await screen.findByText(locale.patchDetails.heading);
 
-    expect(screen.getByTestId("patch-name")).toHaveTextContent(mockAssetPatch.name);
-    expect(screen.queryByTestId("officer-name")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("area-manager-name")).not.toBeInTheDocument();
+    expect(screen.getByTestId("neighbourhood-name")).toHaveTextContent("Hackney North");
+    expect(screen.queryByTestId("no-neighbourhood")).not.toBeInTheDocument();
   });
 
-  test("it displays a 'no patch' message when asset has no patches", async () => {
+  test("it shows 'No Housing Management Area' when neighbourhood is not provided", async () => {
     render(<PatchDetails assetPk={mockAssetV1.id} initialPatchId="" initialAreaId="" />);
 
-    await waitFor(async () => {
-      expect(screen.getByText(locale.patchDetails.noPatch)).toBeVisible();
-    });
-    expect(screen.queryByTestId("patch-name")).not.toBeInTheDocument();
+    await screen.findByText(locale.patchDetails.heading);
+
+    expect(screen.getByTestId("no-neighbourhood")).toHaveTextContent(
+      locale.patchDetails.noHousingManagementArea,
+    );
+    expect(screen.queryByTestId("neighbourhood-name")).not.toBeInTheDocument();
   });
 
   test("it does not show the all patches and areas button", async () => {
@@ -159,7 +159,7 @@ describe("Patch Details", () => {
       />,
     );
 
-    await screen.findByTestId("patch-name");
+    await screen.findByText(locale.patchDetails.heading);
 
     expect(screen.queryByTestId("all-patches-and-areas-button")).not.toBeInTheDocument();
   });
