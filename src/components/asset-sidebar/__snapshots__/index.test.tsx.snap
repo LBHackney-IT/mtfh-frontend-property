@@ -111,29 +111,11 @@ exports[`Assets Sidebar it hides boiler house details 1`] = `
           >
             Patch details
           </h2>
-          <p>
-            No patch
-          </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
           >
-            From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+            The way Tenancy Services are delivered has changed.  Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action.  We appreciate your patience during this transition.
           </p>
         </aside>
         <hr
@@ -265,29 +247,11 @@ exports[`Assets Sidebar it hides cautionary alerts 1`] = `
           >
             Patch details
           </h2>
-          <p>
-            No patch
-          </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
           >
-            From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+            The way Tenancy Services are delivered has changed.  Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action.  We appreciate your patience during this transition.
           </p>
         </aside>
         <hr
@@ -419,29 +383,11 @@ exports[`Assets Sidebar it hides tenure information 1`] = `
           >
             Patch details
           </h2>
-          <p>
-            No patch
-          </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
           >
-            From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+            The way Tenancy Services are delivered has changed.  Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action.  We appreciate your patience during this transition.
           </p>
         </aside>
         <hr
@@ -590,29 +536,11 @@ exports[`Assets Sidebar it shows boiler house details 1`] = `
           >
             Patch details
           </h2>
-          <p>
-            No patch
-          </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
           >
-            From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+            The way Tenancy Services are delivered has changed.  Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action.  We appreciate your patience during this transition.
           </p>
         </aside>
         <hr
@@ -779,29 +707,11 @@ exports[`Assets Sidebar it shows cautionary alerts 1`] = `
           >
             Patch details
           </h2>
-          <p>
-            No patch
-          </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
           >
-            From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+            The way Tenancy Services are delivered has changed.  Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action.  We appreciate your patience during this transition.
           </p>
         </aside>
         <hr
@@ -933,29 +843,11 @@ exports[`Assets Sidebar it shows tenure information 1`] = `
           >
             Patch details
           </h2>
-          <p>
-            No patch
-          </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
           >
-            From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.
+            The way Tenancy Services are delivered has changed.  Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action.  We appreciate your patience during this transition.
           </p>
         </aside>
         <hr

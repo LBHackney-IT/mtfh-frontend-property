@@ -102,7 +102,7 @@ export default {
     areaManagerLabel: "Area manager",
     allPatchesAndAreas: "All patches and areas",
     noPatch: "No patch",
-    note: "From 6 July 2026, housing services in this area are managed by a Neighbourhood Lead. To raise a query about this property, please use the triage form.",
+    note: "The way Tenancy Services are delivered has changed.  Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action.  We appreciate your patience during this transition.",
   },
   boilerHouseDetails: {
     heading: "Boiler house",
