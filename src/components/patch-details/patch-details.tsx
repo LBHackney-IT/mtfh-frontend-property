@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { locale } from "../../services";
 import { patchAdminAuthGroups } from "../../services/config/config";
