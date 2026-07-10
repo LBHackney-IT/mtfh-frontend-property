@@ -88,7 +88,7 @@ export const AssetSideBar = ({
             assetPk={id}
             initialPatchId={patchId}
             initialAreaId={areaId}
-            neighbourhood={neighbourhood}
+            neighbourhood={neighbourhood ?? null}
             versionNumber={assetDetails?.versionNumber}
           />
           <LbhOwnershipInformation asset={assetDetails} />

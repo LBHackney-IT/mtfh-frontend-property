@@ -6,6 +6,7 @@
     "jsx": "react",
     "target": "es2016",
     "baseUrl": "src",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["jest", "@testing-library/jest-dom"]
   }
 }
