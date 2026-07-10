@@ -12,7 +12,7 @@ interface PatchDetailsProps {
   assetPk: string;
   initialPatchId: string;
   initialAreaId: string;
-  neighbourhood?: string;
+  neighbourhood: string | null;
   versionNumber?: number;
 }
 
@@ -31,9 +31,6 @@ export const PatchDetails = ({
 
   const { heading } = locale.patchDetails;
 
-  // const { patchLabel } = locale.patchDetails;
-  // const patchOrAreaDefined = assetPatch || assetArea;
-
   const { housingManagementAreaLabel, noHousingManagementArea } = locale.patchDetails;
 
   const onEdit = (patchId: string, areaId: string) => {
@@ -49,18 +46,6 @@ export const PatchDetails = ({
         <Heading variant="h2" className="lbh-heading lbh-heading-h3">
           {heading}
         </Heading>
-
-        {/* Patch visualisation — commented out, do not delete
-        {patchOrAreaDefined ? (
-          <SummaryList overrides={[2 / 3]}>
-            <SummaryListItem title={patchLabel} data-testid="patch-name" key="patchName">
-              {assetPatch?.name}
-            </SummaryListItem>
-          </SummaryList>
-        ) : (
-          <p>{locale.patchDetails.noPatch}</p>
-        )}
-        */}
 
         {neighbourhood ? (
           <SummaryList overrides={[2 / 3]}>
