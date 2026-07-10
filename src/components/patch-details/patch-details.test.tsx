@@ -117,6 +117,7 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         initialPatchId={mockAssetPatch.id}
         initialAreaId={mockAreaId}
+        neighbourhood={null}
       />,
     );
 
@@ -140,7 +141,14 @@ describe("Patch Details", () => {
   });
 
   test("it shows 'No Housing Management Area' when neighbourhood is not provided", async () => {
-    render(<PatchDetails assetPk={mockAssetV1.id} initialPatchId="" initialAreaId="" />);
+    render(
+      <PatchDetails
+        assetPk={mockAssetV1.id}
+        initialPatchId=""
+        initialAreaId=""
+        neighbourhood={null}
+      />,
+    );
 
     await screen.findByText(locale.patchDetails.heading);
 
@@ -156,6 +164,7 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         initialPatchId={mockAssetPatch.id}
         initialAreaId={mockAreaId}
+        neighbourhood={null}
       />,
     );
 
@@ -170,6 +179,7 @@ describe("Patch Details", () => {
         assetPk={assetWithPatches.id}
         initialPatchId={mockAssetPatch.id}
         initialAreaId={mockAreaId}
+        neighbourhood={null}
       />,
     );
 
