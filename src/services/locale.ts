@@ -102,7 +102,9 @@ export default {
     areaManagerLabel: "Area manager",
     allPatchesAndAreas: "All patches and areas",
     noPatch: "No patch",
-    note: "The way Tenancy Services are delivered has changed.  Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action.  We appreciate your patience during this transition.",
+    note: "The way Tenancy Services are delivered has changed. Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action. We appreciate your patience during this transition.",
+    housingManagementAreaLabel: "Housing Management Area",
+    noHousingManagementArea: "No Housing Management Area",
   },
   boilerHouseDetails: {
     heading: "Boiler house",
