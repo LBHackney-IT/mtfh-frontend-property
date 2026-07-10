@@ -119,6 +119,9 @@ jobs:
             - run:
                   name: Run unit lint-and-test
                   command: yarn test
+            - run:
+                  name: Run build
+                  command: yarn build
             - persist_to_workspace:
                   root: *workspace_root
                   paths: .
