@@ -116,21 +116,6 @@ exports[`Assets Sidebar it hides boiler house details 1`] = `
           >
             No Housing Management Area
           </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
@@ -272,21 +257,6 @@ exports[`Assets Sidebar it hides cautionary alerts 1`] = `
           >
             No Housing Management Area
           </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
@@ -428,21 +398,6 @@ exports[`Assets Sidebar it hides tenure information 1`] = `
           >
             No Housing Management Area
           </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
@@ -601,21 +556,6 @@ exports[`Assets Sidebar it shows boiler house details 1`] = `
           >
             No Housing Management Area
           </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
@@ -792,21 +732,6 @@ exports[`Assets Sidebar it shows cautionary alerts 1`] = `
           >
             No Housing Management Area
           </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"
@@ -948,21 +873,6 @@ exports[`Assets Sidebar it shows tenure information 1`] = `
           >
             No Housing Management Area
           </p>
-          <aside
-            class="mtfh-edit-patch-details"
-          >
-            <button
-              class="govuk-button lbh-button"
-              data-testid="edit-assignment-button"
-              style="margin-top: 0px;"
-              type="button"
-            >
-              Edit
-            </button>
-          </aside>
-          <hr
-            class="lbh-horizontal-bar"
-          />
           <p
             class="lbh-body-s"
             data-testid="patch-note"

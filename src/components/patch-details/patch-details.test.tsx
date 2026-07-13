@@ -112,27 +112,13 @@ beforeEach(() => {
 
 describe("Patch Details", () => {
   test("it renders the component", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
-        initialAreaId={mockAreaId}
-        neighbourhood={null}
-      />,
-    );
+    render(<PatchDetails neighbourhood={null} />);
 
     await screen.findByText(locale.patchDetails.heading);
   });
 
   test("it displays the neighbourhood name when provided", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
-        initialAreaId={mockAreaId}
-        neighbourhood="Hackney North"
-      />,
-    );
+    render(<PatchDetails neighbourhood="Hackney North" />);
 
     await screen.findByText(locale.patchDetails.heading);
 
@@ -141,14 +127,7 @@ describe("Patch Details", () => {
   });
 
   test("it shows 'No Housing Management Area' when neighbourhood is not provided", async () => {
-    render(
-      <PatchDetails
-        assetPk={mockAssetV1.id}
-        initialPatchId=""
-        initialAreaId=""
-        neighbourhood={null}
-      />,
-    );
+    render(<PatchDetails neighbourhood={null} />);
 
     await screen.findByText(locale.patchDetails.heading);
 
@@ -159,14 +138,7 @@ describe("Patch Details", () => {
   });
 
   test("it does not show the all patches and areas button", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
-        initialAreaId={mockAreaId}
-        neighbourhood={null}
-      />,
-    );
+    render(<PatchDetails neighbourhood={null} />);
 
     await screen.findByText(locale.patchDetails.heading);
 
@@ -174,14 +146,7 @@ describe("Patch Details", () => {
   });
 
   test("it shows the explanatory note", async () => {
-    render(
-      <PatchDetails
-        assetPk={assetWithPatches.id}
-        initialPatchId={mockAssetPatch.id}
-        initialAreaId={mockAreaId}
-        neighbourhood={null}
-      />,
-    );
+    render(<PatchDetails neighbourhood={null} />);
 
     await waitFor(async () => {
       expect(screen.getByTestId("patch-note")).toHaveTextContent(

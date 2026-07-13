@@ -40,16 +40,8 @@ export const AssetSideBar = ({
   showCautionaryAlerts,
   ...properties
 }: Props) => {
-  const {
-    assetAddress,
-    assetId,
-    assetType,
-    tenure,
-    id,
-    assetCharacteristics,
-    patchId,
-    areaId,
-  } = assetDetails;
+  const { assetAddress, assetId, assetType, tenure, id, assetCharacteristics } =
+    assetDetails;
 
   // neighbourhood is not yet in the @mtfh/common AssetAddress type but is returned by the API
   const { neighbourhood } = assetAddress as AssetAddress & { neighbourhood?: string };
@@ -84,13 +76,7 @@ export const AssetSideBar = ({
           <hr className="lbh-horizontal-bar" />
 
           {showCautionaryAlerts && <CautionaryAlertsDetails alerts={alerts} />}
-          <PatchDetails
-            assetPk={id}
-            initialPatchId={patchId}
-            initialAreaId={areaId}
-            neighbourhood={neighbourhood ?? null}
-            versionNumber={assetDetails?.versionNumber}
-          />
+          <PatchDetails neighbourhood={neighbourhood ?? null} />
           <LbhOwnershipInformation asset={assetDetails} />
           {showBoilerHouseInformation() && <BoilerHouseDetails asset={assetDetails} />}
           {showTenureInformation && (
