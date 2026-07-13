@@ -1,38 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+
 import { locale } from "../../services";
-11;
-import { usePatchOrArea } from "@mtfh/common/lib/api/patch/v1";
+
 import { Heading, SummaryList, SummaryListItem } from "@mtfh/common/lib/components";
 
-interface PatchDetailsProps {
-  assetPk: string;
-  initialPatchId: string;
-  initialAreaId: string;
+interface Props {
   neighbourhood: string | null;
-  versionNumber?: number;
 }
 
-export const PatchDetails = ({
-  initialPatchId,
-  initialAreaId,
-  neighbourhood,
-}: PatchDetailsProps) => {
-  const [patchId, setPatchId] = useState(initialPatchId);
-  const [areaId, setAreaId] = useState(initialAreaId);
-
-  const { data: assetPatch, mutate: mutatePatch } = usePatchOrArea(patchId);
-  const { mutate: mutateArea } = usePatchOrArea(areaId);
-
-  const { heading } = locale.patchDetails;
-
-  const { housingManagementAreaLabel, noHousingManagementArea } = locale.patchDetails;
-
-  const onEdit = (patchId: string, areaId: string) => {
-    setPatchId(patchId);
-    setAreaId(areaId);
-    mutatePatch();
-    mutateArea();
-  };
+export const PatchDetails = ({ neighbourhood }: Props) => {
+  const { heading, housingManagementAreaLabel, noHousingManagementArea } =
+    locale.patchDetails;
 
   return (
     <>
