@@ -114,7 +114,7 @@ exports[`Assets Sidebar it hides boiler house details 1`] = `
           <p
             data-testid="no-neighbourhood"
           >
-            No Housing Management Area
+            No Neighbourhood Area
           </p>
           <p
             class="lbh-body-s"
@@ -255,7 +255,7 @@ exports[`Assets Sidebar it hides cautionary alerts 1`] = `
           <p
             data-testid="no-neighbourhood"
           >
-            No Housing Management Area
+            No Neighbourhood Area
           </p>
           <p
             class="lbh-body-s"
@@ -396,7 +396,7 @@ exports[`Assets Sidebar it hides tenure information 1`] = `
           <p
             data-testid="no-neighbourhood"
           >
-            No Housing Management Area
+            No Neighbourhood Area
           </p>
           <p
             class="lbh-body-s"
@@ -554,7 +554,7 @@ exports[`Assets Sidebar it shows boiler house details 1`] = `
           <p
             data-testid="no-neighbourhood"
           >
-            No Housing Management Area
+            No Neighbourhood Area
           </p>
           <p
             class="lbh-body-s"
@@ -730,7 +730,7 @@ exports[`Assets Sidebar it shows cautionary alerts 1`] = `
           <p
             data-testid="no-neighbourhood"
           >
-            No Housing Management Area
+            No Neighbourhood Area
           </p>
           <p
             class="lbh-body-s"
@@ -871,7 +871,7 @@ exports[`Assets Sidebar it shows tenure information 1`] = `
           <p
             data-testid="no-neighbourhood"
           >
-            No Housing Management Area
+            No Neighbourhood Area
           </p>
           <p
             class="lbh-body-s"
