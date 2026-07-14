@@ -132,7 +132,7 @@ describe("Patch Details", () => {
     await screen.findByText(locale.patchDetails.heading);
 
     expect(screen.getByTestId("no-neighbourhood")).toHaveTextContent(
-      locale.patchDetails.noHousingManagementArea,
+      locale.patchDetails.noNeighbourhoodArea,
     );
     expect(screen.queryByTestId("neighbourhood-name")).not.toBeInTheDocument();
   });

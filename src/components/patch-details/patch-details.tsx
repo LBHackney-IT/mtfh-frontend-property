@@ -9,8 +9,7 @@ interface Props {
 }
 
 export const PatchDetails = ({ neighbourhood }: Props) => {
-  const { heading, housingManagementAreaLabel, noHousingManagementArea } =
-    locale.patchDetails;
+  const { heading, neighbourhoodAreaLabel, noNeighbourhoodArea } = locale.patchDetails;
 
   return (
     <>
@@ -22,7 +21,7 @@ export const PatchDetails = ({ neighbourhood }: Props) => {
         {neighbourhood ? (
           <SummaryList overrides={[2 / 3]}>
             <SummaryListItem
-              title={housingManagementAreaLabel}
+              title={neighbourhoodAreaLabel}
               data-testid="neighbourhood-name"
               key="neighbourhoodName"
             >
@@ -30,7 +29,7 @@ export const PatchDetails = ({ neighbourhood }: Props) => {
             </SummaryListItem>
           </SummaryList>
         ) : (
-          <p data-testid="no-neighbourhood">{noHousingManagementArea}</p>
+          <p data-testid="no-neighbourhood">{noNeighbourhoodArea}</p>
         )}
 
         <p className="lbh-body-s" data-testid="patch-note">
