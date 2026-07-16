@@ -13,10 +13,10 @@ import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 const mockAreaId = crypto.randomBytes(20).toString("hex");
 
-const mockAssetPatchTMO: Patch = {
+const mockAssetPatch = (isTmo: boolean): Patch => ({
   id: crypto.randomBytes(20).toString("hex"),
   name: "AR1",
-  patchType: "tmoPatch",
+  patchType: isTmo ? "tmoPatch" : "patch",
   parentId: mockAreaId,
   domain: "Hackney",
   responsibleEntities: [
@@ -29,25 +29,10 @@ const mockAssetPatchTMO: Patch = {
       },
     },
   ],
-};
+});
 
-const mockAssetPatchNotTMO: Patch = {
-  id: crypto.randomBytes(20).toString("hex"),
-  name: "AR1",
-  patchType: "patch",
-  parentId: mockAreaId,
-  domain: "Hackney",
-  responsibleEntities: [
-    {
-      id: crypto.randomBytes(20).toString("hex"),
-      name: "Housing Officer 1",
-      responsibleType: "HousingOfficer",
-      contactDetails: {
-        emailAddress: "test.test@hackney.gov.uk",
-      },
-    },
-  ],
-};
+const mockAssetPatchTMO = mockAssetPatch(true);
+const mockAssetPatchNotTMO = mockAssetPatch(false);
 
 const mockAssetArea: Patch = {
   id: mockAreaId,
