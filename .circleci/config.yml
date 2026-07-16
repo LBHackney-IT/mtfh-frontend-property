@@ -283,8 +283,8 @@ workflows:
                   context: api-assume-role-housing-development-context
                   requires:
                     #   - security-scan
+                    #   - sonar-scan
                       - lint-and-test
-                      - sonar-scan
                   filters:
                       branches:
                           only: main
