@@ -3,7 +3,7 @@ import * as crypto from "crypto";
 import React from "react";
 
 import { mockAssetV1, render, server } from "@hackney/mtfh-test-utils";
-import { screen, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { rest } from "msw";
 
 import { locale } from "../../services";
@@ -145,13 +145,19 @@ describe("Patch Details", () => {
     expect(screen.queryByTestId("all-patches-and-areas-button")).not.toBeInTheDocument();
   });
 
-  test("it shows the explanatory note", async () => {
+  test("it shows the explanatory note when a neighbourhood is provided", async () => {
+    render(<PatchDetails neighbourhood="Hackney North" />);
+
+    await screen.findByText(locale.patchDetails.heading);
+
+    expect(screen.getByTestId("patch-note")).toHaveTextContent(locale.patchDetails.note);
+  });
+
+  test("it does not show the explanatory note when no neighbourhood is provided", async () => {
     render(<PatchDetails neighbourhood={null} />);
 
-    await waitFor(async () => {
-      expect(screen.getByTestId("patch-note")).toHaveTextContent(
-        locale.patchDetails.note,
-      );
-    });
+    await screen.findByText(locale.patchDetails.heading);
+
+    expect(screen.queryByTestId("patch-note")).not.toBeInTheDocument();
   });
 });
