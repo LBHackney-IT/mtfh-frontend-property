@@ -19,22 +19,23 @@ export const PatchDetails = ({ neighbourhood }: Props) => {
         </Heading>
 
         {neighbourhood ? (
-          <SummaryList overrides={[2 / 3]}>
-            <SummaryListItem
-              title={neighbourhoodAreaLabel}
-              data-testid="neighbourhood-name"
-              key="neighbourhoodName"
-            >
-              {neighbourhood}
-            </SummaryListItem>
-          </SummaryList>
+          <>
+            <SummaryList overrides={[2 / 3]}>
+              <SummaryListItem
+                title={neighbourhoodAreaLabel}
+                data-testid="neighbourhood-name"
+                key="neighbourhoodName"
+              >
+                {neighbourhood}
+              </SummaryListItem>
+            </SummaryList>
+            <p className="lbh-body-s" data-testid="patch-note">
+              {locale.patchDetails.note}
+            </p>
+          </>
         ) : (
           <p data-testid="no-neighbourhood">{noNeighbourhoodArea}</p>
         )}
-
-        <p className="lbh-body-s" data-testid="patch-note">
-          {locale.patchDetails.note}
-        </p>
       </aside>
       <hr className="lbh-horizontal-bar" />
     </>

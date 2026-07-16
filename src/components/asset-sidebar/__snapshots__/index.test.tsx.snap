@@ -116,12 +116,6 @@ exports[`Assets Sidebar it hides boiler house details 1`] = `
           >
             No Neighbourhood Area
           </p>
-          <p
-            class="lbh-body-s"
-            data-testid="patch-note"
-          >
-            The way Tenancy Services are delivered has changed. Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action. We appreciate your patience during this transition.
-          </p>
         </aside>
         <hr
           class="lbh-horizontal-bar"
@@ -257,12 +251,6 @@ exports[`Assets Sidebar it hides cautionary alerts 1`] = `
           >
             No Neighbourhood Area
           </p>
-          <p
-            class="lbh-body-s"
-            data-testid="patch-note"
-          >
-            The way Tenancy Services are delivered has changed. Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action. We appreciate your patience during this transition.
-          </p>
         </aside>
         <hr
           class="lbh-horizontal-bar"
@@ -397,12 +385,6 @@ exports[`Assets Sidebar it hides tenure information 1`] = `
             data-testid="no-neighbourhood"
           >
             No Neighbourhood Area
-          </p>
-          <p
-            class="lbh-body-s"
-            data-testid="patch-note"
-          >
-            The way Tenancy Services are delivered has changed. Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action. We appreciate your patience during this transition.
           </p>
         </aside>
         <hr
@@ -555,12 +537,6 @@ exports[`Assets Sidebar it shows boiler house details 1`] = `
             data-testid="no-neighbourhood"
           >
             No Neighbourhood Area
-          </p>
-          <p
-            class="lbh-body-s"
-            data-testid="patch-note"
-          >
-            The way Tenancy Services are delivered has changed. Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action. We appreciate your patience during this transition.
           </p>
         </aside>
         <hr
@@ -732,12 +708,6 @@ exports[`Assets Sidebar it shows cautionary alerts 1`] = `
           >
             No Neighbourhood Area
           </p>
-          <p
-            class="lbh-body-s"
-            data-testid="patch-note"
-          >
-            The way Tenancy Services are delivered has changed. Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action. We appreciate your patience during this transition.
-          </p>
         </aside>
         <hr
           class="lbh-horizontal-bar"
@@ -872,12 +842,6 @@ exports[`Assets Sidebar it shows tenure information 1`] = `
             data-testid="no-neighbourhood"
           >
             No Neighbourhood Area
-          </p>
-          <p
-            class="lbh-body-s"
-            data-testid="patch-note"
-          >
-            The way Tenancy Services are delivered has changed. Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action. We appreciate your patience during this transition.
           </p>
         </aside>
         <hr
