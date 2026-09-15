@@ -19,7 +19,7 @@ import {
 import { Address } from "@mtfh/common/lib/api/address/v1/types";
 import { patchAssetAddress } from "@mtfh/common/lib/api/asset/v1";
 import { Asset, AssetAddress } from "@mtfh/common/lib/api/asset/v1/types";
-import { updateAddressDetails } from "@mtfh/common/lib/api/housing-finance-interim-api";
+import { updateAddressDetails as updateHFSAddressDetails } from "@mtfh/common/lib/api/housing-finance-interim-api";
 import { Tenure, editTenure } from "@mtfh/common/lib/api/tenure/v1";
 import { Center, Spinner } from "@mtfh/common/lib/components";
 
@@ -70,7 +70,7 @@ export const EditableAddress = ({
 
     const taskList = [
       patchAssetAddress(assetDetails.id, editAssetAddressRequest, assetVersionNumber),
-      updateAddressDetails(assetDetails.assetId, updateAddressDetailsRequest),
+      updateHFSAddressDetails(assetDetails.assetId, updateAddressDetailsRequest),
     ];
 
     if (tenureApiObject) {

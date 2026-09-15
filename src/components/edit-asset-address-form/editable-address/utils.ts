@@ -45,15 +45,20 @@ export const buildUpdateAddressDetailsRequest = (
 export const buildEditTenureRequest = (
   formValues: PatchAssetAddressFormValues,
   assetDetails: Asset,
-  tenureApiObject: Tenure | undefined,
+  tenureApiObject: Tenure,
 ): EditTenureParams => {
   const tenureVersionNumber = getTenureVersionNumber(tenureApiObject);
+
+  const fullAddress =
+    `${formValues.addressLine1} ${formValues.addressLine2} ${formValues.addressLine3} ${formValues.addressLine4} ${formValues.postcode}`
+      .replace(/\s+/g, " ")
+      .trim();
 
   return {
     tenuredAsset: {
       id: assetDetails.id,
       type: assetDetails.assetType,
-      fullAddress: `${formValues.addressLine1} ${formValues.postcode}`,
+      fullAddress,
       uprn: assetDetails.assetAddress.uprn,
       propertyReference: assetDetails.assetId,
     },
