@@ -85,9 +85,10 @@ const addParentsAndPrinciple = (
 ) => {
   const treeViewElements: TreeAsset[] = [];
 
-  const validParents = asset.assetLocation.parentAssets.filter(
-    (el) => !excludedTreeAssets.includes(el.id),
-  );
+  const validParents =
+    asset.assetLocation?.parentAssets?.filter(
+      (el) => !excludedTreeAssets.includes(el.id),
+    ) ?? [];
 
   if (validParents.length) {
     for (const [validParentIndex, validParentValue] of validParents.entries()) {
@@ -112,4 +113,4 @@ const addParentsAndPrinciple = (
   return treeViewElements;
 };
 
-export { TreeAsset, addChildrenAssets, generatePrinciple, addParentsAndPrinciple };
+export { addChildrenAssets, addParentsAndPrinciple, generatePrinciple, TreeAsset };
