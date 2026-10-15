@@ -21,12 +21,88 @@ import {
 
 import "./styles.scss";
 
+type AssetWithWarranty = Omit<Asset, "assetCharacteristics"> & {
+  assetCharacteristics: Asset["assetCharacteristics"] & {
+    isUnderWarranty?: boolean;
+  };
+};
+
 export interface Props {
-  assetDetails: Asset;
+  assetDetails: AssetWithWarranty;
   assetChildren: Asset[] | undefined;
   showTenureInformation: boolean;
   showCautionaryAlerts: boolean;
 }
+
+interface WarrantyPropertyFlagProps {
+  isUnderWarranty: boolean;
+}
+
+const WarrantyPropertyFlag: FC<WarrantyPropertyFlagProps> = ({ isUnderWarranty }) => {
+  if (!isUnderWarranty) return null;
+
+  return (
+    <div
+      role="note"
+      aria-label="Property under warranty status"
+      style={{
+        display: "flex",
+        alignItems: "flex-start",
+        gap: 16,
+        backgroundColor: "#eae8f8",
+        borderLeft: "10px solid #005a36",
+        padding: "20px",
+        maxWidth: 720,
+        marginBottom: 24,
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <span
+        aria-hidden="true"
+        style={{
+          minWidth: 32,
+          height: 32,
+          borderRadius: "50%",
+          backgroundColor: "#0b0c0c",
+          color: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontWeight: 700,
+          fontSize: 20,
+          lineHeight: 1,
+          flexShrink: 0,
+        }}
+      >
+        !
+      </span>
+
+      <div style={{ flexGrow: 1 }}>
+        <h3
+          style={{
+            margin: "0 0 10px",
+            fontSize: 20,
+            fontWeight: 700,
+            color: "#0b0c0c",
+            lineHeight: 1.2,
+          }}
+        >
+          Property under warranty
+        </h3>
+        <p
+          style={{
+            margin: 0,
+            fontSize: 16,
+            lineHeight: 1.5,
+            color: "#0b0c0c",
+          }}
+        >
+          This property is under warranty.
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export const AssetLayout: FC<Props> = ({
   assetDetails,
@@ -97,6 +173,9 @@ export const AssetLayout: FC<Props> = ({
           />
         }
       >
+        <WarrantyPropertyFlag
+          isUnderWarranty={assetDetails.assetCharacteristics.isUnderWarranty === true}
+        />
         <PropertyBody
           assetDetails={assetDetails}
           childAssets={assetChildren}
