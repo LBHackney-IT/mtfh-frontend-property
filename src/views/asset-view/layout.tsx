@@ -21,14 +21,8 @@ import {
 
 import "./styles.scss";
 
-type AssetWithWarranty = Omit<Asset, "assetCharacteristics"> & {
-  assetCharacteristics: Asset["assetCharacteristics"] & {
-    isUnderWarranty?: boolean;
-  };
-};
-
 export interface Props {
-  assetDetails: AssetWithWarranty;
+  assetDetails: Asset;
   assetChildren: Asset[] | undefined;
   showTenureInformation: boolean;
   showCautionaryAlerts: boolean;
