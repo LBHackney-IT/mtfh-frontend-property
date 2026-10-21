@@ -22,6 +22,7 @@ export const buildEditAssetAddressRequest = (
 ): EditAssetAddressRequest => ({
   assetAddress: {
     uprn: assetDetails.assetAddress.uprn,
+    neighbourhood: assetDetails.assetAddress.neighbourhood,
     addressLine1: formValues.addressLine1,
     addressLine2: formValues.addressLine2 ? formValues.addressLine2 : "",
     addressLine3: formValues.addressLine3 ? formValues.addressLine3 : "",
@@ -78,6 +79,7 @@ export const buildAssetAddress = (
   postCode: editAssetAddressRequest.assetAddress.postCode,
   postPreamble: editAssetAddressRequest.assetAddress.postPreamble,
   uprn: assetDetails.assetAddress.uprn,
+  neighbourhood: assetDetails.assetAddress.neighbourhood,
 });
 
 export const getLlpgAddressFormValues = (llpgAddress: Address) => {

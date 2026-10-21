@@ -7,6 +7,9 @@
     "target": "es2016",
     "baseUrl": "src",
     "esModuleInterop": true,
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["jest", "@testing-library/jest-dom"],
+    "paths": {
+      "react-router/node_modules/@types/react": ["../node_modules/@types/react"]
+    }
   }
 }

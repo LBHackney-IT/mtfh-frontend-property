@@ -24,6 +24,7 @@ const assetData: Parameters<typeof AssetLayout>[0]["assetDetails"] = {
     totalBlockFloors: 3,
   },
   assetAddress: {
+    neighbourhood: "CENTRAL",
     uprn: "10008355547",
     addressLine1: "123 Test Block(CAN BE DELETED)",
     addressLine2: "",

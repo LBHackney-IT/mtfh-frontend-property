@@ -329,6 +329,48 @@ exports[`renders the whole 'New asset form' view 1`] = `
         >
           Address
         </h2>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="neighbourhood"
+          >
+            Neighbourhood*
+          </label>
+          <select
+            aria-invalid="false"
+            class="govuk-select lbh-select"
+            id="neighbourhood"
+            name="neighbourhood"
+          >
+            <option
+              value=""
+            >
+              -- Select an option --
+            </option>
+            <option
+              value="NORTHEAST"
+            >
+              North East
+            </option>
+            <option
+              value="NORTHWEST"
+            >
+              North West
+            </option>
+            <option
+              value="CENTRAL"
+            >
+              Central
+            </option>
+            <option
+              value="SOUTH"
+            >
+              South
+            </option>
+          </select>
+        </div>
         <label
           class="govuk-label lbh-label"
           for="uprn"

@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { regexUkPostcode } from "../../utils/uk-postcode-regex";
 
-import { RentGroup } from "@mtfh/common/lib/api/asset/v1";
+import { Neighbourhood, RentGroup } from "@mtfh/common/lib/api/asset/v1";
 import { removeWhitespace } from "@mtfh/common/lib/utils";
 
 export const newPropertySchema = () =>
@@ -19,6 +19,12 @@ export const newPropertySchema = () =>
       .min(0, "Only positive values are accepted")
       .typeError("The value must be a valid number"),
     // Address
+    neighbourhood: Yup.mixed<Neighbourhood>()
+      .oneOf(
+        ["NORTHEAST", "NORTHWEST", "CENTRAL", "SOUTH"],
+        "Please select a neighbourhood",
+      )
+      .required("Neighbourhood is a required field"),
     uprn: Yup.string(),
     postPreamble: Yup.string(),
     addressLine1: Yup.string().required("Address line 1 is a required field"),
