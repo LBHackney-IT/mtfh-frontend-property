@@ -32,6 +32,7 @@ export const assembleCreateNewAssetRequest = (
       parentAssets: values?.parentAsset ? [getParentAsset(values?.parentAsset)] : [],
     },
     assetAddress: {
+      neighbourhood: values.neighbourhood,
       uprn: values?.uprn ?? "",
       postPreamble: values?.postPreamble ?? "",
       addressLine1: values.addressLine1,

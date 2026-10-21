@@ -1,3 +1,7 @@
+const path = require("path");
+
+process.loadEnvFile(path.join(__dirname, ".env.test"));
+
 module.exports = {
   rootDir: "src",
   transform: {
@@ -6,6 +10,10 @@ module.exports = {
   transformIgnorePatterns: ["/node_modules/(?!lbh-frontend|@mtfh)"],
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
+    "^#node-web-compat$": path.join(
+      __dirname,
+      "node_modules/aws-jwt-verify/dist/cjs/node-web-compat-node.js",
+    ),
   },
   setupFilesAfterEnv: [
     "@testing-library/jest-dom",

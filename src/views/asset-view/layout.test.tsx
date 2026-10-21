@@ -3,17 +3,16 @@ import * as crypto from "crypto";
 import React from "react";
 
 import { render, server } from "@hackney/mtfh-test-utils";
-import { waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 
 import { AssetLayout } from "./layout";
 
-import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Alert } from "@mtfh/common/lib/api/cautionary-alerts/v1/types";
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
 
-const assetData: Asset = {
+const assetData: Parameters<typeof AssetLayout>[0]["assetDetails"] = {
   id: "769894bd-b0bc-47eb-a780-322372c2448f",
   patchId: crypto.randomBytes(20).toString("hex"),
   areaId: crypto.randomBytes(20).toString("hex"),
@@ -25,6 +24,7 @@ const assetData: Asset = {
     totalBlockFloors: 3,
   },
   assetAddress: {
+    neighbourhood: "CENTRAL",
     uprn: "10008355547",
     addressLine1: "123 Test Block(CAN BE DELETED)",
     addressLine2: "",
@@ -55,6 +55,7 @@ const assetData: Asset = {
     heating: null,
     propertyFactor: null,
     architecturalType: null,
+    isUnderWarranty: false,
   },
   versionNumber: 0,
   tenure: {
@@ -175,4 +176,48 @@ test("it hides the cautionary alerts icon", () => {
   expect(newProcessButton).not.toBeInTheDocument();
 
   expect(container).toMatchSnapshot();
+});
+
+test("it shows the warranty notice when the property is under warranty", () => {
+  render(
+    <AssetLayout
+      assetDetails={{
+        ...assetData,
+        assetCharacteristics: {
+          ...assetData.assetCharacteristics,
+          isUnderWarranty: true,
+        },
+      }}
+      assetChildren={[]}
+      showTenureInformation={false}
+      showCautionaryAlerts={false}
+    />,
+    {
+      url: `/property/${assetData.id}`,
+      path: "/property/:assetId",
+    },
+  );
+
+  expect(
+    screen.getByRole("note", { name: "Property under warranty status" }),
+  ).toBeInTheDocument();
+  expect(screen.getByText("Property under warranty")).toBeInTheDocument();
+  expect(screen.getByText("This property is under warranty.")).toBeInTheDocument();
+});
+
+test("it hides the warranty notice when the property is not under warranty", () => {
+  render(
+    <AssetLayout
+      assetDetails={assetData}
+      assetChildren={[]}
+      showTenureInformation={false}
+      showCautionaryAlerts={false}
+    />,
+    {
+      url: `/property/${assetData.id}`,
+      path: "/property/:assetId",
+    },
+  );
+
+  expect(screen.queryByText("Property under warranty")).not.toBeInTheDocument();
 });

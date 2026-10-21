@@ -60,6 +60,7 @@ const assetData = {
   isActive: false,
   assetLocation: null,
   assetAddress: {
+    neighbourhood: "CENTRAL",
     uprn: "100021045676",
     addressLine1: "51 GREENWOOD ROAD - FLAT B",
     addressLine2: "",

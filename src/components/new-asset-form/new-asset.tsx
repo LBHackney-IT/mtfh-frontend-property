@@ -142,6 +142,7 @@ export const NewAsset = ({
           addressLine3: "",
           addressLine4: "",
           postcode: "",
+          neighbourhood: "" as NewPropertyFormData["neighbourhood"],
           postPreamble: "",
           agent: "",
           areaOfficeName: "",
@@ -358,6 +359,44 @@ export const NewAsset = ({
               </div>
 
               <h2 className="lbh-heading-h2">Address</h2>
+              <div
+                className={
+                  errors.neighbourhood && touched.neighbourhood
+                    ? "govuk-form-group govuk-form-group--error lbh-form-group"
+                    : "govuk-form-group lbh-form-group"
+                }
+              >
+                <label className="govuk-label lbh-label" htmlFor="neighbourhood">
+                  Neighbourhood*
+                </label>
+                {errors.neighbourhood && touched.neighbourhood && (
+                  <span
+                    id="neighbourhood-error"
+                    className="govuk-error-message lbh-error-message"
+                  >
+                    <span className="govuk-visually-hidden">Error:</span>
+                    {errors.neighbourhood}
+                  </span>
+                )}
+                <Field
+                  as="select"
+                  id="neighbourhood"
+                  name="neighbourhood"
+                  className="govuk-select lbh-select"
+                  aria-invalid={Boolean(errors.neighbourhood && touched.neighbourhood)}
+                  aria-describedby={
+                    errors.neighbourhood && touched.neighbourhood
+                      ? "neighbourhood-error"
+                      : undefined
+                  }
+                >
+                  <option value="">-- Select an option --</option>
+                  <option value="NORTHEAST">North East</option>
+                  <option value="NORTHWEST">North West</option>
+                  <option value="CENTRAL">Central</option>
+                  <option value="SOUTH">South</option>
+                </Field>
+              </div>
               <label className="govuk-label lbh-label" htmlFor="uprn">
                 UPRN
               </label>

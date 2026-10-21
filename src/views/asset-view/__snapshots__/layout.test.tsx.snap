@@ -117,10 +117,30 @@ exports[`it hides the cautionary alerts icon 1`] = `
                 >
                   Patch details
                 </h2>
-                <p
-                  data-testid="no-neighbourhood"
+                <dl
+                  class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list"
                 >
-                  No Neighbourhood Area
+                  <div
+                    class="govuk-summary-list__row"
+                    data-testid="neighbourhood-name"
+                  >
+                    <dt
+                      class="govuk-summary-list__key govuk-!-width-two-thirds"
+                    >
+                      Neighbourhood Area
+                    </dt>
+                    <dd
+                      class="govuk-summary-list__value"
+                    >
+                      CENTRAL
+                    </dd>
+                  </div>
+                </dl>
+                <p
+                  class="lbh-body-s"
+                  data-testid="patch-note"
+                >
+                  The way Tenancy Services are delivered has changed. Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action. We appreciate your patience during this transition.
                 </p>
               </aside>
               <hr
@@ -554,10 +574,30 @@ exports[`it shows the new cautionary alerts icon 1`] = `
                 >
                   Patch details
                 </h2>
-                <p
-                  data-testid="no-neighbourhood"
+                <dl
+                  class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list"
                 >
-                  No Neighbourhood Area
+                  <div
+                    class="govuk-summary-list__row"
+                    data-testid="neighbourhood-name"
+                  >
+                    <dt
+                      class="govuk-summary-list__key govuk-!-width-two-thirds"
+                    >
+                      Neighbourhood Area
+                    </dt>
+                    <dd
+                      class="govuk-summary-list__value"
+                    >
+                      CENTRAL
+                    </dd>
+                  </div>
+                </dl>
+                <p
+                  class="lbh-body-s"
+                  data-testid="patch-note"
+                >
+                  The way Tenancy Services are delivered has changed. Please direct your enquiry to neighbourhood@hackney.gov.uk so that our Triage Team can assess it and direct it to the most appropriate team for action. We appreciate your patience during this transition.
                 </p>
               </aside>
               <hr
