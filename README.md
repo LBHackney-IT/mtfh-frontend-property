@@ -36,6 +36,12 @@ application that provides the header and footer.
 
 - You can create a production build by running `yarn build`.
 
+### Environment variables
+
+| Name                        | Description                                                                                                                                                                                                                                                   |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `WARRANTIES_SPREADSHEET_ID` | Google Sheets ID of the New Property Warranties spreadsheet, read from AWS SSM Parameter Store (`/housing-tl/<stage>/warranties-spreadsheet-id`) during the CircleCI build. The warranty notice links to `https://docs.google.com/spreadsheets/d/<id>?gid=0`. |
+
 ### Testing
 
 - You can run the unit tests by running `yarn test`.

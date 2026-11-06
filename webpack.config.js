@@ -4,12 +4,12 @@ const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
 const { merge } = require("webpack-merge");
 
 module.exports = (webpackConfigEnv, argv) => {
-    const defaultConfig = singleSpaDefaults({
-        orgName: "mtfh",
-        projectName: "property",
-        webpackConfigEnv,
-        argv,
-    });
+  const defaultConfig = singleSpaDefaults({
+    orgName: "mtfh",
+    projectName: "property",
+    webpackConfigEnv,
+    argv,
+  });
 
   return merge(defaultConfig, {
     entry: {
@@ -30,7 +30,7 @@ module.exports = (webpackConfigEnv, argv) => {
               options: { sourceMap: false },
             },
           ],
-        }
+        },
       ],
     },
     externals: ["react-router-dom", "formik", "yup"],
@@ -41,6 +41,7 @@ module.exports = (webpackConfigEnv, argv) => {
       }),
       new webpack.EnvironmentPlugin({
         APP_ENV: process.env.APP_ENV || "development",
+        WARRANTIES_SPREADSHEET_ID: process.env.WARRANTIES_SPREADSHEET_ID || "",
       }),
     ],
   });
