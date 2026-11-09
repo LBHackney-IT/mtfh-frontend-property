@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { AssetSideBar } from "../../components/asset-sidebar";
 import { PropertyBody } from "../../components/property-body";
-import { locale } from "../../services";
+import { locale, warrantiesSpreadsheetUrl } from "../../services";
 import { useCautionaryAlerts } from "./utils";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -17,6 +17,7 @@ import {
   PageAnnouncement,
   PageAnnouncementProvider,
   Spinner,
+  WarningIcon,
 } from "@mtfh/common/lib/components";
 
 import "./styles.scss";
@@ -36,65 +37,31 @@ const WarrantyPropertyFlag: FC<WarrantyPropertyFlagProps> = ({ isUnderWarranty }
   if (!isUnderWarranty) return null;
 
   return (
-    <div
-      role="note"
-      aria-label="Property under warranty status"
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        gap: 16,
-        backgroundColor: "#eae8f8",
-        borderLeft: "10px solid #005a36",
-        padding: "20px",
-        maxWidth: 720,
-        marginBottom: 24,
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <span
-        aria-hidden="true"
-        style={{
-          minWidth: 32,
-          height: 32,
-          borderRadius: "50%",
-          backgroundColor: "#0b0c0c",
-          color: "#fff",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontWeight: 700,
-          fontSize: 20,
-          lineHeight: 1,
-          flexShrink: 0,
-        }}
+    <aside className="mtfh-cautionary-alerts mtfh-warranty-flag">
+      <Heading
+        variant="h2"
+        className="lbh-heading lbh-heading-h3 mtfh-warranty-flag-heading"
       >
-        !
-      </span>
+        <WarningIcon size="30" color="black" /> This property is under warranty
+      </Heading>
 
-      <div style={{ flexGrow: 1 }}>
-        <h3
-          style={{
-            margin: "0 0 10px",
-            fontSize: 20,
-            fontWeight: 700,
-            color: "#0b0c0c",
-            lineHeight: 1.2,
-          }}
-        >
-          Property under warranty
-        </h3>
-        <p
-          style={{
-            margin: 0,
-            fontSize: 16,
-            lineHeight: 1.5,
-            color: "#0b0c0c",
-          }}
-        >
-          This property is under warranty.
-        </p>
-      </div>
-    </div>
+      <p>
+        Before raising a work order please check the{" "}
+        {warrantiesSpreadsheetUrl ? (
+          <a href={warrantiesSpreadsheetUrl} target="_blank" rel="noreferrer">
+            New Property Warranties Spreadsheet
+          </a>
+        ) : (
+          <strong>New Property Warranties Spreadsheet</strong>
+        )}{" "}
+        and contact the <strong>Regeneration Aftercare &amp; Defects Team</strong> by
+        sending an email to{" "}
+        <a href="mailto:aftercareanddefects@hackney.gov.uk">
+          aftercareanddefects@hackney.gov.uk
+        </a>{" "}
+        or calling <strong>0208 356 1998</strong> to ensure eligibility
+      </p>
+    </aside>
   );
 };
 

@@ -3,6 +3,8 @@ const webpack = require("webpack");
 const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
 const { merge } = require("webpack-merge");
 
+require("dotenv").config();
+
 module.exports = (webpackConfigEnv, argv) => {
   const defaultConfig = singleSpaDefaults({
     orgName: "mtfh",

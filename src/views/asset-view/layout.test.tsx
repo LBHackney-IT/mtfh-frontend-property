@@ -198,11 +198,20 @@ test("it shows the warranty notice when the property is under warranty", () => {
     },
   );
 
+  expect(screen.getByText("This property is under warranty")).toBeInTheDocument();
   expect(
-    screen.getByRole("note", { name: "Property under warranty status" }),
+    screen.getByText(/Before raising a work order please check the/),
   ).toBeInTheDocument();
-  expect(screen.getByText("Property under warranty")).toBeInTheDocument();
-  expect(screen.getByText("This property is under warranty.")).toBeInTheDocument();
+  expect(
+    screen.getByRole("link", { name: "New Property Warranties Spreadsheet" }),
+  ).toHaveAttribute(
+    "href",
+    "https://docs.google.com/spreadsheets/d/test-spreadsheet-id?gid=0",
+  );
+  expect(
+    screen.getByRole("link", { name: "aftercareanddefects@hackney.gov.uk" }),
+  ).toHaveAttribute("href", "mailto:aftercareanddefects@hackney.gov.uk");
+  expect(screen.getByText("0208 356 1998")).toBeInTheDocument();
 });
 
 test("it hides the warranty notice when the property is not under warranty", () => {
@@ -219,5 +228,5 @@ test("it hides the warranty notice when the property is not under warranty", () 
     },
   );
 
-  expect(screen.queryByText("Property under warranty")).not.toBeInTheDocument();
+  expect(screen.queryByText("This property is under warranty")).not.toBeInTheDocument();
 });
