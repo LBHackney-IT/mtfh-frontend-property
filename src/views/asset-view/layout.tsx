@@ -3,7 +3,8 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { AssetSideBar } from "../../components/asset-sidebar";
 import { PropertyBody } from "../../components/property-body";
-import { locale, warrantiesSpreadsheetUrl } from "../../services";
+import { WarrantyPropertyFlag } from "../../components/warranty-property-flag";
+import { locale } from "../../services";
 import { useCautionaryAlerts } from "./utils";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
@@ -17,7 +18,6 @@ import {
   PageAnnouncement,
   PageAnnouncementProvider,
   Spinner,
-  WarningIcon,
 } from "@mtfh/common/lib/components";
 
 import "./styles.scss";
@@ -28,42 +28,6 @@ export interface Props {
   showTenureInformation: boolean;
   showCautionaryAlerts: boolean;
 }
-
-interface WarrantyPropertyFlagProps {
-  isUnderWarranty: boolean;
-}
-
-const WarrantyPropertyFlag: FC<WarrantyPropertyFlagProps> = ({ isUnderWarranty }) => {
-  if (!isUnderWarranty) return null;
-
-  return (
-    <aside className="mtfh-cautionary-alerts mtfh-warranty-flag">
-      <Heading
-        variant="h2"
-        className="lbh-heading lbh-heading-h3 mtfh-warranty-flag-heading"
-      >
-        <WarningIcon size="30" color="black" /> This property is under warranty
-      </Heading>
-
-      <p>
-        Before raising a work order please check the{" "}
-        {warrantiesSpreadsheetUrl ? (
-          <a href={warrantiesSpreadsheetUrl} target="_blank" rel="noreferrer">
-            New Property Warranties Spreadsheet
-          </a>
-        ) : (
-          <strong>New Property Warranties Spreadsheet</strong>
-        )}{" "}
-        and contact the <strong>Regeneration Aftercare &amp; Defects Team</strong> by
-        sending an email to{" "}
-        <a href="mailto:aftercareanddefects@hackney.gov.uk">
-          aftercareanddefects@hackney.gov.uk
-        </a>{" "}
-        or calling <strong>0208 356 1998</strong> to ensure eligibility
-      </p>
-    </aside>
-  );
-};
 
 export const AssetLayout: FC<Props> = ({
   assetDetails,

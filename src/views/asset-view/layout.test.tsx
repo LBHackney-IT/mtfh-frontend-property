@@ -217,7 +217,13 @@ test("it shows the warranty notice when the property is under warranty", () => {
 test("it hides the warranty notice when the property is not under warranty", () => {
   render(
     <AssetLayout
-      assetDetails={assetData}
+      assetDetails={{
+        ...assetData,
+        assetCharacteristics: {
+          ...assetData.assetCharacteristics,
+          isUnderWarranty: false,
+        },
+      }}
       assetChildren={[]}
       showTenureInformation={false}
       showCautionaryAlerts={false}
