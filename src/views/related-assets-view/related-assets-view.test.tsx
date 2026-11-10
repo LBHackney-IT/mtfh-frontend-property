@@ -27,7 +27,6 @@ const asset: Asset = {
     ],
   },
   assetAddress: {
-    neighbourhood: "CENTRAL",
     uprn: "",
     addressLine1: "1-93 Pitcairn House St Thomass Square",
     addressLine2: "Hackney",
@@ -73,7 +72,6 @@ const childrenAssets: Asset[] = [
     assetId: "00023449",
     assetType: "Dwelling",
     assetAddress: {
-      neighbourhood: "CENTRAL",
       uprn: "100023022363",
       addressLine1: "61 PITCAIRN HOUSE",
       addressLine2: "ST THOMASS SQUARE",

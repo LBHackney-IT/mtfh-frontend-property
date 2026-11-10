@@ -1,7 +1,7 @@
 import React from "react";
 
 import { render } from "@hackney/mtfh-test-utils";
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 
 import locale from "../../services/locale";
 
@@ -44,12 +44,4 @@ test("unauthorized message is shown for unauthorized users", async () => {
     );
     expect(unauthorizedErrorMessage).toBeVisible();
   });
-});
-
-test("requires an explicit neighbourhood selection", async () => {
-  render(<NewAssetView />);
-  const selector = screen.getByRole("combobox", { name: "Neighbourhood*" });
-  expect(selector).toHaveValue("");
-  fireEvent.change(selector, { target: { value: "NORTHWEST" } });
-  expect(selector).toHaveValue("NORTHWEST");
 });

@@ -34,7 +34,6 @@ export const testValidDwellingFixture: Asset = {
     ],
   },
   assetAddress: {
-    neighbourhood: "CENTRAL",
     uprn: "100023022306",
     postPreamble: "",
     addressLine1: "12 PITCAIRN HOUSE",
@@ -107,7 +106,6 @@ export const testValidChildAssetFixture: ValidChildAsset[] = [
     isAssetCautionaryAlerted: false,
     rentGroup: RentGroup.HRA,
     assetAddress: {
-      neighbourhood: "CENTRAL",
       uprn: "00049158",
       addressLine1: "Gge 12 Pitcairn House St Thomass Square",
       addressLine2: "Hackney",
