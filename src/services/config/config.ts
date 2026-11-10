@@ -2,6 +2,12 @@ export const config = {
   appEnv: process.env.APP_ENV ?? "dev",
 };
 
+const warrantiesSpreadsheetId = process.env.WARRANTIES_SPREADSHEET_ID;
+
+export const warrantiesSpreadsheetUrl = warrantiesSpreadsheetId
+  ? `https://docs.google.com/spreadsheets/d/${warrantiesSpreadsheetId}?gid=0`
+  : undefined;
+
 export const assetAdminAuthGroups =
   process.env.APP_ENV === "production"
     ? ["mmh-asset-admin"]

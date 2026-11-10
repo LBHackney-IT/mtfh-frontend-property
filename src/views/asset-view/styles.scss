@@ -1,42 +1,43 @@
-@import '~lbh-frontend/lbh/base';
+@import "~lbh-frontend/lbh/base";
 
 .mtfh-asset-sidebar {
-    .lbh-button {
-        width: 100%;
-    }
+  .lbh-button {
+    width: 100%;
+  }
 }
 
-.rst__nodeContent, .rst__nodeContent * {
-    margin-top: revert !important;
-  }
-  
+.rst__nodeContent,
+.rst__nodeContent * {
+  margin-top: revert !important;
+}
+
 .rst__lineBlock {
-    margin-top: revert !important;
+  margin-top: revert !important;
 }
 
 .rst__rowContent {
-    margin-top: revert !important;
+  margin-top: revert !important;
 }
 
 .rst__node {
-    margin-top: revert !important;
+  margin-top: revert !important;
 }
 
 .rst__rowContents {
-    box-shadow: 0 0 0 0;
+  box-shadow: 0 0 0 0;
 }
 
 .rst__moveHandle {
-    box-shadow: none !important;
-    background: none !important;
-    width: 0;
+  box-shadow: none !important;
+  background: none !important;
+  width: 0;
 }
 
 .rst__loadingHandle {
-    box-shadow: none !important;
-    background: none !important;
+  box-shadow: none !important;
+  background: none !important;
 }
 
 .rst__rowTitle {
-    font-weight: 600;
-} 
+  font-weight: 600;
+}

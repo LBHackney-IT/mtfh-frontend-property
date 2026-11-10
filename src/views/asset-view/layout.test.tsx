@@ -3,7 +3,7 @@ import * as crypto from "crypto";
 import React from "react";
 
 import { render, server } from "@hackney/mtfh-test-utils";
-import { waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 
 import { AssetLayout } from "./layout";
@@ -55,6 +55,7 @@ const assetData: Asset = {
     heating: null,
     propertyFactor: null,
     architecturalType: null,
+    isUnderWarranty: false,
   },
   versionNumber: 0,
   tenure: {
@@ -175,4 +176,63 @@ test("it hides the cautionary alerts icon", () => {
   expect(newProcessButton).not.toBeInTheDocument();
 
   expect(container).toMatchSnapshot();
+});
+
+test("it shows the warranty notice when the property is under warranty", () => {
+  render(
+    <AssetLayout
+      assetDetails={{
+        ...assetData,
+        assetCharacteristics: {
+          ...assetData.assetCharacteristics,
+          isUnderWarranty: true,
+        },
+      }}
+      assetChildren={[]}
+      showTenureInformation={false}
+      showCautionaryAlerts={false}
+    />,
+    {
+      url: `/property/${assetData.id}`,
+      path: "/property/:assetId",
+    },
+  );
+
+  expect(screen.getByText("This property is under warranty")).toBeInTheDocument();
+  expect(
+    screen.getByText(/Before raising a work order please check the/),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("link", { name: "New Property Warranties Spreadsheet" }),
+  ).toHaveAttribute(
+    "href",
+    "https://docs.google.com/spreadsheets/d/test-spreadsheet-id?gid=0",
+  );
+  expect(
+    screen.getByRole("link", { name: "aftercareanddefects@hackney.gov.uk" }),
+  ).toHaveAttribute("href", "mailto:aftercareanddefects@hackney.gov.uk");
+  expect(screen.getByText("0208 356 1998")).toBeInTheDocument();
+});
+
+test("it hides the warranty notice when the property is not under warranty", () => {
+  render(
+    <AssetLayout
+      assetDetails={{
+        ...assetData,
+        assetCharacteristics: {
+          ...assetData.assetCharacteristics,
+          isUnderWarranty: false,
+        },
+      }}
+      assetChildren={[]}
+      showTenureInformation={false}
+      showCautionaryAlerts={false}
+    />,
+    {
+      url: `/property/${assetData.id}`,
+      path: "/property/:assetId",
+    },
+  );
+
+  expect(screen.queryByText("This property is under warranty")).not.toBeInTheDocument();
 });

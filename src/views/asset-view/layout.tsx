@@ -3,6 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { AssetSideBar } from "../../components/asset-sidebar";
 import { PropertyBody } from "../../components/property-body";
+import { WarrantyPropertyFlag } from "../../components/warranty-property-flag";
 import { locale } from "../../services";
 import { useCautionaryAlerts } from "./utils";
 
@@ -97,6 +98,7 @@ export const AssetLayout: FC<Props> = ({
           />
         }
       >
+        {assetDetails.assetCharacteristics?.isUnderWarranty && <WarrantyPropertyFlag />}
         <PropertyBody
           assetDetails={assetDetails}
           childAssets={assetChildren}
