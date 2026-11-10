@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 
 import { warrantiesSpreadsheetUrl } from "../../services";
 
@@ -6,15 +6,7 @@ import { Heading, WarningIcon } from "@mtfh/common/lib/components";
 
 import "./styles.scss";
 
-interface WarrantyPropertyFlagProps {
-  isUnderWarranty: boolean;
-}
-
-export const WarrantyPropertyFlag: FC<WarrantyPropertyFlagProps> = ({
-  isUnderWarranty,
-}) => {
-  if (!isUnderWarranty) return null;
-
+export const WarrantyPropertyFlag = () => {
   return (
     <aside className="mtfh-cautionary-alerts mtfh-warranty-flag">
       <Heading

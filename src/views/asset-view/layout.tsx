@@ -98,9 +98,7 @@ export const AssetLayout: FC<Props> = ({
           />
         }
       >
-        <WarrantyPropertyFlag
-          isUnderWarranty={assetDetails.assetCharacteristics.isUnderWarranty === true}
-        />
+        {assetDetails.assetCharacteristics?.isUnderWarranty && <WarrantyPropertyFlag />}
         <PropertyBody
           assetDetails={assetDetails}
           childAssets={assetChildren}
