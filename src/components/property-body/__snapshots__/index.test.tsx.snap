@@ -129,7 +129,105 @@ exports[`it does not show the new process button 1`] = `
     </div>
     <div
       id="repairs-grid-area"
-    />
+    >
+      <h2
+        class="lbh-heading-h2"
+      >
+        Repairs
+      </h2>
+      <div
+        class="work-order-list"
+      >
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="filter"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="filter-field"
+          >
+            Show:
+            
+          </label>
+          <select
+            class="govuk-select lbh-select"
+            data-testid="work-order-list:filter"
+            id="filter-field"
+          >
+            <option
+              value="Cancelled"
+            >
+              repairs cancelled
+            </option>
+            <option
+              value="Completed"
+            >
+              repairs completed
+            </option>
+            <option
+              value="InProgress"
+            >
+              repairs in progress
+            </option>
+            <option
+              value="Locked"
+            >
+              repairs locked
+            </option>
+            <option
+              value="OnHold"
+            >
+              repairs on hold
+            </option>
+          </select>
+        </div>
+        <div
+          class="mtfh-center mtfh-center--horizontal mtfh-center--vertical"
+        >
+          <svg
+            class="mtfh-icon"
+            focusable="false"
+            height="50"
+            stroke="#00703c"
+            viewBox="0 0 42 42"
+            width="50"
+          >
+            <title>
+              Loading...
+            </title>
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <g
+                stroke-width="5"
+                transform="translate(3 3)"
+              >
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="18"
+                  stroke-opacity=".5"
+                />
+                <path
+                  d="M36 18c0-9.94-8.06-18-18-18"
+                  transform="rotate(112.708 18 18)"
+                >
+                  <animatetransform
+                    attributeName="transform"
+                    dur="1s"
+                    from="0 18 18"
+                    repeatCount="indefinite"
+                    to="360 18 18"
+                    type="rotate"
+                  />
+                </path>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
     <div
       id="comments-grid-area"
     >

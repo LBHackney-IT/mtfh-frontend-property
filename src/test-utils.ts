@@ -9,7 +9,14 @@ import {
 } from "@hackney/mtfh-test-utils";
 import { rest } from "msw";
 
+import { $configuration } from "@mtfh/common/lib/configuration";
+
 beforeEach(() => {
+  $configuration.next({
+    ...$configuration.getValue(),
+    MMH: { configuration: {}, featureToggles: { RepairsList: true } },
+  });
+
   server.use(getAssetV1());
   server.use(getTenureV1());
   server.use(

@@ -1,3 +1,19 @@
 {
-  "extends": "@hackney/eslint-config"
+  "extends": "@hackney/eslint-config",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": ["coverage/", "dist/"],
+  "overrides": [
+    {
+      "files": ["jest.config.js", "webpack.config.js"],
+      "env": {
+        "node": true
+      },
+      "rules": {
+        "global-require": "off",
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+      }
+    }
+  ]
 }
