@@ -21,7 +21,6 @@ import { AssetView } from ".";
 
 import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 import * as auth from "@mtfh/common/lib/auth/auth";
-import { $configuration } from "@mtfh/common/lib/configuration";
 import { formatDate, formatTime } from "@mtfh/common/lib/utils";
 
 const mockPatch: Patch = {
@@ -111,9 +110,6 @@ test("it shows add comment button and comments list", async () => {
 });
 
 test("it shows repairs list", async () => {
-  $configuration.next({
-    MMH: { configuration: {}, featureToggles: { RepairsList: true } },
-  });
   render(<AssetView />, {
     url: `/property/${mockAssetV1.id}`,
     path: "/property/:assetId",

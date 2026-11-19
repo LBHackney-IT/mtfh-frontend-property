@@ -3,6 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { locale } from "../../services";
 import { PropertyTree } from "../property-tree/property-tree";
+import { WarrantyStatusFlag } from "../warranty-property-flag";
 
 import { Asset } from "@mtfh/common/lib/api/asset/v1";
 import { Button, CommentList, WorkOrderList } from "@mtfh/common/lib/components";
@@ -27,6 +28,9 @@ export const PropertyBody = ({ assetDetails, childAssets, id }: Props): JSX.Elem
           {hasRepairsList && (
             <>
               <h2 className="lbh-heading-h2">{locale.repairs.heading}</h2>
+              {!!assetDetails.warrantyStatus && (
+                <WarrantyStatusFlag status={assetDetails.warrantyStatus} />
+              )}
               <WorkOrderList assetId={assetDetails.assetId} />
             </>
           )}

@@ -145,14 +145,13 @@ describe("Patch Details - Assigned to TMO patch", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("patch-name")).toHaveTextContent(mockAssetPatchTMO.name);
+      expect(screen.getByTestId("officer-name")).toHaveTextContent(
+        mockAssetPatchTMO.responsibleEntities[0].name,
+      );
+      expect(screen.getByTestId("area-manager-name")).toHaveTextContent(
+        mockAssetArea.responsibleEntities[0].name,
+      );
     });
-
-    expect(screen.getByTestId("officer-name")).toHaveTextContent(
-      mockAssetPatchTMO.responsibleEntities[0].name,
-    );
-    expect(screen.getByTestId("area-manager-name")).toHaveTextContent(
-      mockAssetArea.responsibleEntities[0].name,
-    );
   });
 
   test("it does not show neighbourhood-specific elements", async () => {

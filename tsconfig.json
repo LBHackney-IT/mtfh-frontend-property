@@ -1,12 +1,14 @@
 {
   "extends": "ts-config-single-spa",
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "*.js"],
   "compilerOptions": {
     "strict": true,
     "jsx": "react",
     "target": "es2016",
     "baseUrl": "src",
     "esModuleInterop": true,
-    "types": ["jest", "@testing-library/jest-dom"]
+    "ignoreDeprecations": "6.0",
+    "allowJs": true,
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   }
 }

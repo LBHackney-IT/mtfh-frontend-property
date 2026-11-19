@@ -55,7 +55,6 @@ const assetData: Asset = {
     heating: null,
     propertyFactor: null,
     architecturalType: null,
-    isUnderWarranty: false,
   },
   versionNumber: 0,
   tenure: {
@@ -70,6 +69,7 @@ const assetData: Asset = {
   parentAssetIds: "",
   rentGroup: null,
   boilerHouseId: "",
+  warrantyStatus: null,
 };
 
 const alert: Alert = {
@@ -183,10 +183,7 @@ test("it shows the warranty notice when the property is under warranty", () => {
     <AssetLayout
       assetDetails={{
         ...assetData,
-        assetCharacteristics: {
-          ...assetData.assetCharacteristics,
-          isUnderWarranty: true,
-        },
+        warrantyStatus: "WARRANTIES",
       }}
       assetChildren={[]}
       showTenureInformation={false}
@@ -198,9 +195,12 @@ test("it shows the warranty notice when the property is under warranty", () => {
     },
   );
 
-  expect(screen.getByText("This property is under warranty")).toBeInTheDocument();
+  expect(screen.getByText("Property under warranty period")).toBeInTheDocument();
   expect(
-    screen.getByText(/Before raising a work order please check the/),
+    screen.getByText(/This property is currently under a warranty period/),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(/Before raising a work order please check if the repair is covered/),
   ).toBeInTheDocument();
   expect(
     screen.getByRole("link", { name: "New Property Warranties Spreadsheet" }),
@@ -214,15 +214,12 @@ test("it shows the warranty notice when the property is under warranty", () => {
   expect(screen.getByText("0208 356 1998")).toBeInTheDocument();
 });
 
-test("it hides the warranty notice when the property is not under warranty", () => {
+test("it shows the defects notice when the property is under defects", () => {
   render(
     <AssetLayout
       assetDetails={{
         ...assetData,
-        assetCharacteristics: {
-          ...assetData.assetCharacteristics,
-          isUnderWarranty: false,
-        },
+        warrantyStatus: "DEFECTS",
       }}
       assetChildren={[]}
       showTenureInformation={false}
@@ -234,5 +231,38 @@ test("it hides the warranty notice when the property is not under warranty", () 
     },
   );
 
-  expect(screen.queryByText("This property is under warranty")).not.toBeInTheDocument();
+  expect(screen.getByText("Property under defects period")).toBeInTheDocument();
+  expect(
+    screen.getByText(/This property is currently under a defects period/),
+  ).toBeInTheDocument();
+  expect(screen.queryByText("Property under warranty period")).not.toBeInTheDocument();
+  expect(
+    screen.queryByText(
+      /Before raising a work order please check if the repair is covered/,
+    ),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.getByRole("link", { name: "aftercareanddefects@hackney.gov.uk" }),
+  ).toHaveAttribute("href", "mailto:aftercareanddefects@hackney.gov.uk");
+});
+
+test("it hides the warranty notice when the property has no warranty status", () => {
+  render(
+    <AssetLayout
+      assetDetails={{
+        ...assetData,
+        warrantyStatus: null,
+      }}
+      assetChildren={[]}
+      showTenureInformation={false}
+      showCautionaryAlerts={false}
+    />,
+    {
+      url: `/property/${assetData.id}`,
+      path: "/property/:assetId",
+    },
+  );
+
+  expect(screen.queryByText("Property under warranty period")).not.toBeInTheDocument();
+  expect(screen.queryByText("Property under defects period")).not.toBeInTheDocument();
 });
